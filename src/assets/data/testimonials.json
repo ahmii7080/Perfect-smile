@@ -1,0 +1,14 @@
+[
+  { "name": "Ayesha S.",    "location": "Faisalabad",     "rating": 5, "color": "#EFF9FE",
+    "quote": "I had veneers done by Dr. Umber and the result is stunning — they look completely natural. The whole team treated me like family." },
+  { "name": "Hamza R.",     "location": "Lahore",         "rating": 5, "color": "#FAFAF7",
+    "quote": "Dr. Ali placed two implants for me using guided surgery. Zero pain, back to work the next day. Worth every rupee." },
+  { "name": "Mariam K.",    "location": "Islamabad",      "rating": 5, "color": "#F4F8FB",
+    "quote": "My son was terrified of dentists. Dr. Mehwish made him laugh through his first filling. He now reminds me about his check-ups!" },
+  { "name": "Tariq Mehmood","location": "Faisalabad",     "rating": 5, "color": "#EFF9FE",
+    "quote": "Switched my whole family here after our first visit. Honest pricing, world-class equipment, and a beautiful clinic." },
+  { "name": "Sadia A.",     "location": "Multan",         "rating": 5, "color": "#FAFAF7",
+    "quote": "I travelled from Multan for my Invisalign treatment. Dr. Sarmad was thorough, transparent, and the results speak for themselves." },
+  { "name": "Imran Bhatti", "location": "Faisalabad",     "rating": 5, "color": "#F4F8FB",
+    "quote": "Came in at 11pm with a broken tooth. Dr. on-call answered WhatsApp in 5 minutes and saw me first thing next morning. Incredible." }
+]

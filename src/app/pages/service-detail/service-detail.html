@@ -1,0 +1,89 @@
+<ng-container *ngIf="service() as s; else notFound">
+  <section class="sd-hero" [style.background]="'linear-gradient(135deg,' + s.color + ', #0A3A55)'">
+    <div class="container-x sd-hero__row">
+      <div data-aos="fade-right">
+        <span class="eyebrow on-dark">{{ s.tagline }}</span>
+        <h1>{{ s.title }}</h1>
+        <p>{{ s.summary }}</p>
+        <a routerLink="/appointment" class="btn btn-gold">Book Consultation <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="sd-hero__icon" data-aos="zoom-in">
+        <i class="fa-solid" [class]="s.icon"></i>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-x sd-grid">
+      <div class="sd-main" data-aos="fade-up">
+        <span class="eyebrow">Overview</span>
+        <h2>What to expect</h2>
+        <p>{{ s.description }}</p>
+
+        <h3>Procedure</h3>
+        <ol class="sd-steps">
+          <li *ngFor="let step of s.procedure; let i = index">
+            <span class="sd-steps__num">{{ i + 1 }}</span>
+            <span>{{ step }}</span>
+          </li>
+        </ol>
+
+        <h3 *ngIf="s.faqs.length">Frequently asked</h3>
+        <div class="sd-faqs" *ngIf="s.faqs.length">
+          <div class="sd-faq" *ngFor="let f of s.faqs; let i = index" [class.is-open]="openFaq() === i">
+            <button class="sd-faq__q" (click)="toggleFaq(i)">
+              {{ f.q }}
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="sd-faq__a"><p>{{ f.a }}</p></div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="sd-side">
+        <div class="sd-card" data-aos="fade-left">
+          <h4>Key Benefits</h4>
+          <ul>
+            <li *ngFor="let b of s.benefits">
+              <i class="fa-solid fa-check"></i> {{ b }}
+            </li>
+          </ul>
+        </div>
+        <div class="sd-card sd-card--dark" data-aos="fade-left" data-aos-delay="100">
+          <h4>Need a quote?</h4>
+          <p>Book a free consultation. We'll provide a clear, written treatment plan with transparent pricing.</p>
+          <a routerLink="/appointment" class="btn btn-gold">Book Now</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section-cream">
+    <div class="container-x">
+      <header class="section-head" data-aos="fade-up">
+        <span class="eyebrow center">Related Services</span>
+        <h2>You might also <span class="accent-italic">consider</span></h2>
+      </header>
+      <div class="grid-3">
+        <a *ngFor="let r of related()" [routerLink]="['/services', r.slug]" class="related-card lift" data-aos="fade-up">
+          <i class="fa-solid" [class]="r.icon" [style.color]="r.color"></i>
+          <h3>{{ r.title }}</h3>
+          <p>{{ r.summary }}</p>
+          <span class="related-card__more">View details <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+      </div>
+    </div>
+  </section>
+</ng-container>
+
+<ng-template #notFound>
+  <section class="page-header">
+    <div class="container-x">
+      <h1>Service not found</h1>
+      <p>The service you're looking for doesn't exist. Browse our full list below.</p>
+    </div>
+  </section>
+  <section class="section text-center">
+    <a routerLink="/services" class="btn btn-primary">View All Services</a>
+  </section>
+</ng-template>

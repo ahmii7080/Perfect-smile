@@ -1,0 +1,52 @@
+<section class="page-header">
+  <div class="container-x">
+    <span class="eyebrow">Smile Gallery</span>
+    <h1>Real patients. Real <span class="accent-italic-light italic">transformations.</span></h1>
+    <p>A glimpse at the smiles we've crafted — from subtle whitening to full smile makeovers.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container-x">
+    <!-- Filter tabs -->
+    <div class="filters" data-aos="fade-up">
+      <button *ngFor="let f of filters"
+              class="filter-pill"
+              [class.is-active]="active() === f"
+              (click)="setFilter(f)">{{ f }}</button>
+    </div>
+
+    <!-- Cases -->
+    <div class="cases">
+      <article class="case lift" *ngFor="let c of filtered(); let i = index" data-aos="fade-up" [attr.data-aos-delay]="(i % 3) * 80" (click)="open(c)">
+        <div class="case__pair">
+          <div class="case__half" [style.background]="c.before"><span>BEFORE</span></div>
+          <div class="case__half" [style.background]="c.after"><span>AFTER</span></div>
+          <i class="fa-solid case__icon" [class]="c.icon"></i>
+        </div>
+        <div class="case__body">
+          <span class="case__cat">{{ c.category }}</span>
+          <h3>{{ c.title }}</h3>
+          <p>{{ c.description }}</p>
+          <span class="case__more">View case <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lb-overlay" *ngIf="lightbox()" (click)="close()">
+  <div class="lb" (click)="$event.stopPropagation()" *ngIf="lightbox() as c">
+    <button class="lb__close" (click)="close()" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    <div class="lb__pair">
+      <div class="lb__half" [style.background]="c.before"><span>BEFORE</span></div>
+      <div class="lb__half" [style.background]="c.after"><span>AFTER</span></div>
+    </div>
+    <div class="lb__body">
+      <span class="case__cat">{{ c.category }}</span>
+      <h2>{{ c.title }}</h2>
+      <p>{{ c.description }}</p>
+    </div>
+  </div>
+</div>

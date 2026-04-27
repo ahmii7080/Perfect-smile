@@ -1,0 +1,197 @@
+[
+  {
+    "slug": "dental-implants",
+    "title": "Dental Implants",
+    "tagline": "Permanent, lifelike replacements for missing teeth",
+    "icon": "fa-tooth",
+    "color": "#1597D5",
+    "summary": "Computer-guided titanium implants restored with custom porcelain crowns — engineered to last decades and feel like your own.",
+    "description": "Our implant programme uses 3D CBCT planning, fully sterile surgical protocols, and premium Swiss & German implant systems. From single-tooth replacements to full-arch All-on-4 reconstructions, every case is treated as a precision restoration project.",
+    "benefits": [
+      "Computer-guided 3D placement",
+      "Premium Straumann & Nobel Biocare implants",
+      "Same-day temporary crowns where possible",
+      "Lifetime structural warranty",
+      "0% interest payment plans"
+    ],
+    "procedure": [
+      "Free consultation & 3D CBCT scan",
+      "Digital treatment plan & cost estimate",
+      "Implant placement under sterile protocol",
+      "3–4 month healing & osseointegration",
+      "Final crown bonded — case complete"
+    ],
+    "faqs": [
+      { "q": "Are implants painful?", "a": "Placement is performed under local anaesthesia and is generally easier than a routine extraction. Most patients return to work the next day." },
+      { "q": "How long do implants last?", "a": "With proper hygiene, modern implants have a 95%+ success rate over 15+ years and can last a lifetime." },
+      { "q": "Am I a candidate?", "a": "Most healthy adults qualify. We confirm bone volume with a 3D scan during your free consult." }
+    ]
+  },
+  {
+    "slug": "cosmetic-dentistry",
+    "title": "Cosmetic Dentistry",
+    "tagline": "Where dentistry meets artistry",
+    "icon": "fa-wand-magic-sparkles",
+    "color": "#0EA5E9",
+    "summary": "Smile design, porcelain veneers, gum aesthetics & whitening — engineered around your facial proportions, not a generic template.",
+    "description": "Every cosmetic case begins with a digital smile design (DSD). We mock up the result on your photographs and let you preview it before a single tooth is touched.",
+    "benefits": [
+      "Digital Smile Design (DSD) preview",
+      "Hand-layered porcelain veneers",
+      "Minimally invasive prep techniques",
+      "Lifelike, age-appropriate aesthetics"
+    ],
+    "procedure": [
+      "Smile consultation & photography",
+      "Digital design & 3D mockup approval",
+      "Tooth preparation & temporaries",
+      "Porcelain bonding & final polish"
+    ],
+    "faqs": [
+      { "q": "Are veneers reversible?", "a": "Modern minimally-prep veneers preserve nearly all natural enamel. We always discuss reversibility upfront." },
+      { "q": "How long do they last?", "a": "Quality porcelain veneers, well cared for, last 12–20 years on average." }
+    ]
+  },
+  {
+    "slug": "orthodontics",
+    "title": "Orthodontics & Aligners",
+    "tagline": "Straight teeth, on your schedule",
+    "icon": "fa-grip-lines",
+    "color": "#3DAEE0",
+    "summary": "From traditional braces to clear Invisalign aligners — discreet, predictable tooth alignment for teens and adults.",
+    "description": "We offer the full orthodontic spectrum — metal, ceramic, lingual, and clear aligners — supervised by certified orthodontists with thousands of finished cases.",
+    "benefits": [
+      "Invisalign & ClearCorrect certified",
+      "3D iTero scan — no goopy moulds",
+      "Treatment from 6 to 24 months",
+      "Adult-friendly discreet options"
+    ],
+    "procedure": [
+      "Records, x-rays & digital scan",
+      "Treatment simulation & approval",
+      "Monthly progress checks",
+      "Retention to lock in your result"
+    ],
+    "faqs": [
+      { "q": "Am I too old for braces?", "a": "Healthy teeth move at any age. Roughly 30% of our orthodontic patients are 30+." }
+    ]
+  },
+  {
+    "slug": "root-canal",
+    "title": "Root Canal Therapy",
+    "tagline": "Painless, single-visit endodontics",
+    "icon": "fa-syringe",
+    "color": "#0F7AB0",
+    "summary": "Save your natural tooth from extraction with modern, virtually painless rotary endodontics — typically completed in one visit.",
+    "description": "Using rotary NiTi instrumentation, apex locators, and bioceramic sealers, we resolve infection while preserving as much natural tooth as possible.",
+    "benefits": [
+      "Single-visit treatment in most cases",
+      "Microscope-assisted precision",
+      "Bioceramic sealing materials",
+      "Crown protection options included"
+    ],
+    "procedure": [
+      "Diagnosis with digital x-rays",
+      "Local anaesthesia & isolation",
+      "Cleaning, shaping & disinfection",
+      "Sealing & post-op crown"
+    ],
+    "faqs": []
+  },
+  {
+    "slug": "gum-treatment",
+    "title": "Gum Treatment",
+    "tagline": "Healthy gums, healthier you",
+    "icon": "fa-leaf",
+    "color": "#1597D5",
+    "summary": "Periodontal therapy from scaling to advanced gum surgery — because no smile is complete without healthy foundations.",
+    "description": "Untreated gum disease is the leading cause of tooth loss in adults. Our hygiene programme combines ultrasonic deep cleans, laser-assisted therapy, and home-care coaching.",
+    "benefits": ["Ultrasonic deep cleaning", "Laser-assisted therapy", "Gum reshaping & grafting", "Hygienist-led recall programme"],
+    "procedure": ["Periodontal charting", "Deep clean / SRP", "Re-evaluation at 6 weeks", "Maintenance recall"],
+    "faqs": []
+  },
+  {
+    "slug": "pediatric-dentistry",
+    "title": "Pediatric Dentistry",
+    "tagline": "First visits, first smiles",
+    "icon": "fa-child-reaching",
+    "color": "#FAC775",
+    "summary": "A friendly, anxiety-free environment for children's first dental visits — with preventive care designed around growing smiles.",
+    "description": "Our pediatric area is purpose-built with TVs, toys, and a fear-free coaching protocol. We focus on prevention, fluoride therapy, sealants, and gentle interceptive orthodontics.",
+    "benefits": ["Child-friendly clinic area", "Preventive sealants & fluoride", "Behaviour management training", "Early orthodontic monitoring"],
+    "procedure": ["Welcome & ride in the chair", "Show-tell-do introduction", "Gentle exam & polish", "Home-care coaching"],
+    "faqs": []
+  },
+  {
+    "slug": "teeth-whitening",
+    "title": "Teeth Whitening",
+    "tagline": "Up to 8 shades brighter, in one visit",
+    "icon": "fa-sun",
+    "color": "#FAC775",
+    "summary": "Clinically-supervised in-chair whitening combined with at-home top-ups for safe, dazzling results that don't damage enamel.",
+    "description": "We use enamel-safe, professionally-formulated whitening systems with desensitising agents to deliver dramatic results without the post-op sensitivity of high-street kits.",
+    "benefits": ["Enamel-safe formulation", "Up to 8 shades lighter", "Custom take-home trays", "Desensitiser included"],
+    "procedure": ["Shade record & gum protection", "In-chair LED activation", "Custom tray delivery", "Maintenance protocol"],
+    "faqs": []
+  },
+  {
+    "slug": "veneers",
+    "title": "Porcelain Veneers",
+    "tagline": "A flawless smile, hand-crafted",
+    "icon": "fa-gem",
+    "color": "#1597D5",
+    "summary": "Ultra-thin layered porcelain shells that transform colour, shape, and proportion — bonded with minimal tooth reduction.",
+    "description": "Each veneer is hand-layered by master ceramists in our partner laboratory and bonded under a microscope for a seamless margin.",
+    "benefits": ["Hand-layered porcelain", "Minimal-prep techniques", "Stain & chip resistant", "12–20 year lifespan"],
+    "procedure": ["Smile design preview", "Minimal preparation", "Lab fabrication", "Bonding & polish"],
+    "faqs": []
+  },
+  {
+    "slug": "crowns-bridges",
+    "title": "Crowns & Bridges",
+    "tagline": "Restore broken or missing teeth, naturally",
+    "icon": "fa-crown",
+    "color": "#0F7AB0",
+    "summary": "All-ceramic crowns and bridges that look indistinguishable from natural teeth and are built to last.",
+    "description": "We use modern monolithic zirconia and lithium disilicate ceramics — exceptionally strong, perfectly colour-matched, and metal-free.",
+    "benefits": ["Metal-free aesthetics", "CAD/CAM precision", "5+ year warranty", "Natural translucency"],
+    "procedure": ["Diagnosis & prep", "Digital impression", "Lab fabrication", "Try-in & cementation"],
+    "faqs": []
+  },
+  {
+    "slug": "dentures",
+    "title": "Dentures",
+    "tagline": "Comfortable, lifelike full & partial dentures",
+    "icon": "fa-teeth",
+    "color": "#3DAEE0",
+    "summary": "From premium flexible partials to implant-stabilised full dentures — precisely fitted, beautifully natural.",
+    "description": "Modern dentures look and feel nothing like the dentures of a generation ago. Our digital workflow ensures a precise fit on day one.",
+    "benefits": ["Digital denture workflow", "Implant-stabilised options", "Flexible partial dentures", "Same-day repairs"],
+    "procedure": ["Records & shade", "Try-in & adjustment", "Final delivery", "30-day comfort review"],
+    "faqs": []
+  },
+  {
+    "slug": "emergency-care",
+    "title": "Emergency Dental Care",
+    "tagline": "24/7 — because pain doesn't keep office hours",
+    "icon": "fa-truck-medical",
+    "color": "#e74c3c",
+    "summary": "Same-day appointments for trauma, abscesses, broken crowns and severe pain. After-hours hotline for true emergencies.",
+    "description": "Our triage protocol prioritises pain relief and infection control on the same day. After-hours, our on-call doctor responds via WhatsApp within 15 minutes.",
+    "benefits": ["Same-day appointments", "24/7 on-call doctor", "Trauma & abscess management", "Replantation-ready protocol"],
+    "procedure": ["Call/WhatsApp triage", "Same-day visit", "Pain & infection control", "Definitive treatment plan"],
+    "faqs": []
+  },
+  {
+    "slug": "general-dentistry",
+    "title": "General Dentistry",
+    "tagline": "Routine care that protects your smile for life",
+    "icon": "fa-stethoscope",
+    "color": "#1597D5",
+    "summary": "Check-ups, fillings, cleanings, x-rays and preventive care — the foundation of long-term oral health.",
+    "description": "Our 6-monthly recall programme includes a full exam, hygienist clean, digital x-rays as needed, and an oral-cancer screening.",
+    "benefits": ["6-monthly check-ups", "Composite (white) fillings", "Hygienist cleanings", "Oral-cancer screening"],
+    "procedure": ["Comprehensive exam", "X-rays as required", "Hygiene therapy", "Personalised plan"],
+    "faqs": []
+  }
+]

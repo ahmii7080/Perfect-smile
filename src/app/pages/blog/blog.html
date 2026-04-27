@@ -1,0 +1,101 @@
+<section class="page-header">
+  <div class="container-x">
+    <span class="eyebrow">From the Blog</span>
+    <h1>Smile <span class="accent-italic-light italic">science,</span> simply explained</h1>
+    <p>Honest, practical writing from our doctors — covering everything from implants to whitening to children's first dental visits.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container-x">
+    <div class="blog-layout">
+      <!-- Main column -->
+      <div class="blog-main">
+
+        <!-- Featured -->
+        <a *ngIf="featured() as f" [routerLink]="['/blog', f.slug]" class="featured lift" data-aos="fade-up">
+          <div class="featured__img" [style.background]="'linear-gradient(135deg,' + f.color + ', #0A3A55)'">
+            <span class="featured__cat">{{ f.category }}</span>
+            <span class="featured__badge"><i class="fa-solid fa-star"></i> Featured</span>
+          </div>
+          <div class="featured__body">
+            <h2>{{ f.title }}</h2>
+            <p>{{ f.excerpt }}</p>
+            <div class="featured__meta">
+              <span><i class="fa-regular fa-user"></i> {{ f.author }}</span>
+              <span><i class="fa-regular fa-calendar"></i> {{ f.date }}</span>
+              <span><i class="fa-regular fa-clock"></i> {{ f.readTime }}</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Grid -->
+        <div class="b-grid">
+          <a *ngFor="let p of rest(); let i = index" [routerLink]="['/blog', p.slug]" class="blog-card lift" data-aos="fade-up" [attr.data-aos-delay]="(i % 3)*70">
+            <div class="blog-card__img" [style.background]="'linear-gradient(135deg,' + p.color + ', #0A3A55)'">
+              <span class="blog-card__cat">{{ p.category }}</span>
+            </div>
+            <div class="blog-card__body">
+              <h3>{{ p.title }}</h3>
+              <p>{{ p.excerpt }}</p>
+              <div class="blog-card__meta">
+                <span><i class="fa-regular fa-calendar"></i> {{ p.date }}</span>
+                <span><i class="fa-regular fa-clock"></i> {{ p.readTime }}</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+          <button disabled><i class="fa-solid fa-chevron-left"></i></button>
+          <button class="is-active">1</button>
+          <button>2</button>
+          <button>3</button>
+          <button><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="blog-side">
+        <div class="side-card">
+          <h4>Search</h4>
+          <div class="search-wrap">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" class="form-control" placeholder="Search articles..."
+                   [ngModel]="search()" (ngModelChange)="onSearch($event)">
+          </div>
+        </div>
+
+        <div class="side-card">
+          <h4>Categories</h4>
+          <ul class="cat-list">
+            <li *ngFor="let c of categories()">
+              <button [class.is-active]="category() === c" (click)="setCategory(c)">
+                {{ c }}
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="side-card">
+          <h4>Recent posts</h4>
+          <a *ngFor="let p of recent()" [routerLink]="['/blog', p.slug]" class="recent">
+            <span class="recent__thumb" [style.background]="'linear-gradient(135deg,' + p.color + ', #0A3A55)'"></span>
+            <div>
+              <strong>{{ p.title }}</strong>
+              <span><i class="fa-regular fa-calendar"></i> {{ p.date }}</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="side-card side-card--cta">
+          <h4>Need a consult?</h4>
+          <p>Book a free 30-minute consultation with our team.</p>
+          <a routerLink="/appointment" class="btn btn-gold">Book Now</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>

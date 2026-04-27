@@ -1,0 +1,80 @@
+<footer class="ftr">
+  <div class="container-x">
+
+    <div class="ftr__grid">
+      <!-- Brand col -->
+      <div class="ftr__col">
+        <a routerLink="/" class="ftr__brand">
+          <span class="ftr__brand-icon"><i class="fa-solid fa-tooth"></i></span>
+          <span>
+            <span class="ftr__brand-name">The <em>Perfect</em> Smile</span>
+            <span class="ftr__brand-sub">Clinic Faisalabad</span>
+          </span>
+        </a>
+        <p class="ftr__intro">
+          A premium dental &amp; implant centre delivering UK-trained expertise,
+          modern technology, and gentle, honest care to every patient — because
+          your smile is worth it.
+        </p>
+        <div class="ftr__social">
+          <a href="https://facebook.com" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://instagram.com" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://youtube.com" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a href="https://wa.me/923247734135" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="https://twitter.com" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+      </div>
+
+      <!-- Services -->
+      <div class="ftr__col">
+        <h4 class="ftr__title">Services</h4>
+        <ul class="ftr__links">
+          <li *ngFor="let s of services">
+            <a [routerLink]="['/services', s.slug]">{{ s.title }}</a>
+          </li>
+          <li><a routerLink="/services">View all services →</a></li>
+        </ul>
+      </div>
+
+      <!-- Quick links -->
+      <div class="ftr__col">
+        <h4 class="ftr__title">Quick Links</h4>
+        <ul class="ftr__links">
+          <li><a routerLink="/about">About Us</a></li>
+          <li><a routerLink="/doctors">Our Doctors</a></li>
+          <li><a routerLink="/team">Our Team</a></li>
+          <li><a routerLink="/gallery">Smile Gallery</a></li>
+          <li><a routerLink="/blog">Blog</a></li>
+          <li><a routerLink="/appointment">Book Appointment</a></li>
+          <li><a routerLink="/contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Hours -->
+      <div class="ftr__col">
+        <h4 class="ftr__title">Working Hours</h4>
+        <ul class="ftr__hours">
+          <li><span>Mon — Fri</span><span>10am – 9pm</span></li>
+          <li><span>Saturday</span><span>10am – 8pm</span></li>
+          <li><span>Sunday</span><span>By appointment</span></li>
+        </ul>
+        <div class="ftr__emergency">
+          <span class="ftr__pulse"></span>
+          <div>
+            <strong>24/7 Emergency Line</strong><br>
+            <a href="tel:+923247734135">+92 324 7734135</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ftr__bottom">
+      <p>© {{ year }} The Perfect Smile, Faisalabad. All rights reserved.</p>
+      <div class="ftr__legal">
+        <a routerLink="/about">Privacy</a>
+        <a routerLink="/about">Terms</a>
+        <a routerLink="/contact">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>

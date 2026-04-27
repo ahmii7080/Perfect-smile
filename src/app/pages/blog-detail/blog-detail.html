@@ -1,0 +1,86 @@
+<ng-container *ngIf="post() as p; else missing">
+  <section class="bd-hero" [style.background]="'linear-gradient(135deg,' + p.color + ', #0A3A55)'">
+    <div class="container-x">
+      <span class="eyebrow on-dark">{{ p.category }}</span>
+      <h1>{{ p.title }}</h1>
+      <div class="bd-hero__meta">
+        <span><i class="fa-regular fa-user"></i> {{ p.author }}</span>
+        <span><i class="fa-regular fa-calendar"></i> {{ p.date }}</span>
+        <span><i class="fa-regular fa-clock"></i> {{ p.readTime }}</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-x bd-grid">
+      <article class="bd-article" data-aos="fade-up">
+        <p class="bd-lead">{{ p.excerpt }}</p>
+        <div class="bd-content">
+          <p>{{ p.content }}</p>
+          <p>
+            Whether you're starting your dental journey or revisiting a long-postponed treatment,
+            the most important step is the first conversation. We're happy to walk through your
+            options without pressure — and without charging for the consultation itself.
+          </p>
+          <blockquote>
+            "Honest dentistry begins with an honest consult — clear options, clear pricing, and a treatment plan you actually understand."
+          </blockquote>
+          <p>
+            If you'd like to discuss your specific case, you can book a free consult below or
+            send us a quick message on WhatsApp.
+          </p>
+        </div>
+
+        <div class="bd-author">
+          <div class="bd-author__avatar"><i class="fa-solid fa-user-doctor"></i></div>
+          <div>
+            <strong>{{ p.author }}</strong>
+            <span>Author at The Perfect Smile</span>
+            <p>Our doctors regularly publish honest, easy-to-read articles to help patients make informed decisions about their care.</p>
+          </div>
+        </div>
+
+        <div class="bd-share">
+          <span>Share:</span>
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </article>
+
+      <aside class="bd-side">
+        <div class="bd-side__card" data-aos="fade-left">
+          <h4>Talk to a doctor</h4>
+          <p>Have questions after reading? Book a free 30-minute consultation.</p>
+          <a routerLink="/appointment" class="btn btn-primary">Book Free Consult</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section-cream">
+    <div class="container-x">
+      <header class="section-head" data-aos="fade-up">
+        <span class="eyebrow center">Related Reads</span>
+        <h2>You may also <span class="accent-italic">enjoy</span></h2>
+      </header>
+      <div class="rel-grid">
+        <a *ngFor="let r of related()" [routerLink]="['/blog', r.slug]" class="rel-card lift">
+          <div class="rel-card__img" [style.background]="'linear-gradient(135deg,' + r.color + ', #0A3A55)'">
+            <span>{{ r.category }}</span>
+          </div>
+          <div class="rel-card__body">
+            <h3>{{ r.title }}</h3>
+            <span><i class="fa-regular fa-clock"></i> {{ r.readTime }}</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+</ng-container>
+
+<ng-template #missing>
+  <section class="page-header"><div class="container-x"><h1>Article not found</h1></div></section>
+  <section class="section text-center"><a routerLink="/blog" class="btn btn-primary">← Back to Blog</a></section>
+</ng-template>

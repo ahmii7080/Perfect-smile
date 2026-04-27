@@ -1,0 +1,98 @@
+<section class="page-header">
+  <div class="container-x">
+    <span class="eyebrow">Get in touch</span>
+    <h1>We'd love to <span class="accent-italic-light italic">hear from you</span></h1>
+    <p>Whether it's a question about treatment, scheduling, or directions to the clinic — our team is here to help.</p>
+  </div>
+</section>
+
+<!-- Info cards -->
+<section class="section">
+  <div class="container-x">
+    <div class="info-grid">
+      <div class="info-card lift" data-aos="fade-up">
+        <div class="info-card__icon"><i class="fa-solid fa-location-dot"></i></div>
+        <h3>Visit us</h3>
+        <p>Main Satyana Road<br>near Rehman Garden Gate No. 1<br>Faisalabad</p>
+        <a href="https://maps.google.com" target="_blank" rel="noopener">Get directions →</a>
+      </div>
+      <div class="info-card lift" data-aos="fade-up" data-aos-delay="80">
+        <div class="info-card__icon"><i class="fa-solid fa-phone"></i></div>
+        <h3>Call us</h3>
+        <p>+92 324 7734135<br>WhatsApp · Voice</p>
+        <a href="tel:+923247734135">Call now →</a>
+      </div>
+      <div class="info-card lift" data-aos="fade-up" data-aos-delay="160">
+        <div class="info-card__icon"><i class="fa-solid fa-envelope"></i></div>
+        <h3>Email us</h3>
+        <p>hello&#64;theperfectsmile.pk<br>care&#64;theperfectsmile.pk</p>
+        <a href="mailto:hello@theperfectsmile.pk">Send email →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Map + Form -->
+<section class="section section-cream">
+  <div class="container-x">
+    <div class="contact-grid">
+      <!-- Map -->
+      <div class="map-wrap" data-aos="fade-right">
+        <iframe
+          src="https://maps.google.com/maps?q=Main%20Satyana%20Road%20Faisalabad%20Rehman%20Garden&t=&z=15&ie=UTF8&iwloc=&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen></iframe>
+      </div>
+
+      <!-- Form -->
+      <form class="contact-form" [formGroup]="form" (ngSubmit)="submit()" data-aos="fade-left" novalidate>
+        <h2>Send us a message</h2>
+        <p class="contact-sub">We typically reply within 2 hours during clinic hours.</p>
+
+        <div>
+          <label class="form-label">Your name</label>
+          <input class="form-control" [class.is-invalid]="invalid('name')" formControlName="name" placeholder="Your name">
+          <div class="form-error" *ngIf="invalid('name')">Please enter your name.</div>
+        </div>
+
+        <div>
+          <label class="form-label">Email</label>
+          <input class="form-control" [class.is-invalid]="invalid('email')" type="email" formControlName="email" placeholder="you@example.com">
+          <div class="form-error" *ngIf="invalid('email')">Enter a valid email.</div>
+        </div>
+
+        <div>
+          <label class="form-label">Subject</label>
+          <input class="form-control" [class.is-invalid]="invalid('subject')" formControlName="subject" placeholder="What is this about?">
+          <div class="form-error" *ngIf="invalid('subject')">Subject is required.</div>
+        </div>
+
+        <div>
+          <label class="form-label">Message</label>
+          <textarea class="form-control" [class.is-invalid]="invalid('message')" formControlName="message" rows="5" placeholder="How can we help?"></textarea>
+          <div class="form-error" *ngIf="invalid('message')">Please write at least a sentence.</div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          <i class="fa-regular fa-paper-plane"></i> Send Message
+        </button>
+
+        <div class="ok-toast" *ngIf="sent()">
+          <i class="fa-solid fa-circle-check"></i>
+          Thanks! We've received your message and will reply shortly.
+        </div>
+      </form>
+    </div>
+
+    <!-- Social row -->
+    <div class="socials" data-aos="fade-up">
+      <span>Follow us:</span>
+      <a href="https://facebook.com" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="https://instagram.com" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://youtube.com" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      <a href="https://wa.me/923247734135" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+      <a href="https://twitter.com" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+    </div>
+  </div>
+</section>

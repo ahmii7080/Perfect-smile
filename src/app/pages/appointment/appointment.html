@@ -1,0 +1,134 @@
+<section class="page-header">
+  <div class="container-x">
+    <span class="eyebrow">Book Appointment</span>
+    <h1>Reserve your <span class="accent-italic-light italic">free consultation</span></h1>
+    <p>Tell us a little about you. We'll confirm your slot via WhatsApp within minutes.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container-x">
+    <div class="appt-grid">
+      <!-- Form -->
+      <form class="appt-form" [formGroup]="form" (ngSubmit)="submit()" data-aos="fade-right" novalidate>
+        <h2>Appointment details</h2>
+        <p class="appt-sub">All fields marked <span class="req">*</span> are required.</p>
+
+        <div class="row-2">
+          <div>
+            <label class="form-label">Full Name <span class="req">*</span></label>
+            <input class="form-control" [class.is-invalid]="invalid('fullName')" formControlName="fullName" placeholder="Ayesha Khan">
+            <div class="form-error" *ngIf="invalid('fullName')">Please enter your full name.</div>
+          </div>
+          <div>
+            <label class="form-label">Phone <span class="req">*</span></label>
+            <input class="form-control" [class.is-invalid]="invalid('phone')" formControlName="phone" placeholder="+92 324 7734135">
+            <div class="form-error" *ngIf="invalid('phone')">Enter a valid phone number.</div>
+          </div>
+        </div>
+
+        <div>
+          <label class="form-label">Email <span class="req">*</span></label>
+          <input class="form-control" [class.is-invalid]="invalid('email')" type="email" formControlName="email" placeholder="you@example.com">
+          <div class="form-error" *ngIf="invalid('email')">Enter a valid email address.</div>
+        </div>
+
+        <div class="row-2">
+          <div>
+            <label class="form-label">Service <span class="req">*</span></label>
+            <select class="form-control" [class.is-invalid]="invalid('service')" formControlName="service">
+              <option value="">Select a service</option>
+              <option *ngFor="let s of services()" [value]="s.slug">{{ s.title }}</option>
+            </select>
+            <div class="form-error" *ngIf="invalid('service')">Please choose a service.</div>
+          </div>
+          <div>
+            <label class="form-label">Preferred Doctor</label>
+            <select class="form-control" formControlName="doctor">
+              <option value="any">Any available doctor</option>
+              <option *ngFor="let d of doctors()" [value]="d.slug">{{ d.name }} — {{ d.specialization }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="form-label">Preferred Date <span class="req">*</span></label>
+          <input class="form-control" [class.is-invalid]="invalid('date')" type="date" formControlName="date" [min]="today">
+          <div class="form-error" *ngIf="invalid('date')">Pick a date for your visit.</div>
+        </div>
+
+        <div>
+          <label class="form-label">Time Slot <span class="req">*</span></label>
+          <div class="slots">
+            <button type="button" *ngFor="let t of timeSlots"
+                    class="slot"
+                    [class.is-active]="form.value.timeSlot === t"
+                    (click)="pickSlot(t)">{{ t }}</button>
+          </div>
+          <div class="form-error" *ngIf="invalid('timeSlot')">Please pick a time.</div>
+        </div>
+
+        <div>
+          <label class="form-label">Message (optional)</label>
+          <textarea class="form-control" formControlName="message" placeholder="Anything else we should know? (e.g. previous treatments, anxieties...)"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary appt-submit" [disabled]="submitting()">
+          <ng-container *ngIf="!submitting(); else loading">
+            <i class="fa-regular fa-calendar-check"></i> Confirm Appointment
+          </ng-container>
+          <ng-template #loading>
+            <i class="fa-solid fa-spinner fa-spin"></i> Sending...
+          </ng-template>
+        </button>
+
+        <div class="appt-toast" *ngIf="toast() as t" [class.is-ok]="t.ok">
+          <i class="fa-solid fa-circle-check"></i>
+          <div>
+            <strong>{{ t.msg }}</strong>
+            <span>Your reference: <b>{{ t.ref }}</b>. Our team will WhatsApp you to confirm.</span>
+          </div>
+        </div>
+      </form>
+
+      <!-- Info card -->
+      <aside class="appt-info" data-aos="fade-left">
+        <h3>Visit us</h3>
+        <p>Our flagship clinic is in the heart of Civil Lines, Faisalabad — easy parking, central location.</p>
+
+        <ul class="appt-info__list">
+          <li>
+            <i class="fa-solid fa-location-dot"></i>
+            <div>
+              <strong>The Perfect Smile</strong>
+              <span>Main Satyana Road, near Rehman Garden Gate No. 1<br>Faisalabad, Pakistan</span>
+            </div>
+          </li>
+          <li>
+            <i class="fa-solid fa-phone"></i>
+            <div>
+              <strong>+92 324 7734135</strong>
+              <span>WhatsApp · Voice · Reception</span>
+            </div>
+          </li>
+          <li>
+            <i class="fa-solid fa-clock"></i>
+            <div>
+              <strong>Working Hours</strong>
+              <span>Mon–Sat · 10am – 9pm<br>Sun · By appointment</span>
+            </div>
+          </li>
+        </ul>
+
+        <a href="https://wa.me/923247734135?text=Hi!%20I%27d%20like%20to%20book%20an%20appointment." target="_blank" rel="noopener" class="appt-info__wa">
+          <i class="fa-brands fa-whatsapp"></i> Quick Chat on WhatsApp
+        </a>
+
+        <div class="appt-info__note">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Free consultation. No card required.</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>

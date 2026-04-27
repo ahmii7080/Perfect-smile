@@ -1,0 +1,94 @@
+[
+  {
+    "slug": "dr-ali-farooq",
+    "name": "Dr. Ali Farooq",
+    "specialization": "Implantologist & Founder",
+    "qualifications": "BDS, MSc (Implant Dentistry, UK), Diplomate ICOI",
+    "shortBio": "UK-trained implantologist with 14+ years of experience and 2,000+ implants placed. Pioneered All-on-4 protocols in Faisalabad.",
+    "fullBio": "Dr. Ali completed his MSc in Implant Dentistry from the University of Manchester and has placed more than 2,000 implants across complex full-arch and aesthetic-zone cases. He is a Diplomate of the International Congress of Oral Implantologists and lectures regularly on guided surgery.",
+    "education": [
+      "BDS — University of Health Sciences, Lahore",
+      "MSc Implant Dentistry — University of Manchester, UK",
+      "Diplomate — International Congress of Oral Implantologists",
+      "Advanced Bone Grafting — Karl-Franzens University, Austria"
+    ],
+    "expertise": ["Full-arch All-on-4", "Sinus lift & bone grafting", "Guided surgery", "Aesthetic-zone implants"],
+    "color": "#0F7AB0"
+  },
+  {
+    "slug": "dr-umber-khan",
+    "name": "Dr. Umber Khan",
+    "specialization": "Cosmetic Dentist & Smile Designer",
+    "qualifications": "BDS, FCPS Operative, Member BACD (UK)",
+    "shortBio": "Smile-design specialist with a portfolio of 800+ veneer cases. Passionate about minimally invasive aesthetic dentistry.",
+    "fullBio": "Dr. Umber is a Fellow of the College of Physicians and Surgeons in Operative Dentistry. Her smile-design portfolio includes hand-layered porcelain veneers, gum-lift aesthetics, and full-mouth rehabilitation cases featured in regional dental journals.",
+    "education": [
+      "BDS — King Edward Medical University",
+      "FCPS Operative Dentistry — CPSP",
+      "BACD Smile Design Programme — London",
+      "Aesthetic Continuum — gIDE Institute"
+    ],
+    "expertise": ["Porcelain veneers", "Smile design (DSD)", "Composite bonding", "Full-mouth rehabilitation"],
+    "color": "#1597D5"
+  },
+  {
+    "slug": "dr-sarmad-hussain",
+    "name": "Dr. Sarmad Hussain",
+    "specialization": "Orthodontist",
+    "qualifications": "BDS, MDS Orthodontics, Invisalign Certified",
+    "shortBio": "Orthodontist with 1,200+ aligner cases. Treats teens and adults across braces, lingual, and clear aligner systems.",
+    "fullBio": "Dr. Sarmad has completed his MDS in Orthodontics and is Invisalign-certified at the Diamond tier. He combines digital iTero scanning with cephalometric analysis to design predictable treatment plans.",
+    "education": [
+      "BDS — Aga Khan University",
+      "MDS Orthodontics — University of the Punjab",
+      "Invisalign Diamond Provider Certification"
+    ],
+    "expertise": ["Invisalign clear aligners", "Lingual orthodontics", "Damon braces", "Early interceptive treatment"],
+    "color": "#3DAEE0"
+  },
+  {
+    "slug": "dr-mehwish-ali",
+    "name": "Dr. Mehwish Ali",
+    "specialization": "Pediatric Dentist",
+    "qualifications": "BDS, MSc Pediatric Dentistry",
+    "shortBio": "Specialist pediatric dentist trained in behaviour management and minimally invasive child dentistry.",
+    "fullBio": "Dr. Mehwish trained in pediatric dentistry with a focus on behaviour management and silver diamine fluoride therapy. She has been called the children's favourite by hundreds of parents in Faisalabad.",
+    "education": [
+      "BDS — Lahore Medical & Dental College",
+      "MSc Pediatric Dentistry — University of Leeds",
+      "Member, Pakistan Society of Pediatric Dentistry"
+    ],
+    "expertise": ["Anxiety-free child visits", "Sealants & fluoride therapy", "Pulpotomy", "Early orthodontic monitoring"],
+    "color": "#FAC775"
+  },
+  {
+    "slug": "dr-zara-iqbal",
+    "name": "Dr. Zara Iqbal",
+    "specialization": "Endodontist",
+    "qualifications": "BDS, MSc Endodontics (US)",
+    "shortBio": "Microscope-trained endodontist saving teeth others have written off. 4,000+ root canal treatments completed.",
+    "fullBio": "Dr. Zara completed her MSc in Endodontics in the United States and brings microscope-assisted endodontics to every case — including retreatments and apicoectomies that other clinics refer out.",
+    "education": [
+      "BDS — Dow University of Health Sciences",
+      "MSc Endodontics — NYU College of Dentistry",
+      "Microscope Endodontics — Dental XP"
+    ],
+    "expertise": ["Microscope endodontics", "Retreatments", "Apicoectomy", "Bioceramic obturation"],
+    "color": "#0F7AB0"
+  },
+  {
+    "slug": "dr-bilal-ahmed",
+    "name": "Dr. Bilal Ahmed",
+    "specialization": "Periodontist & Gum Specialist",
+    "qualifications": "BDS, MDS Periodontics",
+    "shortBio": "Periodontal & laser-gum specialist focused on saving teeth and rebuilding healthy foundations.",
+    "fullBio": "Dr. Bilal completed his MDS in Periodontics and offers the full periodontal spectrum — from non-surgical hygiene therapy to gum grafting, crown lengthening, and laser-assisted pocket therapy.",
+    "education": [
+      "BDS — University of Health Sciences",
+      "MDS Periodontics — University of the Punjab",
+      "LANAP Laser Periodontics certified"
+    ],
+    "expertise": ["LANAP laser therapy", "Gum grafting", "Crown lengthening", "Peri-implantitis"],
+    "color": "#1597D5"
+  }
+]

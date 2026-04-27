@@ -1,0 +1,38 @@
+<!-- Floating chat panel -->
+<div class="wa-panel" [class.is-open]="open()" role="dialog" aria-label="WhatsApp chat">
+  <div class="wa-panel__head">
+    <div class="wa-panel__avatar">
+      <i class="fa-solid fa-tooth"></i>
+    </div>
+    <div class="wa-panel__id">
+      <strong>The Perfect Smile</strong>
+      <span><span class="wa-dot"></span> Online · Replies in minutes</span>
+    </div>
+    <button class="wa-panel__close" (click)="close()" aria-label="Close">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <div class="wa-panel__body">
+    <div class="wa-bubble">
+      <p>Hi! 👋 How can we help you today?</p>
+      <span class="wa-time">just now</span>
+    </div>
+    <div class="wa-bubble wa-bubble--soft">
+      <p>Tap below to start a WhatsApp chat with our team — we’ll book your appointment in seconds.</p>
+    </div>
+  </div>
+
+  <a [href]="waUrl" target="_blank" rel="noopener" class="wa-panel__cta">
+    <i class="fa-brands fa-whatsapp"></i>
+    Start Chat on WhatsApp
+  </a>
+</div>
+
+<!-- Floating bubble -->
+<button class="wa-fab" (click)="toggle()" [attr.aria-expanded]="open()" aria-label="Open WhatsApp chat">
+  <span class="wa-pulse-ring" *ngIf="!open()"></span>
+  <i class="fa-brands fa-whatsapp" *ngIf="!open()"></i>
+  <i class="fa-solid fa-xmark" *ngIf="open()"></i>
+  <span class="wa-badge" *ngIf="!open()">1</span>
+</button>

@@ -1,0 +1,78 @@
+<!-- Top utility bar -->
+<div class="util-bar">
+  <div class="container-x util-bar__row">
+    <div class="util-bar__info">
+      <a href="tel:+923247734135"><i class="fa-solid fa-phone"></i> +92 324 7734135</a>
+      <a href="mailto:hello@theperfectsmile.pk"><i class="fa-solid fa-envelope"></i> hello&#64;theperfectsmile.pk</a>
+      <span class="util-bar__hide-md"><i class="fa-solid fa-location-dot"></i> Main Satyana Road, near Rehman Garden Gate No. 1</span>
+    </div>
+    <div class="util-bar__social">
+      <a href="https://facebook.com" aria-label="Facebook" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="https://instagram.com" aria-label="Instagram" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://youtube.com" aria-label="YouTube" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i></a>
+      <a href="https://wa.me/923247734135" aria-label="WhatsApp" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i></a>
+    </div>
+  </div>
+</div>
+
+<!-- Main navbar -->
+<header class="nav" [class.is-scrolled]="scrolled()">
+  <div class="container-x nav__row">
+
+    <!-- Logo -->
+    <a routerLink="/" class="brand">
+      <span class="brand__icon" aria-hidden="true">
+        <i class="fa-solid fa-tooth"></i>
+      </span>
+      <span class="brand__text">
+        <span class="brand__name">The <em>Perfect</em> Smile</span>
+        <span class="brand__sub">Clinic Faisalabad</span>
+      </span>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="nav__links" aria-label="Primary">
+      <a routerLink="/"           routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+      <a routerLink="/about"      routerLinkActive="is-active">About</a>
+      <div class="has-dropdown" (mouseenter)="servicesOpen.set(true)" (mouseleave)="servicesOpen.set(false)">
+        <a routerLink="/services" routerLinkActive="is-active" class="dd-trigger">
+          Services <i class="fa-solid fa-chevron-down dd-caret"></i>
+        </a>
+        <div class="dropdown" [class.is-open]="servicesOpen()">
+          <a *ngFor="let s of services()" [routerLink]="['/services', s.slug]" class="dropdown__item">
+            <span class="dot" [style.background]="s.color"></span>
+            {{ s.title }}
+          </a>
+        </div>
+      </div>
+      <a routerLink="/doctors"    routerLinkActive="is-active">Doctors</a>
+      <a routerLink="/team"       routerLinkActive="is-active">Team</a>
+      <a routerLink="/gallery"    routerLinkActive="is-active">Gallery</a>
+      <a routerLink="/blog"       routerLinkActive="is-active">Blog</a>
+      <a routerLink="/contact"    routerLinkActive="is-active">Contact</a>
+    </nav>
+
+    <!-- CTA -->
+    <a routerLink="/appointment" class="btn btn-primary nav__cta">
+      Book Now <i class="fa-solid fa-arrow-right"></i>
+    </a>
+
+    <!-- Mobile toggle -->
+    <button class="nav__burger" (click)="toggleMobile()" [attr.aria-expanded]="mobileOpen()" aria-label="Toggle menu">
+      <i class="fa-solid" [class.fa-bars]="!mobileOpen()" [class.fa-xmark]="mobileOpen()"></i>
+    </button>
+  </div>
+
+  <!-- Mobile drawer -->
+  <div class="drawer" [class.is-open]="mobileOpen()">
+    <a routerLink="/"           routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+    <a routerLink="/about"      routerLinkActive="is-active">About</a>
+    <a routerLink="/services"   routerLinkActive="is-active">Services</a>
+    <a routerLink="/doctors"    routerLinkActive="is-active">Doctors</a>
+    <a routerLink="/team"       routerLinkActive="is-active">Team</a>
+    <a routerLink="/gallery"    routerLinkActive="is-active">Gallery</a>
+    <a routerLink="/blog"       routerLinkActive="is-active">Blog</a>
+    <a routerLink="/contact"    routerLinkActive="is-active">Contact</a>
+    <a routerLink="/appointment" class="btn btn-primary drawer__cta">Book an Appointment</a>
+  </div>
+</header>

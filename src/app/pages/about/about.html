@@ -1,0 +1,114 @@
+<section class="page-header">
+  <div class="container-x">
+    <span class="eyebrow">About Us</span>
+    <h1>A clinic built on <span class="accent-italic-light italic">trust</span> and craft</h1>
+    <p>Faisalabad's premier dental &amp; implant centre — a place where world-class clinical training meets warm, honest care.</p>
+  </div>
+</section>
+
+<!-- Founding story -->
+<section class="section">
+  <div class="container-x">
+    <div class="story">
+      <div data-aos="fade-right">
+        <span class="eyebrow">Our story</span>
+        <h2>15 years of crafting <span class="accent-italic">confident</span> smiles</h2>
+        <p class="lead">
+          The Perfect Smile was founded in 2010 by a team of internationally trained dentists with a single mission:
+          to bring world-class dentistry — the kind you'd find in London or New York — to Faisalabad,
+          delivered with the warmth of a family clinic.
+        </p>
+        <p>
+          What began as a single chair in Civil Lines has grown into a full-spectrum dental and implant
+          centre — six surgeries, an in-house ceramics lab, a dedicated pediatric area, and a team of 25+
+          specialists. Through it all, our philosophy has remained the same: every patient gets an unhurried
+          consult, a clear plan, and a result that feels indistinguishable from nature.
+        </p>
+        <p>
+          Today we treat thousands of families across Pakistan and welcome international patients from the
+          Gulf, the UK, and Europe — drawn by world-class outcomes at a fraction of the cost.
+        </p>
+      </div>
+      <div class="story__imgs" data-aos="fade-left">
+        <div class="story__img story__img--main"></div>
+        <div class="story__img story__img--accent"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Mission + Vision -->
+<section class="section section-cream">
+  <div class="container-x">
+    <div class="mv-grid">
+      <div class="mv-card" data-aos="fade-up">
+        <i class="fa-solid fa-bullseye mv-card__icon"></i>
+        <h3>Our Mission</h3>
+        <p>To deliver world-class, evidence-based dentistry with the warmth and honesty of a family clinic — making premium oral healthcare accessible to every patient who walks through our doors.</p>
+      </div>
+      <div class="mv-card" data-aos="fade-up" data-aos-delay="100">
+        <i class="fa-solid fa-eye mv-card__icon"></i>
+        <h3>Our Vision</h3>
+        <p>To be the most trusted dental destination in Pakistan — a benchmark for clinical excellence, ethical care, and patient experience that the entire region looks up to.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Values -->
+<section class="section">
+  <div class="container-x">
+    <header class="section-head" data-aos="fade-up">
+      <span class="eyebrow center">Core Values</span>
+      <h2>The principles that <span class="accent-italic">shape</span> our work</h2>
+    </header>
+    <div class="values-grid">
+      <article class="value-card lift" *ngFor="let v of values; let i = index" data-aos="fade-up" [attr.data-aos-delay]="i*80">
+        <span class="value-card__num">{{ v.n }}</span>
+        <h3>{{ v.title }}</h3>
+        <p>{{ v.desc }}</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Why choose us -->
+<section class="section section-cream">
+  <div class="container-x">
+    <header class="section-head" data-aos="fade-up">
+      <span class="eyebrow center">Why Choose Us</span>
+      <h2>Six reasons families <span class="accent-italic">trust us</span> with their smiles</h2>
+    </header>
+    <div class="why-grid">
+      <div class="why-card lift" *ngFor="let w of why; let i = index" data-aos="fade-up" [attr.data-aos-delay]="i*60">
+        <i class="fa-solid" [class]="w.icon"></i>
+        <h3>{{ w.title }}</h3>
+        <p>{{ w.desc }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Awards strip -->
+<section class="awards">
+  <div class="container-x">
+    <span class="eyebrow on-dark center">Awards &amp; Accreditations</span>
+    <div class="awards__strip">
+      <div class="awards__item" *ngFor="let a of awards" data-aos="zoom-in">
+        <i class="fa-solid fa-medal"></i>
+        <span>{{ a }}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section section-deep">
+  <div class="container-x cta-row" data-aos="zoom-in">
+    <div>
+      <h2>Ready to experience the <span class="accent-italic-light italic">difference?</span></h2>
+      <p>Book a free consultation and meet the team that will reshape your smile — and your confidence.</p>
+    </div>
+    <a routerLink="/appointment" class="btn btn-gold">Book Free Consultation <i class="fa-solid fa-arrow-right"></i></a>
+  </div>
+</section>

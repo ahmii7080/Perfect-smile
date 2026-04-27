@@ -1,0 +1,13 @@
+.grid-4 {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
+}
+@media (max-width: 1100px) { .grid-4 { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 800px)  { .grid-4 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px)  { .grid-4 { grid-template-columns: 1fr; } }
+
+.cta-row {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 2rem; flex-wrap: wrap;
+}
+.cta-row h2 { color: #fff; margin: 0.5rem 0; }
+.cta-row p  { color: rgba(255,255,255,0.78); margin: 0; max-width: 540px; }

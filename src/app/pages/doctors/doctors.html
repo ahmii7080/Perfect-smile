@@ -1,0 +1,53 @@
+<section class="page-header">
+  <div class="container-x">
+    <span class="eyebrow">Our Doctors</span>
+    <h1>Meet the specialists behind your <span class="accent-italic-light italic">smile</span></h1>
+    <p>Internationally trained dentists and surgeons, each a leader in their craft and committed to your care.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container-x">
+    <div class="docs-grid">
+      <div *ngFor="let d of doctors(); let i = index" data-aos="fade-up" [attr.data-aos-delay]="(i % 2) * 80">
+        <div class="docs-clickable" (click)="open(d)">
+          <app-doctor-card [doctor]="d"></app-doctor-card>
+          <button class="docs-view">View Profile <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Doctor profile modal -->
+<div class="dlg-overlay" *ngIf="selected()" (click)="close()">
+  <div class="dlg" (click)="$event.stopPropagation()" *ngIf="selected() as d">
+    <button class="dlg__close" (click)="close()" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    <div class="dlg__head" [style.background]="'linear-gradient(135deg,' + d.color + ', #0A3A55)'">
+      <div class="dlg__avatar">{{ d.name.split(' ').filter(p => !p.startsWith('Dr')).slice(0,2).map(p => p[0]).join('') }}</div>
+      <div>
+        <span class="dlg__spec">{{ d.specialization }}</span>
+        <h2>{{ d.name }}</h2>
+        <p>{{ d.qualifications }}</p>
+      </div>
+    </div>
+    <div class="dlg__body">
+      <h3>About</h3>
+      <p>{{ d.fullBio }}</p>
+
+      <h3>Education &amp; Training</h3>
+      <ul class="dlg__list">
+        <li *ngFor="let e of d.education"><i class="fa-solid fa-graduation-cap"></i> {{ e }}</li>
+      </ul>
+
+      <h3>Areas of Expertise</h3>
+      <div class="dlg__chips">
+        <span class="dlg__chip" *ngFor="let x of d.expertise">{{ x }}</span>
+      </div>
+
+      <a routerLink="/appointment" class="btn btn-primary dlg__cta">
+        Book with {{ d.name }} <i class="fa-solid fa-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+</div>

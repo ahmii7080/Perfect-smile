@@ -1,0 +1,30 @@
+<section class="page-header">
+  <div class="container-x">
+    <span class="eyebrow">Our Services</span>
+    <h1>The complete spectrum of <span class="accent-italic-light italic">dental care</span></h1>
+    <p>From routine check-ups to advanced full-mouth reconstruction — every treatment delivered to international standards.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container-x">
+    <div class="grid-4">
+      <div *ngFor="let s of services(); let i = index" data-aos="fade-up" [attr.data-aos-delay]="(i % 4) * 80">
+        <app-service-card [service]="s"></app-service-card>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-deep">
+  <div class="container-x cta-row" data-aos="zoom-in">
+    <div>
+      <span class="eyebrow on-dark">Not sure what you need?</span>
+      <h2>Book a free <span class="accent-italic-light italic">consultation.</span></h2>
+      <p>Our doctors will assess, scan, and design a personalised treatment plan — at zero cost.</p>
+    </div>
+    <a routerLink="/appointment" class="btn btn-gold">
+      <i class="fa-regular fa-calendar-check"></i> Book Free Consultation
+    </a>
+  </div>
+</section>
