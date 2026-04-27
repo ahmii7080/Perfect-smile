@@ -15,32 +15,37 @@
 
 /* ------------------------- Theme tokens ------------------------- */
 :root {
-  --color-primary:        #1597D5;
-  --color-primary-dark:   #0F7AB0;
-  --color-primary-deeper: #0A3A55;
-  --color-primary-soft:   #EFF9FE;
+  /* Scheme A — Pure Clinical (sky blue + mint + pearl + slate) */
+  --color-primary:        #0EA5E9;   /* sky blue */
+  --color-primary-dark:   #0284C7;
+  --color-primary-deeper: #0C4A6E;
+  --color-primary-soft:   #E0F2FE;
 
-  --color-accent:         #0EA5E9;
-  --color-gold:           #BA7517;
-  --color-gold-light:     #FAC775;
+  --color-accent:         #14B8A6;   /* mint — replaces gold/coral as secondary */
+  --color-accent-soft:    #CCFBF1;
+  --color-accent-deep:    #0F766E;
 
-  --color-cream:          #FFF7ED;
-  --color-cream-deep:     #FBE9CB;
-  --color-warm-bg:        #F4F8FB;
-  --color-coral:          #FF6B5C;
-  --color-coral-soft:     #FFE4DF;
-  --color-blush:          #F9D9C8;
+  /* Tertiary warm tones kept for selective decorative variety only */
+  --color-gold:           #B58A2E;
+  --color-gold-light:     #F4C76B;
+  --color-coral:          #F87171;
+  --color-coral-soft:     #FEE2E2;
+  --color-blush:          #FCE7E0;
 
-  --color-ink:            #0F1A2A;
-  --color-ink-soft:       #1F2A3D;
-  --color-text-muted:     #566379;
+  --color-cream:          #F8FAFC;   /* pearl — clean cool-tinted */
+  --color-cream-deep:     #EEF2F7;
+  --color-warm-bg:        #F1F5F9;
+
+  --color-ink:            #0F172A;   /* slate */
+  --color-ink-soft:       #1E293B;
+  --color-text-muted:     #64748B;
 
   --color-whatsapp:       #25D366;
   --color-whatsapp-dark:  #128C7E;
 
-  --shadow-soft:  0 10px 30px -12px rgba(15, 122, 176, 0.20);
-  --shadow-card:  0 8px 24px -10px rgba(10, 58, 85, 0.18);
-  --shadow-lift:  0 22px 40px -18px rgba(10, 58, 85, 0.28);
+  --shadow-soft:  0 10px 30px -12px rgba(14, 165, 233, 0.22);
+  --shadow-card:  0 8px 24px -10px rgba(15, 23, 42, 0.10);
+  --shadow-lift:  0 22px 40px -18px rgba(15, 23, 42, 0.18);
 }
 
 *, *::before, *::after { box-sizing: border-box; }

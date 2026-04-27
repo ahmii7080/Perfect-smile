@@ -13,7 +13,8 @@
       "Advanced Bone Grafting — Karl-Franzens University, Austria"
     ],
     "expertise": ["Full-arch All-on-4", "Sinus lift & bone grafting", "Guided surgery", "Aesthetic-zone implants"],
-    "color": "#0F7AB0"
+    "color": "#0284C7",
+    "image": "https://i.pravatar.cc/600?img=12"
   },
   {
     "slug": "dr-umber-khan",
@@ -29,7 +30,8 @@
       "Aesthetic Continuum — gIDE Institute"
     ],
     "expertise": ["Porcelain veneers", "Smile design (DSD)", "Composite bonding", "Full-mouth rehabilitation"],
-    "color": "#1597D5"
+    "color": "#0EA5E9",
+    "image": "https://i.pravatar.cc/600?img=5"
   },
   {
     "slug": "dr-sarmad-hussain",
@@ -44,7 +46,8 @@
       "Invisalign Diamond Provider Certification"
     ],
     "expertise": ["Invisalign clear aligners", "Lingual orthodontics", "Damon braces", "Early interceptive treatment"],
-    "color": "#3DAEE0"
+    "color": "#38BDF8",
+    "image": "https://i.pravatar.cc/600?img=33"
   },
   {
     "slug": "dr-mehwish-ali",
@@ -59,7 +62,8 @@
       "Member, Pakistan Society of Pediatric Dentistry"
     ],
     "expertise": ["Anxiety-free child visits", "Sealants & fluoride therapy", "Pulpotomy", "Early orthodontic monitoring"],
-    "color": "#FAC775"
+    "color": "#14B8A6",
+    "image": "https://i.pravatar.cc/600?img=10"
   },
   {
     "slug": "dr-zara-iqbal",
@@ -74,7 +78,8 @@
       "Microscope Endodontics — Dental XP"
     ],
     "expertise": ["Microscope endodontics", "Retreatments", "Apicoectomy", "Bioceramic obturation"],
-    "color": "#0F7AB0"
+    "color": "#0284C7",
+    "image": "https://i.pravatar.cc/600?img=44"
   },
   {
     "slug": "dr-bilal-ahmed",
@@ -89,6 +94,7 @@
       "LANAP Laser Periodontics certified"
     ],
     "expertise": ["LANAP laser therapy", "Gum grafting", "Crown lengthening", "Peri-implantitis"],
-    "color": "#1597D5"
+    "color": "#0EA5E9",
+    "image": "https://i.pravatar.cc/600?img=51"
   }
 ]

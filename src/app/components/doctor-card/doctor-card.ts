@@ -8,8 +8,12 @@ import { Doctor } from '../../models/doctor.model';
   imports: [CommonModule],
   template: `
     <article class="doc-card lift">
-      <div class="doc-card__head" [style.background]="'linear-gradient(135deg,' + doctor.color + ', #0A3A55)'">
-        <div class="doc-card__avatar">{{ initials() }}</div>
+      <div class="doc-card__head" [style.background]="'linear-gradient(135deg,' + doctor.color + ', #0C4A6E)'">
+        <div class="doc-card__avatar"
+             [class.has-image]="!!doctor.image"
+             [style.background-image]="doctor.image ? 'url(' + doctor.image + ')' : null">
+          <span *ngIf="!doctor.image">{{ initials() }}</span>
+        </div>
         <span class="doc-card__spec">{{ doctor.specialization }}</span>
       </div>
       <div class="doc-card__body">
@@ -37,18 +41,25 @@ import { Doctor } from '../../models/doctor.model';
       display: flex; flex-direction: column; align-items: center;
     }
     .doc-card__avatar {
-      width: 96px; height: 96px;
+      width: 110px; height: 110px;
       border-radius: 50%;
       background: rgba(255,255,255,0.15);
-      border: 3px solid rgba(255,255,255,0.4);
+      border: 3px solid rgba(255,255,255,0.5);
       display: inline-flex; align-items: center; justify-content: center;
       font-family: 'Fraunces', serif;
       font-size: 28px; font-weight: 600; color: #fff;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.65rem;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      box-shadow: 0 14px 28px -10px rgba(0,0,0,0.3);
+    }
+    .doc-card__avatar.has-image {
+      background-color: transparent;
     }
     .doc-card__spec {
       font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
-      color: rgba(255,255,255,0.85); font-weight: 600;
+      color: rgba(255,255,255,0.92); font-weight: 600;
     }
     .doc-card__body { padding: 1.5rem; text-align: center; flex: 1; }
     .doc-card__body h3 {

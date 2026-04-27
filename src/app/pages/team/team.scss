@@ -14,14 +14,18 @@
   box-shadow: var(--shadow-card);
 }
 .team-avatar {
-  width: 90px; height: 90px; border-radius: 50%;
+  width: 110px; height: 110px; border-radius: 50%;
   margin: 0 auto 1rem;
   display: flex; align-items: center; justify-content: center;
   color: #fff; font-family: 'Fraunces', serif;
-  font-size: 26px; font-weight: 600;
+  font-size: 28px; font-weight: 600;
   border: 3px solid #fff;
-  box-shadow: 0 12px 24px -10px rgba(10,58,85,0.35);
+  box-shadow: 0 14px 26px -10px rgba(15,23,42,0.32);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
+.team-avatar.has-image { background-color: transparent; }
 .team-card h3 { font-family: 'Fraunces', serif; font-size: 18px; margin: 0 0 0.25rem; }
 .team-role {
   font-size: 11.5px; letter-spacing: 0.18em; text-transform: uppercase;

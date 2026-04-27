@@ -1,5 +1,7 @@
 <ng-container *ngIf="post() as p; else missing">
-  <section class="bd-hero" [style.background]="'linear-gradient(135deg,' + p.color + ', #0A3A55)'">
+  <section class="bd-hero"
+           [style.background-color]="p.color"
+           [style.background-image]="p.image ? 'linear-gradient(180deg, rgba(15,23,42,0.55), rgba(15,23,42,0.85)), url(' + p.image + ')' : null">
     <div class="container-x">
       <span class="eyebrow on-dark">{{ p.category }}</span>
       <h1>{{ p.title }}</h1>
@@ -67,7 +69,9 @@
       </header>
       <div class="rel-grid">
         <a *ngFor="let r of related()" [routerLink]="['/blog', r.slug]" class="rel-card lift">
-          <div class="rel-card__img" [style.background]="'linear-gradient(135deg,' + r.color + ', #0A3A55)'">
+          <div class="rel-card__img"
+               [style.background-color]="r.color"
+               [style.background-image]="r.image ? 'url(' + r.image + ')' : null">
             <span>{{ r.category }}</span>
           </div>
           <div class="rel-card__body">

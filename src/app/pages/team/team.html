@@ -10,8 +10,11 @@
   <div class="container-x">
     <div class="team-grid">
       <article class="team-card lift" *ngFor="let m of team(); let i = index" data-aos="fade-up" [attr.data-aos-delay]="(i % 4) * 60">
-        <div class="team-avatar" [style.background]="'linear-gradient(135deg,' + m.color + ', #0A3A55)'">
-          {{ m.initials }}
+        <div class="team-avatar"
+             [class.has-image]="!!m.image"
+             [style.background-color]="m.color"
+             [style.background-image]="m.image ? 'url(' + m.image + ')' : null">
+          <span *ngIf="!m.image">{{ m.initials }}</span>
         </div>
         <h3>{{ m.name }}</h3>
         <span class="team-role">{{ m.role }}</span>

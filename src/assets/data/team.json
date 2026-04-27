@@ -1,10 +1,10 @@
 [
-  { "name": "Sana Mahmood",   "role": "Lead Dental Hygienist",        "initials": "SM", "color": "#1597D5" },
-  { "name": "Aamir Raza",     "role": "Senior Dental Assistant",      "initials": "AR", "color": "#0F7AB0" },
-  { "name": "Hira Tanveer",   "role": "Lab Technician (Ceramics)",    "initials": "HT", "color": "#3DAEE0" },
-  { "name": "Faisal Khan",    "role": "Front Desk Manager",           "initials": "FK", "color": "#0EA5E9" },
-  { "name": "Nida Saleem",    "role": "Sterilization Specialist",     "initials": "NS", "color": "#FAC775" },
-  { "name": "Hassan Ali",     "role": "Patient Care Coordinator",     "initials": "HA", "color": "#1597D5" },
-  { "name": "Madiha Yousaf",  "role": "X-Ray & CBCT Technician",      "initials": "MY", "color": "#0F7AB0" },
-  { "name": "Usman Riaz",     "role": "Implant Surgical Assistant",   "initials": "UR", "color": "#3DAEE0" }
+  { "name": "Sana Mahmood",   "role": "Lead Dental Hygienist",        "initials": "SM", "color": "#0EA5E9", "image": "https://i.pravatar.cc/500?img=24" },
+  { "name": "Aamir Raza",     "role": "Senior Dental Assistant",      "initials": "AR", "color": "#0284C7", "image": "https://i.pravatar.cc/500?img=15" },
+  { "name": "Hira Tanveer",   "role": "Lab Technician (Ceramics)",    "initials": "HT", "color": "#14B8A6", "image": "https://i.pravatar.cc/500?img=49" },
+  { "name": "Faisal Khan",    "role": "Front Desk Manager",           "initials": "FK", "color": "#38BDF8", "image": "https://i.pravatar.cc/500?img=17" },
+  { "name": "Nida Saleem",    "role": "Sterilization Specialist",     "initials": "NS", "color": "#0EA5E9", "image": "https://i.pravatar.cc/500?img=26" },
+  { "name": "Hassan Ali",     "role": "Patient Care Coordinator",     "initials": "HA", "color": "#0284C7", "image": "https://i.pravatar.cc/500?img=8"  },
+  { "name": "Madiha Yousaf",  "role": "X-Ray & CBCT Technician",      "initials": "MY", "color": "#14B8A6", "image": "https://i.pravatar.cc/500?img=32" },
+  { "name": "Usman Riaz",     "role": "Implant Surgical Assistant",   "initials": "UR", "color": "#38BDF8", "image": "https://i.pravatar.cc/500?img=53" }
 ]

@@ -19,6 +19,7 @@ export interface BlogPost {
   author: string;
   color: string;
   content: string;
+  image?: string;
 }
 
 export interface Testimonial {

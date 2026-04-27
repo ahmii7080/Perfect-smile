@@ -138,14 +138,10 @@
   <span class="blob blob--gold" style="top:-100px; right:-80px; width:300px; height:300px; opacity:0.25;"></span>
 
   <div class="container-x">
-    <header class="head-row">
-      <div data-aos="fade-up">
-        <span class="eyebrow on-warm">What we do</span>
-        <h2 class="h-section">A complete suite of <span class="accent-italic">dental excellence</span></h2>
-      </div>
-      <a routerLink="/services" class="btn btn-dark btn--shine head-row__cta" data-aos="fade-up" data-aos-delay="120">
-        See all services <i class="fa-solid fa-arrow-right"></i>
-      </a>
+    <header class="section-head" data-aos="fade-up">
+      <span class="eyebrow center">What we do</span>
+      <h2 class="h-section">A complete suite of <span class="accent-italic">dental excellence</span></h2>
+      <p>From routine check-ups to full smile reconstruction — every treatment delivered to international standards.</p>
     </header>
 
     <div class="bento">
@@ -165,6 +161,12 @@
           <p>{{ t.desc }}</p>
         </div>
         <span class="bento__arrow"><i class="fa-solid fa-arrow-up-right"></i></span>
+      </a>
+    </div>
+
+    <div class="section-foot" data-aos="fade-up">
+      <a routerLink="/services" class="btn btn-dark btn--shine">
+        See all services <i class="fa-solid fa-arrow-right"></i>
       </a>
     </div>
   </div>
@@ -335,8 +337,10 @@
           <div class="docs-mag__quals">{{ f.qualifications }}</div>
           <span class="docs-mag__cta">View profile <i class="fa-solid fa-arrow-right"></i></span>
         </div>
-        <div class="docs-mag__avatar">
-          {{ f.name.split(' ').filter(p => !p.startsWith('Dr')).slice(0,2).map(p => p[0]).join('') }}
+        <div class="docs-mag__avatar"
+             [class.has-image]="!!f.image"
+             [style.background-image]="f.image ? 'url(' + f.image + ')' : null">
+          <span *ngIf="!f.image">{{ f.name.split(' ').filter(p => !p.startsWith('Dr')).slice(0,2).map(p => p[0]).join('') }}</span>
         </div>
         <svg class="hero__sparkle" viewBox="0 0 40 40" aria-hidden="true" style="top:1.5rem; right:1.5rem;">
           <path d="M20 0 L23 17 L40 20 L23 23 L20 40 L17 23 L0 20 L17 17 Z" fill="rgba(255,255,255,0.4)"/>
@@ -347,8 +351,11 @@
       <div class="docs-mag__list">
         <ng-container *ngFor="let d of doctors().slice(1, 4); let i = index">
           <a [routerLink]="['/doctors']" class="docs-mag__row lift" data-aos="fade-up" [attr.data-aos-delay]="i*100">
-            <div class="docs-mag__row-avatar" [style.background]="'linear-gradient(135deg,' + d.color + ',#0A3A55)'">
-              {{ d.name.split(' ').filter(p => !p.startsWith('Dr')).slice(0,2).map(p => p[0]).join('') }}
+            <div class="docs-mag__row-avatar"
+                 [class.has-image]="!!d.image"
+                 [style.background]="d.image ? 'none' : 'linear-gradient(135deg,' + d.color + ',#0C4A6E)'"
+                 [style.background-image]="d.image ? 'url(' + d.image + ')' : null">
+              <span *ngIf="!d.image">{{ d.name.split(' ').filter(p => !p.startsWith('Dr')).slice(0,2).map(p => p[0]).join('') }}</span>
             </div>
             <div class="docs-mag__row-body">
               <span>{{ d.specialization }}</span>
@@ -406,20 +413,18 @@
 <!-- ════════════════════ BLOG PREVIEW ════════════════════ -->
 <section class="section section-paper">
   <div class="container-x">
-    <header class="head-row">
-      <div data-aos="fade-up">
-        <span class="eyebrow on-warm">From the blog</span>
-        <h2 class="h-section">Smile <span class="accent-italic">science,</span> simply explained</h2>
-      </div>
-      <a routerLink="/blog" class="btn btn-dark btn--shine head-row__cta" data-aos="fade-up" data-aos-delay="120">
-        Read all articles <i class="fa-solid fa-arrow-right"></i>
-      </a>
+    <header class="section-head" data-aos="fade-up">
+      <span class="eyebrow center">From the blog</span>
+      <h2 class="h-section">Smile <span class="accent-italic">science,</span> simply explained</h2>
+      <p>Honest, practical writing from our doctors — covering everything from implants to whitening to children's first dental visits.</p>
     </header>
 
     <div class="grid-3">
       <a *ngFor="let b of blog(); let i = index" [routerLink]="['/blog', b.slug]" class="blog-card lift"
          data-aos="fade-up" [attr.data-aos-delay]="i*80">
-        <div class="blog-card__img" [style.background]="'linear-gradient(135deg,' + b.color + ',#0A3A55)'">
+        <div class="blog-card__img"
+             [style.background-color]="b.color"
+             [style.background-image]="b.image ? 'url(' + b.image + ')' : null">
           <span class="blog-card__cat">{{ b.category }}</span>
         </div>
         <div class="blog-card__body">
@@ -430,6 +435,12 @@
             <span><i class="fa-regular fa-clock"></i> {{ b.readTime }}</span>
           </div>
         </div>
+      </a>
+    </div>
+
+    <div class="section-foot" data-aos="fade-up">
+      <a routerLink="/blog" class="btn btn-dark btn--shine">
+        Read all articles <i class="fa-solid fa-arrow-right"></i>
       </a>
     </div>
   </div>

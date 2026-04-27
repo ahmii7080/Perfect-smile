@@ -4,36 +4,49 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // Scheme A — Pure Clinical
         brand: {
-          50:  "#EFF9FE",
-          100: "#D9F0FB",
-          200: "#A8DEF5",
-          300: "#6FC6EC",
-          400: "#3DAEE0",
-          500: "#1597D5", // primary bright blue
-          600: "#0F7AB0",
-          700: "#0C608B",
-          800: "#0A4A6B",
-          900: "#0A3A55",
-          950: "#062A40"
+          50:  "#F0F9FF",
+          100: "#E0F2FE",
+          200: "#BAE6FD",
+          300: "#7DD3FC",
+          400: "#38BDF8",
+          500: "#0EA5E9", // primary sky blue
+          600: "#0284C7",
+          700: "#0369A1",
+          800: "#075985",
+          900: "#0C4A6E",
+          950: "#082F49"
+        },
+        mint: {
+          50:  "#F0FDFA",
+          100: "#CCFBF1",
+          200: "#99F6E4",
+          300: "#5EEAD4",
+          400: "#2DD4BF",
+          500: "#14B8A6", // accent mint
+          600: "#0D9488",
+          700: "#0F766E",
+          800: "#115E59",
+          900: "#134E4A"
         },
         ink: {
-          DEFAULT: "#0F1A2A",
-          soft: "#1F2A3D",
-          muted: "#566379"
+          DEFAULT: "#0F172A",
+          soft: "#1E293B",
+          muted: "#64748B"
         },
-        cream: "#FAFAF7",
-        warm:  "#F4F8FB",
-        gold:  "#BA7517"
+        cream: "#F8FAFC",
+        warm:  "#F1F5F9",
+        gold:  "#B58A2E"
       },
       fontFamily: {
         serif: ['Fraunces', 'Georgia', 'serif'],
         sans:  ['Manrope', 'system-ui', 'sans-serif']
       },
       boxShadow: {
-        soft:    "0 10px 30px -12px rgba(15, 122, 176, 0.18)",
-        card:    "0 8px 24px -10px rgba(10, 58, 85, 0.18)",
-        lift:    "0 22px 40px -18px rgba(10, 58, 85, 0.28)"
+        soft:    "0 10px 30px -12px rgba(14, 165, 233, 0.22)",
+        card:    "0 8px 24px -10px rgba(15, 23, 42, 0.10)",
+        lift:    "0 22px 40px -18px rgba(15, 23, 42, 0.18)"
       },
       borderRadius: {
         "4xl": "2rem"

@@ -86,7 +86,16 @@
   box-shadow: var(--shadow-card);
   text-decoration: none; color: inherit;
 }
-.rel-card__img { height: 130px; position: relative; }
+.rel-card__img {
+  height: 150px; position: relative;
+  background-size: cover; background-position: center;
+  background-repeat: no-repeat;
+}
+.rel-card__img::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(15,23,42,0) 40%, rgba(15,23,42,0.35) 100%);
+  pointer-events: none;
+}
 .rel-card__img span {
   position: absolute; top: 0.85rem; left: 0.85rem;
   background: rgba(255,255,255,0.95); color: var(--color-primary-dark);

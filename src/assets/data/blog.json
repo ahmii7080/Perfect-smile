@@ -7,7 +7,8 @@
     "readTime": "6 min",
     "category": "Implants",
     "author": "Dr. Ali Farooq",
-    "color": "#0F7AB0",
+    "color": "#0284C7",
+    "image": "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=900&q=80",
     "content": "Modern implant dentistry rests on three pillars: 3D CBCT planning, computer-guided placement, and premium implant systems. Combined, they have transformed implants from a multi-surgery ordeal into a precise, predictable procedure that often takes a single afternoon. In this article we walk through what each of these advances actually means in practice — and how they affect your healing, longevity, and final aesthetic result."
   },
   {
@@ -18,7 +19,8 @@
     "readTime": "5 min",
     "category": "Cosmetic",
     "author": "Dr. Umber Khan",
-    "color": "#1597D5",
+    "color": "#0EA5E9",
+    "image": "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=900&q=80",
     "content": "Digital Smile Design (DSD) is the gold standard for cosmetic case planning. Your face, lips, and existing smile are photographed and analysed against design principles like facial midline, smile arc, and golden proportion. We then mock up the proposed result on your photographs and even on your teeth using a temporary composite. Only when you approve the preview do we begin definitive treatment."
   },
   {
@@ -29,7 +31,8 @@
     "readTime": "4 min",
     "category": "Orthodontics",
     "author": "Dr. Sarmad Hussain",
-    "color": "#3DAEE0",
+    "color": "#14B8A6",
+    "image": "https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?auto=format&fit=crop&w=900&q=80",
     "content": "Clear aligners have democratised orthodontics — but they aren't a universal solution. Mild-to-moderate crowding, spacing, and certain bite issues respond beautifully. Severe rotations, large vertical movements, and complex skeletal cases may still need traditional braces or hybrid treatment. The honest assessment matters more than the brand on the box."
   },
   {
@@ -40,7 +43,8 @@
     "readTime": "5 min",
     "category": "Pediatric",
     "author": "Dr. Mehwish Ali",
-    "color": "#FAC775",
+    "color": "#0EA5E9",
+    "image": "https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=900&q=80",
     "content": "The American Academy of Pediatric Dentistry recommends the first dental visit by age one or within six months of the first tooth appearing. The visit is gentle, short, and focused on familiarising your child with the environment — not on procedures. We use a show-tell-do approach to build trust from day one."
   },
   {
@@ -51,7 +55,8 @@
     "readTime": "3 min",
     "category": "Lifestyle",
     "author": "Sana Mahmood",
-    "color": "#0EA5E9",
+    "color": "#0284C7",
+    "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80",
     "content": "Most people know about coffee, tea, and red wine — but foods like balsamic vinegar, soy sauce, beetroot, curry, and dark berries are notorious staining agents. The good news: a few small habits (rinsing after meals, using a straw with cold drinks, regular hygiene visits) keep them from leaving permanent marks."
   },
   {
@@ -62,7 +67,8 @@
     "readTime": "4 min",
     "category": "Hygiene",
     "author": "Dr. Bilal Ahmed",
-    "color": "#1597D5",
+    "color": "#14B8A6",
+    "image": "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=900&q=80",
     "content": "If your gums bleed when you brush or floss, that's a sign of inflammation — and inflammation is the first stage of gum disease. The good news: caught early, gingivitis is fully reversible with professional cleaning and a refreshed home-care routine. Left alone, it can quietly progress to bone loss."
   },
   {
@@ -73,7 +79,8 @@
     "readTime": "7 min",
     "category": "Implants",
     "author": "Dr. Ali Farooq",
-    "color": "#0F7AB0",
+    "color": "#0284C7",
+    "image": "https://images.unsplash.com/photo-1581585504877-0a47a3e84a92?auto=format&fit=crop&w=900&q=80",
     "content": "All-on-4 uses just four strategically angled implants to support a full-arch bridge — often without the need for bone grafting. It's faster, less invasive, and more affordable than 8 individual implants. But it isn't ideal for every patient. We compare both approaches and the situations where each one wins."
   },
   {
@@ -84,7 +91,8 @@
     "readTime": "4 min",
     "category": "General",
     "author": "Dr. Zara Iqbal",
-    "color": "#3DAEE0",
+    "color": "#0EA5E9",
+    "image": "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&w=900&q=80",
     "content": "Most extractions heal beautifully on their own, but a few simple habits make a big difference. Stay upright for the first day, avoid hot drinks and straws (they dislodge the protective clot), eat soft cool foods, and take prescribed medication on schedule. If pain peaks on day 3–4 instead of fading, call us — that may be a dry socket and is easily treated."
   }
 ]

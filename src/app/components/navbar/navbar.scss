@@ -44,16 +44,8 @@
 
 /* Brand */
 .brand {
-  display: inline-flex; align-items: center; gap: 0.7rem;
+  display: inline-flex; align-items: center;
   text-decoration: none; color: var(--color-ink);
-}
-.brand__icon {
-  width: 42px; height: 42px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-  color: #fff; display: inline-flex; align-items: center; justify-content: center;
-  font-size: 19px;
-  box-shadow: 0 8px 18px -10px rgba(15, 122, 176, 0.55);
 }
 .brand__text { display: flex; flex-direction: column; line-height: 1.1; }
 .brand__name {

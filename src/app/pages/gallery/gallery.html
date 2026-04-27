@@ -20,8 +20,14 @@
     <div class="cases">
       <article class="case lift" *ngFor="let c of filtered(); let i = index" data-aos="fade-up" [attr.data-aos-delay]="(i % 3) * 80" (click)="open(c)">
         <div class="case__pair">
-          <div class="case__half" [style.background]="c.before"><span>BEFORE</span></div>
-          <div class="case__half" [style.background]="c.after"><span>AFTER</span></div>
+          <div class="case__half">
+            <app-smile-svg [treatment]="c.treatment" variant="before"></app-smile-svg>
+            <span>BEFORE</span>
+          </div>
+          <div class="case__half">
+            <app-smile-svg [treatment]="c.treatment" variant="after"></app-smile-svg>
+            <span>AFTER</span>
+          </div>
           <i class="fa-solid case__icon" [class]="c.icon"></i>
         </div>
         <div class="case__body">
@@ -40,8 +46,14 @@
   <div class="lb" (click)="$event.stopPropagation()" *ngIf="lightbox() as c">
     <button class="lb__close" (click)="close()" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
     <div class="lb__pair">
-      <div class="lb__half" [style.background]="c.before"><span>BEFORE</span></div>
-      <div class="lb__half" [style.background]="c.after"><span>AFTER</span></div>
+      <div class="lb__half">
+        <app-smile-svg [treatment]="c.treatment" variant="before"></app-smile-svg>
+        <span>BEFORE</span>
+      </div>
+      <div class="lb__half">
+        <app-smile-svg [treatment]="c.treatment" variant="after"></app-smile-svg>
+        <span>AFTER</span>
+      </div>
     </div>
     <div class="lb__body">
       <span class="case__cat">{{ c.category }}</span>

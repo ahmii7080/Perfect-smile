@@ -42,6 +42,10 @@
   position: relative;
   display: flex; align-items: flex-end;
   padding: 0.85rem;
+  overflow: hidden;
+}
+.case__half > span {
+  position: relative; z-index: 2;
 }
 .case__half span {
   font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase;
@@ -98,7 +102,9 @@
 .lb__pair { height: 360px; display: grid; grid-template-columns: 1fr 1fr; }
 .lb__half {
   position: relative; display: flex; align-items: flex-end; padding: 1rem;
+  overflow: hidden;
 }
+.lb__half > span { position: relative; z-index: 2; }
 .lb__half span {
   font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
   color: rgba(255,255,255,0.95); font-weight: 700;

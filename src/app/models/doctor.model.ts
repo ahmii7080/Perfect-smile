@@ -8,6 +8,7 @@ export interface Doctor {
   education: string[];
   expertise: string[];
   color: string;
+  image?: string;
 }
 
 export interface TeamMember {
@@ -15,4 +16,5 @@ export interface TeamMember {
   role: string;
   initials: string;
   color: string;
+  image?: string;
 }

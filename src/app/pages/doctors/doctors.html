@@ -23,8 +23,12 @@
 <div class="dlg-overlay" *ngIf="selected()" (click)="close()">
   <div class="dlg" (click)="$event.stopPropagation()" *ngIf="selected() as d">
     <button class="dlg__close" (click)="close()" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-    <div class="dlg__head" [style.background]="'linear-gradient(135deg,' + d.color + ', #0A3A55)'">
-      <div class="dlg__avatar">{{ d.name.split(' ').filter(p => !p.startsWith('Dr')).slice(0,2).map(p => p[0]).join('') }}</div>
+    <div class="dlg__head" [style.background]="'linear-gradient(135deg,' + d.color + ', #0C4A6E)'">
+      <div class="dlg__avatar"
+           [class.has-image]="!!d.image"
+           [style.background-image]="d.image ? 'url(' + d.image + ')' : null">
+        <span *ngIf="!d.image">{{ d.name.split(' ').filter(p => !p.startsWith('Dr')).slice(0,2).map(p => p[0]).join('') }}</span>
+      </div>
       <div>
         <span class="dlg__spec">{{ d.specialization }}</span>
         <h2>{{ d.name }}</h2>
