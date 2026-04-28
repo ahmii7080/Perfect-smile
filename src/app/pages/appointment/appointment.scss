@@ -36,11 +36,36 @@
   color: #fff; box-shadow: var(--shadow-soft);
 }
 
+.appt-actions {
+  display: flex; flex-wrap: wrap; gap: 0.75rem;
+  margin-top: 0.75rem;
+}
 .appt-submit {
-  align-self: flex-start; margin-top: 0.75rem;
-  padding: 0.95rem 2rem; font-size: 14.5px;
+  padding: 0.95rem 1.75rem; font-size: 14.5px;
+  flex: 1 1 220px;
 }
 .appt-submit:disabled { opacity: 0.7; cursor: not-allowed; }
+
+.btn-wa {
+  background: #25D366;
+  color: #fff;
+  box-shadow: 0 10px 24px -10px rgba(37,211,102,0.5);
+}
+.btn-wa:hover { background: #1ebe5d; color: #fff; }
+.btn-wa i { font-size: 18px; }
+
+.appt-or {
+  margin: 0.75rem 0 0;
+  font-size: 12.5px;
+  color: var(--color-text-muted);
+  display: inline-flex; align-items: flex-start; gap: 0.4rem;
+  line-height: 1.5;
+}
+.appt-or i { color: var(--color-primary); margin-top: 2px; }
+
+@media (max-width: 480px) {
+  .appt-submit { flex: 1 1 100%; }
+}
 
 .appt-toast {
   background: #ECFDF5; color: #065F46;

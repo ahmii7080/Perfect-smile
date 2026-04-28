@@ -64,4 +64,40 @@ export class AppointmentPage implements OnInit {
       setTimeout(() => this.toast.set(null), 6000);
     });
   }
+
+  /**
+   * Open WhatsApp on the patient's phone with all form details
+   * pre-filled as a message addressed to the clinic reception number.
+   */
+  confirmWhatsApp() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+    const v = this.form.value;
+
+    const serviceTitle = this.services().find(s => s.slug === v.service)?.title ?? v.service;
+    const doctorLabel  = v.doctor === 'any'
+      ? 'Any available doctor'
+      : (this.doctors().find(d => d.slug === v.doctor)?.name ?? v.doctor);
+
+    const lines = [
+      '*Appointment Request — The Perfect Smile*',
+      '',
+      `*Name:* ${v.fullName}`,
+      `*Phone:* ${v.phone}`,
+      `*Email:* ${v.email}`,
+      `*Service:* ${serviceTitle}`,
+      `*Doctor:* ${doctorLabel}`,
+      `*Date:* ${v.date}`,
+      `*Time:* ${v.timeSlot}`
+    ];
+    if (v.message && v.message.trim()) {
+      lines.push('', `*Message:* ${v.message}`);
+    }
+    lines.push('', 'Please confirm my appointment. Thank you.');
+
+    const text = encodeURIComponent(lines.join('\n'));
+    window.open(`https://wa.me/923247734135?text=${text}`, '_blank', 'noopener');
+  }
 }

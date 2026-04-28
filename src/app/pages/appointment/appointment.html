@@ -73,14 +73,24 @@
           <textarea class="form-control" formControlName="message" placeholder="Anything else we should know? (e.g. previous treatments, anxieties...)"></textarea>
         </div>
 
-        <button type="submit" class="btn btn-primary appt-submit" [disabled]="submitting()">
-          <ng-container *ngIf="!submitting(); else loading">
-            <i class="fa-regular fa-calendar-check"></i> Confirm Appointment
-          </ng-container>
-          <ng-template #loading>
-            <i class="fa-solid fa-spinner fa-spin"></i> Sending...
-          </ng-template>
-        </button>
+        <div class="appt-actions">
+          <button type="submit" class="btn btn-primary appt-submit" [disabled]="submitting()">
+            <ng-container *ngIf="!submitting(); else loading">
+              <i class="fa-regular fa-calendar-check"></i> Confirm Appointment
+            </ng-container>
+            <ng-template #loading>
+              <i class="fa-solid fa-spinner fa-spin"></i> Sending...
+            </ng-template>
+          </button>
+
+          <button type="button" class="btn btn-wa appt-submit" (click)="confirmWhatsApp()">
+            <i class="fa-brands fa-whatsapp"></i> Confirm via WhatsApp
+          </button>
+        </div>
+        <p class="appt-or">
+          <i class="fa-solid fa-circle-info"></i>
+          The WhatsApp option opens a chat with our reception with your details pre-filled — just tap send.
+        </p>
 
         <div class="appt-toast" *ngIf="toast() as t" [class.is-ok]="t.ok">
           <i class="fa-solid fa-circle-check"></i>
