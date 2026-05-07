@@ -147,7 +147,15 @@
   animation: floaty 7s ease-in-out infinite;
 }
 
-.float-card--review { top: -2%; left: -8%; max-width: 280px; animation-delay: 0s; }
+.float-card--review {
+  top: -2%; left: -8%; max-width: 280px;
+  animation-delay: 0s;
+  /* Fade transition for the cycling review carousel.
+     Note: `transition` here only affects opacity — the floating-Y motion
+     is driven by the `floaty` keyframe animation and is unaffected. */
+  transition: opacity 0.22s ease;
+}
+.float-card--review.is-fading { opacity: 0; }
 .float-card--review .float-card__head {
   display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.5rem;
 }
@@ -577,6 +585,9 @@
   text-align: center;
   position: relative; z-index: 1;
 }
+.stats-bold__row--3 { grid-template-columns: repeat(3, 1fr); max-width: 880px; margin: 0 auto; }
+.stats-bold__row--4 { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 800px) { .stats-bold__row--4 { grid-template-columns: repeat(2, 1fr); } }
 .stats-bold__row > div {
   display: flex; flex-direction: column; gap: 0.45rem;
   padding: 0 1rem;
@@ -595,7 +606,118 @@
   .stats-bold__row > div:nth-last-child(-n+2) { border-bottom: none; }
 }
 
-/* ============================== DOCS MAGAZINE ============================= */
+/* ============================== SINGLE-DOCTOR SHOWCASE ============================= */
+.doc-show {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 0;
+  background: #fff;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid rgba(15,122,176,0.08);
+  box-shadow: 0 30px 60px -28px rgba(15,23,42,0.32);
+  position: relative; z-index: 1;
+  margin-bottom: 3rem;
+}
+.doc-show__photo {
+  position: relative;
+  min-height: 480px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.doc-show__photo::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(15,23,42,0) 50%, rgba(15,23,42,0.5) 100%);
+  pointer-events: none;
+}
+.doc-show__chip {
+  position: absolute; bottom: 1.25rem; left: 1.25rem;
+  background: rgba(255,255,255,0.95); color: var(--color-primary-dark);
+  padding: 0.5rem 0.95rem; border-radius: 999px;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  z-index: 1;
+  backdrop-filter: blur(6px);
+}
+.doc-show__chip i { color: var(--color-primary); }
+
+.doc-show__body { padding: 2.5rem; display: flex; flex-direction: column; }
+.doc-show__spec {
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--color-primary); font-weight: 700;
+}
+.doc-show__body h3 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.7rem, 2.4vw, 2.2rem);
+  font-weight: 500; line-height: 1.15;
+  margin: 0.45rem 0 0.6rem;
+}
+.doc-show__quals {
+  font-size: 13px; color: var(--color-primary-dark);
+  font-weight: 600;
+  background: var(--color-primary-soft);
+  padding: 0.5rem 0.85rem; border-radius: 10px;
+  display: inline-block;
+  align-self: flex-start;
+  margin-bottom: 1rem;
+}
+.doc-show__bio { font-size: 15px; line-height: 1.7; color: var(--color-ink-soft); margin-bottom: 1rem; }
+.doc-show__creds {
+  list-style: none; padding: 0;
+  margin: 0 0 1.75rem;
+  display: grid; gap: 0.45rem;
+}
+.doc-show__creds li {
+  display: flex; align-items: flex-start; gap: 0.55rem;
+  font-size: 13.5px; color: var(--color-ink-soft);
+}
+.doc-show__creds i { color: var(--color-primary); margin-top: 4px; }
+
+.doc-show__cta { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: auto; }
+
+@media (max-width: 900px) {
+  .doc-show { grid-template-columns: 1fr; }
+  .doc-show__photo { min-height: 320px; }
+  .doc-show__body { padding: 1.75rem; }
+}
+
+/* Three specialty cards (Crown & Bridge / Orthodontics / Implantology) */
+.spec-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  position: relative; z-index: 1;
+}
+.spec-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 1.75rem;
+  border: 1px solid rgba(15,122,176,0.08);
+  box-shadow: 0 14px 28px -16px rgba(15,23,42,0.18);
+  text-align: left;
+}
+.spec-card__icon {
+  width: 50px; height: 50px; border-radius: 14px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  margin-bottom: 0.85rem;
+  box-shadow: 0 10px 20px -10px rgba(14,165,233,0.5);
+}
+.spec-card h4 {
+  font-family: 'Fraunces', serif;
+  font-size: 18px; font-weight: 500;
+  margin: 0 0 0.4rem;
+}
+.spec-card p { font-size: 13.5px; color: var(--color-text-muted); margin: 0; line-height: 1.6; }
+
+@media (max-width: 800px)  { .spec-row { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 540px)  { .spec-row { grid-template-columns: 1fr; } }
+
+/* ============================== DOCS MAGAZINE (legacy, unused) ============================= */
 .docs-mag {
   display: grid; grid-template-columns: 1.4fr 1fr; gap: 1.5rem;
   position: relative; z-index: 1;

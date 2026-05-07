@@ -44,9 +44,24 @@
 
 /* Brand */
 .brand {
-  display: inline-flex; align-items: center;
+  display: inline-flex; align-items: center; gap: 0.7rem;
   text-decoration: none; color: var(--color-ink);
 }
+
+/* Tooth-character icon */
+.brand__icon {
+  width: 56px; height: 56px;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+.brand:hover .brand__icon { transform: scale(1.06) rotate(-3deg); }
+
+@media (max-width: 700px) {
+  .brand__icon { width: 46px; height: 46px; }
+}
+
 .brand__text { display: flex; flex-direction: column; line-height: 1.1; }
 .brand__name {
   font-family: 'Fraunces', serif;

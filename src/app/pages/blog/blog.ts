@@ -4,11 +4,12 @@ import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { BlogService } from '../../services/blog.service';
 import { BlogPost } from '../../models/appointment.model';
+import { BlogIllustrationComponent } from '../../components/blog-illustration/blog-illustration';
 
 @Component({
   selector: 'app-blog',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule],
+  imports: [CommonModule, RouterLink, FormsModule, BlogIllustrationComponent],
   templateUrl: './blog.html',
   styleUrl: './blog.scss'
 })

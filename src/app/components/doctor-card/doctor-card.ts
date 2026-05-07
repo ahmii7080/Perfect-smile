@@ -21,9 +21,9 @@ import { Doctor } from '../../models/doctor.model';
         <p class="doc-card__qual">{{ doctor.qualifications }}</p>
         <p class="doc-card__bio">{{ doctor.shortBio }}</p>
         <div class="doc-card__social">
-          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="https://www.facebook.com/share/1E8Z7uagMK/" aria-label="Facebook" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/perfect_smile_dental_.clinic?igsh=b2swaXZyemdveGRr" aria-label="Instagram" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://wa.me/923247734135" aria-label="WhatsApp" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i></a>
         </div>
       </div>
     </article>

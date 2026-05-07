@@ -235,7 +235,39 @@ textarea.form-control { resize: vertical; min-height: 110px; }
   100% { transform: scale(1.7); opacity: 0;    }
 }
 
-.route-fade { animation: fadeIn 0.45s ease both; }
+/* Route transition — opacity only (avoid transform: it breaks position:fixed
+   for descendants like modals/overlays). */
+.route-fade { animation: routeFadeIn 0.45s ease both; }
+@keyframes routeFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* AOS disabled-state safety net: when AOS is disabled (mobile / reduced-motion),
+   it adds .aos-disabled to <body> but doesn't reset the [data-aos] opacity:0
+   rule. Force all AOS-tagged elements to be fully visible in that case. */
+body.aos-disabled [data-aos] {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+/* Fallback: ensure mobile-sized viewports never hide content even if AOS
+   hasn't initialized yet (slow JS, hydration, or runtime errors). */
+@media (max-width: 900px) {
+  [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Generic fade keyframe used by toasts/popups */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: translateY(0);   }
