@@ -1,57 +1,111 @@
 <section class="page-header">
   <div class="container-x">
-    <span class="eyebrow">Our Doctors</span>
-    <h1>Meet the specialists behind your <span class="accent-italic-light italic">smile</span></h1>
-    <p>Internationally trained dentists and surgeons, each a leader in their craft and committed to your care.</p>
+    <span class="eyebrow">Meet your dentist</span>
+    <h1>One doctor. Three <span class="accent-italic-light italic">specialties.</span></h1>
+    <p>Our clinic is led by a multi-disciplinary specialist holding diplomas in Crown &amp; Bridge, Orthodontics, and Implantology — so most patients can complete their full treatment plan in one place.</p>
   </div>
 </section>
 
-<section class="section">
-  <div class="container-x">
-    <div class="docs-grid">
-      <div *ngFor="let d of doctors(); let i = index" data-aos="fade-up" [attr.data-aos-delay]="(i % 2) * 80">
-        <div class="docs-clickable" (click)="open(d)">
-          <app-doctor-card [doctor]="d"></app-doctor-card>
-          <button class="docs-view">View Profile <i class="fa-solid fa-arrow-right"></i></button>
+<ng-container *ngIf="doctors()[0] as d">
+
+  <!-- ===================== Doctor profile ===================== -->
+  <section class="section">
+    <div class="container-x">
+      <div class="dp-grid">
+        <!-- Portrait -->
+        <div class="dp-photo" data-aos="fade-right"
+             [style.background-color]="d.color"
+             [style.background-image]="d.image ? 'url(' + d.image + ')' : null">
+          <div class="dp-photo__badge">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>Multi-disciplinary specialist</span>
+          </div>
+        </div>
+
+        <!-- Bio -->
+        <div class="dp-info" data-aos="fade-left">
+          <span class="eyebrow">{{ d.specialization }}</span>
+          <h2>{{ d.name }}</h2>
+          <p class="dp-info__quals">{{ d.qualifications }}</p>
+          <p class="dp-info__bio">{{ d.fullBio }}</p>
+
+          <div class="dp-info__cta">
+            <a routerLink="/appointment" class="btn btn-primary btn--shine">
+              <i class="fa-regular fa-calendar-check"></i> Book consultation
+            </a>
+            <a href="https://wa.me/923247734135?text=Hi!%20I%27d%20like%20to%20book%20a%20consultation%20with%20Dr.%20Faizan." target="_blank" rel="noopener" class="btn btn-outline">
+              <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+            </a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Doctor profile modal -->
-<div class="dlg-overlay" *ngIf="selected()" (click)="close()">
-  <div class="dlg" (click)="$event.stopPropagation()" *ngIf="selected() as d">
-    <button class="dlg__close" (click)="close()" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-    <div class="dlg__head" [style.background]="'linear-gradient(135deg,' + d.color + ', #0C4A6E)'">
-      <div class="dlg__avatar"
-           [class.has-image]="!!d.image"
-           [style.background-image]="d.image ? 'url(' + d.image + ')' : null">
-        <span *ngIf="!d.image">{{ d.name.split(' ').filter(p => !p.startsWith('Dr')).slice(0,2).map(p => p[0]).join('') }}</span>
+  <!-- ===================== Education ===================== -->
+  <section class="section section-cream">
+    <div class="container-x">
+      <div class="dp-cols">
+        <div data-aos="fade-up">
+          <span class="eyebrow">Education &amp; training</span>
+          <h2>Qualified across <span class="accent-italic">three</span> specialties</h2>
+          <ul class="dp-list">
+            <li *ngFor="let e of d.education">
+              <i class="fa-solid fa-graduation-cap"></i>
+              <span>{{ e }}</span>
+            </li>
+          </ul>
+        </div>
+
+        <div data-aos="fade-up" data-aos-delay="120">
+          <span class="eyebrow">Areas of expertise</span>
+          <h2>What <span class="accent-italic">Dr. Faizan</span> treats</h2>
+          <div class="dp-chips">
+            <span class="dp-chip" *ngFor="let x of d.expertise">
+              <i class="fa-solid fa-check"></i> {{ x }}
+            </span>
+          </div>
+        </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ===================== Approach / philosophy ===================== -->
+  <section class="section">
+    <div class="container-x">
+      <header class="section-head" data-aos="fade-up">
+        <span class="eyebrow center">Treatment philosophy</span>
+        <h2>Three things every patient gets</h2>
+      </header>
+      <div class="dp-pillars">
+        <div class="dp-pillar lift" data-aos="fade-up">
+          <div class="dp-pillar__icon"><i class="fa-solid fa-clipboard-check"></i></div>
+          <h3>Honest treatment plans</h3>
+          <p>Every option is explained — including the lower-cost path. No upselling, no pressure to commit on the spot.</p>
+        </div>
+        <div class="dp-pillar lift" data-aos="fade-up" data-aos-delay="100">
+          <div class="dp-pillar__icon"><i class="fa-solid fa-shield-halved"></i></div>
+          <h3>Strict sterilization</h3>
+          <p>Autoclave-sterilised instruments, single-use disposables, and disinfected operatories between every patient.</p>
+        </div>
+        <div class="dp-pillar lift" data-aos="fade-up" data-aos-delay="200">
+          <div class="dp-pillar__icon"><i class="fa-solid fa-heart"></i></div>
+          <h3>Gentle, unhurried care</h3>
+          <p>We block enough time for every appointment so nothing feels rushed. Anxious patients are always welcome.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CTA ===================== -->
+  <section class="section section-deep">
+    <div class="container-x cta-row" data-aos="zoom-in">
       <div>
-        <span class="dlg__spec">{{ d.specialization }}</span>
-        <h2>{{ d.name }}</h2>
-        <p>{{ d.qualifications }}</p>
+        <h2>Ready to <span class="accent-italic-light italic">book?</span></h2>
+        <p>Free 30-minute consultation. We'll review your goals, take any x-rays needed, and design your treatment plan together.</p>
       </div>
+      <a routerLink="/appointment" class="btn btn-gold">Book Consultation <i class="fa-solid fa-arrow-right"></i></a>
     </div>
-    <div class="dlg__body">
-      <h3>About</h3>
-      <p>{{ d.fullBio }}</p>
+  </section>
 
-      <h3>Education &amp; Training</h3>
-      <ul class="dlg__list">
-        <li *ngFor="let e of d.education"><i class="fa-solid fa-graduation-cap"></i> {{ e }}</li>
-      </ul>
-
-      <h3>Areas of Expertise</h3>
-      <div class="dlg__chips">
-        <span class="dlg__chip" *ngFor="let x of d.expertise">{{ x }}</span>
-      </div>
-
-      <a routerLink="/appointment" class="btn btn-primary dlg__cta">
-        Book with {{ d.name }} <i class="fa-solid fa-arrow-right"></i>
-      </a>
-    </div>
-  </div>
-</div>
+</ng-container>

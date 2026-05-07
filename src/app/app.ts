@@ -30,10 +30,16 @@ export class App implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     AOS.init({
-      duration: 700,
+      duration: 600,
       easing: 'ease-out-cubic',
-      offset: 60,
-      once: true
+      offset: 30,            // fire animations sooner
+      once: true,
+      // Skip animations on phones/tablets and for users who prefer reduced motion —
+      // avoids the "blank space" mobile UX while elements wait to scroll into view.
+      disable: () =>
+        window.matchMedia('(max-width: 900px)').matches ||
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+      startEvent: 'DOMContentLoaded'
     });
   }
 }

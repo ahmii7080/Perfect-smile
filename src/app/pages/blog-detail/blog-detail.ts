@@ -4,11 +4,12 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BlogService } from '../../services/blog.service';
 import { DataService } from '../../services/data.service';
 import { BlogPost } from '../../models/appointment.model';
+import { BlogIllustrationComponent } from '../../components/blog-illustration/blog-illustration';
 
 @Component({
   selector: 'app-blog-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, BlogIllustrationComponent],
   templateUrl: './blog-detail.html',
   styleUrl: './blog-detail.scss'
 })

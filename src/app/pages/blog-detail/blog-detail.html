@@ -1,7 +1,7 @@
 <ng-container *ngIf="post() as p; else missing">
-  <section class="bd-hero"
-           [style.background-color]="p.color"
-           [style.background-image]="p.image ? 'linear-gradient(180deg, rgba(15,23,42,0.55), rgba(15,23,42,0.85)), url(' + p.image + ')' : null">
+  <section class="bd-hero" [style.background-color]="p.color">
+    <app-blog-illustration class="bd-hero__bg" [category]="p.category" [color]="p.color"></app-blog-illustration>
+    <span class="bd-hero__shade"></span>
     <div class="container-x">
       <span class="eyebrow on-dark">{{ p.category }}</span>
       <h1>{{ p.title }}</h1>
@@ -34,20 +34,20 @@
         </div>
 
         <div class="bd-author">
-          <div class="bd-author__avatar"><i class="fa-solid fa-user-doctor"></i></div>
+          <div class="bd-author__avatar"
+               [style.background-image]="'url(assets/images/team/dr-faizan-sheikh.png)'"></div>
           <div>
             <strong>{{ p.author }}</strong>
-            <span>Author at The Perfect Smile</span>
-            <p>Our doctors regularly publish honest, easy-to-read articles to help patients make informed decisions about their care.</p>
+            <span>Lead Dentist · Author at The Perfect Smile</span>
+            <p>Dr. Faizan Sheikh — BDS, ex-house surgeon at Sharif Hospital Lahore — holds diplomas in Crown &amp; Bridge, Orthodontics and Implantology, and writes honest, practical articles to help patients make informed decisions about their care.</p>
           </div>
         </div>
 
         <div class="bd-share">
           <span>Share:</span>
-          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-          <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="https://www.facebook.com/share/1E8Z7uagMK/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/perfect_smile_dental_.clinic?igsh=b2swaXZyemdveGRr" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://wa.me/923247734135" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
         </div>
       </article>
 
@@ -69,9 +69,8 @@
       </header>
       <div class="rel-grid">
         <a *ngFor="let r of related()" [routerLink]="['/blog', r.slug]" class="rel-card lift">
-          <div class="rel-card__img"
-               [style.background-color]="r.color"
-               [style.background-image]="r.image ? 'url(' + r.image + ')' : null">
+          <div class="rel-card__img" [style.background-color]="r.color">
+            <app-blog-illustration [category]="r.category" [color]="r.color"></app-blog-illustration>
             <span>{{ r.category }}</span>
           </div>
           <div class="rel-card__body">

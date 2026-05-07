@@ -1,101 +1,159 @@
-.docs-grid {
-  display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;
-}
-@media (max-width: 800px) { .docs-grid { grid-template-columns: 1fr; } }
+/* =============================================================
+   /doctors page — single-doctor full profile
+============================================================= */
 
-.docs-clickable {
-  cursor: pointer; position: relative;
-  height: 100%;
+/* ====== Profile (portrait + bio) ====== */
+.dp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 2.5rem;
+  align-items: stretch;
 }
-.docs-view {
-  position: absolute; bottom: 1.25rem; right: 1.25rem;
-  background: var(--color-primary); color: #fff;
-  border: none; border-radius: 999px;
-  padding: 0.55rem 1.05rem; font-family: inherit;
-  font-size: 12.5px; font-weight: 600; cursor: pointer;
-  display: inline-flex; align-items: center; gap: 0.4rem;
-  opacity: 0; transform: translateY(6px);
-  transition: opacity 0.2s ease, transform 0.2s ease, gap 0.2s ease;
-}
-.docs-clickable:hover .docs-view { opacity: 1; transform: translateY(0); }
-.docs-view:hover { gap: 0.6rem; }
+@media (max-width: 900px) { .dp-grid { grid-template-columns: 1fr; } }
 
-/* Modal */
-.dlg-overlay {
-  position: fixed; inset: 0;
-  background: rgba(10, 26, 42, 0.55);
-  backdrop-filter: blur(4px);
-  z-index: 90;
-  display: flex; align-items: center; justify-content: center;
-  padding: 2rem 1rem;
-  animation: fadeIn 0.2s ease both;
-  overflow-y: auto;
-}
-.dlg {
-  background: #fff; border-radius: 22px; overflow: hidden;
-  width: 100%; max-width: 720px;
+.dp-photo {
+  border-radius: 28px;
+  min-height: 520px;
   position: relative;
-  box-shadow: 0 30px 80px -30px rgba(0,0,0,0.55);
-  animation: dlgIn 0.25s ease both;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0 30px 60px -28px rgba(15,23,42,0.4);
 }
-@keyframes dlgIn { from { opacity: 0; transform: translateY(16px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+.dp-photo::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(15,23,42,0) 50%, rgba(15,23,42,0.55) 100%);
+}
+.dp-photo__badge {
+  position: absolute; bottom: 1.5rem; left: 1.5rem;
+  background: rgba(255,255,255,0.95);
+  color: var(--color-primary-dark);
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  z-index: 1;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 16px 28px -14px rgba(0,0,0,0.3);
+}
+.dp-photo__badge i { color: var(--color-primary); }
 
-.dlg__close {
-  position: absolute; top: 0.85rem; right: 0.85rem;
-  width: 34px; height: 34px; border-radius: 50%;
-  background: rgba(255,255,255,0.85); border: none;
-  cursor: pointer; color: var(--color-ink); font-size: 14px; z-index: 2;
-  display: inline-flex; align-items: center; justify-content: center;
+.dp-info { display: flex; flex-direction: column; justify-content: center; }
+.dp-info h2 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2rem, 3vw, 2.6rem);
+  font-weight: 600;
+  margin: 0.5rem 0 0.5rem;
+  letter-spacing: -0.015em;
 }
-.dlg__close:hover { background: #fff; }
+.dp-info__quals {
+  display: inline-block;
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+  padding: 0.55rem 0.95rem;
+  border-radius: 12px;
+  font-size: 13px; font-weight: 600;
+  margin: 0 0 1.25rem;
+  align-self: flex-start;
+}
+.dp-info__bio {
+  font-size: 15.5px; line-height: 1.75;
+  color: var(--color-ink-soft);
+  margin-bottom: 1.5rem;
+}
+.dp-info__cta {
+  display: flex; gap: 0.75rem; flex-wrap: wrap;
+}
 
-.dlg__head {
-  padding: 2rem 2rem 2rem;
-  color: #fff;
-  display: flex; gap: 1.5rem; align-items: center;
+/* ====== Education + expertise (2 columns) ====== */
+.dp-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
 }
-.dlg__avatar {
-  width: 120px; height: 120px; border-radius: 50%;
-  background: rgba(255,255,255,0.18);
-  border: 3px solid rgba(255,255,255,0.5);
+@media (max-width: 900px) { .dp-cols { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+.dp-cols h2 { margin: 0.6rem 0 1.25rem; }
+
+.dp-list {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 0.5rem;
+}
+.dp-list li {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid rgba(15,122,176,0.08);
+  font-size: 14px;
+  color: var(--color-ink-soft);
+}
+.dp-list i {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
   display: inline-flex; align-items: center; justify-content: center;
-  font-family: 'Fraunces', serif; font-size: 36px; font-weight: 600;
+  font-size: 14px;
   flex-shrink: 0;
-  background-size: cover; background-position: center; background-repeat: no-repeat;
-  box-shadow: 0 16px 30px -10px rgba(0,0,0,0.35);
-}
-.dlg__avatar.has-image { background-color: transparent; }
-.dlg__head h2 { color: #fff; margin: 0.4rem 0 0.2rem; }
-.dlg__spec   {
-  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
-  color: rgba(255,255,255,0.85); font-weight: 600;
-}
-.dlg__head p { color: rgba(255,255,255,0.85); margin: 0; font-size: 13px; }
-
-.dlg__body { padding: 2rem; }
-.dlg__body h3 {
-  font-family: 'Fraunces', serif; font-size: 17px;
-  color: var(--color-primary); margin: 1.4rem 0 0.5rem;
-}
-.dlg__body h3:first-child { margin-top: 0; }
-.dlg__body p { font-size: 14px; line-height: 1.7; }
-
-.dlg__list { list-style: none; padding: 0; margin: 0; }
-.dlg__list li {
-  display: flex; align-items: flex-start; gap: 0.55rem;
-  font-size: 13.5px; padding: 0.35rem 0; color: var(--color-ink-soft);
-}
-.dlg__list i { color: var(--color-primary); margin-top: 4px; }
-
-.dlg__chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
-.dlg__chip {
-  background: var(--color-primary-soft); color: var(--color-primary-dark);
-  padding: 0.35rem 0.8rem; border-radius: 999px;
-  font-size: 12px; font-weight: 600;
 }
 
-.dlg__cta { margin-top: 1rem; }
-
-@media (max-width: 600px) {
-  .dlg__head { flex-direction: column; text-align: center; }
+.dp-chips { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+.dp-chip {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: #fff;
+  color: var(--color-ink-soft);
+  border: 1px solid rgba(15,122,176,0.18);
+  padding: 0.55rem 0.95rem;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
+.dp-chip:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+.dp-chip i { font-size: 10px; color: var(--color-accent); }
+.dp-chip:hover i { color: #fff; }
+
+/* ====== Three pillars ====== */
+.dp-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 800px) { .dp-pillars { grid-template-columns: 1fr; } }
+
+.dp-pillar {
+  background: #fff;
+  border-radius: 22px;
+  padding: 2rem;
+  border: 1px solid rgba(15,122,176,0.08);
+  box-shadow: var(--shadow-card);
+}
+.dp-pillar__icon {
+  width: 56px; height: 56px; border-radius: 16px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  margin-bottom: 1rem;
+  box-shadow: 0 14px 24px -10px rgba(14,165,233,0.5);
+}
+.dp-pillar h3 {
+  font-family: 'Fraunces', serif; font-size: 19px; font-weight: 500;
+  margin: 0 0 0.5rem;
+}
+.dp-pillar p { font-size: 13.5px; color: var(--color-text-muted); line-height: 1.65; margin: 0; }
+
+/* ====== CTA row ====== */
+.section-head { text-align: center; max-width: 720px; margin: 0 auto 3rem; }
+.cta-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 2rem; flex-wrap: wrap;
+}
+.cta-row h2 { color: #fff; margin: 0.5rem 0; }
+.cta-row p  { color: rgba(255,255,255,0.78); margin: 0; max-width: 540px; }

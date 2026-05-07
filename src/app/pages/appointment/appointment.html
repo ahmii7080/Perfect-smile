@@ -33,21 +33,24 @@
           <div class="form-error" *ngIf="invalid('email')">Enter a valid email address.</div>
         </div>
 
-        <div class="row-2">
-          <div>
-            <label class="form-label">Service <span class="req">*</span></label>
-            <select class="form-control" [class.is-invalid]="invalid('service')" formControlName="service">
-              <option value="">Select a service</option>
-              <option *ngFor="let s of services()" [value]="s.slug">{{ s.title }}</option>
-            </select>
-            <div class="form-error" *ngIf="invalid('service')">Please choose a service.</div>
-          </div>
-          <div>
-            <label class="form-label">Preferred Doctor</label>
-            <select class="form-control" formControlName="doctor">
-              <option value="any">Any available doctor</option>
-              <option *ngFor="let d of doctors()" [value]="d.slug">{{ d.name }} — {{ d.specialization }}</option>
-            </select>
+        <div>
+          <label class="form-label">Service <span class="req">*</span></label>
+          <select class="form-control" [class.is-invalid]="invalid('service')" formControlName="service">
+            <option value="">Select a service</option>
+            <option *ngFor="let s of services()" [value]="s.slug">{{ s.title }}</option>
+          </select>
+          <div class="form-error" *ngIf="invalid('service')">Please choose a service.</div>
+        </div>
+
+        <!-- Single-doctor info card (replaces doctor dropdown) -->
+        <div class="appt-doc" *ngIf="doctors()[0] as d">
+          <div class="appt-doc__avatar"
+               [style.background-color]="d.color"
+               [style.background-image]="d.image ? 'url(' + d.image + ')' : null"></div>
+          <div class="appt-doc__body">
+            <span class="appt-doc__label"><i class="fa-solid fa-user-doctor"></i> Your dentist</span>
+            <strong>{{ d.name }}</strong>
+            <span class="appt-doc__quals">{{ d.qualifications }}</span>
           </div>
         </div>
 

@@ -33,7 +33,7 @@ export class AppointmentPage implements OnInit {
     phone:    ['', [Validators.required, Validators.pattern(/^[+0-9\-\s()]{8,18}$/)]],
     email:    ['', [Validators.required, Validators.email]],
     service:  ['', Validators.required],
-    doctor:   ['any'],
+    doctor:   ['dr-faizan-sheikh'],
     date:     ['', Validators.required],
     timeSlot: ['', Validators.required],
     message:  ['']
@@ -41,7 +41,10 @@ export class AppointmentPage implements OnInit {
 
   ngOnInit() {
     this.data.getServices().subscribe(list => this.services.set(list));
-    this.data.getDoctors().subscribe(list => this.doctors.set(list));
+    this.data.getDoctors().subscribe(list => {
+      this.doctors.set(list);
+      if (list[0]) this.form.patchValue({ doctor: list[0].slug });
+    });
   }
 
   pickSlot(slot: string) { this.form.patchValue({ timeSlot: slot }); }
@@ -59,7 +62,7 @@ export class AppointmentPage implements OnInit {
     this.submitting.set(true);
     this.appts.submit(this.form.value).subscribe(res => {
       this.toast.set({ ok: true, msg: 'Appointment confirmed!', ref: res.reference });
-      this.form.reset({ doctor: 'any' });
+      this.form.reset({ doctor: this.doctors()[0]?.slug ?? '' });
       this.submitting.set(false);
       setTimeout(() => this.toast.set(null), 6000);
     });
@@ -77,9 +80,7 @@ export class AppointmentPage implements OnInit {
     const v = this.form.value;
 
     const serviceTitle = this.services().find(s => s.slug === v.service)?.title ?? v.service;
-    const doctorLabel  = v.doctor === 'any'
-      ? 'Any available doctor'
-      : (this.doctors().find(d => d.slug === v.doctor)?.name ?? v.doctor);
+    const doctorLabel  = this.doctors().find(d => d.slug === v.doctor)?.name ?? 'Dr. Faizan Sheikh';
 
     const lines = [
       '*Appointment Request — The Perfect Smile*',

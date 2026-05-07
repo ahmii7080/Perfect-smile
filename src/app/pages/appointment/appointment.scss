@@ -19,6 +19,31 @@
 .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 @media (max-width: 600px) { .row-2 { grid-template-columns: 1fr; } }
 
+/* Single-doctor info card replacing the dropdown */
+.appt-doc {
+  display: flex; align-items: center; gap: 0.85rem;
+  padding: 0.85rem 1rem;
+  background: var(--color-primary-soft);
+  border: 1px solid rgba(14,165,233,0.18);
+  border-radius: 14px;
+}
+.appt-doc__avatar {
+  width: 50px; height: 50px; border-radius: 50%;
+  flex-shrink: 0;
+  background-size: cover; background-position: center;
+  background-repeat: no-repeat;
+  border: 2px solid #fff;
+  box-shadow: 0 6px 14px -6px rgba(15,23,42,0.25);
+}
+.appt-doc__body { display: flex; flex-direction: column; gap: 1px; }
+.appt-doc__label {
+  font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--color-primary); font-weight: 700;
+  display: inline-flex; align-items: center; gap: 0.4rem;
+}
+.appt-doc__body strong { font-family: 'Fraunces', serif; font-size: 16px; color: var(--color-ink); }
+.appt-doc__quals { font-size: 12px; color: var(--color-text-muted); }
+
 .slots {
   display: flex; flex-wrap: wrap; gap: 0.55rem;
   margin-top: 0.25rem;

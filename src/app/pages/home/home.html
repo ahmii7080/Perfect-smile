@@ -10,10 +10,6 @@
 
   <div class="container-x hero__row">
     <div class="hero__copy">
-      <span class="live-pill" data-aos="fade-up">
-        <span class="dot"></span> Now booking — same week appointments
-      </span>
-
       <h1 class="h-mega hero__title" data-aos="fade-up" data-aos-delay="80">
         Crafting<br>
         <span class="italic-coral scribble">perfect</span> smiles<br>
@@ -21,8 +17,9 @@
       </h1>
 
       <p class="hero__lede" data-aos="fade-up" data-aos-delay="160">
-        Faisalabad's premier dental &amp; implant centre — where UK &amp; US trained
-        specialists, world-class technology, and gentle, honest care meet under one roof.
+        Faisalabad's modern dental &amp; implant clinic — multi-disciplinary specialist care
+        across crown &amp; bridge, orthodontics, and implantology, delivered with gentle,
+        honest treatment for every patient.
       </p>
 
       <div class="hero__cta" data-aos="fade-up" data-aos-delay="240">
@@ -51,7 +48,7 @@
             <i class="fa-solid fa-star"></i>
             <strong>4.9</strong>
           </div>
-          <span class="trust-row__sub">trusted by <b>10,000+ patients</b> · 2,400+ Google reviews</span>
+          <span class="trust-row__sub">trusted by <b>10,000+ patients</b> · 10+ years in Faisalabad</span>
         </div>
       </div>
     </div>
@@ -74,15 +71,20 @@
       </div>
 
       <!-- Floating cards -->
-      <div class="float-card float-card--review" data-aos="fade-up" data-aos-delay="500">
+      <div class="float-card float-card--review"
+           [class.is-fading]="reviewFading()"
+           data-aos="fade-up" data-aos-delay="500"
+           *ngIf="currentReview() as r">
         <div class="float-card__head">
-          <span class="rev-avatar">M</span>
+          <span class="rev-avatar">{{ r.name.charAt(0) }}</span>
           <div>
-            <strong>Mariam K.</strong>
-            <span class="float-card__stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></span>
+            <strong>{{ r.name }}</strong>
+            <span class="float-card__stars">
+              <i class="fa-solid fa-star" *ngFor="let _ of [].constructor(r.rating)"></i>
+            </span>
           </div>
         </div>
-        <p>"They treat you like family. Honestly the best clinic in the city."</p>
+        <p>"{{ r.quote }}"</p>
       </div>
 
       <div class="float-card float-card--metric" data-aos="zoom-in" data-aos-delay="600">
@@ -96,7 +98,7 @@
       <div class="float-card float-card--badge" data-aos="zoom-in" data-aos-delay="700">
         <span class="badge-ring"></span>
         <i class="fa-solid fa-graduation-cap"></i>
-        <strong>UK Trained</strong>
+        <strong>3 Specialty Diplomas</strong>
       </div>
 
       <!-- Decorative sparkle -->
@@ -118,14 +120,14 @@
 <div class="marquee">
   <div class="marquee__track">
     <span class="marquee__item">Trusted by 10,000+ patients <span class="marquee__star">✦</span></span>
-    <span class="marquee__item">UK &amp; US trained doctors <span class="marquee__star">✦</span></span>
+    <span class="marquee__item">Crown &amp; Bridge · Orthodontics · Implantology <span class="marquee__star">✦</span></span>
     <span class="marquee__item">4.9★ on Google <span class="marquee__star">✦</span></span>
     <span class="marquee__item">2,000+ implants placed <span class="marquee__star">✦</span></span>
     <span class="marquee__item">24/7 emergency care <span class="marquee__star">✦</span></span>
     <span class="marquee__item">15+ years of excellence <span class="marquee__star">✦</span></span>
     <!-- duplicated for seamless loop -->
     <span class="marquee__item">Trusted by 10,000+ patients <span class="marquee__star">✦</span></span>
-    <span class="marquee__item">UK &amp; US trained doctors <span class="marquee__star">✦</span></span>
+    <span class="marquee__item">Crown &amp; Bridge · Orthodontics · Implantology <span class="marquee__star">✦</span></span>
     <span class="marquee__item">4.9★ on Google <span class="marquee__star">✦</span></span>
     <span class="marquee__item">2,000+ implants placed <span class="marquee__star">✦</span></span>
     <span class="marquee__item">24/7 emergency care <span class="marquee__star">✦</span></span>
@@ -141,7 +143,7 @@
     <header class="section-head" data-aos="fade-up">
       <span class="eyebrow center">What we do</span>
       <h2 class="h-section">A complete suite of <span class="accent-italic">dental excellence</span></h2>
-      <p>From routine check-ups to full smile reconstruction — every treatment delivered to international standards.</p>
+      <p>From routine check-ups and scaling to cosmetic, orthodontic and implant treatment — all under one roof.</p>
     </header>
 
     <div class="bento">
@@ -208,8 +210,8 @@
       <div class="about-img about-img--main"></div>
       <div class="about-img about-img--gold"></div>
       <div class="about-stat">
-        <strong>98%</strong>
-        <span>Patient satisfaction across 2,400+ reviews</span>
+        <strong>10+</strong>
+        <span>Years caring for Faisalabad families</span>
       </div>
       <div class="about-tag">
         <i class="fa-solid fa-stethoscope"></i>
@@ -220,12 +222,13 @@
       <span class="eyebrow on-warm">Our story</span>
       <h2 class="h-section">A clinic built on <span class="accent-italic">trust, craft</span> &amp; care</h2>
       <p class="lead">
-        Born from a single chair in Faisalabad with a single mission: deliver world-class
-        dentistry — the kind you'd find in London or New York — with the warmth of a family clinic.
+        A modern dental &amp; implant clinic in Faisalabad, founded on a simple principle:
+        every patient deserves an unhurried consult, a clear treatment plan, and gentle, honest care.
       </p>
       <p>
-        Today our team of 25+ specialists treats patients from across Pakistan, the Gulf, and
-        Europe — drawn by clinical outcomes that match international benchmarks at a fraction of the cost.
+        Led by Dr. Faizan Sheikh — a multi-disciplinary specialist holding diplomas in
+        Crown &amp; Bridge, Orthodontics, and Implantology — most patients can have their
+        full treatment plan delivered under one roof.
       </p>
       <a routerLink="/about" class="btn btn-dark btn--shine">Read our story <i class="fa-solid fa-arrow-right"></i></a>
     </div>
@@ -244,7 +247,7 @@
       <p>Take a 90-second tour of our facility, technology, and team.</p>
     </header>
 
-    <div class="video-frame" data-aos="zoom-in">
+    <div #videoFrame class="video-frame" data-aos="zoom-in">
       <ng-container *ngIf="!videoPlaying(); else videoEmbed">
         <button class="video-play" (click)="playVideo()" aria-label="Play clinic video">
           <span class="video-play__ring"></span>
@@ -258,7 +261,7 @@
       </ng-container>
       <ng-template #videoEmbed>
         <iframe
-          src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0"
+          src="https://www.youtube.com/embed/cL2gNuPoNI0?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1"
           title="The Perfect Smile — Clinic Tour"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -282,90 +285,79 @@
   <div class="container-x">
     <header class="stats-bold__head" data-aos="fade-up">
       <span class="eyebrow on-dark center">By the numbers</span>
-      <h2 class="h-section">A decade and a half of <span class="accent-italic-light italic">measurable excellence</span></h2>
+      <h2 class="h-section">A decade of <span class="accent-italic-light italic">trusted care</span> in Faisalabad</h2>
     </header>
 
-    <div class="stats-bold__row">
+    <div class="stats-bold__row stats-bold__row--4">
       <div data-aos="fade-up">
+        <app-stats-counter [target]="10" suffix="+"></app-stats-counter>
+        <span>Years of Experience</span>
+      </div>
+      <div data-aos="fade-up" data-aos-delay="80">
         <app-stats-counter [target]="10000" suffix="+"></app-stats-counter>
         <span>Happy Patients</span>
       </div>
-      <div data-aos="fade-up" data-aos-delay="80">
-        <app-stats-counter [target]="2000" suffix="+"></app-stats-counter>
-        <span>Implants Placed</span>
-      </div>
       <div data-aos="fade-up" data-aos-delay="160">
-        <app-stats-counter [target]="25" suffix="+"></app-stats-counter>
-        <span>Expert Doctors</span>
+        <app-stats-counter [target]="3" suffix=""></app-stats-counter>
+        <span>Specialty Diplomas</span>
       </div>
       <div data-aos="fade-up" data-aos-delay="240">
-        <app-stats-counter [target]="15" suffix="+"></app-stats-counter>
-        <span>Years Experience</span>
-      </div>
-      <div data-aos="fade-up" data-aos-delay="320">
-        <app-stats-counter [target]="50" suffix="+"></app-stats-counter>
-        <span>Treatments Offered</span>
+        <app-stats-counter [target]="12" suffix=""></app-stats-counter>
+        <span>Services Offered</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ════════════════════ DOCTORS — Magazine spread ════════════════════ -->
+<!-- ════════════════════ DOCTOR — Single specialist showcase ════════════════════ -->
 <section class="section section-paper has-deco">
   <span class="blob blob--coral" style="top:10%; right:-100px; width:340px; height:340px; opacity:0.18;"></span>
 
   <div class="container-x">
-    <header class="head-row">
-      <div data-aos="fade-up">
-        <span class="eyebrow on-warm">Our specialists</span>
-        <h2 class="h-section">Meet the doctors behind your <span class="accent-italic">smile</span></h2>
-      </div>
-      <a routerLink="/doctors" class="btn btn-dark btn--shine head-row__cta" data-aos="fade-up" data-aos-delay="120">
-        View all doctors <i class="fa-solid fa-arrow-right"></i>
-      </a>
+    <header class="section-head" data-aos="fade-up">
+      <span class="eyebrow center">Meet your dentist</span>
+      <h2 class="h-section">One doctor. Three <span class="accent-italic">specialties.</span> Every case under one roof.</h2>
+      <p>Trained across crown &amp; bridge, orthodontics, and implantology — so you don't have to be referred elsewhere for complex treatment.</p>
     </header>
 
-    <div class="docs-mag" *ngIf="doctors().length">
-      <!-- Featured -->
-      <a *ngIf="doctors()[0] as f" [routerLink]="['/doctors']" class="docs-mag__feature lift" data-aos="fade-up"
-         [style.background]="'linear-gradient(150deg,' + f.color + ' 0%, #0A3A55 100%)'">
-        <span class="chip chip--gold">Featured</span>
-        <div class="docs-mag__feature-body">
-          <span class="docs-mag__spec">{{ f.specialization }}</span>
-          <h3>{{ f.name }}</h3>
-          <p>{{ f.shortBio }}</p>
-          <div class="docs-mag__quals">{{ f.qualifications }}</div>
-          <span class="docs-mag__cta">View profile <i class="fa-solid fa-arrow-right"></i></span>
-        </div>
-        <div class="docs-mag__avatar"
-             [class.has-image]="!!f.image"
+    <ng-container *ngIf="doctors()[0] as f">
+      <article class="doc-show lift" data-aos="fade-up">
+        <div class="doc-show__photo"
+             [style.background-color]="f.color"
              [style.background-image]="f.image ? 'url(' + f.image + ')' : null">
-          <span *ngIf="!f.image">{{ f.name.split(' ').filter(p => !p.startsWith('Dr')).slice(0,2).map(p => p[0]).join('') }}</span>
+          <span class="doc-show__chip">
+            <i class="fa-solid fa-graduation-cap"></i> Multi-disciplinary specialist
+          </span>
         </div>
-        <svg class="hero__sparkle" viewBox="0 0 40 40" aria-hidden="true" style="top:1.5rem; right:1.5rem;">
-          <path d="M20 0 L23 17 L40 20 L23 23 L20 40 L17 23 L0 20 L17 17 Z" fill="rgba(255,255,255,0.4)"/>
-        </svg>
-      </a>
+        <div class="doc-show__body">
+          <span class="doc-show__spec">{{ f.specialization }}</span>
+          <h3>{{ f.name }}</h3>
+          <p class="doc-show__quals">{{ f.qualifications }}</p>
+          <p class="doc-show__bio">{{ f.shortBio }}</p>
 
-      <!-- Three side cards -->
-      <div class="docs-mag__list">
-        <ng-container *ngFor="let d of doctors().slice(1, 4); let i = index">
-          <a [routerLink]="['/doctors']" class="docs-mag__row lift" data-aos="fade-up" [attr.data-aos-delay]="i*100">
-            <div class="docs-mag__row-avatar"
-                 [class.has-image]="!!d.image"
-                 [style.background]="d.image ? 'none' : 'linear-gradient(135deg,' + d.color + ',#0C4A6E)'"
-                 [style.background-image]="d.image ? 'url(' + d.image + ')' : null">
-              <span *ngIf="!d.image">{{ d.name.split(' ').filter(p => !p.startsWith('Dr')).slice(0,2).map(p => p[0]).join('') }}</span>
-            </div>
-            <div class="docs-mag__row-body">
-              <span>{{ d.specialization }}</span>
-              <h4>{{ d.name }}</h4>
-              <p>{{ d.qualifications }}</p>
-            </div>
-            <i class="fa-solid fa-arrow-up-right docs-mag__row-arrow"></i>
-          </a>
-        </ng-container>
-      </div>
+          <ul class="doc-show__creds">
+            <li *ngFor="let e of f.education"><i class="fa-solid fa-circle-check"></i> {{ e }}</li>
+          </ul>
+
+          <div class="doc-show__cta">
+            <a routerLink="/doctors" class="btn btn-dark btn--shine">
+              Full profile <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a routerLink="/appointment" class="btn btn-primary btn--shine">
+              Book consultation <i class="fa-regular fa-calendar-check"></i>
+            </a>
+          </div>
+        </div>
+      </article>
+    </ng-container>
+
+    <!-- 3 specialty cards highlighting Dr. Faizan's diplomas -->
+    <div class="spec-row">
+      <article class="spec-card lift" *ngFor="let s of specialties; let i = index" data-aos="fade-up" [attr.data-aos-delay]="i*100">
+        <div class="spec-card__icon"><i class="fa-solid" [class]="s.icon"></i></div>
+        <h4>{{ s.title }}</h4>
+        <p>{{ s.desc }}</p>
+      </article>
     </div>
   </div>
 </section>
@@ -422,9 +414,8 @@
     <div class="grid-3">
       <a *ngFor="let b of blog(); let i = index" [routerLink]="['/blog', b.slug]" class="blog-card lift"
          data-aos="fade-up" [attr.data-aos-delay]="i*80">
-        <div class="blog-card__img"
-             [style.background-color]="b.color"
-             [style.background-image]="b.image ? 'url(' + b.image + ')' : null">
+        <div class="blog-card__img" [style.background-color]="b.color">
+          <app-blog-illustration [category]="b.category" [color]="b.color"></app-blog-illustration>
           <span class="blog-card__cat">{{ b.category }}</span>
         </div>
         <div class="blog-card__body">

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
@@ -9,6 +9,7 @@ import { BlogPost, Testimonial } from '../../models/appointment.model';
 
 import { TestimonialCardComponent } from '../../components/testimonial-card/testimonial-card';
 import { StatsCounterComponent } from '../../components/stats-counter/stats-counter';
+import { BlogIllustrationComponent } from '../../components/blog-illustration/blog-illustration';
 
 interface BentoTile {
   slug: string;
@@ -40,12 +41,24 @@ interface WhyRow {
   standalone: true,
   imports: [
     CommonModule, RouterLink,
-    TestimonialCardComponent, StatsCounterComponent
+    TestimonialCardComponent, StatsCounterComponent, BlogIllustrationComponent
   ],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('videoFrame') videoFrame?: ElementRef<HTMLElement>;
+  private videoObserver?: IntersectionObserver;
+  private reviewInterval?: number;
+
+  // Hero floating-review carousel state
+  reviewIndex = signal(0);
+  reviewFading = signal(false);
+  currentReview = computed(() => {
+    const list = this.testimonials();
+    if (!list.length) return null;
+    return list[this.reviewIndex() % list.length];
+  });
   private data = inject(DataService);
 
   services    = signal<ServiceItem[]>([]);
@@ -72,40 +85,40 @@ export class HomePage implements OnInit {
     { slug: 'pediatric-dentistry', title: 'Pediatric Care', desc: 'A fear-free clinic kids actually look forward to.',
       icon: 'fa-child-reaching', span: 'span-2-cols',
       bg: 'linear-gradient(135deg,#DCFCE7 0%, #7AD6C8 100%)', fg: '#0A3A55', chip: 'Family-friendly', chipClass: 'chip--mint' },
-    { slug: 'emergency-care', title: 'Emergency 24/7', desc: 'After-hours WhatsApp triage. We answer in minutes.',
-      icon: 'fa-truck-medical', span: '',
-      bg: '#0A3A55', fg: '#fff' }
+    { slug: 'advanced-general-dentistry', title: 'General Dentistry', desc: 'Routine check-ups, fillings, scaling and polishing — the foundations.',
+      icon: 'fa-stethoscope', span: '',
+      bg: '#0C4A6E', fg: '#fff' }
   ];
 
   whyRows: WhyRow[] = [
     {
       number: '01',
-      eyebrow: 'Trained where it matters',
-      title: 'Doctors trained in', italic: 'London, New York', rest: ' & beyond',
-      desc: 'Every specialist on our team carries a postgraduate qualification from the UK, US, or EU. We don\'t just offer treatment — we offer the same standard of care you\'d find in Harley Street.',
-      bullets: ['MSc Implant Dentistry — Manchester, UK', 'FCPS Operative — CPSP', 'MSc Endodontics — NYU, USA', 'Invisalign Diamond Provider'],
-      visualBg: 'linear-gradient(135deg,#0F7AB0,#0A3A55)',
+      eyebrow: 'One doctor, three specialties',
+      title: 'A multi-disciplinary', italic: 'specialist', rest: ' under one roof',
+      desc: 'Dr. Faizan Sheikh — BDS, ex-house surgeon at Sharif Hospital, Lahore — holds a diploma in Crown & Bridge, a Certificate in Orthodontics, and a Certificate in Implantology. That breadth means complex cases that usually need multiple referrals can be managed end-to-end here.',
+      bullets: ['BDS — Bachelor of Dental Surgery', 'Ex-House Surgeon — Sharif Hospital, Lahore', 'Diploma in Crown & Bridge', 'Certificate in Orthodontics', 'Certificate in Implantology'],
+      visualBg: 'linear-gradient(135deg,#0EA5E9,#0C4A6E)',
       emoji: '🎓',
       reverse: false
     },
     {
       number: '02',
-      eyebrow: 'Equipment that thinks',
-      title: 'A clinic powered by', italic: 'digital', rest: ' & precise',
-      desc: '3D CBCT scanners, iTero digital impressions, surgical microscopes, and CAD-CAM workflows. No goopy moulds. No guessing. Just predictable, beautifully precise outcomes.',
-      bullets: ['3D CBCT — guided implant surgery', 'iTero — digital, scan-only impressions', 'Microscope endodontics', 'CAD-CAM same-day crowns'],
-      visualBg: 'linear-gradient(135deg,#FAC775,#BA7517)',
-      emoji: '🔬',
+      eyebrow: 'Strict clinical hygiene',
+      title: 'Hospital-grade', italic: 'sterilization', rest: ' you can trust',
+      desc: 'Sterile protocols, autoclave-cleaned instruments, and single-use disposables on every visit. Infection control is not negotiable — it is a baseline.',
+      bullets: ['Autoclave-sterilised instruments', 'Single-use disposables', 'Strict barrier protocols', 'Disinfected operatories between patients'],
+      visualBg: 'linear-gradient(135deg,#14B8A6,#0F766E)',
+      emoji: '🛡️',
       reverse: true
     },
     {
       number: '03',
-      eyebrow: 'Sterile, transparent, kind',
-      title: 'Hospital-grade', italic: 'sterilization', rest: ' & honest pricing',
-      desc: 'Class B autoclaves. Single-use disposables. Surgical-room protocols. And every quote is written, itemised, and explained — never inflated.',
-      bullets: ['Class B autoclave sterilization', 'Single-use surgical kits', 'Detailed written quotes', '0% interest payment plans'],
-      visualBg: 'linear-gradient(135deg,#FF8A7A,#FF6B5C)',
-      emoji: '🛡️',
+      eyebrow: 'Honest, gentle, on time',
+      title: 'Care that feels', italic: 'personal', rest: ', priced clearly',
+      desc: 'Every treatment plan is written, itemised, and explained before any work begins. No upselling. No surprises. We respect your time and we respect your budget.',
+      bullets: ['Detailed written quotes', 'Comfortable payment plans', 'On-time appointments', 'No upselling, no pressure'],
+      visualBg: 'linear-gradient(135deg,#0284C7,#082F49)',
+      emoji: '💙',
       reverse: false
     }
   ];
@@ -121,12 +134,54 @@ export class HomePage implements OnInit {
     { label: 'Gum Lift',     bg: 'linear-gradient(135deg,#7AD6C8,#0F7AB0)', icon: 'fa-leaf' }
   ];
 
+  // The 3 specialty diplomas held by the lead doctor
+  specialties = [
+    { icon: 'fa-crown',     title: 'Crown & Bridge',  desc: 'Diploma-certified prosthodontic restorations — precise, lifelike and built to last.' },
+    { icon: 'fa-grip-lines', title: 'Orthodontics',    desc: 'Certificate orthodontist — discreet aligners and modern braces for adults and teens.' },
+    { icon: 'fa-tooth',     title: 'Implantology',     desc: 'Certificate implantologist — computer-guided placement, premium implant systems.' }
+  ];
+
   ngOnInit() {
     this.data.getServices().subscribe(list => this.services.set(list.slice(0, 6)));
-    this.data.getDoctors().subscribe(list => this.doctors.set(list.slice(0, 4)));
-    this.data.getTestimonials().subscribe(list => this.testimonials.set(list.slice(0, 3)));
+    this.data.getDoctors().subscribe(list => this.doctors.set(list));
+    this.data.getTestimonials().subscribe(list => this.testimonials.set(list));
     this.data.getBlog().subscribe(list => this.blog.set(list.slice(0, 3)));
+
+    // Cycle the floating review card every ~5s with a quick fade swap
+    this.reviewInterval = window.setInterval(() => {
+      if (!this.testimonials().length) return;
+      this.reviewFading.set(true);
+      window.setTimeout(() => {
+        this.reviewIndex.update(v => v + 1);
+        this.reviewFading.set(false);
+      }, 220);
+    }, 5000);
   }
 
   playVideo() { this.videoPlaying.set(true); }
+
+  /**
+   * Auto-start the clinic video when the section scrolls into view.
+   * Muted is required for autoplay in modern browsers — user can unmute manually.
+   */
+  ngAfterViewInit() {
+    if (!this.videoFrame || typeof IntersectionObserver === 'undefined') return;
+    this.videoObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting && !this.videoPlaying()) {
+            this.videoPlaying.set(true);
+            this.videoObserver?.disconnect();
+          }
+        }
+      },
+      { threshold: 0.4 }
+    );
+    this.videoObserver.observe(this.videoFrame.nativeElement);
+  }
+
+  ngOnDestroy() {
+    this.videoObserver?.disconnect();
+    if (this.reviewInterval) clearInterval(this.reviewInterval);
+  }
 }

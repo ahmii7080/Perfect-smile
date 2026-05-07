@@ -79,9 +79,10 @@
   position: fixed; inset: 0;
   background: rgba(10, 26, 42, 0.65);
   backdrop-filter: blur(6px);
-  z-index: 90;
+  z-index: 100;
   display: flex; align-items: center; justify-content: center;
-  padding: 2rem 1rem;
+  padding: 1.5rem 1rem;
+  overflow-y: auto;
   animation: fadeIn 0.2s ease both;
 }
 .lb {
@@ -89,8 +90,11 @@
   border-radius: 22px;
   overflow: hidden;
   width: 100%; max-width: 760px;
+  max-height: calc(100vh - 3rem);
   position: relative;
   box-shadow: 0 30px 80px -30px rgba(0,0,0,0.55);
+  display: flex;
+  flex-direction: column;
 }
 .lb__close {
   position: absolute; top: 0.85rem; right: 0.85rem;
