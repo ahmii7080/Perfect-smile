@@ -1,0 +1,120 @@
+<header class="adm-head">
+  <div>
+    <h1>{{ editingId() ? 'Edit Service' : 'Add Service' }}</h1>
+    <span class="adm-head__crumb">
+      <a routerLink="/admin/services">Services</a> › {{ editingId() ? 'Edit' : 'New' }}
+    </span>
+  </div>
+  <a routerLink="/admin/services" class="adm-btn adm-btn--ghost">
+    <i class="fa-solid fa-arrow-left"></i> Back to list
+  </a>
+</header>
+
+<div class="adm-toast adm-toast--error" *ngIf="error() as e">
+  <i class="fa-solid fa-circle-exclamation"></i> {{ e }}
+</div>
+
+<form class="adm-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+
+  <div>
+    <label class="form-label">Title *</label>
+    <input class="form-control"
+           [class.is-invalid]="invalid('title')"
+           formControlName="title"
+           (input)="onTitleChange($any($event.target).value)"
+           placeholder="Dental Implants">
+    <div class="form-error" *ngIf="invalid('title')">Title is required.</div>
+  </div>
+
+  <div class="adm-row-2">
+    <div>
+      <label class="form-label">Slug * <small style="color:var(--color-text-muted);">(URL path)</small></label>
+      <input class="form-control"
+             [class.is-invalid]="invalid('slug')"
+             formControlName="slug"
+             placeholder="dental-implants">
+      <div class="form-error" *ngIf="invalid('slug')">Lowercase letters, digits, dashes only.</div>
+    </div>
+    <div>
+      <label class="form-label">Sort order <small style="color:var(--color-text-muted);">(lower = shown first)</small></label>
+      <input class="form-control" type="number" formControlName="sortOrder" min="0">
+    </div>
+  </div>
+
+  <div>
+    <label class="form-label">Tagline *</label>
+    <input class="form-control"
+           [class.is-invalid]="invalid('tagline')"
+           formControlName="tagline"
+           placeholder="Permanent replacements for missing teeth">
+    <div class="form-error" *ngIf="invalid('tagline')">Tagline is required.</div>
+  </div>
+
+  <div class="adm-row-2">
+    <div>
+      <label class="form-label">Icon class <small style="color:var(--color-text-muted);">(Font Awesome 6)</small></label>
+      <input class="form-control" formControlName="icon" placeholder="fa-tooth" list="icon-suggestions">
+      <datalist id="icon-suggestions">
+        <option *ngFor="let i of iconSuggestions" [value]="i"></option>
+      </datalist>
+    </div>
+    <div>
+      <label class="form-label">Accent colour</label>
+      <select class="form-control" formControlName="color">
+        <option *ngFor="let c of colors" [value]="c">{{ c }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div>
+    <label class="form-label">Summary *</label>
+    <textarea class="form-control"
+              [class.is-invalid]="invalid('summary')"
+              formControlName="summary"
+              rows="2"
+              placeholder="One-paragraph summary shown in the services grid card."></textarea>
+    <div class="form-error" *ngIf="invalid('summary')">Summary is required (min 20 characters).</div>
+  </div>
+
+  <div>
+    <label class="form-label">Full description *</label>
+    <textarea class="form-control"
+              [class.is-invalid]="invalid('description')"
+              formControlName="description"
+              rows="4"
+              placeholder="Longer explanation shown on the service detail page."></textarea>
+    <div class="form-error" *ngIf="invalid('description')">Description is required.</div>
+  </div>
+
+  <div>
+    <label class="form-label">Key benefits <small style="color:var(--color-text-muted);">(one per line — appears as bullet list)</small></label>
+    <textarea class="form-control"
+              formControlName="benefitsRaw"
+              rows="4"
+              placeholder="Computer-guided 3D placement
+Premium Swiss & German implant systems
+Same-day temporary crowns where possible"></textarea>
+  </div>
+
+  <div>
+    <label class="form-label">Procedure steps <small style="color:var(--color-text-muted);">(one per line — numbered list)</small></label>
+    <textarea class="form-control"
+              formControlName="procedureRaw"
+              rows="4"
+              placeholder="Free consultation & 3D scan
+Digital treatment plan & cost estimate
+Implant placement under sterile protocol
+Healing period
+Final crown bonded"></textarea>
+  </div>
+
+  <div class="adm-form__actions">
+    <button type="submit" class="adm-btn" [disabled]="saving()">
+      <ng-container *ngIf="!saving(); else saveLoading">
+        <i class="fa-regular fa-floppy-disk"></i> {{ editingId() ? 'Save changes' : 'Add service' }}
+      </ng-container>
+      <ng-template #saveLoading><i class="fa-solid fa-spinner fa-spin"></i> Saving…</ng-template>
+    </button>
+    <a routerLink="/admin/services" class="adm-btn adm-btn--ghost">Cancel</a>
+  </div>
+</form>

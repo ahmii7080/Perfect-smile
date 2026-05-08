@@ -1,8 +1,8 @@
-<app-navbar></app-navbar>
+<app-navbar *ngIf="!isAdminRoute()"></app-navbar>
 
-<main class="route-fade" [attr.data-route]="routeKey">
+<main class="route-fade" [class.is-admin]="isAdminRoute()" [attr.data-route]="routeKey">
   <router-outlet></router-outlet>
 </main>
 
-<app-footer></app-footer>
-<app-whatsapp-popup></app-whatsapp-popup>
+<app-footer *ngIf="!isAdminRoute()"></app-footer>
+<app-whatsapp-popup *ngIf="!isAdminRoute()"></app-whatsapp-popup>

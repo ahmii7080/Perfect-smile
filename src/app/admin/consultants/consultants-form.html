@@ -1,0 +1,74 @@
+<header class="adm-head">
+  <div>
+    <h1>{{ editingId() ? 'Edit Consultant' : 'Add Consultant' }}</h1>
+    <span class="adm-head__crumb">
+      <a routerLink="/admin/consultants">Consultants</a> › {{ editingId() ? 'Edit' : 'New' }}
+    </span>
+  </div>
+  <a routerLink="/admin/consultants" class="adm-btn adm-btn--ghost">
+    <i class="fa-solid fa-arrow-left"></i> Back to list
+  </a>
+</header>
+
+<div class="adm-toast adm-toast--error" *ngIf="error() as e">
+  <i class="fa-solid fa-circle-exclamation"></i> {{ e }}
+</div>
+
+<form class="adm-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+  <div>
+    <label class="form-label">Full name *</label>
+    <input class="form-control"
+           [class.is-invalid]="invalid('name')"
+           formControlName="name"
+           (input)="onNameChange($any($event.target).value)"
+           placeholder="Dr. Sheroz Khan">
+    <div class="form-error" *ngIf="invalid('name')">Name is required.</div>
+  </div>
+
+  <div class="adm-row-2">
+    <div>
+      <label class="form-label">Qualifications *</label>
+      <input class="form-control"
+             [class.is-invalid]="invalid('qualifications')"
+             formControlName="qualifications"
+             placeholder="FCPS Orthodontics">
+      <div class="form-error" *ngIf="invalid('qualifications')">Qualifications are required.</div>
+    </div>
+    <div>
+      <label class="form-label">Specialty *</label>
+      <input class="form-control"
+             [class.is-invalid]="invalid('specialty')"
+             formControlName="specialty"
+             placeholder="Orthodontist">
+      <div class="form-error" *ngIf="invalid('specialty')">Specialty is required.</div>
+    </div>
+  </div>
+
+  <div class="adm-row-2">
+    <div>
+      <label class="form-label">Initials *</label>
+      <input class="form-control"
+             [class.is-invalid]="invalid('initials')"
+             formControlName="initials"
+             maxlength="3"
+             placeholder="SK">
+      <div class="form-error" *ngIf="invalid('initials')">2–3 letters only.</div>
+    </div>
+    <div>
+      <label class="form-label">Accent colour</label>
+      <select class="form-control" formControlName="color">
+        <option *ngFor="let c of colors" [value]="c">{{ c }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="adm-form__actions">
+    <button type="submit" class="adm-btn" [disabled]="saving()">
+      <ng-container *ngIf="!saving(); else saveLoading">
+        <i class="fa-regular fa-floppy-disk"></i> {{ editingId() ? 'Save changes' : 'Add consultant' }}
+      </ng-container>
+      <ng-template #saveLoading><i class="fa-solid fa-spinner fa-spin"></i> Saving…</ng-template>
+    </button>
+    <a routerLink="/admin/consultants" class="adm-btn adm-btn--ghost">Cancel</a>
+  </div>
+</form>

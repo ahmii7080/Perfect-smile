@@ -1,0 +1,88 @@
+<header class="adm-head">
+  <div>
+    <h1>Blog Posts</h1>
+    <span class="adm-head__crumb">Dashboard › Blog Posts</span>
+  </div>
+  <a routerLink="/admin/blog/new" class="adm-btn">
+    <i class="fa-solid fa-plus"></i> Create Post
+  </a>
+</header>
+
+<div class="adm-toast adm-toast--error" *ngIf="error() as e">
+  <i class="fa-solid fa-circle-exclamation"></i> {{ e }}
+</div>
+
+<div class="adm-toolbar">
+  <input type="text" placeholder="Search blog posts..."
+         [ngModel]="search()" (ngModelChange)="search.set($event)">
+</div>
+
+<div class="adm-table-wrap">
+  <table class="adm-table">
+    <thead>
+      <tr>
+        <th style="width:40px;">#</th>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Date</th>
+        <th>Read</th>
+        <th style="width:160px;">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Skeleton rows while data loads -->
+      <ng-container *ngIf="loading()">
+        <tr *ngFor="let _ of [1,2,3,4,5]">
+          <td><span class="adm-skl adm-skl--num"></span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:0.85rem;">
+              <span class="adm-skl adm-skl--thumb"></span>
+              <div class="adm-skl-stack">
+                <span class="adm-skl adm-skl--lg"></span>
+                <span class="adm-skl adm-skl--sm"></span>
+              </div>
+            </div>
+          </td>
+          <td><span class="adm-skl adm-skl--md"></span></td>
+          <td><span class="adm-skl adm-skl--sm"></span></td>
+          <td><span class="adm-skl adm-skl--xs"></span></td>
+          <td>
+            <div class="adm-skl--actions">
+              <span class="adm-skl-pill"></span>
+              <span class="adm-skl-pill"></span>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+
+      <!-- Real rows -->
+      <ng-container *ngIf="!loading()">
+        <tr *ngFor="let p of filtered(); let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:0.85rem;">
+              <span class="adm-thumb" [style.background-image]="p.image ? 'url(' + p.image + ')' : null"></span>
+              <div>
+                <div class="adm-table__title">{{ p.title }}</div>
+                <div class="adm-table__slug">/{{ p.slug }}</div>
+              </div>
+            </div>
+          </td>
+          <td>{{ p.category }}</td>
+          <td>{{ p.date }}</td>
+          <td>{{ p.readTime }}</td>
+          <td>
+            <div class="adm-actions">
+              <a [routerLink]="['/admin/blog', p.id, 'edit']"><i class="fa-regular fa-pen-to-square"></i> Edit</a>
+              <button (click)="remove(p.id, p.title)"><i class="fa-regular fa-trash-can"></i> Delete</button>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+
+  <div class="adm-empty" *ngIf="!loading() && !filtered().length">
+    No posts yet. <a routerLink="/admin/blog/new">Create your first post</a>.
+  </div>
+</div>

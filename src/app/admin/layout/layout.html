@@ -1,0 +1,62 @@
+<div class="admin-shell"
+     [class.is-collapsed]="!sidebarOpen()"
+     [class.is-mobile]="isMobile()"
+     [class.is-open]="sidebarOpen()">
+
+  <!-- ===== Mobile drawer backdrop ===== -->
+  <div class="admin-backdrop"
+       *ngIf="isMobile() && sidebarOpen()"
+       (click)="closeSidebar()"></div>
+
+  <!-- ===== Sidebar ===== -->
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar__brand">
+      <span class="admin-sidebar__logo"><i class="fa-solid fa-tooth"></i></span>
+      <span class="admin-sidebar__name">Admin</span>
+
+      <!-- Close button visible only on mobile drawer -->
+      <button class="admin-sidebar__close" (click)="closeSidebar()" aria-label="Close menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <nav class="admin-nav" aria-label="Admin navigation">
+      <ng-container *ngFor="let group of contentSections">
+        <span class="admin-nav__group">{{ group.title }}</span>
+        <a *ngFor="let item of group.items"
+           [routerLink]="item.route"
+           routerLinkActive="is-active"
+           class="admin-nav__item">
+          <i class="fa-solid" [class]="item.icon"></i>
+          <span>{{ item.label }}</span>
+        </a>
+      </ng-container>
+    </nav>
+
+    <div class="admin-sidebar__foot">
+      <a routerLink="/" class="admin-back">
+        <i class="fa-solid fa-arrow-left"></i> <span>Back to site</span>
+      </a>
+      <button class="admin-signout" (click)="signOut()">
+        <i class="fa-solid fa-right-from-bracket"></i> <span>Sign out</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ===== Main column ===== -->
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <button class="admin-burger" (click)="toggleSidebar()" aria-label="Toggle sidebar">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <span class="admin-topbar__user">
+        <i class="fa-solid fa-user-circle"></i>
+        <span class="admin-topbar__email">{{ email() || 'Admin' }}</span>
+      </span>
+    </header>
+
+    <main class="admin-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

@@ -2,7 +2,6 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DataService } from '../../services/data.service';
-import { AppointmentService } from '../../services/appointment.service';
 import { ServiceItem } from '../../models/service.model';
 import { Doctor } from '../../models/doctor.model';
 
@@ -14,17 +13,15 @@ import { Doctor } from '../../models/doctor.model';
   styleUrl: './appointment.scss'
 })
 export class AppointmentPage implements OnInit {
-  private fb     = inject(FormBuilder);
-  private data   = inject(DataService);
-  private appts  = inject(AppointmentService);
+  private fb   = inject(FormBuilder);
+  private data = inject(DataService);
 
   services = signal<ServiceItem[]>([]);
   doctors  = signal<Doctor[]>([]);
 
-  timeSlots = ['10:00 AM', '12:00 PM', '02:00 PM', '04:00 PM', '06:00 PM'];
-
-  toast = signal<{ ok: boolean; msg: string; ref?: string } | null>(null);
-  submitting = signal(false);
+  // Clinic hours: Mon–Sat 5 PM – 10 PM, Sunday closed.
+  // Slots stop at 9 PM so the last appointment finishes by closing.
+  timeSlots = ['05:00 PM', '06:00 PM', '07:00 PM', '08:00 PM', '09:00 PM'];
 
   today = new Date().toISOString().slice(0, 10);
 
@@ -54,25 +51,12 @@ export class AppointmentPage implements OnInit {
     return !!c && c.invalid && (c.dirty || c.touched);
   }
 
-  submit() {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
-    this.submitting.set(true);
-    this.appts.submit(this.form.value).subscribe(res => {
-      this.toast.set({ ok: true, msg: 'Appointment confirmed!', ref: res.reference });
-      this.form.reset({ doctor: this.doctors()[0]?.slug ?? '' });
-      this.submitting.set(false);
-      setTimeout(() => this.toast.set(null), 6000);
-    });
-  }
-
   /**
-   * Open WhatsApp on the patient's phone with all form details
-   * pre-filled as a message addressed to the clinic reception number.
+   * Validate form, build a WhatsApp message with all booking details,
+   * and open WhatsApp on the patient's phone addressed to clinic reception.
+   * This is the only submission path — there is no email/server flow.
    */
-  confirmWhatsApp() {
+  bookViaWhatsApp() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;

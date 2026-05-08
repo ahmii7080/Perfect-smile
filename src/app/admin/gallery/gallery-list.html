@@ -1,0 +1,65 @@
+<header class="adm-head">
+  <div>
+    <h1>Gallery Cases</h1>
+    <span class="adm-head__crumb">Dashboard › Gallery</span>
+  </div>
+  <a routerLink="/admin/gallery/new" class="adm-btn">
+    <i class="fa-solid fa-plus"></i> Add Case
+  </a>
+</header>
+
+<div class="adm-toast adm-toast--error" *ngIf="error() as e">
+  <i class="fa-solid fa-circle-exclamation"></i> {{ e }}
+</div>
+
+<div class="adm-table-wrap">
+  <table class="adm-table">
+    <thead>
+      <tr>
+        <th style="width:40px;">#</th>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Treatment</th>
+        <th>Description</th>
+        <th style="width:160px;">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="loading()">
+        <tr *ngFor="let _ of [1,2,3,4]">
+          <td><span class="adm-skl adm-skl--num"></span></td>
+          <td><span class="adm-skl adm-skl--md"></span></td>
+          <td><span class="adm-skl adm-skl--sm"></span></td>
+          <td><span class="adm-skl adm-skl--xs"></span></td>
+          <td><span class="adm-skl adm-skl--lg"></span></td>
+          <td>
+            <div class="adm-skl--actions">
+              <span class="adm-skl-pill"></span>
+              <span class="adm-skl-pill"></span>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+
+      <ng-container *ngIf="!loading()">
+        <tr *ngFor="let c of cases(); let i = index">
+          <td>{{ i + 1 }}</td>
+          <td class="adm-table__title">{{ c.title }}</td>
+          <td>{{ c.category }}</td>
+          <td><code style="font-size:12px;">{{ c.treatment }}</code></td>
+          <td style="max-width:380px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ c.description }}</td>
+          <td>
+            <div class="adm-actions">
+              <a [routerLink]="['/admin/gallery', c.id, 'edit']"><i class="fa-regular fa-pen-to-square"></i> Edit</a>
+              <button (click)="remove(c.id, c.title)"><i class="fa-regular fa-trash-can"></i> Delete</button>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+
+  <div class="adm-empty" *ngIf="!loading() && !cases().length">
+    No gallery cases yet. <a routerLink="/admin/gallery/new">Add the first one</a>.
+  </div>
+</div>

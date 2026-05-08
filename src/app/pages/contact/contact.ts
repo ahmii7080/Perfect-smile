@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -12,8 +12,6 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class ContactPage {
   private fb = inject(FormBuilder);
 
-  sent = signal(false);
-
   form: FormGroup = this.fb.group({
     name:    ['', [Validators.required, Validators.minLength(2)]],
     email:   ['', [Validators.required, Validators.email]],
@@ -26,10 +24,28 @@ export class ContactPage {
     return !!c && c.invalid && (c.dirty || c.touched);
   }
 
+  /**
+   * Validate form, build a WhatsApp message, and redirect to clinic
+   * reception number. Same UX pattern as the appointment page —
+   * patient taps "Send" in WhatsApp on their own device.
+   */
   submit() {
-    if (this.form.invalid) { this.form.markAllAsTouched(); return; }
-    this.sent.set(true);
-    this.form.reset();
-    setTimeout(() => this.sent.set(false), 6000);
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+    const v = this.form.value;
+    const lines = [
+      '*Contact — The Perfect Smile*',
+      '',
+      `*Name:* ${v.name}`,
+      `*Email:* ${v.email}`,
+      `*Subject:* ${v.subject}`,
+      '',
+      `*Message:*`,
+      v.message
+    ];
+    const text = encodeURIComponent(lines.join('\n'));
+    window.open(`https://wa.me/923247734135?text=${text}`, '_blank', 'noopener');
   }
 }
