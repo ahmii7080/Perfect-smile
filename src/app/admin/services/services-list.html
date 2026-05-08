@@ -1,0 +1,78 @@
+<header class="adm-head">
+  <div>
+    <h1>Services</h1>
+    <span class="adm-head__crumb">Dashboard › Services</span>
+  </div>
+  <a routerLink="/admin/services/new" class="adm-btn">
+    <i class="fa-solid fa-plus"></i> Add Service
+  </a>
+</header>
+
+<div class="adm-toast adm-toast--error" *ngIf="error() as e">
+  <i class="fa-solid fa-circle-exclamation"></i> {{ e }}
+</div>
+
+<div class="adm-table-wrap">
+  <table class="adm-table">
+    <thead>
+      <tr>
+        <th style="width:60px;">Order</th>
+        <th>Title</th>
+        <th>Slug</th>
+        <th>Icon</th>
+        <th>Colour</th>
+        <th style="width:160px;">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="loading()">
+        <tr *ngFor="let _ of [1,2,3,4,5]">
+          <td><span class="adm-skl adm-skl--num"></span></td>
+          <td>
+            <div class="adm-skl-stack">
+              <span class="adm-skl adm-skl--lg"></span>
+              <span class="adm-skl adm-skl--sm"></span>
+            </div>
+          </td>
+          <td><span class="adm-skl adm-skl--md"></span></td>
+          <td><span class="adm-skl adm-skl--xs"></span></td>
+          <td><span class="adm-skl adm-skl--sm"></span></td>
+          <td>
+            <div class="adm-skl--actions">
+              <span class="adm-skl-pill"></span>
+              <span class="adm-skl-pill"></span>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+
+      <ng-container *ngIf="!loading()">
+        <tr *ngFor="let s of services(); let i = index">
+          <td>{{ s.sortOrder }}</td>
+          <td>
+            <div class="adm-table__title">{{ s.title }}</div>
+            <div class="adm-table__slug">{{ s.tagline }}</div>
+          </td>
+          <td><code style="font-size:12px;">{{ s.slug }}</code></td>
+          <td><i class="fa-solid" [class]="s.icon" [style.color]="s.color"></i> <code style="font-size:11px;">{{ s.icon }}</code></td>
+          <td>
+            <span style="display:inline-flex;align-items:center;gap:0.4rem;">
+              <span style="display:inline-block;width:14px;height:14px;border-radius:50%;border:1px solid rgba(15,23,42,0.12);" [style.background]="s.color"></span>
+              <code style="font-size:11px;">{{ s.color }}</code>
+            </span>
+          </td>
+          <td>
+            <div class="adm-actions">
+              <a [routerLink]="['/admin/services', s.id, 'edit']"><i class="fa-regular fa-pen-to-square"></i> Edit</a>
+              <button (click)="remove(s.id, s.title)"><i class="fa-regular fa-trash-can"></i> Delete</button>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+
+  <div class="adm-empty" *ngIf="!loading() && !services().length">
+    No services yet. <a routerLink="/admin/services/new">Add the first one</a>.
+  </div>
+</div>

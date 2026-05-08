@@ -2,12 +2,42 @@
   <div class="container-x">
     <span class="eyebrow">Our Team</span>
     <h1>The people behind every <span class="accent-italic-light italic">perfect smile</span></h1>
-    <p>Behind every great clinical outcome is a team that quietly makes everything run beautifully — from sterilization to patient coordination.</p>
+    <p>From our visiting specialist consultants to the support staff that keeps everything running — meet the people who make your visit a great experience.</p>
   </div>
 </section>
 
+<!-- ============== Visiting Consultants ============== -->
 <section class="section">
   <div class="container-x">
+    <header class="section-head" data-aos="fade-up">
+      <span class="eyebrow center">Visiting Consultants</span>
+      <h2>Specialists who <span class="accent-italic">consult with us</span></h2>
+      <p>For specialised cases, we collaborate with experienced consultants who visit the clinic on scheduled days.</p>
+    </header>
+
+    <div class="consult-grid" *ngIf="consultants().length">
+      <article class="consult-card lift" *ngFor="let c of consultants(); let i = index" data-aos="fade-up" [attr.data-aos-delay]="i * 100">
+        <div class="consult-card__avatar" [style.background]="'linear-gradient(135deg,' + c.color + ', #0C4A6E)'">
+          {{ c.initials }}
+        </div>
+        <span class="consult-card__chip">
+          <i class="fa-solid fa-user-doctor"></i> Visiting Consultant
+        </span>
+        <h3>{{ c.name }}</h3>
+        <p class="consult-card__quals">{{ c.qualifications }}</p>
+        <span class="consult-card__spec">{{ c.specialty }}</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============== Support Team ============== -->
+<section class="section section-cream">
+  <div class="container-x">
+    <header class="section-head" data-aos="fade-up">
+      <span class="eyebrow center">Support Team</span>
+      <h2>The people behind every <span class="accent-italic">perfect smile</span></h2>
+    </header>
     <div class="team-grid">
       <article class="team-card lift" *ngFor="let m of team(); let i = index" data-aos="fade-up" [attr.data-aos-delay]="(i % 4) * 60">
         <div class="team-avatar"
@@ -28,7 +58,7 @@
   </div>
 </section>
 
-<section class="section section-cream">
+<section class="section">
   <div class="container-x" style="text-align:center;">
     <span class="eyebrow center">Join our team</span>
     <h2>Want to <span class="accent-italic">work with us?</span></h2>

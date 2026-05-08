@@ -47,6 +47,19 @@
 .case__half > span {
   position: relative; z-index: 2;
 }
+
+/* When a photo is uploaded, cover-fit the image and add a soft gradient
+   so the BEFORE/AFTER label stays readable on top. */
+.case__half.has-photo {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.case__half.has-photo::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(15,23,42,0) 50%, rgba(15,23,42,0.55) 100%);
+  pointer-events: none;
+}
 .case__half span {
   font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase;
   color: rgba(255,255,255,0.95); font-weight: 700;
@@ -109,6 +122,18 @@
   overflow: hidden;
 }
 .lb__half > span { position: relative; z-index: 2; }
+
+/* Photo variant — same logic as case__half */
+.lb__half.has-photo {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.lb__half.has-photo::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(15,23,42,0) 50%, rgba(15,23,42,0.6) 100%);
+  pointer-events: none;
+}
 .lb__half span {
   font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
   color: rgba(255,255,255,0.95); font-weight: 700;

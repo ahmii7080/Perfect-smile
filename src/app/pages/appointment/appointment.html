@@ -10,7 +10,7 @@
   <div class="container-x">
     <div class="appt-grid">
       <!-- Form -->
-      <form class="appt-form" [formGroup]="form" (ngSubmit)="submit()" data-aos="fade-right" novalidate>
+      <form class="appt-form" [formGroup]="form" (ngSubmit)="bookViaWhatsApp()" data-aos="fade-right" novalidate>
         <h2>Appointment details</h2>
         <p class="appt-sub">All fields marked <span class="req">*</span> are required.</p>
 
@@ -76,32 +76,14 @@
           <textarea class="form-control" formControlName="message" placeholder="Anything else we should know? (e.g. previous treatments, anxieties...)"></textarea>
         </div>
 
-        <div class="appt-actions">
-          <button type="submit" class="btn btn-primary appt-submit" [disabled]="submitting()">
-            <ng-container *ngIf="!submitting(); else loading">
-              <i class="fa-regular fa-calendar-check"></i> Confirm Appointment
-            </ng-container>
-            <ng-template #loading>
-              <i class="fa-solid fa-spinner fa-spin"></i> Sending...
-            </ng-template>
-          </button>
+        <button type="button" class="btn btn-wa appt-submit" (click)="bookViaWhatsApp()">
+          <i class="fa-brands fa-whatsapp"></i> Book via WhatsApp
+        </button>
 
-          <button type="button" class="btn btn-wa appt-submit" (click)="confirmWhatsApp()">
-            <i class="fa-brands fa-whatsapp"></i> Confirm via WhatsApp
-          </button>
-        </div>
         <p class="appt-or">
           <i class="fa-solid fa-circle-info"></i>
-          The WhatsApp option opens a chat with our reception with your details pre-filled — just tap send.
+          Tapping above opens WhatsApp with your booking details pre-filled — just press send. We'll confirm your slot within minutes.
         </p>
-
-        <div class="appt-toast" *ngIf="toast() as t" [class.is-ok]="t.ok">
-          <i class="fa-solid fa-circle-check"></i>
-          <div>
-            <strong>{{ t.msg }}</strong>
-            <span>Your reference: <b>{{ t.ref }}</b>. Our team will WhatsApp you to confirm.</span>
-          </div>
-        </div>
       </form>
 
       <!-- Info card -->
@@ -128,7 +110,7 @@
             <i class="fa-solid fa-clock"></i>
             <div>
               <strong>Working Hours</strong>
-              <span>Mon–Sat · 10am – 9pm<br>Sun · By appointment</span>
+              <span>Mon–Sat · 5pm – 10pm<br>Sunday · Closed</span>
             </div>
           </li>
         </ul>

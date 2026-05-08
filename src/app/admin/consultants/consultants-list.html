@@ -1,0 +1,65 @@
+<header class="adm-head">
+  <div>
+    <h1>Visiting Consultants</h1>
+    <span class="adm-head__crumb">Dashboard › Consultants</span>
+  </div>
+  <a routerLink="/admin/consultants/new" class="adm-btn">
+    <i class="fa-solid fa-plus"></i> Add Consultant
+  </a>
+</header>
+
+<div class="adm-toast adm-toast--error" *ngIf="error() as e">
+  <i class="fa-solid fa-circle-exclamation"></i> {{ e }}
+</div>
+
+<div class="adm-table-wrap">
+  <table class="adm-table">
+    <thead>
+      <tr>
+        <th style="width:40px;">#</th>
+        <th>Name</th>
+        <th>Qualifications</th>
+        <th>Specialty</th>
+        <th>Initials</th>
+        <th style="width:160px;">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="loading()">
+        <tr *ngFor="let _ of [1,2]">
+          <td><span class="adm-skl adm-skl--num"></span></td>
+          <td><span class="adm-skl adm-skl--md"></span></td>
+          <td><span class="adm-skl adm-skl--sm"></span></td>
+          <td><span class="adm-skl adm-skl--sm"></span></td>
+          <td><span class="adm-skl adm-skl--xs"></span></td>
+          <td>
+            <div class="adm-skl--actions">
+              <span class="adm-skl-pill"></span>
+              <span class="adm-skl-pill"></span>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+
+      <ng-container *ngIf="!loading()">
+        <tr *ngFor="let c of consultants(); let i = index">
+          <td>{{ i + 1 }}</td>
+          <td class="adm-table__title">{{ c.name }}</td>
+          <td>{{ c.qualifications }}</td>
+          <td>{{ c.specialty }}</td>
+          <td>{{ c.initials }}</td>
+          <td>
+            <div class="adm-actions">
+              <a [routerLink]="['/admin/consultants', c.id, 'edit']"><i class="fa-regular fa-pen-to-square"></i> Edit</a>
+              <button (click)="remove(c.id, c.name)"><i class="fa-regular fa-trash-can"></i> Delete</button>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+
+  <div class="adm-empty" *ngIf="!loading() && !consultants().length">
+    No consultants yet. <a routerLink="/admin/consultants/new">Add the first one</a>.
+  </div>
+</div>

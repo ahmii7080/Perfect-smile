@@ -1,3 +1,59 @@
+/* ===== Visiting consultants ===== */
+.section-head { text-align: center; max-width: 720px; margin: 0 auto 3rem; }
+
+.consult-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(280px, 380px));
+  gap: 1.5rem;
+  justify-content: center;
+}
+@media (max-width: 700px) { .consult-grid { grid-template-columns: 1fr; } }
+
+.consult-card {
+  background: #fff;
+  border-radius: 22px;
+  padding: 2.25rem 2rem;
+  border: 1px solid rgba(15,122,176,0.08);
+  box-shadow: var(--shadow-card);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.consult-card__avatar {
+  width: 110px; height: 110px; border-radius: 50%;
+  margin: 0 auto 1rem;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-family: 'Fraunces', serif;
+  font-size: 32px; font-weight: 600;
+  border: 3px solid #fff;
+  box-shadow: 0 14px 26px -10px rgba(15,23,42,0.32);
+}
+.consult-card__chip {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+  padding: 0.35rem 0.85rem; border-radius: 999px;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 0.85rem;
+}
+.consult-card__chip i { font-size: 11px; }
+.consult-card h3 {
+  font-family: 'Fraunces', serif; font-size: 22px; font-weight: 500;
+  margin: 0 0 0.4rem;
+  color: var(--color-ink);
+}
+.consult-card__quals {
+  font-size: 14px; font-weight: 600;
+  color: var(--color-primary-dark);
+  margin: 0 0 0.5rem;
+}
+.consult-card__spec {
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--color-text-muted); font-weight: 600;
+}
+
+/* ===== Support team grid ===== */
 .team-grid {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
   justify-content: center;

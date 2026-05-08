@@ -1,0 +1,71 @@
+<header class="adm-head">
+  <div>
+    <h1>Support Team</h1>
+    <span class="adm-head__crumb">Dashboard › Team</span>
+  </div>
+  <a routerLink="/admin/team/new" class="adm-btn">
+    <i class="fa-solid fa-plus"></i> Add Member
+  </a>
+</header>
+
+<div class="adm-toast adm-toast--error" *ngIf="error() as e">
+  <i class="fa-solid fa-circle-exclamation"></i> {{ e }}
+</div>
+
+<div class="adm-table-wrap">
+  <table class="adm-table">
+    <thead>
+      <tr>
+        <th style="width:40px;">#</th>
+        <th>Name</th>
+        <th>Role</th>
+        <th>Initials</th>
+        <th>Photo</th>
+        <th style="width:160px;">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Skeleton rows -->
+      <ng-container *ngIf="loading()">
+        <tr *ngFor="let _ of [1,2,3]">
+          <td><span class="adm-skl adm-skl--num"></span></td>
+          <td><span class="adm-skl adm-skl--md"></span></td>
+          <td><span class="adm-skl adm-skl--sm"></span></td>
+          <td><span class="adm-skl adm-skl--xs"></span></td>
+          <td><span class="adm-skl adm-skl--circle"></span></td>
+          <td>
+            <div class="adm-skl--actions">
+              <span class="adm-skl-pill"></span>
+              <span class="adm-skl-pill"></span>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+
+      <!-- Real rows -->
+      <ng-container *ngIf="!loading()">
+        <tr *ngFor="let m of members(); let i = index">
+          <td>{{ i + 1 }}</td>
+          <td class="adm-table__title">{{ m.name }}</td>
+          <td>{{ m.role }}</td>
+          <td>{{ m.initials }}</td>
+          <td>
+            <span class="adm-thumb" style="width:36px; height:36px; border-radius:50%;"
+                  [style.background-image]="m.image ? 'url(' + m.image + ')' : null"
+                  [style.background-color]="m.color"></span>
+          </td>
+          <td>
+            <div class="adm-actions">
+              <a [routerLink]="['/admin/team', m.id, 'edit']"><i class="fa-regular fa-pen-to-square"></i> Edit</a>
+              <button (click)="remove(m.id, m.name)"><i class="fa-regular fa-trash-can"></i> Delete</button>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+
+  <div class="adm-empty" *ngIf="!loading() && !members().length">
+    No team members yet. <a routerLink="/admin/team/new">Add the first one</a>.
+  </div>
+</div>
