@@ -8,6 +8,7 @@
     "postbuild": "node scripts/generate-sitemap.mjs",
     "watch": "ng build --watch --configuration development",
     "optimize-images": "node scripts/optimize-images.mjs",
+    "generate-og": "node scripts/generate-og-image.mjs",
     "test": "ng test",
     "serve:ssr:perfect-smile": "node dist/perfect-smile/server/server.mjs"
   },
@@ -41,6 +42,7 @@
     "@types/node": "^20.17.19",
     "jsdom": "^28.0.0",
     "prettier": "^3.8.1",
+    "sharp": "^0.34.5",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"
   }
