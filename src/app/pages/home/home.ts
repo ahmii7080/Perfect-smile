@@ -169,7 +169,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     this.seo.set({
       title: 'The Perfect Smile — Dental Clinic & Implant Centre in Faisalabad',
       description:
-        'Crafting perfect smiles in Faisalabad — multi-disciplinary dental & implant care covering crown & bridge, orthodontics, cosmetic dentistry, scaling and whitening. Book free consultation.',
+        'Dr. Faizan Sheikh — crafting perfect smiles in Faisalabad. Multi-specialist dental & implant clinic: implants, braces, crown & bridge, cosmetic dentistry. Free WhatsApp consultation.',
       path: '/',
       noBrandSuffix: true
     });
