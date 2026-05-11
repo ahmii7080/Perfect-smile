@@ -117,4 +117,4 @@ export const CLINIC_INFO = {
 } as const;
 
 /** Bare hostname (no scheme) — useful for some directory listings. */
-export const CLINIC_DOMAIN = 'theperfectsmile.pk';
+export const CLINIC_DOMAIN = 'theperfectsmileclinic.com';

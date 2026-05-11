@@ -43,6 +43,25 @@ export class App implements OnInit {
     // the `aos` module (which touches `window` at load time) out of the
     // server bundle entirely.
     afterNextRender(async () => {
+      // Self-XSS warning in DevTools console — same pattern Facebook, Google,
+      // GitHub use. NOT a security boundary (DevTools can't be truly blocked
+      // in a browser), but a recognised mitigation for social-engineering
+      // attacks where a scammer says "paste this code here to unlock X".
+      // The bright-red banner is what makes the warning impossible to miss.
+      console.log(
+        '%cSTOP!',
+        'color:#ef4444; font-size:42px; font-weight:900; text-shadow:1px 1px 0 #fff;'
+      );
+      console.log(
+        '%cThis browser feature is for developers.\n' +
+        'Do NOT paste anything here unless you 100% understand what it does — ' +
+        'attackers can use this to take over your account, steal your data, ' +
+        'or commit fraud in your name.\n\n' +
+        'If someone told you to paste code here to "unlock" or "hack" something, ' +
+        'it is a scam.',
+        'color:#0F172A; font-size:14px; line-height:1.6;'
+      );
+
       const { default: AOS } = await import('aos');
       AOS.init({
         duration: 600,
