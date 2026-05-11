@@ -1,0 +1,41 @@
+# Apache config for SPA-style Angular routing on shared hosting
+# (Hostinger, Bluehost, cPanel-based hosts).
+#
+# This file ends up at the site root after build. Two jobs:
+#   1. Force HTTPS — Google penalises mixed-content + http:// canonical mismatches.
+#   2. Send unknown URLs to /index.html so the Angular router can resolve them
+#      client-side (otherwise direct visits to /services/dental-implants get a
+#      raw Apache 404).
+
+RewriteEngine On
+
+# --- 1. Force HTTPS ---
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# --- 2. SPA fallback ---
+# Skip if the request is for a real file, real directory, or one of the static
+# SEO files at the root (these MUST be served as-is, not rewritten to index.html).
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+RewriteRule ^(robots\.txt|sitemap\.xml|favicon\.png)$ - [L]
+
+RewriteRule . /index.html [L]
+
+# --- 3. Cache headers ---
+# Hashed JS/CSS = 1 year immutable. HTML = no-cache (so updates land instantly).
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.(js|css|woff2|png|jpg|jpeg|webp|avif|svg)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>
+
+# --- 4. Gzip / Brotli compression ---
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json application/xml image/svg+xml
+</IfModule>

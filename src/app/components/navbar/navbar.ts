@@ -1,5 +1,5 @@
 import { Component, HostListener, signal, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RouterLink, RouterLinkActive, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs';
 import { DataService } from '../../services/data.service';
@@ -8,7 +8,7 @@ import { ServiceItem } from '../../models/service.model';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive, NgOptimizedImage],
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss'
 })

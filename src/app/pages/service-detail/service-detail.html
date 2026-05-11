@@ -2,6 +2,7 @@
   <section class="sd-hero" [style.background]="'linear-gradient(135deg,' + s.color + ', #0A3A55)'">
     <div class="container-x sd-hero__row">
       <div data-aos="fade-right">
+        <app-breadcrumb [items]="breadcrumbs()" />
         <span class="eyebrow on-dark">{{ s.tagline }}</span>
         <h1>{{ s.title }}</h1>
         <p>{{ s.summary }}</p>
@@ -58,22 +59,8 @@
     </div>
   </section>
 
-  <section class="section section-cream">
-    <div class="container-x">
-      <header class="section-head" data-aos="fade-up">
-        <span class="eyebrow center">Related Services</span>
-        <h2>You might also <span class="accent-italic">consider</span></h2>
-      </header>
-      <div class="grid-3">
-        <a *ngFor="let r of related()" [routerLink]="['/services', r.slug]" class="related-card lift" data-aos="fade-up">
-          <i class="fa-solid" [class]="r.icon" [style.color]="r.color"></i>
-          <h3>{{ r.title }}</h3>
-          <p>{{ r.summary }}</p>
-          <span class="related-card__more">View details <i class="fa-solid fa-arrow-right"></i></span>
-        </a>
-      </div>
-    </div>
-  </section>
+  <!-- Internal-linking related-services block — curated, topical anchors. -->
+  <app-related-services [currentServiceSlug]="s.slug" />
 </ng-container>
 
 <ng-template #notFound>

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminAuthService } from '../../services/admin-auth.service';
+import { SeoService } from '../../services/seo.service';
 
 @Component({
   selector: 'app-admin-login',
@@ -16,6 +17,18 @@ export class AdminLoginPage {
   private auth   = inject(AdminAuthService);
   private router = inject(Router);
   private route  = inject(ActivatedRoute);
+  private seo    = inject(SeoService);
+
+  constructor() {
+    // Keep the admin login out of search indexes — no SEO value, and we
+    // don't want Google surfacing a clinic-staff login page to patients.
+    this.seo.set({
+      title:       'Admin Sign-in',
+      description: 'Admin sign-in for clinic staff.',
+      path:        '/adminauthlogin',
+      noindex:     true
+    });
+  }
 
   submitting = signal(false);
   showPassword = signal(false);

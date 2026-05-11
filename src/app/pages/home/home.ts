@@ -1,8 +1,10 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, computed, inject, signal } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, afterNextRender, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { take } from 'rxjs';
 
 import { DataService } from '../../services/data.service';
+import { SeoService } from '../../services/seo.service';
 import { ServiceItem } from '../../models/service.model';
 import { Doctor } from '../../models/doctor.model';
 import { BlogPost, Testimonial } from '../../models/appointment.model';
@@ -142,20 +144,41 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   ];
 
   ngOnInit() {
-    this.data.getServices().subscribe(list => this.services.set(list.slice(0, 6)));
-    this.data.getDoctors().subscribe(list => this.doctors.set(list));
-    this.data.getTestimonials().subscribe(list => this.testimonials.set(list));
-    this.data.getBlog().subscribe(list => this.blog.set(list.slice(0, 3)));
+    // `take(1)` makes each subscription auto-unsubscribe after its first
+    // emission. Important for SSR: leaves no dangling subscriptions that
+    // could keep the app from reaching stability before prerender capture.
+    this.data.getServices()    .pipe(take(1)).subscribe(list => this.services.set(list.slice(0, 6)));
+    this.data.getDoctors()     .pipe(take(1)).subscribe(list => this.doctors.set(list));
+    this.data.getTestimonials().pipe(take(1)).subscribe(list => this.testimonials.set(list));
+    this.data.getBlog()        .pipe(take(1)).subscribe(list => this.blog.set(list.slice(0, 3)));
+  }
 
-    // Cycle the floating review card every ~5s with a quick fade swap
-    this.reviewInterval = window.setInterval(() => {
-      if (!this.testimonials().length) return;
-      this.reviewFading.set(true);
-      window.setTimeout(() => {
-        this.reviewIndex.update(v => v + 1);
-        this.reviewFading.set(false);
-      }, 220);
-    }, 5000);
+  private seo = inject(SeoService);
+
+  constructor() {
+    // SEO surface for the homepage. Set in the constructor (not ngOnInit)
+    // so the tags land in the SSR HTML response before component init runs.
+    // Title kept short — Google truncates SERP titles around 60 chars after
+    // the brand suffix is appended.
+    this.seo.set({
+      title: 'Dental Clinic & Implant Centre',
+      description:
+        'Premium dental & implant clinic in Faisalabad. Specialist care in implants, orthodontics, crown & bridge and cosmetic dentistry. Free consultation — book on WhatsApp.',
+      path: '/'
+    });
+
+    // Hero review-card auto-cycle. Browser only — `afterNextRender` keeps
+    // the timer (and its `window.*` calls) out of the prerender pass.
+    afterNextRender(() => {
+      this.reviewInterval = window.setInterval(() => {
+        if (!this.testimonials().length) return;
+        this.reviewFading.set(true);
+        window.setTimeout(() => {
+          this.reviewIndex.update(v => v + 1);
+          this.reviewFading.set(false);
+        }, 220);
+      }, 5000);
+    });
   }
 
   playVideo() { this.videoPlaying.set(true); }

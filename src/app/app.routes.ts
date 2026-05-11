@@ -1,62 +1,67 @@
 import { Routes } from '@angular/router';
 import { adminGuard } from './guards/admin.guard';
+import { serviceResolver } from './resolvers/service.resolver';
+import { blogResolver } from './resolvers/blog.resolver';
 
+/*
+ * Public-site routes have NO `title:` property on purpose. Each page
+ * component injects `SeoService` and sets its title via `seo.set()` — the
+ * full SEO surface (title + description + canonical + Open Graph + JSON-LD)
+ * is owned in one place per page. Letting the router also push a title
+ * would race-overwrite the SeoService value after NavigationEnd.
+ *
+ * Admin routes keep their `title:` — they're never prerendered, never
+ * indexed, and their titles only affect the browser tab.
+ */
 export const routes: Routes = [
   /* ============== Public site ============== */
   {
     path: '',
-    loadComponent: () => import('./pages/home/home').then(m => m.HomePage),
-    title: 'The Perfect Smile — Dental Clinic, Faisalabad'
+    loadComponent: () => import('./pages/home/home').then(m => m.HomePage)
   },
   {
     path: 'about',
-    loadComponent: () => import('./pages/about/about').then(m => m.AboutPage),
-    title: 'About Us — The Perfect Smile'
+    loadComponent: () => import('./pages/about/about').then(m => m.AboutPage)
   },
   {
     path: 'services',
-    loadComponent: () => import('./pages/services/services').then(m => m.ServicesPage),
-    title: 'Our Services — The Perfect Smile'
+    loadComponent: () => import('./pages/services/services').then(m => m.ServicesPage)
   },
   {
     path: 'services/:slug',
     loadComponent: () => import('./pages/service-detail/service-detail').then(m => m.ServiceDetailPage),
-    title: 'Service — The Perfect Smile'
+    // Pre-fetch the service so the detail page renders (and applies SEO)
+    // synchronously after activation — required for clean SSR prerender.
+    resolve: { service: serviceResolver }
   },
   {
     path: 'doctors',
-    loadComponent: () => import('./pages/doctors/doctors').then(m => m.DoctorsPage),
-    title: 'Our Doctors — The Perfect Smile'
+    loadComponent: () => import('./pages/doctors/doctors').then(m => m.DoctorsPage)
   },
   {
     path: 'team',
-    loadComponent: () => import('./pages/team/team').then(m => m.TeamPage),
-    title: 'Our Team — The Perfect Smile'
+    loadComponent: () => import('./pages/team/team').then(m => m.TeamPage)
   },
   {
     path: 'gallery',
-    loadComponent: () => import('./pages/gallery/gallery').then(m => m.GalleryPage),
-    title: 'Smile Gallery — The Perfect Smile'
+    loadComponent: () => import('./pages/gallery/gallery').then(m => m.GalleryPage)
   },
   {
     path: 'blog',
-    loadComponent: () => import('./pages/blog/blog').then(m => m.BlogPage),
-    title: 'Blog — The Perfect Smile'
+    loadComponent: () => import('./pages/blog/blog').then(m => m.BlogPage)
   },
   {
     path: 'blog/:slug',
     loadComponent: () => import('./pages/blog-detail/blog-detail').then(m => m.BlogDetailPage),
-    title: 'Article — The Perfect Smile'
+    resolve: { post: blogResolver }
   },
   {
     path: 'appointment',
-    loadComponent: () => import('./pages/appointment/appointment').then(m => m.AppointmentPage),
-    title: 'Book Appointment — The Perfect Smile'
+    loadComponent: () => import('./pages/appointment/appointment').then(m => m.AppointmentPage)
   },
   {
     path: 'contact',
-    loadComponent: () => import('./pages/contact/contact').then(m => m.ContactPage),
-    title: 'Contact — The Perfect Smile'
+    loadComponent: () => import('./pages/contact/contact').then(m => m.ContactPage)
   },
 
   /* ============== Admin ============== */

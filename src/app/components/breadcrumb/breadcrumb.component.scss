@@ -1,0 +1,89 @@
+/* Breadcrumb navigation — sits inside `.page-header` above the eyebrow.
+ *
+ * Colours are driven by three CSS custom properties so the parent
+ * container can switch the breadcrumb to a light palette without
+ * touching this file. Defaults below match the light cream-bg pages;
+ * dark hero/page-header overrides live further down. */
+.brc {
+  --brc-color:        var(--color-text-muted);
+  --brc-color-strong: var(--color-ink);
+  --brc-sep-color:    var(--color-text-muted);
+
+  margin: 0 0 1.1rem;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* Dark-background contexts: page-header gradients (most inner pages) and
+ * the service-detail hero. CSS custom properties inherit through the
+ * Shadow-style encapsulation boundary, so setting them on the parent
+ * cascades cleanly into this component. */
+:host-context(.page-header),
+:host-context(.sd-hero),
+:host-context(.bd-hero) {
+  .brc {
+    --brc-color:        rgba(255, 255, 255, 0.78);
+    --brc-color-strong: #ffffff;
+    --brc-sep-color:    rgba(255, 255, 255, 0.55);
+  }
+}
+
+.brc__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.brc__item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--brc-color);
+
+  /* Chevron separator drawn between items, not after the last one. */
+  &:not(:last-child)::after {
+    content: '\203A';                /* › */
+    color: var(--brc-sep-color);
+    opacity: 0.7;
+    font-size: 14px;
+  }
+
+  a {
+    color: var(--brc-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--brc-color-strong);
+      text-decoration: underline;
+    }
+  }
+}
+
+.brc__item--current {
+  color: var(--brc-color-strong);
+  font-weight: 600;
+}
+
+/* When the breadcrumb is rendered over the dark `.page-header` gradient,
+   the page-header's own override styles (see styles.scss) flip colors to
+   white. This component stays color-token based so both palettes work. */
+
+/* Narrow screens: if the crumb has >3 items (so there's a middle to hide),
+   collapse everything between first and last into an ellipsis. The full
+   path still exists in the DOM for assistive tech and search-engine crawlers. */
+@media (max-width: 599px) {
+  .brc__list:has(.brc__item:nth-child(4)) {
+    .brc__item:not(:first-child):not(:last-child) {
+      display: none;
+    }
+    .brc__item:first-child::after {
+      content: '\203A\00a0\2026\00a0\203A';   /* › … › */
+    }
+  }
+}

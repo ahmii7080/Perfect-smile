@@ -1,0 +1,13 @@
+# robots.txt for theperfectsmileclinic.com
+# Lives in /public/ so the build copies it to the site root.
+# Verify after deploy: https://theperfectsmileclinic.com/robots.txt
+
+User-agent: *
+Allow: /
+
+# Admin shell + login are auth-gated and carry no SEO value.
+Disallow: /admin
+Disallow: /admin/
+Disallow: /adminauthlogin
+
+Sitemap: https://theperfectsmileclinic.com/sitemap.xml

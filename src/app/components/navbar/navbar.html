@@ -3,8 +3,8 @@
   <div class="container-x util-bar__row">
     <div class="util-bar__info">
       <a href="tel:+923247734135"><i class="fa-solid fa-phone"></i> +92 324 7734135</a>
-      <a href="mailto:hello@theperfectsmile.pk"><i class="fa-solid fa-envelope"></i> hello&#64;theperfectsmile.pk</a>
-      <span class="util-bar__hide-md"><i class="fa-solid fa-location-dot"></i> Main Satyana Road, near Rehman Garden Gate No. 1</span>
+      <a href="mailto:faizanwaris765@gmail.com"><i class="fa-solid fa-envelope"></i> faizanwaris765&#64;gmail.com</a>
+      <span class="util-bar__hide-md"><i class="fa-solid fa-location-dot"></i> Adjacent Rehman Garden Gate No. 1, Fish Farm, Stayana Road, Faisalabad</span>
     </div>
     <div class="util-bar__social">
       <a href="https://www.facebook.com/share/1E8Z7uagMK/" aria-label="Facebook" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a>
@@ -20,9 +20,16 @@
 
     <!-- Logo (tooth icon + wordmark) -->
     <a routerLink="/" class="brand" aria-label="The Perfect Smile — Dental Clinic Faisalabad">
-      <img src="assets/images/logo.png"
+      <!-- Logo is the LCP (largest contentful paint) element on most pages.
+           `priority` tells Angular to preload it; `ngSrc` triggers responsive
+           sizing + lazy-by-default-elsewhere. `alt=""` + `aria-hidden` is correct
+           because the brand text right next to it announces the clinic name. -->
+      <img ngSrc="assets/images/logo.png"
            alt=""
            class="brand__icon"
+           width="96"
+           height="96"
+           priority
            aria-hidden="true">
       <span class="brand__text">
         <span class="brand__name">The <em>Perfect</em> Smile</span>
