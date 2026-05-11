@@ -64,15 +64,23 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/contact/contact').then(m => m.ContactPage)
   },
 
-  /* ============== Admin ============== */
-  // Obscure login slug — keeps the path off the radar of generic /admin/login scanners.
+  /* ============== Admin (everything under one obscured slug) ============== */
+  // Single obscured prefix for the entire admin surface — the login page,
+  // the auth-gated dashboard, and every CRUD form all live under
+  // /adminauthlogin/*. Two parallel route definitions:
+  //   - `pathMatch: 'full'` on the first entry pins /adminauthlogin (exact)
+  //     to the login screen so unauthenticated visits show the form.
+  //   - The second entry catches every /adminauthlogin/<something> sub-path,
+  //     gates it on `adminGuard`, and mounts the AdminLayout shell.
+  // Together they keep the path off the radar of /admin/* scanners.
   {
     path: 'adminauthlogin',
+    pathMatch: 'full',
     loadComponent: () => import('./admin/login/login').then(m => m.AdminLoginPage),
     title: 'Sign in — Admin'
   },
   {
-    path: 'admin',
+    path: 'adminauthlogin',
     canActivate: [adminGuard],
     loadComponent: () => import('./admin/layout/layout').then(m => m.AdminLayout),
     children: [

@@ -2,10 +2,10 @@
   <div>
     <h1>{{ editingId() ? 'Edit Member' : 'Add Team Member' }}</h1>
     <span class="adm-head__crumb">
-      <a routerLink="/admin/team">Team</a> › {{ editingId() ? 'Edit' : 'New' }}
+      <a routerLink="/adminauthlogin/team">Team</a> › {{ editingId() ? 'Edit' : 'New' }}
     </span>
   </div>
-  <a routerLink="/admin/team" class="adm-btn adm-btn--ghost">
+  <a routerLink="/adminauthlogin/team" class="adm-btn adm-btn--ghost">
     <i class="fa-solid fa-arrow-left"></i> Back to list
   </a>
 </header>
@@ -78,6 +78,6 @@
       </ng-container>
       <ng-template #saveLoading><i class="fa-solid fa-spinner fa-spin"></i> Saving…</ng-template>
     </button>
-    <a routerLink="/admin/team" class="adm-btn adm-btn--ghost">Cancel</a>
+    <a routerLink="/adminauthlogin/team" class="adm-btn adm-btn--ghost">Cancel</a>
   </div>
 </form>

@@ -3,7 +3,7 @@
     <h1>Gallery Cases</h1>
     <span class="adm-head__crumb">Dashboard › Gallery</span>
   </div>
-  <a routerLink="/admin/gallery/new" class="adm-btn">
+  <a routerLink="/adminauthlogin/gallery/new" class="adm-btn">
     <i class="fa-solid fa-plus"></i> Add Case
   </a>
 </header>
@@ -50,7 +50,7 @@
           <td style="max-width:380px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ c.description }}</td>
           <td>
             <div class="adm-actions">
-              <a [routerLink]="['/admin/gallery', c.id, 'edit']"><i class="fa-regular fa-pen-to-square"></i> Edit</a>
+              <a [routerLink]="['/adminauthlogin/gallery', c.id, 'edit']"><i class="fa-regular fa-pen-to-square"></i> Edit</a>
               <button (click)="remove(c.id, c.title)"><i class="fa-regular fa-trash-can"></i> Delete</button>
             </div>
           </td>
@@ -60,6 +60,6 @@
   </table>
 
   <div class="adm-empty" *ngIf="!loading() && !cases().length">
-    No gallery cases yet. <a routerLink="/admin/gallery/new">Add the first one</a>.
+    No gallery cases yet. <a routerLink="/adminauthlogin/gallery/new">Add the first one</a>.
   </div>
 </div>

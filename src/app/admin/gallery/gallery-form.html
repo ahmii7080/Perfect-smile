@@ -2,10 +2,10 @@
   <div>
     <h1>{{ editingId() ? 'Edit Case' : 'Add Gallery Case' }}</h1>
     <span class="adm-head__crumb">
-      <a routerLink="/admin/gallery">Gallery</a> › {{ editingId() ? 'Edit' : 'New' }}
+      <a routerLink="/adminauthlogin/gallery">Gallery</a> › {{ editingId() ? 'Edit' : 'New' }}
     </span>
   </div>
-  <a routerLink="/admin/gallery" class="adm-btn adm-btn--ghost">
+  <a routerLink="/adminauthlogin/gallery" class="adm-btn adm-btn--ghost">
     <i class="fa-solid fa-arrow-left"></i> Back to list
   </a>
 </header>
@@ -115,6 +115,6 @@
       </ng-container>
       <ng-template #saveLoading><i class="fa-solid fa-spinner fa-spin"></i> Saving…</ng-template>
     </button>
-    <a routerLink="/admin/gallery" class="adm-btn adm-btn--ghost">Cancel</a>
+    <a routerLink="/adminauthlogin/gallery" class="adm-btn adm-btn--ghost">Cancel</a>
   </div>
 </form>

@@ -3,7 +3,7 @@
     <h1>Blog Posts</h1>
     <span class="adm-head__crumb">Dashboard › Blog Posts</span>
   </div>
-  <a routerLink="/admin/blog/new" class="adm-btn">
+  <a routerLink="/adminauthlogin/blog/new" class="adm-btn">
     <i class="fa-solid fa-plus"></i> Create Post
   </a>
 </header>
@@ -73,7 +73,7 @@
           <td>{{ p.readTime }}</td>
           <td>
             <div class="adm-actions">
-              <a [routerLink]="['/admin/blog', p.id, 'edit']"><i class="fa-regular fa-pen-to-square"></i> Edit</a>
+              <a [routerLink]="['/adminauthlogin/blog', p.id, 'edit']"><i class="fa-regular fa-pen-to-square"></i> Edit</a>
               <button (click)="remove(p.id, p.title)"><i class="fa-regular fa-trash-can"></i> Delete</button>
             </div>
           </td>
@@ -83,6 +83,6 @@
   </table>
 
   <div class="adm-empty" *ngIf="!loading() && !filtered().length">
-    No posts yet. <a routerLink="/admin/blog/new">Create your first post</a>.
+    No posts yet. <a routerLink="/adminauthlogin/blog/new">Create your first post</a>.
   </div>
 </div>

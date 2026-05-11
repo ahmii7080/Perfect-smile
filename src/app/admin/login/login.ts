@@ -62,7 +62,11 @@ export class AdminLoginPage {
       return;
     }
 
-    const target = this.route.snapshot.queryParamMap.get('from') ?? '/admin';
+    // After successful login, send the admin to whatever protected page
+    // they originally tried to visit (the `from` query param set by the
+    // guard) — falling back to the services dashboard if they landed
+    // straight on /adminauthlogin.
+    const target = this.route.snapshot.queryParamMap.get('from') ?? '/adminauthlogin/services';
     this.router.navigateByUrl(target);
   }
 }

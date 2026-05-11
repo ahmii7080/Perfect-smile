@@ -102,7 +102,7 @@ export class AdminTeamForm implements OnInit {
       } else {
         await this.data.createTeam(payload);
       }
-      this.router.navigate(['/admin/team']);
+      this.router.navigate(['/adminauthlogin/team']);
     } catch (e: any) {
       this.error.set(e.message ?? 'Save failed');
     } finally {

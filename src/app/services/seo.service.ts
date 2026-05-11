@@ -46,6 +46,13 @@ export interface SeoOptions {
    * 404 fallbacks, or thin pages — never for service/blog pages.
    */
   noindex?: boolean;
+
+  /**
+   * If true, the page's title is used verbatim — no "| {brand}" appended.
+   * Use on the home page (where the brand is the title itself) to avoid
+   * "Dental Clinic" appearing twice in the SERP listing.
+   */
+  noBrandSuffix?: boolean;
 }
 
 /**
@@ -73,7 +80,7 @@ export class SeoService {
 
   /** Set the full SEO surface for the current page in one call. */
   set(opts: SeoOptions): void {
-    const fullTitle  = `${opts.title} | ${this.brandSuffix}`;
+    const fullTitle  = opts.noBrandSuffix ? opts.title : `${opts.title} | ${this.brandSuffix}`;
     const url        = this.absoluteUrl(opts.path);
     const image      = this.absoluteUrl(opts.image ?? CLINIC_INFO.ogImagePath);
     const type       = opts.type ?? 'website';

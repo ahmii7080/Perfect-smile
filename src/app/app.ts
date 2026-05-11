@@ -19,7 +19,7 @@ export class App implements OnInit {
   routeKey = 0;
 
   /**
-   * True when the user is on an admin route (/admin/*) or the login page.
+   * True when the user is on any /adminauthlogin* route (login + dashboard).
    * Used to hide the public site chrome (navbar, footer, WhatsApp popup)
    * since the admin pages have their own shell.
    */
@@ -82,6 +82,6 @@ export class App implements OnInit {
   }
 
   private urlIsAdmin(url: string): boolean {
-    return url.startsWith('/admin') || url.startsWith('/adminauthlogin');
+    return url.startsWith('/adminauthlogin');
   }
 }

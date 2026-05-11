@@ -26,9 +26,11 @@ async function getSlugsFrom(table: string): Promise<{ slug: string }[]> {
 
 export const serverRoutes: ServerRoute[] = [
   // Admin shell + login: auth-gated, no SEO value — keep them out of the
-  // prerender list and render entirely on the client.
-  { path: 'adminauthlogin', renderMode: RenderMode.Client },
-  { path: 'admin/**',       renderMode: RenderMode.Client },
+  // prerender list and render entirely on the client. Both the bare login
+  // (/adminauthlogin) and every sub-route (/adminauthlogin/team, etc.)
+  // are CSR-only.
+  { path: 'adminauthlogin',    renderMode: RenderMode.Client },
+  { path: 'adminauthlogin/**', renderMode: RenderMode.Client },
 
   // Dynamic detail routes — fetch every slug from Supabase at build time
   // and prerender one HTML file per row.

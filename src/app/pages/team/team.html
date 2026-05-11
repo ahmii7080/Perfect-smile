@@ -18,8 +18,15 @@
 
     <div class="consult-grid" *ngIf="consultants().length">
       <article class="consult-card lift" *ngFor="let c of consultants(); let i = index" data-aos="fade-up" [attr.data-aos-delay]="i * 100">
-        <div class="consult-card__avatar" [style.background]="'linear-gradient(135deg,' + c.color + ', #0C4A6E)'">
-          {{ c.initials }}
+        <!-- Photo if admin uploaded one; otherwise the gradient + initials avatar.
+             Image takes precedence; gradient is the deterministic fallback so the
+             card never renders blank while data is loading. -->
+        <div class="consult-card__avatar"
+             [class.has-image]="!!c.image"
+             [style.background]="c.image
+                ? 'url(' + c.image + ') center/cover no-repeat'
+                : ('linear-gradient(135deg,' + c.color + ', #0C4A6E)')">
+          <span *ngIf="!c.image">{{ c.initials }}</span>
         </div>
         <span class="consult-card__chip">
           <i class="fa-solid fa-user-doctor"></i> Visiting Consultant

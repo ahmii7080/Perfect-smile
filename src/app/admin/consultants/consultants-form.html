@@ -2,10 +2,10 @@
   <div>
     <h1>{{ editingId() ? 'Edit Consultant' : 'Add Consultant' }}</h1>
     <span class="adm-head__crumb">
-      <a routerLink="/admin/consultants">Consultants</a> › {{ editingId() ? 'Edit' : 'New' }}
+      <a routerLink="/adminauthlogin/consultants">Consultants</a> › {{ editingId() ? 'Edit' : 'New' }}
     </span>
   </div>
-  <a routerLink="/admin/consultants" class="adm-btn adm-btn--ghost">
+  <a routerLink="/adminauthlogin/consultants" class="adm-btn adm-btn--ghost">
     <i class="fa-solid fa-arrow-left"></i> Back to list
   </a>
 </header>
@@ -62,13 +62,31 @@
     </div>
   </div>
 
+  <div>
+    <label class="form-label">Photo (optional)</label>
+    <div class="adm-image-pick">
+      <span class="adm-image-pick__preview" style="border-radius:50%;"
+            [style.background-image]="preview() ? 'url(' + preview() + ')' : null">
+        <i class="fa-regular fa-user" *ngIf="!preview()"></i>
+      </span>
+      <div class="adm-image-pick__body">
+        <strong>{{ preview() ? 'Change photo' : 'Upload photo' }}</strong>
+        <span>Square JPG / PNG works best. Up to 5 MB. Leave empty to show initials avatar instead.</span>
+        <input type="file" accept="image/*" (change)="onFileChange($event)" [disabled]="uploading()">
+      </div>
+    </div>
+    <small *ngIf="uploading()" style="color:var(--color-primary); font-size:12px; display:inline-block; margin-top:4px;">
+      <i class="fa-solid fa-spinner fa-spin"></i> Uploading…
+    </small>
+  </div>
+
   <div class="adm-form__actions">
-    <button type="submit" class="adm-btn" [disabled]="saving()">
+    <button type="submit" class="adm-btn" [disabled]="saving() || uploading()">
       <ng-container *ngIf="!saving(); else saveLoading">
         <i class="fa-regular fa-floppy-disk"></i> {{ editingId() ? 'Save changes' : 'Add consultant' }}
       </ng-container>
       <ng-template #saveLoading><i class="fa-solid fa-spinner fa-spin"></i> Saving…</ng-template>
     </button>
-    <a routerLink="/admin/consultants" class="adm-btn adm-btn--ghost">Cancel</a>
+    <a routerLink="/adminauthlogin/consultants" class="adm-btn adm-btn--ghost">Cancel</a>
   </div>
 </form>

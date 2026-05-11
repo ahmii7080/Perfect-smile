@@ -3,7 +3,7 @@
     <h1>Services</h1>
     <span class="adm-head__crumb">Dashboard › Services</span>
   </div>
-  <a routerLink="/admin/services/new" class="adm-btn">
+  <a routerLink="/adminauthlogin/services/new" class="adm-btn">
     <i class="fa-solid fa-plus"></i> Add Service
   </a>
 </header>
@@ -63,7 +63,7 @@
           </td>
           <td>
             <div class="adm-actions">
-              <a [routerLink]="['/admin/services', s.id, 'edit']"><i class="fa-regular fa-pen-to-square"></i> Edit</a>
+              <a [routerLink]="['/adminauthlogin/services', s.id, 'edit']"><i class="fa-regular fa-pen-to-square"></i> Edit</a>
               <button (click)="remove(s.id, s.title)"><i class="fa-regular fa-trash-can"></i> Delete</button>
             </div>
           </td>
@@ -73,6 +73,6 @@
   </table>
 
   <div class="adm-empty" *ngIf="!loading() && !services().length">
-    No services yet. <a routerLink="/admin/services/new">Add the first one</a>.
+    No services yet. <a routerLink="/adminauthlogin/services/new">Add the first one</a>.
   </div>
 </div>
