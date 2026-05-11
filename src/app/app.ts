@@ -8,6 +8,7 @@ import { FooterComponent } from './components/footer/footer';
 import { WhatsappPopupComponent } from './components/whatsapp-popup/whatsapp-popup';
 import { StructuredDataService } from './services/structured-data.service';
 import { AnalyticsService } from './services/analytics.service';
+import { DataService } from './services/data.service';
 
 @Component({
   selector: 'app-root',
@@ -30,12 +31,22 @@ export class App implements OnInit {
 
   private router         = inject(Router);
   private structuredData = inject(StructuredDataService);
+  private data           = inject(DataService);
 
   constructor() {
     // Bootstrap GA4 SPA page_view tracking. Service has constructor-only
     // side effects (subscribes to router events) so we don't need a handle —
     // calling `inject()` here is enough to instantiate it within DI scope.
     inject(AnalyticsService);
+
+    // Pre-warm the shareReplay caches for resolver-driven routes (services,
+    // blog). Runs in parallel with first paint and blocks nothing — by the
+    // time the user clicks any /services/* or /blog/* link, the data is
+    // already in memory and the route resolver returns synchronously
+    // instead of waiting on Supabase. Eliminates the ~400ms "first click"
+    // delay introduced by the resolver pattern.
+    this.data.getServices().subscribe();
+    this.data.getBlog().subscribe();
 
     // Site-wide JSON-LD — mounted once on bootstrap, lives for the whole
     // session and ends up in every prerendered page's <head>. The Dentist
