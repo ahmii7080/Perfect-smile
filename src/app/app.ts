@@ -7,6 +7,7 @@ import { NavbarComponent } from './components/navbar/navbar';
 import { FooterComponent } from './components/footer/footer';
 import { WhatsappPopupComponent } from './components/whatsapp-popup/whatsapp-popup';
 import { StructuredDataService } from './services/structured-data.service';
+import { AnalyticsService } from './services/analytics.service';
 
 @Component({
   selector: 'app-root',
@@ -31,6 +32,11 @@ export class App implements OnInit {
   private structuredData = inject(StructuredDataService);
 
   constructor() {
+    // Bootstrap GA4 SPA page_view tracking. Service has constructor-only
+    // side effects (subscribes to router events) so we don't need a handle —
+    // calling `inject()` here is enough to instantiate it within DI scope.
+    inject(AnalyticsService);
+
     // Site-wide JSON-LD — mounted once on bootstrap, lives for the whole
     // session and ends up in every prerendered page's <head>. The Dentist
     // schema is what Google's local-pack uses to rank us in Faisalabad
