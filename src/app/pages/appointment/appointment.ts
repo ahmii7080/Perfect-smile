@@ -4,17 +4,38 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { DataService } from '../../services/data.service';
 import { ServiceItem } from '../../models/service.model';
 import { Doctor } from '../../models/doctor.model';
+import { SeoService } from '../../services/seo.service';
+import { StructuredDataService } from '../../services/structured-data.service';
+import { BreadcrumbComponent, BreadcrumbItem } from '../../components/breadcrumb/breadcrumb.component';
 
 @Component({
   selector: 'app-appointment',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, BreadcrumbComponent],
   templateUrl: './appointment.html',
   styleUrl: './appointment.scss'
 })
 export class AppointmentPage implements OnInit {
-  private fb   = inject(FormBuilder);
-  private data = inject(DataService);
+  private fb             = inject(FormBuilder);
+  private data           = inject(DataService);
+  private seo            = inject(SeoService);
+  private structuredData = inject(StructuredDataService);
+
+  readonly breadcrumbs: BreadcrumbItem[] = [
+    { label: 'Home',        path: '/' },
+    { label: 'Appointment', path: '/appointment' }
+  ];
+
+  constructor() {
+    this.seo.set({
+      title: 'Book Appointment — Dentist Faisalabad',
+      description:
+        'Book your dental appointment at The Perfect Smile, Faisalabad. Free consultation. Confirm instantly on WhatsApp. Open Mon–Sat 5pm–10pm.',
+      path: '/appointment'
+    });
+    this.structuredData.setBreadcrumb(this.breadcrumbs);
+  }
+
 
   services = signal<ServiceItem[]>([]);
   doctors  = signal<Doctor[]>([]);

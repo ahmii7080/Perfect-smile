@@ -1,16 +1,37 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { SeoService } from '../../services/seo.service';
+import { StructuredDataService } from '../../services/structured-data.service';
+import { BreadcrumbComponent, BreadcrumbItem } from '../../components/breadcrumb/breadcrumb.component';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, BreadcrumbComponent],
   templateUrl: './contact.html',
   styleUrl: './contact.scss'
 })
 export class ContactPage {
-  private fb = inject(FormBuilder);
+  private fb             = inject(FormBuilder);
+  private seo            = inject(SeoService);
+  private structuredData = inject(StructuredDataService);
+
+  readonly breadcrumbs: BreadcrumbItem[] = [
+    { label: 'Home',    path: '/' },
+    { label: 'Contact', path: '/contact' }
+  ];
+
+  constructor() {
+    this.seo.set({
+      title: 'Contact — Dentist in Faisalabad',
+      description:
+        'Get in touch with The Perfect Smile Dental Clinic — adjacent Rehman Garden Gate No. 1, Stayana Road, Faisalabad. Call +92 324 7734135 or WhatsApp for fast appointment confirmation.',
+      path: '/contact'
+    });
+    this.structuredData.setBreadcrumb(this.breadcrumbs);
+  }
+
 
   form: FormGroup = this.fb.group({
     name:    ['', [Validators.required, Validators.minLength(2)]],

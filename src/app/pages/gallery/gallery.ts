@@ -2,6 +2,9 @@ import { Component, OnInit, signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SmileSvgComponent, SmileTreatment } from '../../components/smile-svg/smile-svg';
 import { DataService } from '../../services/data.service';
+import { SeoService } from '../../services/seo.service';
+import { StructuredDataService } from '../../services/structured-data.service';
+import { BreadcrumbComponent, BreadcrumbItem } from '../../components/breadcrumb/breadcrumb.component';
 
 interface GalleryCase {
   category: string;
@@ -17,12 +20,29 @@ interface GalleryCase {
 @Component({
   selector: 'app-gallery',
   standalone: true,
-  imports: [CommonModule, SmileSvgComponent],
+  imports: [CommonModule, SmileSvgComponent, BreadcrumbComponent],
   templateUrl: './gallery.html',
   styleUrl: './gallery.scss'
 })
 export class GalleryPage implements OnInit {
-  private data = inject(DataService);
+  private data           = inject(DataService);
+  private seo            = inject(SeoService);
+  private structuredData = inject(StructuredDataService);
+
+  readonly breadcrumbs: BreadcrumbItem[] = [
+    { label: 'Home',    path: '/' },
+    { label: 'Gallery', path: '/gallery' }
+  ];
+
+  constructor() {
+    this.seo.set({
+      title: 'Smile Gallery — Before & After',
+      description:
+        'Real patient before-and-after smile transformations at The Perfect Smile, Faisalabad — veneers, whitening, implants, braces, crowns and full smile design cases.',
+      path: '/gallery'
+    });
+    this.structuredData.setBreadcrumb(this.breadcrumbs);
+  }
 
   filters = ['All', 'Veneers', 'Whitening', 'Implants', 'Braces', 'Crowns'];
   active  = signal('All');

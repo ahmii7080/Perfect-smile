@@ -5,16 +5,36 @@ import { FormsModule } from '@angular/forms';
 import { BlogService } from '../../services/blog.service';
 import { BlogPost } from '../../models/appointment.model';
 import { BlogIllustrationComponent } from '../../components/blog-illustration/blog-illustration';
+import { SeoService } from '../../services/seo.service';
+import { StructuredDataService } from '../../services/structured-data.service';
+import { BreadcrumbComponent, BreadcrumbItem } from '../../components/breadcrumb/breadcrumb.component';
 
 @Component({
   selector: 'app-blog',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, BlogIllustrationComponent],
+  imports: [CommonModule, RouterLink, FormsModule, BlogIllustrationComponent, BreadcrumbComponent],
   templateUrl: './blog.html',
   styleUrl: './blog.scss'
 })
 export class BlogPage implements OnInit {
-  private blog = inject(BlogService);
+  private blog           = inject(BlogService);
+  private seo            = inject(SeoService);
+  private structuredData = inject(StructuredDataService);
+
+  readonly breadcrumbs: BreadcrumbItem[] = [
+    { label: 'Home', path: '/' },
+    { label: 'Blog', path: '/blog' }
+  ];
+
+  constructor() {
+    this.seo.set({
+      title: 'Dental Health Blog — Faisalabad Dentist',
+      description:
+        'Plain-English dental health advice from The Perfect Smile, Faisalabad — implants, braces, whitening, gum care, kids dentistry and more, written by qualified dentists.',
+      path: '/blog'
+    });
+    this.structuredData.setBreadcrumb(this.breadcrumbs);
+  }
 
   posts    = signal<BlogPost[]>([]);
   search   = signal('');

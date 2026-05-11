@@ -1,15 +1,36 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { SeoService } from '../../services/seo.service';
+import { StructuredDataService } from '../../services/structured-data.service';
+import { BreadcrumbComponent, BreadcrumbItem } from '../../components/breadcrumb/breadcrumb.component';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, BreadcrumbComponent],
   templateUrl: './about.html',
   styleUrl: './about.scss'
 })
 export class AboutPage {
+  private seo            = inject(SeoService);
+  private structuredData = inject(StructuredDataService);
+
+  readonly breadcrumbs: BreadcrumbItem[] = [
+    { label: 'Home',  path: '/' },
+    { label: 'About', path: '/about' }
+  ];
+
+  constructor() {
+    this.seo.set({
+      title: 'About — Our Faisalabad Dental Clinic',
+      description:
+        'Meet The Perfect Smile — a Faisalabad dental clinic led by Dr. Faizan Sheikh, a multi-disciplinary specialist holding diplomas in Crown & Bridge, Orthodontics & Implantology.',
+      path: '/about'
+    });
+    this.structuredData.setBreadcrumb(this.breadcrumbs);
+  }
+
   values = [
     { n: '01', title: 'Compassion', desc: 'We treat every patient like family — with patience, empathy, and dignity.' },
     { n: '02', title: 'Excellence', desc: 'We obsess over the details. From margin fit to shade, every step is precise.' },

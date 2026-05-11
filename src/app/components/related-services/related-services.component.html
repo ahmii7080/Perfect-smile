@@ -1,0 +1,30 @@
+@if (cards().length > 0) {
+  <section class="rs">
+    <div class="container-x">
+      <header class="rs__header" data-aos="fade-up">
+        <span class="eyebrow center">Explore more</span>
+        <h2>Related Dental Services in <span class="accent-italic">Faisalabad</span></h2>
+      </header>
+
+      <div class="rs__grid">
+        @for (svc of cards(); track svc.slug) {
+          <a class="rs__card"
+             [routerLink]="['/services', svc.slug]"
+             [attr.aria-label]="'Learn more about ' + svc.title">
+            <div class="rs__icon"
+                 [style.background]="svc.color + '22'"
+                 [style.color]="svc.color">
+              <i class="fa-solid" [class]="svc.icon"></i>
+            </div>
+            <h3 class="rs__title">{{ svc.title }}</h3>
+            <p class="rs__desc">{{ svc.summary }}</p>
+            <span class="rs__cta">
+              Learn more about {{ svc.title }}
+              <i class="fa-solid fa-arrow-right"></i>
+            </span>
+          </a>
+        }
+      </div>
+    </div>
+  </section>
+}

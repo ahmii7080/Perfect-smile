@@ -11,5 +11,13 @@ export const environment = {
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnbXZ2cGZyZmR3YmZpY3h1a25jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyNDE5MTIsImV4cCI6MjA5MzgxNzkxMn0.O9IopmZLpxDQuHJzmAqw7ybLaCPIRMtMUDwXIDNkqRs',
 
   /** Public bucket for clinic-uploaded images (blog, team, etc). */
-  storageBucket: 'clinic-images'
+  storageBucket: 'clinic-images',
+
+  /**
+   * Public origin used for canonical URLs, sitemap, Open Graph + Twitter
+   * absolute URLs, and JSON-LD `@id` references. Must include scheme + host,
+   * NO trailing slash, NO path. Dev uses localhost so social preview tools
+   * don't accidentally hit the live site.
+   */
+  siteUrl: 'http://localhost:4200'
 };

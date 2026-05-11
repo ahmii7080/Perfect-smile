@@ -3,6 +3,7 @@
     <app-blog-illustration class="bd-hero__bg" [category]="p.category" [color]="p.color"></app-blog-illustration>
     <span class="bd-hero__shade"></span>
     <div class="container-x">
+      <app-breadcrumb [items]="breadcrumbs()" />
       <span class="eyebrow on-dark">{{ p.category }}</span>
       <h1>{{ p.title }}</h1>
       <div class="bd-hero__meta">

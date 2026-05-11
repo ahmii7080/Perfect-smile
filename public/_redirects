@@ -1,0 +1,5 @@
+# Netlify SPA fallback — every unknown path falls back to index.html
+# so Angular's client-side router can take over. Static files (images,
+# js, css, sitemap.xml, robots.txt) are served directly because they
+# exist on disk and this catch-all only fires for 404s.
+/*  /index.html  200

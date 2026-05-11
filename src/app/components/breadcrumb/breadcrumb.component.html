@@ -1,0 +1,15 @@
+@if (items().length > 1) {
+  <nav class="brc" aria-label="Breadcrumb">
+    <ol class="brc__list">
+      @for (item of items(); track item.path; let last = $last) {
+        @if (last) {
+          <li class="brc__item brc__item--current" aria-current="page">{{ item.label }}</li>
+        } @else {
+          <li class="brc__item">
+            <a [routerLink]="item.path">{{ item.label }}</a>
+          </li>
+        }
+      }
+    </ol>
+  </nav>
+}
