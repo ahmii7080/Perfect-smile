@@ -117,7 +117,7 @@ export class AdminBlogForm implements OnInit {
       } else {
         await this.data.createBlog(payload);
       }
-      this.router.navigate(['/admin/blog']);
+      this.router.navigate(['/adminauthlogin/blog']);
     } catch (e: any) {
       this.error.set(e.message ?? 'Save failed');
     } finally {

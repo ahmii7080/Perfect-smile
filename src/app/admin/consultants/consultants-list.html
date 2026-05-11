@@ -3,7 +3,7 @@
     <h1>Visiting Consultants</h1>
     <span class="adm-head__crumb">Dashboard › Consultants</span>
   </div>
-  <a routerLink="/admin/consultants/new" class="adm-btn">
+  <a routerLink="/adminauthlogin/consultants/new" class="adm-btn">
     <i class="fa-solid fa-plus"></i> Add Consultant
   </a>
 </header>
@@ -50,7 +50,7 @@
           <td>{{ c.initials }}</td>
           <td>
             <div class="adm-actions">
-              <a [routerLink]="['/admin/consultants', c.id, 'edit']"><i class="fa-regular fa-pen-to-square"></i> Edit</a>
+              <a [routerLink]="['/adminauthlogin/consultants', c.id, 'edit']"><i class="fa-regular fa-pen-to-square"></i> Edit</a>
               <button (click)="remove(c.id, c.name)"><i class="fa-regular fa-trash-can"></i> Delete</button>
             </div>
           </td>
@@ -60,6 +60,6 @@
   </table>
 
   <div class="adm-empty" *ngIf="!loading() && !consultants().length">
-    No consultants yet. <a routerLink="/admin/consultants/new">Add the first one</a>.
+    No consultants yet. <a routerLink="/adminauthlogin/consultants/new">Add the first one</a>.
   </div>
 </div>

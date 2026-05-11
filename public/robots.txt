@@ -5,9 +5,8 @@
 User-agent: *
 Allow: /
 
-# Admin shell + login are auth-gated and carry no SEO value.
-Disallow: /admin
-Disallow: /admin/
+# Admin shell + login both live under /adminauthlogin — keep the prefix
+# off the index so Google doesn't surface a clinic-staff login to patients.
 Disallow: /adminauthlogin
 
 Sitemap: https://theperfectsmileclinic.com/sitemap.xml

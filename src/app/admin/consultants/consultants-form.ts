@@ -23,7 +23,9 @@ export class AdminConsultantsForm implements OnInit {
 
   editingId = signal<string | null>(null);
   saving    = signal(false);
+  uploading = signal(false);
   error     = signal<string | null>(null);
+  preview   = signal<string | null>(null);
 
   colors = ['#0EA5E9', '#0284C7', '#14B8A6', '#38BDF8', '#0F766E', '#0C4A6E'];
 
@@ -32,7 +34,8 @@ export class AdminConsultantsForm implements OnInit {
     qualifications: ['', Validators.required],
     specialty:      ['', Validators.required],
     initials:       ['', [Validators.required, Validators.maxLength(3)]],
-    color:          ['#0284C7', Validators.required]
+    color:          ['#0284C7', Validators.required],
+    image:          ['']
   });
 
   invalid(field: string) {
@@ -52,10 +55,40 @@ export class AdminConsultantsForm implements OnInit {
       this.editingId.set(id);
       try {
         const c = await this.data.getConsultant(id);
-        this.form.patchValue(c);
+        this.form.patchValue({
+          name: c.name, qualifications: c.qualifications, specialty: c.specialty,
+          initials: c.initials, color: c.color, image: c.image ?? ''
+        });
+        this.preview.set(c.image ?? null);
       } catch (e: any) {
         this.error.set(e.message ?? 'Failed to load consultant');
       }
+    }
+  }
+
+  /**
+   * Upload the chosen image to Supabase storage (consultants folder) and
+   * stash the resulting public URL into the form. Same pattern as the
+   * team form so admins get identical UX across both screens.
+   */
+  async onFileChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      this.error.set('Image must be smaller than 5 MB.');
+      return;
+    }
+    this.uploading.set(true); this.error.set(null);
+    try {
+      const url = await this.data.uploadImage('consultants', file);
+      this.form.patchValue({ image: url });
+      this.preview.set(url);
+    } catch (e: any) {
+      this.error.set(e.message ?? 'Image upload failed');
+    } finally {
+      this.uploading.set(false);
+      input.value = '';
     }
   }
 
@@ -66,12 +99,17 @@ export class AdminConsultantsForm implements OnInit {
     }
     this.saving.set(true); this.error.set(null);
     try {
+      const v = this.form.value;
+      const payload = {
+        name: v.name, qualifications: v.qualifications, specialty: v.specialty,
+        initials: v.initials, color: v.color, image: v.image || undefined
+      };
       if (this.editingId()) {
-        await this.data.updateConsultant(this.editingId()!, this.form.value);
+        await this.data.updateConsultant(this.editingId()!, payload);
       } else {
-        await this.data.createConsultant(this.form.value);
+        await this.data.createConsultant(payload);
       }
-      this.router.navigate(['/admin/consultants']);
+      this.router.navigate(['/adminauthlogin/consultants']);
     } catch (e: any) {
       this.error.set(e.message ?? 'Save failed');
     } finally {

@@ -38,16 +38,16 @@ export class AdminLayout implements OnInit {
     {
       title: 'Content',
       items: [
-        { label: 'Services',             route: '/admin/services',    icon: 'fa-list-check' },
-        { label: 'Blog Posts',           route: '/admin/blog',        icon: 'fa-pen-nib' },
-        { label: 'Gallery',              route: '/admin/gallery',     icon: 'fa-images' },
+        { label: 'Services',             route: '/adminauthlogin/services',    icon: 'fa-list-check' },
+        { label: 'Blog Posts',           route: '/adminauthlogin/blog',        icon: 'fa-pen-nib' },
+        { label: 'Gallery',              route: '/adminauthlogin/gallery',     icon: 'fa-images' },
       ]
     },
     {
       title: 'Team',
       items: [
-        { label: 'Support Team',         route: '/admin/team',        icon: 'fa-people-group' },
-        { label: 'Visiting Consultants', route: '/admin/consultants', icon: 'fa-user-doctor' }
+        { label: 'Support Team',         route: '/adminauthlogin/team',        icon: 'fa-people-group' },
+        { label: 'Visiting Consultants', route: '/adminauthlogin/consultants', icon: 'fa-user-doctor' }
       ]
     }
   ];

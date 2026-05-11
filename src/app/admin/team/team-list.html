@@ -3,7 +3,7 @@
     <h1>Support Team</h1>
     <span class="adm-head__crumb">Dashboard › Team</span>
   </div>
-  <a routerLink="/admin/team/new" class="adm-btn">
+  <a routerLink="/adminauthlogin/team/new" class="adm-btn">
     <i class="fa-solid fa-plus"></i> Add Member
   </a>
 </header>
@@ -56,7 +56,7 @@
           </td>
           <td>
             <div class="adm-actions">
-              <a [routerLink]="['/admin/team', m.id, 'edit']"><i class="fa-regular fa-pen-to-square"></i> Edit</a>
+              <a [routerLink]="['/adminauthlogin/team', m.id, 'edit']"><i class="fa-regular fa-pen-to-square"></i> Edit</a>
               <button (click)="remove(m.id, m.name)"><i class="fa-regular fa-trash-can"></i> Delete</button>
             </div>
           </td>
@@ -66,6 +66,6 @@
   </table>
 
   <div class="adm-empty" *ngIf="!loading() && !members().length">
-    No team members yet. <a routerLink="/admin/team/new">Add the first one</a>.
+    No team members yet. <a routerLink="/adminauthlogin/team/new">Add the first one</a>.
   </div>
 </div>

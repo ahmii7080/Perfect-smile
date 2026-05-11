@@ -117,7 +117,7 @@ export class AdminServicesForm implements OnInit {
       } else {
         await this.data.createService(payload);
       }
-      this.router.navigate(['/admin/services']);
+      this.router.navigate(['/adminauthlogin/services']);
     } catch (e: any) {
       this.error.set(e.message ?? 'Save failed');
     } finally {

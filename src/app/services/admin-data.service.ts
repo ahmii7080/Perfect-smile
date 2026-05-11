@@ -47,6 +47,8 @@ export interface ConsultantRow {
   specialty: string;
   initials: string;
   color: string;
+  /** Optional uploaded photo. When present, takes precedence over initials avatar on /team. */
+  image?: string;
 }
 
 /**
@@ -190,27 +192,40 @@ export class AdminDataService {
   async listConsultants(): Promise<ConsultantRow[]> {
     const { data, error } = await this.db.from('visiting_consultants').select('*').order('created_at', { ascending: true });
     if (error) throw error;
-    return data ?? [];
+    return (data ?? []).map(this.mapConsultantRow);
   }
   async getConsultant(id: string): Promise<ConsultantRow> {
     const { data, error } = await this.db.from('visiting_consultants').select('*').eq('id', id).single();
     if (error) throw error;
-    return data;
+    return this.mapConsultantRow(data);
   }
   async createConsultant(input: ConsultantRow): Promise<void> {
     const { error } = await this.db.from('visiting_consultants').insert({
       name: input.name, qualifications: input.qualifications,
-      specialty: input.specialty, initials: input.initials, color: input.color
+      specialty: input.specialty, initials: input.initials, color: input.color,
+      image: input.image ?? null
     });
     if (error) throw error;
   }
   async updateConsultant(id: string, input: ConsultantRow): Promise<void> {
     const { error } = await this.db.from('visiting_consultants').update({
       name: input.name, qualifications: input.qualifications,
-      specialty: input.specialty, initials: input.initials, color: input.color
+      specialty: input.specialty, initials: input.initials, color: input.color,
+      image: input.image ?? null
     }).eq('id', id);
     if (error) throw error;
   }
+
+  /** Map raw Supabase row → `ConsultantRow` (DB nulls become `undefined`). */
+  private mapConsultantRow = (row: any): ConsultantRow => ({
+    id:             row.id,
+    name:           row.name,
+    qualifications: row.qualifications,
+    specialty:      row.specialty,
+    initials:       row.initials,
+    color:          row.color,
+    image:          row.image ?? undefined
+  });
   async deleteConsultant(id: string): Promise<void> {
     const { error } = await this.db.from('visiting_consultants').delete().eq('id', id);
     if (error) throw error;

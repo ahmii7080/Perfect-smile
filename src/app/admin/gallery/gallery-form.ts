@@ -137,7 +137,7 @@ export class AdminGalleryForm implements OnInit {
       } else {
         await this.data.createGallery(payload);
       }
-      this.router.navigate(['/admin/gallery']);
+      this.router.navigate(['/adminauthlogin/gallery']);
     } catch (e: any) {
       this.error.set(e.message ?? 'Save failed');
     } finally {

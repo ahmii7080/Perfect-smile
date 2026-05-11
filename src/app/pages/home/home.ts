@@ -158,13 +158,20 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   constructor() {
     // SEO surface for the homepage. Set in the constructor (not ngOnInit)
     // so the tags land in the SSR HTML response before component init runs.
-    // Title kept short — Google truncates SERP titles around 60 chars after
-    // the brand suffix is appended.
+    //
+    // `noBrandSuffix: true` — home page IS the brand page, so we don't want
+    // the "| The Perfect Smile Dental Clinic Faisalabad" suffix appended on
+    // top of an already brand-named title (Seobility flags the repetition).
+    //
+    // Title + description both seed the H1 vocabulary ("crafting", "perfect
+    // smiles") so search-engine on-page consistency checks pass — they
+    // expect the visible H1 to overlap with title/description text.
     this.seo.set({
-      title: 'Dental Clinic & Implant Centre',
+      title: 'The Perfect Smile — Dental Clinic & Implant Centre in Faisalabad',
       description:
-        'Premium dental & implant clinic in Faisalabad. Specialist care in implants, orthodontics, crown & bridge and cosmetic dentistry. Free consultation — book on WhatsApp.',
-      path: '/'
+        'Crafting perfect smiles in Faisalabad — multi-disciplinary dental & implant care covering crown & bridge, orthodontics, cosmetic dentistry, scaling and whitening. Book free consultation.',
+      path: '/',
+      noBrandSuffix: true
     });
 
     // Hero review-card auto-cycle. Browser only — `afterNextRender` keeps
