@@ -18,6 +18,8 @@ import { StructuredDataService } from './services/structured-data.service';
 export class App implements OnInit {
   routeKey = 0;
 
+
+  
   /**
    * True when the user is on any /adminauthlogin* route (login + dashboard).
    * Used to hide the public site chrome (navbar, footer, WhatsApp popup)

@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, inject, signal } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, afterNextRender, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -20,7 +20,7 @@ import { CommonModule } from '@angular/common';
     }
   `]
 })
-export class StatsCounterComponent implements OnInit, OnDestroy {
+export class StatsCounterComponent implements OnDestroy {
   @Input({ required: true }) target!: number;
   @Input() duration = 1800;
   @Input() suffix = '';
@@ -30,17 +30,23 @@ export class StatsCounterComponent implements OnInit, OnDestroy {
   private started = false;
   private host = inject(ElementRef);
 
-  ngOnInit() {
-    this.observer = new IntersectionObserver(entries => {
-      for (const entry of entries) {
-        if (entry.isIntersecting && !this.started) {
-          this.started = true;
-          this.run();
-          this.observer?.disconnect();
+  constructor() {
+    // IntersectionObserver + requestAnimationFrame are browser-only globals
+    // (undefined in the Node SSR runtime). `afterNextRender` defers all of
+    // this to first paint in the browser, so prerender never tries to
+    // construct an observer and the build log stays clean.
+    afterNextRender(() => {
+      this.observer = new IntersectionObserver(entries => {
+        for (const entry of entries) {
+          if (entry.isIntersecting && !this.started) {
+            this.started = true;
+            this.run();
+            this.observer?.disconnect();
+          }
         }
-      }
-    }, { threshold: 0.4 });
-    this.observer.observe(this.host.nativeElement);
+      }, { threshold: 0.4 });
+      this.observer.observe(this.host.nativeElement);
+    });
   }
 
   ngOnDestroy() { this.observer?.disconnect(); }
