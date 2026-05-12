@@ -19,9 +19,7 @@
       "Hygiene assessment",
       "Personalised treatment plan"
     ],
-    "faqs": [
-      { "q": "How often should I visit the dentist?", "a": "We recommend a check-up every 6 months for most adults — sooner if you have ongoing treatment or a history of gum issues." }
-    ]
+    "faqs": []
   },
   {
     "slug": "orthodontics",
@@ -43,9 +41,7 @@
       "Monthly progress visits",
       "Retention to maintain your smile"
     ],
-    "faqs": [
-      { "q": "Am I too old for orthodontic treatment?", "a": "Healthy teeth move at any age. Adults make up a large share of orthodontic patients today." }
-    ]
+    "faqs": []
   },
   {
     "slug": "cosmetic-dentistry",
@@ -133,9 +129,7 @@
       "Cleaning, shaping & disinfection",
       "Sealing & post-op restoration"
     ],
-    "faqs": [
-      { "q": "Is a root canal painful?", "a": "Modern root canals are performed under local anaesthesia and most patients report it feels like a routine filling." }
-    ]
+    "faqs": []
   },
   {
     "slug": "pediatric-dentistry",
@@ -201,9 +195,7 @@
       "Healing period",
       "Final crown fitted"
     ],
-    "faqs": [
-      { "q": "Are implants painful?", "a": "Placement is performed under local anaesthesia and is generally easier than a routine extraction." }
-    ]
+    "faqs": []
   },
   {
     "slug": "scaling-polishing",

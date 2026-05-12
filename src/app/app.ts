@@ -6,6 +6,7 @@ import { filter } from 'rxjs';
 import { NavbarComponent } from './components/navbar/navbar';
 import { FooterComponent } from './components/footer/footer';
 import { WhatsappPopupComponent } from './components/whatsapp-popup/whatsapp-popup';
+import { RouteProgressComponent } from './components/route-progress/route-progress';
 import { StructuredDataService } from './services/structured-data.service';
 import { AnalyticsService } from './services/analytics.service';
 import { DataService } from './services/data.service';
@@ -13,7 +14,7 @@ import { DataService } from './services/data.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, NavbarComponent, FooterComponent, WhatsappPopupComponent],
+  imports: [CommonModule, RouterOutlet, NavbarComponent, FooterComponent, WhatsappPopupComponent, RouteProgressComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

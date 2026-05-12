@@ -1,6 +1,7 @@
 import { Component, OnInit, PLATFORM_ID, inject, signal } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { take } from 'rxjs';
 import { BlogService } from '../../services/blog.service';
 import { DataService } from '../../services/data.service';
 import { BlogPost } from '../../models/appointment.model';
@@ -25,19 +26,31 @@ export class BlogDetailPage implements OnInit {
   private isBrowser      = isPlatformBrowser(inject(PLATFORM_ID));
 
   post        = signal<BlogPost | undefined>(undefined);
+  /** Skeleton flag while we wait on `getBlogBySlug` in the browser. */
+  loading     = signal<boolean>(false);
   related     = signal<BlogPost[]>([]);
   breadcrumbs = signal<BreadcrumbItem[]>([]);
 
   ngOnInit() {
-    // Resolver guarantees `post` is loaded before the route activates,
-    // so Article schema + article:* OG meta tags reliably end up in the
-    // prerendered HTML (vs. firing too late from an async subscription).
     const snapshot = this.route.snapshot;
     const slug     = snapshot.paramMap.get('slug') ?? '';
-    const p        = snapshot.data['post'] as BlogPost | undefined;
+    const resolved = snapshot.data['post'] as BlogPost | undefined;
 
-    this.post.set(p);
-    this.applySeo(slug, p);
+    if (resolved) {
+      // SSR / prerender path: data already in route.data, so Article schema
+      // + meta tags land synchronously in the captured HTML.
+      this.post.set(resolved);
+      this.applySeo(slug, resolved);
+    } else {
+      // Browser path: resolver returned undefined to keep navigation
+      // non-blocking. Fetch the post via `shareReplay`-cached observable.
+      this.loading.set(true);
+      this.data.getBlogBySlug(slug).pipe(take(1)).subscribe(p => {
+        this.post.set(p);
+        this.applySeo(slug, p);
+        this.loading.set(false);
+      });
+    }
 
     // Related posts — non-SEO-critical, can stay async.
     this.blog.related(slug, 3).subscribe(r => this.related.set(r));

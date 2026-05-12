@@ -166,10 +166,15 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     // Title + description both seed the H1 vocabulary ("crafting", "perfect
     // smiles") so search-engine on-page consistency checks pass — they
     // expect the visible H1 to overlap with title/description text.
+    // Title kept under 580 px (Seobility ceiling) by trimming the verbose
+    // "Dental Clinic & Implant Centre" phrasing down to "Dental & Implant
+    // Clinic" — same keywords (dental, implant, clinic, Faisalabad), 7 chars
+    // shorter. Description capped under 1000 px (≈ 160 chars) so Google
+    // doesn't truncate the SERP snippet.
     this.seo.set({
-      title: 'The Perfect Smile — Dental Clinic & Implant Centre in Faisalabad',
+      title: 'The Perfect Smile — Dental & Implant Clinic in Faisalabad',
       description:
-        'Dr. Faizan Sheikh — crafting perfect smiles in Faisalabad. Multi-specialist dental & implant clinic: implants, braces, crown & bridge, cosmetic dentistry. Free WhatsApp consultation.',
+        "Faisalabad's multi-specialist dental & implant clinic. Crown & bridge, orthodontics, implants, cosmetic dentistry by Dr. Faizan Sheikh. Free WhatsApp consult.",
       path: '/',
       noBrandSuffix: true
     });

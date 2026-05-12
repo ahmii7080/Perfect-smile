@@ -1,0 +1,146 @@
+[
+  {
+    "id": "17d4aeb8-25ec-4a00-9765-08a45cfa9591",
+    "category": "Veneers",
+    "title": "Full-arch porcelain veneers",
+    "description": "8 hand-layered porcelain veneers — closing diastema and balancing tooth proportions.",
+    "treatment": "veneers",
+    "icon": "fa-gem"
+  },
+  {
+    "id": "0d0a15a9-3bf6-4148-8b88-a29563b43048",
+    "category": "Whitening",
+    "title": "6-shade in-chair whitening",
+    "description": "Single 90-minute session — A3.5 to BL2.",
+    "treatment": "whitening",
+    "icon": "fa-sun"
+  },
+  {
+    "id": "35b250f0-a207-4d9e-8474-b634df765de1",
+    "category": "Implants",
+    "title": "Single-tooth implant + crown",
+    "description": "Computer-guided placement, ceramic crown bonded at 3 months.",
+    "treatment": "implants",
+    "icon": "fa-tooth"
+  },
+  {
+    "id": "fea69439-e4f8-4dc3-9f0b-12aabfb779de",
+    "category": "Braces",
+    "title": "Invisalign clear aligners",
+    "description": "14-month treatment — moderate crowding to ideal alignment.",
+    "treatment": "braces",
+    "icon": "fa-grip-lines"
+  },
+  {
+    "id": "3ee6e2e4-1197-475f-9d63-d73063b0e521",
+    "category": "Crowns",
+    "title": "Posterior zirconia crowns",
+    "description": "Two molars rebuilt with monolithic zirconia — natural shade match.",
+    "treatment": "crowns",
+    "icon": "fa-crown"
+  },
+  {
+    "id": "1e1736f4-ea3c-4efa-9fb8-50d3f3e82898",
+    "category": "Veneers",
+    "title": "Minimal-prep smile makeover",
+    "description": "6 ultra-thin veneers — minimal enamel reduction.",
+    "treatment": "makeover",
+    "icon": "fa-wand-magic-sparkles"
+  },
+  {
+    "id": "ce20a13c-fc48-4e16-90aa-a770d29db12c",
+    "category": "Implants",
+    "title": "All-on-4 full-arch reconstruction",
+    "description": "Four implants supporting a full hybrid bridge — life-changing result.",
+    "treatment": "implants",
+    "icon": "fa-tooth"
+  },
+  {
+    "id": "047afe89-4ff4-4dc9-8ac5-8dc35e5f552f",
+    "category": "Whitening",
+    "title": "Take-home tray whitening",
+    "description": "3 weeks of guided home whitening with desensitiser.",
+    "treatment": "whitening",
+    "icon": "fa-sun"
+  },
+  {
+    "id": "c310c71e-4267-4692-a1af-7e85a488466b",
+    "category": "Braces",
+    "title": "Lingual braces, 18 months",
+    "description": "Hidden behind teeth — invisible orthodontics.",
+    "treatment": "braces",
+    "icon": "fa-grip-lines"
+  },
+  {
+    "id": "2bd4cf58-52f7-40eb-9f8f-219c5c8da4f3",
+    "category": "Veneers",
+    "title": "Full-arch porcelain veneers",
+    "description": "8 hand-layered porcelain veneers — closing diastema and balancing tooth proportions.",
+    "treatment": "veneers",
+    "icon": "fa-gem"
+  },
+  {
+    "id": "d18f61f6-a4d4-4d04-bb8d-1021f9d6a08f",
+    "category": "Whitening",
+    "title": "6-shade in-chair whitening",
+    "description": "Single 90-minute session — A3.5 to BL2.",
+    "treatment": "whitening",
+    "icon": "fa-sun"
+  },
+  {
+    "id": "0085aa2d-4b07-4cdf-9016-e231b6464c4c",
+    "category": "Implants",
+    "title": "Single-tooth implant + crown",
+    "description": "Computer-guided placement, ceramic crown bonded at 3 months.",
+    "treatment": "implants",
+    "icon": "fa-tooth"
+  },
+  {
+    "id": "65cd2951-f6ff-418a-8d9f-92ab63293105",
+    "category": "Braces",
+    "title": "Invisalign clear aligners",
+    "description": "14-month treatment — moderate crowding to ideal alignment.",
+    "treatment": "braces",
+    "icon": "fa-grip-lines"
+  },
+  {
+    "id": "138560a4-7edc-4af6-9d0b-19085d27d475",
+    "category": "Crowns",
+    "title": "Posterior zirconia crowns",
+    "description": "Two molars rebuilt with monolithic zirconia — natural shade match.",
+    "treatment": "crowns",
+    "icon": "fa-crown"
+  },
+  {
+    "id": "70cb960c-1053-4508-8b60-2494ae09502b",
+    "category": "Veneers",
+    "title": "Minimal-prep smile makeover",
+    "description": "6 ultra-thin veneers — minimal enamel reduction.",
+    "treatment": "makeover",
+    "icon": "fa-wand-magic-sparkles"
+  },
+  {
+    "id": "acc9aefd-889b-4f01-98e1-3958ff2c1e84",
+    "category": "Implants",
+    "title": "All-on-4 full-arch reconstruction",
+    "description": "Four implants supporting a full hybrid bridge — life-changing result.",
+    "treatment": "implants",
+    "icon": "fa-tooth"
+  },
+  {
+    "id": "d71c2e5d-4046-4931-a7f7-94ee96402446",
+    "category": "Whitening",
+    "title": "Take-home tray whitening",
+    "description": "3 weeks of guided home whitening with desensitiser.",
+    "treatment": "whitening",
+    "icon": "fa-sun"
+  },
+  {
+    "id": "d3fa2fd3-c5fd-45c2-90ef-7bbcd82df5d4",
+    "category": "Braces",
+    "title": "Lingual braces, 18 months",
+    "description": "Hidden behind teeth — invisible orthodontics.",
+    "treatment": "braces",
+    "icon": "fa-grip-lines"
+  }
+]

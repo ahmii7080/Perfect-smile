@@ -22,15 +22,18 @@
     <a routerLink="/" class="brand" aria-label="The Perfect Smile — Dental Clinic Faisalabad">
       <!-- Logo is the LCP (largest contentful paint) element on most pages.
            `priority` tells Angular to preload it; `ngSrc` triggers responsive
-           sizing + lazy-by-default-elsewhere. `alt=""` + `aria-hidden` is correct
-           because the brand text right next to it announces the clinic name. -->
+           sizing + lazy-by-default-elsewhere.
+           A descriptive `alt` is used (instead of empty + aria-hidden) because
+           SEO crawlers like Seobility report empty-alt images as "missing alt
+           content" — and Google rewards alt text on brand/logo images for
+           knowledge-panel image association. The visible brand text next to
+           it stays accessible to screen readers either way. -->
       <img ngSrc="assets/images/logo.png"
-           alt=""
+           alt="The Perfect Smile Dental Clinic logo"
            class="brand__icon"
            width="96"
            height="96"
-           priority
-           aria-hidden="true">
+           priority>
       <span class="brand__text">
         <span class="brand__name">The <em>Perfect</em> Smile</span>
         <span class="brand__sub">Dental Clinic Faisalabad</span>

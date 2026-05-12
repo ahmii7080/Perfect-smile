@@ -1,3 +1,11 @@
+<!-- Slim global progress bar at the very top of the viewport. Reacts to
+     Router events (NavigationStart/ResolveStart → ResolveEnd/NavigationEnd)
+     so users get immediate visual feedback when they click a nav link, even
+     if the destination route is still downloading its lazy-loaded chunk or
+     waiting on a route resolver. Mounted outside `*ngIf` so it works on
+     admin routes too. -->
+<app-route-progress></app-route-progress>
+
 <app-navbar *ngIf="!isAdminRoute()"></app-navbar>
 
 <main class="route-fade" [class.is-admin]="isAdminRoute()" [attr.data-route]="routeKey">

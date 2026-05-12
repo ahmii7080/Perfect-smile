@@ -128,3 +128,38 @@
 
 .section-head { text-align: center; max-width: 720px; margin: 0 auto 3rem; }
 .text-center { text-align: center; }
+
+/* ============================ SKELETON ============================ */
+/* Shown while `loading()` is true — i.e. resolver returned undefined in
+   the browser and the component is fetching the service. Mirrors the hero
+   layout so the page doesn't reflow when real content arrives. */
+.sd-skeleton {
+  background: linear-gradient(135deg, #1597D5, #0A3A55);
+}
+.sd-skeleton .sk {
+  background: rgba(255,255,255,0.18);
+  border-radius: 8px;
+  position: relative; overflow: hidden;
+}
+.sd-skeleton .sk::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 0, rgba(255,255,255,0.28) 50%, transparent 100%);
+  transform: translateX(-100%);
+  animation: sk-shimmer 1.1s linear infinite;
+}
+.sd-skeleton .sk--chip  { width: 110px; height: 18px; margin-bottom: 1rem; border-radius: 999px; }
+.sd-skeleton .sk--title { width: 70%;  height: 44px; margin-bottom: 1.1rem; }
+.sd-skeleton .sk--line  { width: 100%; height: 14px; margin-bottom: 0.6rem; }
+.sd-skeleton .sk--short { width: 55%; }
+.sd-skeleton .sk--icon  {
+  width: 220px; height: 220px; border-radius: 50%;
+  margin-left: auto; background: rgba(255,255,255,0.12);
+}
+@keyframes sk-shimmer { to { transform: translateX(100%); } }
+@media (max-width: 800px) {
+  .sd-skeleton .sk--icon { width: 160px; height: 160px; margin: 0 auto; }
+}
+/* `prefers-reduced-motion` users see a static placeholder, no shimmer. */
+@media (prefers-reduced-motion: reduce) {
+  .sd-skeleton .sk::after { animation: none; }
+}

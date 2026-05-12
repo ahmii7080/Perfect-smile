@@ -10,9 +10,13 @@
 
   <div class="container-x hero__row">
     <div class="hero__copy">
+      <!-- H1: visible line breaks via <br>, but each text node ends with a
+           literal space so crawlers that read `textContent` without inter-node
+           whitespace (e.g. Seobility) still see "Crafting perfect smiles with
+           artistry." — not "Craftingperfect smiles…". -->
       <h1 class="h-mega hero__title" data-aos="fade-up" data-aos-delay="80">
-        Crafting<br>
-        <span class="italic-coral scribble">perfect</span> smiles<br>
+        Crafting <br>
+        <span class="italic-coral scribble">perfect</span> smiles <br>
         with <span class="italic">artistry.</span>
       </h1>
 
@@ -70,7 +74,13 @@
         <div class="hero-photo__shine"></div>
       </div>
 
-      <!-- Floating cards -->
+      <!-- Floating cards.
+           Name uses <span class="rev-name">, NOT <strong>, because the same
+           testimonial author (the first record in testimonials.json) shows up
+           again inside the Testimonials section's <app-testimonial-card>
+           below. Two <strong> tags with identical text trigger Seobility's
+           "Some tags are repeated" warning, so we keep the visual weight via
+           CSS and reserve <strong> for the canonical testimonial card. -->
       <div class="float-card float-card--review"
            [class.is-fading]="reviewFading()"
            data-aos="fade-up" data-aos-delay="500"
@@ -78,7 +88,7 @@
         <div class="float-card__head">
           <span class="rev-avatar">{{ r.name.charAt(0) }}</span>
           <div>
-            <strong>{{ r.name }}</strong>
+            <span class="rev-name">{{ r.name }}</span>
             <span class="float-card__stars">
               <i class="fa-solid fa-star" *ngFor="let _ of [].constructor(r.rating)"></i>
             </span>
@@ -158,8 +168,13 @@
          [attr.data-aos-delay]="i * 60">
         <span class="chip" [class]="t.chipClass" *ngIf="t.chip">{{ t.chip }}</span>
         <i class="fa-solid bento__icon" [class]="t.icon"></i>
+        <!-- Tile title was <h3>, now <span class="bento__title">. The 6
+             bento tiles plus the 3 specialty cards below were pushing the
+             home page to 27 headings (Seobility threshold ≈ proportional to
+             ~1k words). Service names are still indexed via the anchor's
+             text content + the JSON-LD Service schema on each detail page. -->
         <div class="bento__copy">
-          <h3>{{ t.title }}</h3>
+          <span class="bento__title">{{ t.title }}</span>
           <p>{{ t.desc }}</p>
         </div>
         <span class="bento__arrow"><i class="fa-solid fa-arrow-up-right"></i></span>
@@ -351,11 +366,16 @@
       </article>
     </ng-container>
 
-    <!-- 3 specialty cards highlighting Dr. Faizan's diplomas -->
+    <!-- 3 specialty cards highlighting Dr. Faizan's diplomas.
+         Title was <h4>; downgraded to <div class="spec-card__title">.
+         Plain div (not <strong>) on purpose — Seobility also caps strong/b
+         tags at ~21 per page, and the h3 above ("One doctor. Three
+         specialties.") already covers these labels semantically. Visual
+         weight is applied via CSS. -->
     <div class="spec-row">
       <article class="spec-card lift" *ngFor="let s of specialties; let i = index" data-aos="fade-up" [attr.data-aos-delay]="i*100">
         <div class="spec-card__icon"><i class="fa-solid" [class]="s.icon"></i></div>
-        <h4>{{ s.title }}</h4>
+        <div class="spec-card__title">{{ s.title }}</div>
         <p>{{ s.desc }}</p>
       </article>
     </div>

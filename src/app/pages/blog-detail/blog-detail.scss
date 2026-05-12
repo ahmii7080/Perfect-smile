@@ -118,3 +118,33 @@
 .rel-card__body i { color: var(--color-primary); margin-right: 4px; }
 
 .text-center { text-align: center; }
+
+/* ============================ SKELETON ============================ */
+/* Shown only in the browser while `loading()` is true (resolver pre-loads
+   on the server, so prerendered HTML never renders this state). Mirrors
+   the real hero so there's no jarring reflow on data arrival. */
+.bd-skeleton {
+  background: linear-gradient(135deg, #1597D5, #0A3A55);
+  min-height: 320px;
+  padding: 5rem 0 4rem;
+}
+.bd-skeleton .sk {
+  display: block;
+  background: rgba(255,255,255,0.18);
+  border-radius: 8px;
+  position: relative; overflow: hidden;
+}
+.bd-skeleton .sk::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 0, rgba(255,255,255,0.28) 50%, transparent 100%);
+  transform: translateX(-100%);
+  animation: bd-sk-shimmer 1.1s linear infinite;
+}
+.bd-skeleton .sk--chip  { width: 120px; height: 18px; border-radius: 999px; margin-bottom: 1rem; }
+.bd-skeleton .sk--title { width: 80%;  height: 40px; margin-bottom: 1.4rem; }
+.bd-skeleton .sk--meta  { display: flex; gap: 1rem; flex-wrap: wrap; }
+.bd-skeleton .sk--pill  { width: 110px; height: 16px; border-radius: 999px; }
+@keyframes bd-sk-shimmer { to { transform: translateX(100%); } }
+@media (prefers-reduced-motion: reduce) {
+  .bd-skeleton .sk::after { animation: none; }
+}
