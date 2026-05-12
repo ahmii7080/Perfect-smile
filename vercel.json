@@ -4,7 +4,6 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist/perfect-smile/browser",
 
-  "// redirects": "Hard 301 from www → apex. SeoService emits canonical URLs against the apex host (https://theperfectsmileclinic.com), so without this redirect the www host serves the same page with a non-matching canonical — which Seobility flagged as 'canonical link points to a different page'. Hard redirect collapses both hosts into one indexable URL.",
   "redirects": [
     {
       "source": "/:path*",
