@@ -1,6 +1,7 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { take } from 'rxjs';
 import { DataService } from '../../services/data.service';
 import { ServiceItem } from '../../models/service.model';
 import { SeoService } from '../../services/seo.service';
@@ -22,21 +23,37 @@ export class ServiceDetailPage implements OnInit {
   private structuredData = inject(StructuredDataService);
 
   service     = signal<ServiceItem | undefined>(undefined);
+  /** True while we're waiting for `getServiceBySlug` in the browser. Drives
+   *  the skeleton state in the template so users see a loading shell instead
+   *  of the "service not found" surface during the in-flight fetch. */
+  loading     = signal<boolean>(false);
   related     = signal<ServiceItem[]>([]);
   openFaq     = signal<number>(0);
   breadcrumbs = signal<BreadcrumbItem[]>([]);
 
   ngOnInit() {
-    // The resolver has already fetched `service` before the route activated,
-    // so the data is available synchronously from `snapshot.data`. This is
-    // what makes the per-service SEO tags + JSON-LD land in the prerendered
-    // HTML reliably — no waiting on an async subscription.
     const snapshot = this.route.snapshot;
     const slug     = snapshot.paramMap.get('slug') ?? '';
-    const s        = snapshot.data['service'] as ServiceItem | undefined;
+    const resolved = snapshot.data['service'] as ServiceItem | undefined;
 
-    this.service.set(s);
-    this.applySeo(slug, s);
+    if (resolved) {
+      // SSR / prerender path: resolver baked the data into route.data at
+      // build time, so we have it synchronously and SEO tags land before
+      // the HTML capture. No loading state needed.
+      this.service.set(resolved);
+      this.applySeo(slug, resolved);
+    } else {
+      // Browser path: resolver intentionally returned undefined to keep the
+      // navigation snappy. Subscribe directly — `shareReplay(1)` inside
+      // DataService means second+ visits are synchronous, and the global
+      // pre-warm in App constructor usually has the data ready by now.
+      this.loading.set(true);
+      this.data.getServiceBySlug(slug).pipe(take(1)).subscribe(s => {
+        this.service.set(s);
+        this.applySeo(slug, s);
+        this.loading.set(false);
+      });
+    }
 
     // Related services list — non-critical for SEO, can stay async.
     this.data.getServices().subscribe(list => {

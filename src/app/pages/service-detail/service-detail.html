@@ -1,4 +1,25 @@
-<ng-container *ngIf="service() as s; else notFound">
+<!-- Three-state surface:
+       1. `service()` is set  →  full detail layout (the *ngIf branch).
+       2. `loading()` true    →  skeleton shell while the data is in flight
+                                  (browser-path only; resolver pre-loads on
+                                  the server so prerendered HTML never sees
+                                  the skeleton).
+       3. neither             →  genuine "not found" (bad slug). -->
+<ng-container *ngIf="!service() && loading()">
+  <section class="sd-hero sd-skeleton" aria-busy="true" aria-label="Loading service details">
+    <div class="container-x sd-hero__row">
+      <div>
+        <div class="sk sk--chip"></div>
+        <div class="sk sk--title"></div>
+        <div class="sk sk--line"></div>
+        <div class="sk sk--line sk--short"></div>
+      </div>
+      <div class="sd-hero__icon sk sk--icon"></div>
+    </div>
+  </section>
+</ng-container>
+
+<ng-container *ngIf="service() as s">
   <section class="sd-hero" [style.background]="'linear-gradient(135deg,' + s.color + ', #0A3A55)'">
     <div class="container-x sd-hero__row">
       <div data-aos="fade-right">
@@ -63,7 +84,11 @@
   <app-related-services [currentServiceSlug]="s.slug" />
 </ng-container>
 
-<ng-template #notFound>
+<!-- "Not found" only renders when we're genuinely sure the service is
+     missing (resolver finished AND fetch finished). Without the `!loading()`
+     guard, users would see a flash of this 404 surface during the in-flight
+     browser fetch, which would be a worse UX than the skeleton above. -->
+<ng-container *ngIf="!service() && !loading()">
   <section class="page-header">
     <div class="container-x">
       <h1>Service not found</h1>
@@ -73,4 +98,4 @@
   <section class="section text-center">
     <a routerLink="/services" class="btn btn-primary">View All Services</a>
   </section>
-</ng-template>
+</ng-container>

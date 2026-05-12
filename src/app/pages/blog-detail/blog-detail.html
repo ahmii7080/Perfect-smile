@@ -1,4 +1,21 @@
-<ng-container *ngIf="post() as p; else missing">
+<!-- Browser-only skeleton while the post is in flight (resolver returns
+     undefined in the browser to keep navigation snappy; component fetches
+     and flips `loading()` off when the response lands). -->
+<ng-container *ngIf="!post() && loading()">
+  <section class="bd-hero bd-skeleton" aria-busy="true" aria-label="Loading article">
+    <div class="container-x">
+      <div class="sk sk--chip"></div>
+      <div class="sk sk--title"></div>
+      <div class="sk sk--meta">
+        <span class="sk sk--pill"></span>
+        <span class="sk sk--pill"></span>
+        <span class="sk sk--pill"></span>
+      </div>
+    </div>
+  </section>
+</ng-container>
+
+<ng-container *ngIf="post() as p">
   <section class="bd-hero" [style.background-color]="p.color">
     <app-blog-illustration class="bd-hero__bg" [category]="p.category" [color]="p.color"></app-blog-illustration>
     <span class="bd-hero__shade"></span>
@@ -84,7 +101,8 @@
   </section>
 </ng-container>
 
-<ng-template #missing>
+<!-- Genuine "not found" — only after loading finished AND post still missing. -->
+<ng-container *ngIf="!post() && !loading()">
   <section class="page-header"><div class="container-x"><h1>Article not found</h1></div></section>
   <section class="section text-center"><a routerLink="/blog" class="btn btn-primary">← Back to Blog</a></section>
-</ng-template>
+</ng-container>

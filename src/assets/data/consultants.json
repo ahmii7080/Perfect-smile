@@ -1,0 +1,18 @@
+[
+  {
+    "id": "bf42c9d4-fe02-46ba-bc01-c1a203fab4b7",
+    "name": "Dr. Sheroz Khan",
+    "qualifications": "FCPS Orthodontics",
+    "specialty": "Orthodontist",
+    "initials": "SK",
+    "color": "#0284C7"
+  },
+  {
+    "id": "ca39c5e1-7ffc-4573-9860-b7f804442343",
+    "name": "Dr. Usama Malik",
+    "qualifications": "Maxillofacial Surgeon",
+    "specialty": "Oral & Maxillofacial Surgery",
+    "initials": "UM",
+    "color": "#14B8A6"
+  }
+]

@@ -1,22 +1,35 @@
-import { inject } from '@angular/core';
+import { PLATFORM_ID, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { ResolveFn } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { DataService } from '../services/data.service';
 import { ServiceItem } from '../models/service.model';
 
 /**
- * Route resolver for `/services/:slug`. Fetches the matching service from
- * Supabase BEFORE the component activates — guarantees the data is ready
- * when the page renders, which in turn guarantees the SEO-tag updates
- * (title, description, MedicalProcedure JSON-LD, FAQPage) are applied
- * before SSR/prerender captures the HTML.
+ * Route resolver for `/services/:slug`.
  *
- * Without a resolver, the data fetch happens inside `ngOnInit`, asynchronously,
- * and the prerender process can capture the page before the subscription fires —
- * which is exactly what we saw: detail pages prerendered with "Service not found"
- * because the signal was still undefined at capture time.
+ * Two execution modes depending on platform:
+ *
+ *  - **Server (prerender / SSR)**: blocks on Supabase via `firstValueFrom`
+ *    so the data is available synchronously inside the component. This is
+ *    what bakes per-service SEO tags (title, description, MedicalProcedure
+ *    JSON-LD, FAQPage) into the prerendered HTML — Googlebot sees them in
+ *    the initial response without needing JavaScript.
+ *
+ *  - **Browser**: returns `undefined` immediately. We deliberately do NOT
+ *    block navigation in the browser — the resolver pattern was making
+ *    "click nav link → 1-2s freeze" the default UX, especially on the
+ *    first hit before `shareReplay` warms up. The detail component instead
+ *    subscribes to `getServiceBySlug(slug)` in `ngOnInit` and renders a
+ *    skeleton state while the request is in flight, then swaps to real
+ *    content when it lands. Feels instant.
+ *
+ * NOTE: The page-load order is unchanged for crawlers and direct deep
+ * links — those typically hit the prerendered HTML, where the data was
+ * already inlined at build time.
  */
 export const serviceResolver: ResolveFn<ServiceItem | undefined> = (route) => {
+  if (isPlatformBrowser(inject(PLATFORM_ID))) return undefined;
   const slug = route.paramMap.get('slug') ?? '';
   return firstValueFrom(inject(DataService).getServiceBySlug(slug));
 };

@@ -4,6 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "//snapshot": "Pulls latest Supabase rows into src/assets/data/*.json. Auto-runs as prebuild so every deploy ships a fresh snapshot. Run standalone with `npm run snapshot` to refresh during dev without a full build.",
+    "snapshot": "node scripts/snapshot-supabase.mjs",
+    "prebuild": "node scripts/snapshot-supabase.mjs",
     "build": "ng build",
     "postbuild": "node scripts/generate-sitemap.mjs",
     "watch": "ng build --watch --configuration development",
