@@ -3,10 +3,11 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
 } from '@angular/core';
-import { provideRouter, withInMemoryScrolling } from '@angular/router';
+import { provideRouter, withInMemoryScrolling, withPreloading } from '@angular/router';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 
 import { routes } from './app.routes';
+import { HoverPreloadStrategy } from './services/hover-preload.strategy';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
@@ -25,6 +26,10 @@ export const appConfig: ApplicationConfig = {
         scrollPositionRestoration: 'top',
         anchorScrolling: 'enabled',
       }),
+      // Selective hover-triggered preloading. Strategy returns EMPTY for
+      // un-flagged routes; PrefetchOnHoverDirective flags them on hover
+      // and then triggers a `RouterPreloader.preload()` pass.
+      withPreloading(HoverPreloadStrategy),
     ),
     provideClientHydration(withEventReplay()),
   ],

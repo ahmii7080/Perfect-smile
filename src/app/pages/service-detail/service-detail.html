@@ -1,11 +1,11 @@
 <!-- Three-state surface:
-       1. `service()` is set  →  full detail layout (the *ngIf branch).
-       2. `loading()` true    →  skeleton shell while the data is in flight
-                                  (browser-path only; resolver pre-loads on
-                                  the server so prerendered HTML never sees
-                                  the skeleton).
-       3. neither             →  genuine "not found" (bad slug). -->
-<ng-container *ngIf="!service() && loading()">
+1. `service()` is set  →  full detail layout (the *ngIf branch).
+2. `loading()` true    →  skeleton shell while the data is in flight
+(browser-path only; resolver pre-loads on
+the server so prerendered HTML never sees
+the skeleton).
+3. neither             →  genuine "not found" (bad slug). -->
+@if (!service() && loading()) {
   <section class="sd-hero sd-skeleton" aria-busy="true" aria-label="Loading service details">
     <div class="container-x sd-hero__row">
       <div>
@@ -17,9 +17,9 @@
       <div class="sd-hero__icon sk sk--icon"></div>
     </div>
   </section>
-</ng-container>
+}
 
-<ng-container *ngIf="service() as s">
+@if (service(); as s) {
   <section class="sd-hero" [style.background]="'linear-gradient(135deg,' + s.color + ', #0A3A55)'">
     <div class="container-x sd-hero__row">
       <div data-aos="fade-right">
@@ -27,68 +27,86 @@
         <span class="eyebrow on-dark">{{ s.tagline }}</span>
         <h1>{{ s.title }}</h1>
         <p>{{ s.summary }}</p>
-        <a routerLink="/appointment" class="btn btn-gold">Book Consultation <i class="fa-solid fa-arrow-right"></i></a>
+        <a routerLink="/appointment" class="btn btn-gold"
+          >Book Consultation <i class="fa-solid fa-arrow-right"></i
+        ></a>
       </div>
       <div class="sd-hero__icon" data-aos="zoom-in">
         <i class="fa-solid" [class]="s.icon"></i>
       </div>
     </div>
   </section>
-
   <section class="section">
     <div class="container-x sd-grid">
       <div class="sd-main" data-aos="fade-up">
         <span class="eyebrow">Overview</span>
         <h2>What to expect</h2>
         <p>{{ s.description }}</p>
-
         <h3>Procedure</h3>
         <ol class="sd-steps">
-          <li *ngFor="let step of s.procedure; let i = index">
-            <span class="sd-steps__num">{{ i + 1 }}</span>
-            <span>{{ step }}</span>
-          </li>
+          @for (step of s.procedure; track step; let i = $index) {
+            <li>
+              <span class="sd-steps__num">{{ i + 1 }}</span>
+              <span>{{ step }}</span>
+            </li>
+          }
         </ol>
-
-        <h3 *ngIf="s.faqs.length">Frequently asked</h3>
-        <div class="sd-faqs" *ngIf="s.faqs.length">
-          <div class="sd-faq" *ngFor="let f of s.faqs; let i = index" [class.is-open]="openFaq() === i">
-            <button class="sd-faq__q" (click)="toggleFaq(i)">
-              {{ f.q }}
-              <i class="fa-solid fa-chevron-down"></i>
-            </button>
-            <div class="sd-faq__a"><p>{{ f.a }}</p></div>
+        @if (s.faqs.length) {
+          <h3>Frequently asked</h3>
+        }
+        @if (s.faqs.length) {
+          <div class="sd-faqs">
+            @for (f of s.faqs; track f; let i = $index) {
+              <div class="sd-faq" [class.is-open]="openFaq() === i">
+                <button class="sd-faq__q" (click)="toggleFaq(i)">
+                  {{ f.q }}
+                  <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="sd-faq__a">
+                  <p>{{ f.a }}</p>
+                </div>
+              </div>
+            }
           </div>
-        </div>
+        }
       </div>
-
       <aside class="sd-side">
         <div class="sd-card" data-aos="fade-left">
           <h4>Key Benefits</h4>
           <ul>
-            <li *ngFor="let b of s.benefits">
-              <i class="fa-solid fa-check"></i> {{ b }}
-            </li>
+            @for (b of s.benefits; track b) {
+              <li><i class="fa-solid fa-check"></i> {{ b }}</li>
+            }
           </ul>
         </div>
         <div class="sd-card sd-card--dark" data-aos="fade-left" data-aos-delay="100">
           <h4>Need a quote?</h4>
-          <p>Book a free consultation. We'll provide a clear, written treatment plan with transparent pricing.</p>
+          <p>
+            Book a free consultation. We'll provide a clear, written treatment plan with transparent
+            pricing.
+          </p>
           <a routerLink="/appointment" class="btn btn-gold">Book Now</a>
         </div>
       </aside>
     </div>
   </section>
-
   <!-- Internal-linking related-services block — curated, topical anchors. -->
   <app-related-services [currentServiceSlug]="s.slug" />
-</ng-container>
+}
 
 <!-- "Not found" only renders when we're genuinely sure the service is
-     missing (resolver finished AND fetch finished). Without the `!loading()`
-     guard, users would see a flash of this 404 surface during the in-flight
-     browser fetch, which would be a worse UX than the skeleton above. -->
-<ng-container *ngIf="!service() && !loading()">
+missing (resolver finished AND fetch finished). Without the `!loading()`
+guard, users would see a flash of this 404 surface during the in-flight
+browser fetch, which would be a worse UX than the skeleton above.
+
+NOTE on H1: this branch has an <h1> ("Service not found"), and the
+"found" branch above also has an <h1>. They're MUTUALLY EXCLUSIVE via
+*ngIf — at runtime exactly one h1 is in the DOM, never both. Plus the
+notFound state calls `seo.set({ noindex: true })` (see applySeo in
+service-detail.ts), so Google won't index this state anyway. Static
+code audits that flag "two h1 tags" without understanding *ngIf
+semantics are false-positives here. -->
+@if (!service() && !loading()) {
   <section class="page-header">
     <div class="container-x">
       <h1>Service not found</h1>
@@ -98,4 +116,4 @@
   <section class="section text-center">
     <a routerLink="/services" class="btn btn-primary">View All Services</a>
   </section>
-</ng-container>
+}

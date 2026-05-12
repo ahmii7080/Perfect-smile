@@ -1,12 +1,13 @@
-<div class="admin-shell"
-     [class.is-collapsed]="!sidebarOpen()"
-     [class.is-mobile]="isMobile()"
-     [class.is-open]="sidebarOpen()">
-
+<div
+  class="admin-shell"
+  [class.is-collapsed]="!sidebarOpen()"
+  [class.is-mobile]="isMobile()"
+  [class.is-open]="sidebarOpen()"
+>
   <!-- ===== Mobile drawer backdrop ===== -->
-  <div class="admin-backdrop"
-       *ngIf="isMobile() && sidebarOpen()"
-       (click)="closeSidebar()"></div>
+  @if (isMobile() && sidebarOpen()) {
+    <div class="admin-backdrop" (click)="closeSidebar()"></div>
+  }
 
   <!-- ===== Sidebar ===== -->
   <aside class="admin-sidebar">
@@ -21,16 +22,15 @@
     </div>
 
     <nav class="admin-nav" aria-label="Admin navigation">
-      <ng-container *ngFor="let group of contentSections">
+      @for (group of contentSections; track group) {
         <span class="admin-nav__group">{{ group.title }}</span>
-        <a *ngFor="let item of group.items"
-           [routerLink]="item.route"
-           routerLinkActive="is-active"
-           class="admin-nav__item">
-          <i class="fa-solid" [class]="item.icon"></i>
-          <span>{{ item.label }}</span>
-        </a>
-      </ng-container>
+        @for (item of group.items; track item) {
+          <a [routerLink]="item.route" routerLinkActive="is-active" class="admin-nav__item">
+            <i class="fa-solid" [class]="item.icon"></i>
+            <span>{{ item.label }}</span>
+          </a>
+        }
+      }
     </nav>
 
     <div class="admin-sidebar__foot">

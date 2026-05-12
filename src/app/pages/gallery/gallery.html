@@ -11,59 +11,125 @@
   <div class="container-x">
     <!-- Filter tabs -->
     <div class="filters" data-aos="fade-up">
-      <button *ngFor="let f of filters"
-              class="filter-pill"
-              [class.is-active]="active() === f"
-              (click)="setFilter(f)">{{ f }}</button>
+      @for (f of filters; track f) {
+        <button class="filter-pill" [class.is-active]="active() === f" (click)="setFilter(f)">
+          {{ f }}
+        </button>
+      }
     </div>
 
-    <!-- Cases -->
+    <!-- Cases.
+         Each case can have an uploaded BEFORE/AFTER photo OR fall back to
+         a generic SmileSvg illustration. The uploaded photo path uses
+         NgOptimizedImage so srcset/sizing/lazy-loading kick in for what's
+         usually the heaviest visual on this page. -->
     <div class="cases">
-      <article class="case lift" *ngFor="let c of filtered(); let i = index" data-aos="fade-up" [attr.data-aos-delay]="(i % 3) * 80" (click)="open(c)">
-        <div class="case__pair">
-          <div class="case__half" [class.has-photo]="!!c.beforeImage"
-               [style.background-image]="c.beforeImage ? 'url(' + c.beforeImage + ')' : null">
-            <app-smile-svg *ngIf="!c.beforeImage" [treatment]="c.treatment" variant="before"></app-smile-svg>
-            <span>BEFORE</span>
+      @for (c of filtered(); track c; let i = $index) {
+        <article
+          class="case lift"
+          data-aos="fade-up"
+          [attr.data-aos-delay]="(i % 3) * 80"
+          (click)="open(c)"
+        >
+          <div class="case__pair">
+            <div class="case__half" [class.has-photo]="!!c.beforeImage">
+              @if (c.beforeImage) {
+                <img
+                  [ngSrc]="c.beforeImage"
+                  [alt]="c.title + ' — before treatment'"
+                  class="case__img"
+                  width="600"
+                  height="600"
+                  sizes="(max-width: 600px) 50vw, (max-width: 1100px) 25vw, 200px"
+                  loading="lazy"
+                />
+              } @else {
+                <app-smile-svg [treatment]="c.treatment" variant="before"></app-smile-svg>
+              }
+              <span>BEFORE</span>
+            </div>
+            <div class="case__half" [class.has-photo]="!!c.afterImage">
+              @if (c.afterImage) {
+                <img
+                  [ngSrc]="c.afterImage"
+                  [alt]="c.title + ' — after treatment'"
+                  class="case__img"
+                  width="600"
+                  height="600"
+                  sizes="(max-width: 600px) 50vw, (max-width: 1100px) 25vw, 200px"
+                  loading="lazy"
+                />
+              } @else {
+                <app-smile-svg [treatment]="c.treatment" variant="after"></app-smile-svg>
+              }
+              <span>AFTER</span>
+            </div>
+            <i class="fa-solid case__icon" [class]="c.icon" aria-hidden="true"></i>
           </div>
-          <div class="case__half" [class.has-photo]="!!c.afterImage"
-               [style.background-image]="c.afterImage ? 'url(' + c.afterImage + ')' : null">
-            <app-smile-svg *ngIf="!c.afterImage" [treatment]="c.treatment" variant="after"></app-smile-svg>
-            <span>AFTER</span>
+          <div class="case__body">
+            <span class="case__cat">{{ c.category }}</span>
+            <h3>{{ c.title }}</h3>
+            <p>{{ c.description }}</p>
+            <span class="case__more"
+              >View case <i class="fa-solid fa-arrow-up-right-from-square"></i
+            ></span>
           </div>
-          <i class="fa-solid case__icon" [class]="c.icon"></i>
-        </div>
-        <div class="case__body">
-          <span class="case__cat">{{ c.category }}</span>
-          <h3>{{ c.title }}</h3>
-          <p>{{ c.description }}</p>
-          <span class="case__more">View case <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-        </div>
-      </article>
+        </article>
+      }
     </div>
   </div>
 </section>
 
 <!-- Lightbox -->
-<div class="lb-overlay" *ngIf="lightbox()" (click)="close()">
-  <div class="lb" (click)="$event.stopPropagation()" *ngIf="lightbox() as c">
-    <button class="lb__close" (click)="close()" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-    <div class="lb__pair">
-      <div class="lb__half" [class.has-photo]="!!c.beforeImage"
-           [style.background-image]="c.beforeImage ? 'url(' + c.beforeImage + ')' : null">
-        <app-smile-svg *ngIf="!c.beforeImage" [treatment]="c.treatment" variant="before"></app-smile-svg>
-        <span>BEFORE</span>
+@if (lightbox()) {
+  <div class="lb-overlay" (click)="close()">
+    @if (lightbox(); as c) {
+      <div class="lb" (click)="$event.stopPropagation()">
+        <button class="lb__close" (click)="close()" aria-label="Close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <!-- Lightbox uses the same image (just bigger). Browser re-uses the
+             already-cached file from the card click — `disableOptimizedSrcset`
+             is unnecessary since NgOptimizedImage will pick a larger srcset
+             entry here matching the bigger viewport. -->
+        <div class="lb__pair">
+          <div class="lb__half" [class.has-photo]="!!c.beforeImage">
+            @if (c.beforeImage) {
+              <img
+                [ngSrc]="c.beforeImage"
+                [alt]="c.title + ' — before treatment, enlarged'"
+                class="lb__img"
+                width="900"
+                height="900"
+                sizes="(max-width: 800px) 50vw, 400px"
+              />
+            } @else {
+              <app-smile-svg [treatment]="c.treatment" variant="before"></app-smile-svg>
+            }
+            <span>BEFORE</span>
+          </div>
+          <div class="lb__half" [class.has-photo]="!!c.afterImage">
+            @if (c.afterImage) {
+              <img
+                [ngSrc]="c.afterImage"
+                [alt]="c.title + ' — after treatment, enlarged'"
+                class="lb__img"
+                width="900"
+                height="900"
+                sizes="(max-width: 800px) 50vw, 400px"
+              />
+            } @else {
+              <app-smile-svg [treatment]="c.treatment" variant="after"></app-smile-svg>
+            }
+            <span>AFTER</span>
+          </div>
+        </div>
+        <div class="lb__body">
+          <span class="case__cat">{{ c.category }}</span>
+          <h2>{{ c.title }}</h2>
+          <p>{{ c.description }}</p>
+        </div>
       </div>
-      <div class="lb__half" [class.has-photo]="!!c.afterImage"
-           [style.background-image]="c.afterImage ? 'url(' + c.afterImage + ')' : null">
-        <app-smile-svg *ngIf="!c.afterImage" [treatment]="c.treatment" variant="after"></app-smile-svg>
-        <span>AFTER</span>
-      </div>
-    </div>
-    <div class="lb__body">
-      <span class="case__cat">{{ c.category }}</span>
-      <h2>{{ c.title }}</h2>
-      <p>{{ c.description }}</p>
-    </div>
+    }
   </div>
-</div>
+}

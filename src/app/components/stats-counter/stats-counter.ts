@@ -1,24 +1,32 @@
-import { Component, ElementRef, Input, OnDestroy, afterNextRender, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  afterNextRender,
+  inject,
+  signal,
+} from '@angular/core';
 
 @Component({
   selector: 'app-stats-counter',
   standalone: true,
-  imports: [CommonModule],
-  template: `
-    <span class="counter">{{ display() }}{{ suffix }}</span>
-  `,
-  styles: [`
-    .counter {
-      font-family: 'Fraunces', serif;
-      font-weight: 600;
-      font-size: clamp(2rem, 4vw, 3rem);
-      background: linear-gradient(135deg, #FAC775 0%, #ffffff 100%);
-      -webkit-background-clip: text; background-clip: text;
-      -webkit-text-fill-color: transparent;
-      display: inline-block;
-    }
-  `]
+  imports: [],
+  template: ` <span class="counter">{{ display() }}{{ suffix }}</span> `,
+  styles: [
+    `
+      .counter {
+        font-family: 'Fraunces', serif;
+        font-weight: 600;
+        font-size: clamp(2rem, 4vw, 3rem);
+        background: linear-gradient(135deg, #fac775 0%, #ffffff 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline-block;
+      }
+    `,
+  ],
 })
 export class StatsCounterComponent implements OnDestroy {
   @Input({ required: true }) target!: number;
@@ -36,20 +44,25 @@ export class StatsCounterComponent implements OnDestroy {
     // this to first paint in the browser, so prerender never tries to
     // construct an observer and the build log stays clean.
     afterNextRender(() => {
-      this.observer = new IntersectionObserver(entries => {
-        for (const entry of entries) {
-          if (entry.isIntersecting && !this.started) {
-            this.started = true;
-            this.run();
-            this.observer?.disconnect();
+      this.observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting && !this.started) {
+              this.started = true;
+              this.run();
+              this.observer?.disconnect();
+            }
           }
-        }
-      }, { threshold: 0.4 });
+        },
+        { threshold: 0.4 },
+      );
       this.observer.observe(this.host.nativeElement);
     });
   }
 
-  ngOnDestroy() { this.observer?.disconnect(); }
+  ngOnDestroy() {
+    this.observer?.disconnect();
+  }
 
   private run() {
     const start = performance.now();

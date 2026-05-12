@@ -3,7 +3,10 @@
     <app-breadcrumb [items]="breadcrumbs" />
     <span class="eyebrow">Our Team</span>
     <h1>The people behind every <span class="accent-italic-light italic">perfect smile</span></h1>
-    <p>From our visiting specialist consultants to the support staff that keeps everything running — meet the people who make your visit a great experience.</p>
+    <p>
+      From our visiting specialist consultants to the support staff that keeps everything running —
+      meet the people who make your visit a great experience.
+    </p>
   </div>
 </section>
 
@@ -13,29 +16,42 @@
     <header class="section-head" data-aos="fade-up">
       <span class="eyebrow center">Visiting Consultants</span>
       <h2>Specialists who <span class="accent-italic">consult with us</span></h2>
-      <p>For specialised cases, we collaborate with experienced consultants who visit the clinic on scheduled days.</p>
+      <p>
+        For specialised cases, we collaborate with experienced consultants who visit the clinic on
+        scheduled days.
+      </p>
     </header>
 
-    <div class="consult-grid" *ngIf="consultants().length">
-      <article class="consult-card lift" *ngFor="let c of consultants(); let i = index" data-aos="fade-up" [attr.data-aos-delay]="i * 100">
-        <!-- Photo if admin uploaded one; otherwise the gradient + initials avatar.
-             Image takes precedence; gradient is the deterministic fallback so the
-             card never renders blank while data is loading. -->
-        <div class="consult-card__avatar"
-             [class.has-image]="!!c.image"
-             [style.background]="c.image
-                ? 'url(' + c.image + ') center/cover no-repeat'
-                : ('linear-gradient(135deg,' + c.color + ', #0C4A6E)')">
-          <span *ngIf="!c.image">{{ c.initials }}</span>
-        </div>
-        <span class="consult-card__chip">
-          <i class="fa-solid fa-user-doctor"></i> Visiting Consultant
-        </span>
-        <h3>{{ c.name }}</h3>
-        <p class="consult-card__quals">{{ c.qualifications }}</p>
-        <span class="consult-card__spec">{{ c.specialty }}</span>
-      </article>
-    </div>
+    @if (consultants().length) {
+      <div class="consult-grid">
+        @for (c of consultants(); track c; let i = $index) {
+          <article class="consult-card lift" data-aos="fade-up" [attr.data-aos-delay]="i * 100">
+            <!-- Photo if admin uploaded one; otherwise the gradient + initials avatar.
+            Image takes precedence; gradient is the deterministic fallback so the
+            card never renders blank while data is loading. -->
+            <div
+              class="consult-card__avatar"
+              [class.has-image]="!!c.image"
+              [style.background]="
+                c.image
+                  ? 'url(' + c.image + ') center/cover no-repeat'
+                  : 'linear-gradient(135deg,' + c.color + ', #0C4A6E)'
+              "
+            >
+              @if (!c.image) {
+                <span>{{ c.initials }}</span>
+              }
+            </div>
+            <span class="consult-card__chip">
+              <i class="fa-solid fa-user-doctor"></i> Visiting Consultant
+            </span>
+            <h3>{{ c.name }}</h3>
+            <p class="consult-card__quals">{{ c.qualifications }}</p>
+            <span class="consult-card__spec">{{ c.specialty }}</span>
+          </article>
+        }
+      </div>
+    }
   </div>
 </section>
 
@@ -47,30 +63,66 @@
       <h2>The people behind every <span class="accent-italic">perfect smile</span></h2>
     </header>
     <div class="team-grid">
-      <article class="team-card lift" *ngFor="let m of team(); let i = index" data-aos="fade-up" [attr.data-aos-delay]="(i % 4) * 60">
-        <div class="team-avatar"
-             [class.has-image]="!!m.image"
-             [style.background-color]="m.color"
-             [style.background-image]="m.image ? 'url(' + m.image + ')' : null">
-          <span *ngIf="!m.image">{{ m.initials }}</span>
-        </div>
-        <h3>{{ m.name }}</h3>
-        <span class="team-role">{{ m.role }}</span>
-        <div class="team-card__social">
-          <a href="https://www.facebook.com/share/1E8Z7uagMK/" aria-label="Facebook" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="https://www.instagram.com/perfect_smile_dental_.clinic?igsh=b2swaXZyemdveGRr" aria-label="Instagram" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a>
-          <a href="https://wa.me/923247734135" aria-label="WhatsApp" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i></a>
-        </div>
-      </article>
+      @for (m of team(); track m; let i = $index) {
+        <article class="team-card lift" data-aos="fade-up" [attr.data-aos-delay]="(i % 4) * 60">
+          <!-- Member photo via NgOptimizedImage (Angular srcset). Members
+               without an uploaded photo fall back to initials on the
+               coloured tile, same as before. -->
+          <div class="team-avatar" [class.has-image]="!!m.image" [style.background-color]="m.color">
+            @if (m.image) {
+              <img
+                [ngSrc]="m.image"
+                [alt]="m.name + ' — ' + m.role"
+                class="team-avatar__img"
+                width="240"
+                height="240"
+                sizes="(max-width: 600px) 50vw, 240px"
+              />
+            } @else {
+              <span>{{ m.initials }}</span>
+            }
+          </div>
+          <h3>{{ m.name }}</h3>
+          <span class="team-role">{{ m.role }}</span>
+          <div class="team-card__social">
+            <a
+              href="https://www.facebook.com/share/1E8Z7uagMK/"
+              aria-label="Facebook"
+              target="_blank"
+              rel="noopener"
+              ><i class="fa-brands fa-facebook-f"></i
+            ></a>
+            <a
+              href="https://www.instagram.com/perfect_smile_dental_.clinic?igsh=b2swaXZyemdveGRr"
+              aria-label="Instagram"
+              target="_blank"
+              rel="noopener"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a
+              href="https://wa.me/923247734135"
+              aria-label="WhatsApp"
+              target="_blank"
+              rel="noopener"
+              ><i class="fa-brands fa-whatsapp"></i
+            ></a>
+          </div>
+        </article>
+      }
     </div>
   </div>
 </section>
 
 <section class="section">
-  <div class="container-x" style="text-align:center;">
+  <div class="container-x" style="text-align: center">
     <span class="eyebrow center">Join our team</span>
     <h2>Want to <span class="accent-italic">work with us?</span></h2>
-    <p style="max-width: 540px; margin: 0 auto 1.5rem;">We're always looking for warm, talented people who care as much about patients as about clinical excellence.</p>
-    <a href="mailto:faizanwaris765@gmail.com" class="btn btn-primary">faizanwaris765&#64;gmail.com</a>
+    <p style="max-width: 540px; margin: 0 auto 1.5rem">
+      We're always looking for warm, talented people who care as much about patients as about
+      clinical excellence.
+    </p>
+    <a href="mailto:faizanwaris765@gmail.com" class="btn btn-primary"
+      >faizanwaris765&#64;gmail.com</a
+    >
   </div>
 </section>

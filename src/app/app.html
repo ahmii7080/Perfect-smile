@@ -1,16 +1,36 @@
 <!-- Slim global progress bar at the very top of the viewport. Reacts to
-     Router events (NavigationStart/ResolveStart → ResolveEnd/NavigationEnd)
-     so users get immediate visual feedback when they click a nav link, even
-     if the destination route is still downloading its lazy-loaded chunk or
-     waiting on a route resolver. Mounted outside `*ngIf` so it works on
-     admin routes too. -->
+Router events (NavigationStart/ResolveStart → ResolveEnd/NavigationEnd)
+so users get immediate visual feedback when they click a nav link, even
+if the destination route is still downloading its lazy-loaded chunk or
+waiting on a route resolver. Mounted outside `*ngIf` so it works on
+admin routes too. -->
 <app-route-progress></app-route-progress>
 
-<app-navbar *ngIf="!isAdminRoute()"></app-navbar>
+<!-- Skip-to-content link — visually hidden until keyboard-focused. Lets
+screen-reader and keyboard-only users jump past the navbar straight to
+the page's main content (WCAG 2.4.1 Bypass Blocks). Rendered only on
+public routes because admin pages have their own narrower nav shell. -->
+@if (!isAdminRoute()) {
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+}
 
-<main class="route-fade" [class.is-admin]="isAdminRoute()" [attr.data-route]="routeKey">
+@if (!isAdminRoute()) {
+  <app-navbar></app-navbar>
+}
+
+<main
+  id="main-content"
+  tabindex="-1"
+  class="route-fade"
+  [class.is-admin]="isAdminRoute()"
+  [attr.data-route]="routeKey"
+>
   <router-outlet></router-outlet>
 </main>
 
-<app-footer *ngIf="!isAdminRoute()"></app-footer>
-<app-whatsapp-popup *ngIf="!isAdminRoute()"></app-whatsapp-popup>
+@if (!isAdminRoute()) {
+  <app-footer></app-footer>
+}
+@if (!isAdminRoute()) {
+  <app-whatsapp-popup></app-whatsapp-popup>
+}

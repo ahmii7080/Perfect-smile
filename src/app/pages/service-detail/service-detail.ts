@@ -1,39 +1,42 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { take } from 'rxjs';
 import { DataService } from '../../services/data.service';
 import { ServiceItem } from '../../models/service.model';
 import { SeoService } from '../../services/seo.service';
 import { StructuredDataService } from '../../services/structured-data.service';
-import { BreadcrumbComponent, BreadcrumbItem } from '../../components/breadcrumb/breadcrumb.component';
+import {
+  BreadcrumbComponent,
+  BreadcrumbItem,
+} from '../../components/breadcrumb/breadcrumb.component';
 import { RelatedServicesComponent } from '../../components/related-services/related-services.component';
 
 @Component({
   selector: 'app-service-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink, BreadcrumbComponent, RelatedServicesComponent],
+  imports: [RouterLink, BreadcrumbComponent, RelatedServicesComponent],
   templateUrl: './service-detail.html',
-  styleUrl: './service-detail.scss'
+  styleUrl: './service-detail.scss',
 })
 export class ServiceDetailPage implements OnInit {
-  private route          = inject(ActivatedRoute);
-  private data           = inject(DataService);
-  private seo            = inject(SeoService);
+  private route = inject(ActivatedRoute);
+  private data = inject(DataService);
+  private seo = inject(SeoService);
   private structuredData = inject(StructuredDataService);
 
-  service     = signal<ServiceItem | undefined>(undefined);
+  service = signal<ServiceItem | undefined>(undefined);
   /** True while we're waiting for `getServiceBySlug` in the browser. Drives
    *  the skeleton state in the template so users see a loading shell instead
    *  of the "service not found" surface during the in-flight fetch. */
-  loading     = signal<boolean>(false);
-  related     = signal<ServiceItem[]>([]);
-  openFaq     = signal<number>(0);
+  loading = signal<boolean>(false);
+  related = signal<ServiceItem[]>([]);
+  openFaq = signal<number>(0);
   breadcrumbs = signal<BreadcrumbItem[]>([]);
 
   ngOnInit() {
     const snapshot = this.route.snapshot;
-    const slug     = snapshot.paramMap.get('slug') ?? '';
+    const slug = snapshot.paramMap.get('slug') ?? '';
     const resolved = snapshot.data['service'] as ServiceItem | undefined;
 
     if (resolved) {
@@ -48,16 +51,19 @@ export class ServiceDetailPage implements OnInit {
       // DataService means second+ visits are synchronous, and the global
       // pre-warm in App constructor usually has the data ready by now.
       this.loading.set(true);
-      this.data.getServiceBySlug(slug).pipe(take(1)).subscribe(s => {
-        this.service.set(s);
-        this.applySeo(slug, s);
-        this.loading.set(false);
-      });
+      this.data
+        .getServiceBySlug(slug)
+        .pipe(take(1))
+        .subscribe((s) => {
+          this.service.set(s);
+          this.applySeo(slug, s);
+          this.loading.set(false);
+        });
     }
 
     // Related services list — non-critical for SEO, can stay async.
-    this.data.getServices().subscribe(list => {
-      this.related.set(list.filter(x => x.slug !== slug).slice(0, 3));
+    this.data.getServices().subscribe((list) => {
+      this.related.set(list.filter((x) => x.slug !== slug).slice(0, 3));
     });
   }
 
@@ -75,14 +81,14 @@ export class ServiceDetailPage implements OnInit {
 
     if (!s) {
       this.seo.set({
-        title:       'Service Not Found',
+        title: 'Service Not Found',
         description: 'The requested dental service could not be found at The Perfect Smile clinic.',
         path,
-        noindex:     true
+        noindex: true,
       });
       this.breadcrumbs.set([
-        { label: 'Home',     path: '/' },
-        { label: 'Services', path: '/services' }
+        { label: 'Home', path: '/' },
+        { label: 'Services', path: '/services' },
       ]);
       return;
     }
@@ -92,34 +98,32 @@ export class ServiceDetailPage implements OnInit {
     const seedSummary = s.summary || s.tagline || s.title;
     const description = this.truncate(
       `${seedSummary} Affordable, expert ${s.title.toLowerCase()} treatment in Faisalabad at The Perfect Smile Dental Clinic.`,
-      158
+      158,
     );
 
     this.seo.set({
-      title:       `${s.title} in Faisalabad`,
+      title: `${s.title} in Faisalabad`,
       description,
-      path
+      path,
     });
 
     // MedicalProcedure → Schema.org rich result for medical services
     this.structuredData.setMedicalProcedure({
-      name:        s.title,
-      slug:        s.slug,
+      name: s.title,
+      slug: s.slug,
       description: seedSummary,
-      steps:       s.procedure ?? []
+      steps: s.procedure ?? [],
     });
 
     // FAQPage → expandable FAQ accordions can show directly inside Google SERP
     if (s.faqs?.length) {
-      this.structuredData.setFaqPage(
-        s.faqs.map(f => ({ question: f.q, answer: f.a }))
-      );
+      this.structuredData.setFaqPage(s.faqs.map((f) => ({ question: f.q, answer: f.a })));
     }
 
     const crumbs: BreadcrumbItem[] = [
-      { label: 'Home',     path: '/' },
+      { label: 'Home', path: '/' },
       { label: 'Services', path: '/services' },
-      { label: s.title,    path }
+      { label: s.title, path },
     ];
     this.breadcrumbs.set(crumbs);
     this.structuredData.setBreadcrumb(crumbs);

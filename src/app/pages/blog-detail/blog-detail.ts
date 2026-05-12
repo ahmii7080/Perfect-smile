@@ -1,5 +1,5 @@
 import { Component, OnInit, PLATFORM_ID, inject, signal } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { take } from 'rxjs';
 import { BlogService } from '../../services/blog.service';
@@ -8,32 +8,35 @@ import { BlogPost } from '../../models/appointment.model';
 import { BlogIllustrationComponent } from '../../components/blog-illustration/blog-illustration';
 import { SeoService } from '../../services/seo.service';
 import { StructuredDataService } from '../../services/structured-data.service';
-import { BreadcrumbComponent, BreadcrumbItem } from '../../components/breadcrumb/breadcrumb.component';
+import {
+  BreadcrumbComponent,
+  BreadcrumbItem,
+} from '../../components/breadcrumb/breadcrumb.component';
 
 @Component({
   selector: 'app-blog-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink, BlogIllustrationComponent, BreadcrumbComponent],
+  imports: [RouterLink, BlogIllustrationComponent, BreadcrumbComponent, NgOptimizedImage],
   templateUrl: './blog-detail.html',
-  styleUrl: './blog-detail.scss'
+  styleUrl: './blog-detail.scss',
 })
 export class BlogDetailPage implements OnInit {
-  private route          = inject(ActivatedRoute);
-  private data           = inject(DataService);
-  private blog           = inject(BlogService);
-  private seo            = inject(SeoService);
+  private route = inject(ActivatedRoute);
+  private data = inject(DataService);
+  private blog = inject(BlogService);
+  private seo = inject(SeoService);
   private structuredData = inject(StructuredDataService);
-  private isBrowser      = isPlatformBrowser(inject(PLATFORM_ID));
+  private isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
-  post        = signal<BlogPost | undefined>(undefined);
+  post = signal<BlogPost | undefined>(undefined);
   /** Skeleton flag while we wait on `getBlogBySlug` in the browser. */
-  loading     = signal<boolean>(false);
-  related     = signal<BlogPost[]>([]);
+  loading = signal<boolean>(false);
+  related = signal<BlogPost[]>([]);
   breadcrumbs = signal<BreadcrumbItem[]>([]);
 
   ngOnInit() {
     const snapshot = this.route.snapshot;
-    const slug     = snapshot.paramMap.get('slug') ?? '';
+    const slug = snapshot.paramMap.get('slug') ?? '';
     const resolved = snapshot.data['post'] as BlogPost | undefined;
 
     if (resolved) {
@@ -45,15 +48,18 @@ export class BlogDetailPage implements OnInit {
       // Browser path: resolver returned undefined to keep navigation
       // non-blocking. Fetch the post via `shareReplay`-cached observable.
       this.loading.set(true);
-      this.data.getBlogBySlug(slug).pipe(take(1)).subscribe(p => {
-        this.post.set(p);
-        this.applySeo(slug, p);
-        this.loading.set(false);
-      });
+      this.data
+        .getBlogBySlug(slug)
+        .pipe(take(1))
+        .subscribe((p) => {
+          this.post.set(p);
+          this.applySeo(slug, p);
+          this.loading.set(false);
+        });
     }
 
     // Related posts — non-SEO-critical, can stay async.
-    this.blog.related(slug, 3).subscribe(r => this.related.set(r));
+    this.blog.related(slug, 3).subscribe((r) => this.related.set(r));
 
     // Scroll-to-top is a no-op during SSR/prerender (no window).
     if (this.isBrowser) window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -69,41 +75,41 @@ export class BlogDetailPage implements OnInit {
 
     if (!p) {
       this.seo.set({
-        title:       'Article Not Found',
+        title: 'Article Not Found',
         description: 'The requested article could not be found on The Perfect Smile dental blog.',
         path,
-        noindex:     true
+        noindex: true,
       });
       this.breadcrumbs.set([
         { label: 'Home', path: '/' },
-        { label: 'Blog', path: '/blog' }
+        { label: 'Blog', path: '/blog' },
       ]);
       return;
     }
 
     this.seo.set({
-      title:         p.title,
-      description:   p.excerpt,
+      title: p.title,
+      description: p.excerpt,
       path,
-      image:         p.image,
-      type:          'article',
+      image: p.image,
+      type: 'article',
       publishedTime: p.date,
-      author:        p.author
+      author: p.author,
     });
 
     this.structuredData.setArticle({
-      headline:      p.title,
-      slug:          p.slug,
-      description:   p.excerpt,
-      image:         p.image,
+      headline: p.title,
+      slug: p.slug,
+      description: p.excerpt,
+      image: p.image,
       datePublished: p.date,
-      authorName:    p.author
+      authorName: p.author,
     });
 
     const crumbs: BreadcrumbItem[] = [
-      { label: 'Home',  path: '/' },
-      { label: 'Blog',  path: '/blog' },
-      { label: p.title, path }
+      { label: 'Home', path: '/' },
+      { label: 'Blog', path: '/blog' },
+      { label: p.title, path },
     ];
     this.breadcrumbs.set(crumbs);
     this.structuredData.setBreadcrumb(crumbs);

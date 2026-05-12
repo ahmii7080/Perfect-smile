@@ -10,36 +10,50 @@
   </a>
 </header>
 
-<div class="adm-toast adm-toast--error" *ngIf="error() as e">
-  <i class="fa-solid fa-circle-exclamation"></i> {{ e }}
-</div>
+@if (error(); as e) {
+  <div class="adm-toast adm-toast--error">
+    <i class="fa-solid fa-circle-exclamation"></i> {{ e }}
+  </div>
+}
 
 <form class="adm-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
-
   <div>
     <label class="form-label">Title *</label>
-    <input class="form-control"
-           [class.is-invalid]="invalid('title')"
-           formControlName="title"
-           (input)="onTitleChange($any($event.target).value)"
-           placeholder="What Makes Modern Implants Different">
-    <div class="form-error" *ngIf="invalid('title')">Title is required (min 5 characters).</div>
+    <input
+      class="form-control"
+      [class.is-invalid]="invalid('title')"
+      formControlName="title"
+      (input)="onTitleChange($any($event.target).value)"
+      placeholder="What Makes Modern Implants Different"
+    />
+    @if (invalid('title')) {
+      <div class="form-error">Title is required (min 5 characters).</div>
+    }
   </div>
 
   <div class="adm-row-2">
     <div>
-      <label class="form-label">Slug * <small style="color:var(--color-text-muted);">(URL path)</small></label>
-      <input class="form-control"
-             [class.is-invalid]="invalid('slug')"
-             formControlName="slug"
-             placeholder="modern-implants">
-      <div class="form-error" *ngIf="invalid('slug')">Lowercase letters, digits, dashes only.</div>
+      <label class="form-label"
+        >Slug * <small style="color: var(--color-text-muted)">(URL path)</small></label
+      >
+      <input
+        class="form-control"
+        [class.is-invalid]="invalid('slug')"
+        formControlName="slug"
+        placeholder="modern-implants"
+      />
+      @if (invalid('slug')) {
+        <div class="form-error">Lowercase letters, digits, dashes only.</div>
+      }
     </div>
     <div>
       <label class="form-label">Date *</label>
-      <input class="form-control" type="date"
-             [class.is-invalid]="invalid('date')"
-             formControlName="date">
+      <input
+        class="form-control"
+        type="date"
+        [class.is-invalid]="invalid('date')"
+        formControlName="date"
+      />
     </div>
   </div>
 
@@ -47,71 +61,97 @@
     <div>
       <label class="form-label">Category *</label>
       <select class="form-control" formControlName="category">
-        <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+        @for (c of categories; track c) {
+          <option [value]="c">{{ c }}</option>
+        }
       </select>
     </div>
     <div>
       <label class="form-label">Author *</label>
-      <input class="form-control" formControlName="author" placeholder="Dr. Faizan Sheikh">
+      <input class="form-control" formControlName="author" placeholder="Dr. Faizan Sheikh" />
     </div>
   </div>
 
   <div class="adm-row-2">
     <div>
       <label class="form-label">Read time *</label>
-      <input class="form-control" formControlName="readTime" placeholder="5 min">
+      <input class="form-control" formControlName="readTime" placeholder="5 min" />
     </div>
     <div>
       <label class="form-label">Accent colour</label>
       <select class="form-control" formControlName="color">
-        <option *ngFor="let c of colors" [value]="c">{{ c }}</option>
+        @for (c of colors; track c) {
+          <option [value]="c">{{ c }}</option>
+        }
       </select>
     </div>
   </div>
 
   <div>
     <label class="form-label">Excerpt *</label>
-    <textarea class="form-control"
-              [class.is-invalid]="invalid('excerpt')"
-              formControlName="excerpt"
-              placeholder="One-paragraph summary shown on the blog list..."></textarea>
-    <div class="form-error" *ngIf="invalid('excerpt')">Excerpt is required (min 20 characters).</div>
+    <textarea
+      class="form-control"
+      [class.is-invalid]="invalid('excerpt')"
+      formControlName="excerpt"
+      placeholder="One-paragraph summary shown on the blog list..."
+    ></textarea>
+    @if (invalid('excerpt')) {
+      <div class="form-error">Excerpt is required (min 20 characters).</div>
+    }
   </div>
 
   <div>
     <label class="form-label">Cover image (optional)</label>
     <div class="adm-image-pick">
-      <span class="adm-image-pick__preview"
-            [style.background-image]="preview() ? 'url(' + preview() + ')' : null">
-        <i class="fa-regular fa-image" *ngIf="!preview()"></i>
+      <span
+        class="adm-image-pick__preview"
+        [style.background-image]="preview() ? 'url(' + preview() + ')' : null"
+      >
+        @if (!preview()) {
+          <i class="fa-regular fa-image"></i>
+        }
       </span>
       <div class="adm-image-pick__body">
         <strong>{{ preview() ? 'Change cover image' : 'Upload cover image' }}</strong>
         <span>JPG / PNG, up to 5 MB. Stored in your Supabase bucket.</span>
-        <input type="file" accept="image/*" (change)="onFileChange($event)" [disabled]="uploading()">
+        <input
+          type="file"
+          accept="image/*"
+          (change)="onFileChange($event)"
+          [disabled]="uploading()"
+        />
       </div>
     </div>
-    <small *ngIf="uploading()" style="color:var(--color-primary); font-size:12px; display:inline-block; margin-top:4px;">
-      <i class="fa-solid fa-spinner fa-spin"></i> Uploading…
-    </small>
+    @if (uploading()) {
+      <small
+        style="color: var(--color-primary); font-size: 12px; display: inline-block; margin-top: 4px"
+      >
+        <i class="fa-solid fa-spinner fa-spin"></i> Uploading…
+      </small>
+    }
   </div>
 
   <div>
     <label class="form-label">Content *</label>
-    <textarea class="form-control"
-              [class.is-invalid]="invalid('content')"
-              formControlName="content"
-              rows="10"
-              placeholder="Full article body..."></textarea>
-    <div class="form-error" *ngIf="invalid('content')">Content is required (min 50 characters).</div>
+    <textarea
+      class="form-control"
+      [class.is-invalid]="invalid('content')"
+      formControlName="content"
+      rows="10"
+      placeholder="Full article body..."
+    ></textarea>
+    @if (invalid('content')) {
+      <div class="form-error">Content is required (min 50 characters).</div>
+    }
   </div>
 
   <div class="adm-form__actions">
     <button type="submit" class="adm-btn" [disabled]="saving() || uploading()">
-      <ng-container *ngIf="!saving(); else saveLoading">
+      @if (!saving()) {
         <i class="fa-regular fa-floppy-disk"></i> {{ editingId() ? 'Save changes' : 'Create post' }}
-      </ng-container>
-      <ng-template #saveLoading><i class="fa-solid fa-spinner fa-spin"></i> Saving…</ng-template>
+      } @else {
+        <i class="fa-solid fa-spinner fa-spin"></i> Saving…
+      }
     </button>
     <a routerLink="/adminauthlogin/blog" class="adm-btn adm-btn--ghost">Cancel</a>
   </div>

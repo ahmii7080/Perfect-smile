@@ -4,17 +4,6 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist/perfect-smile/browser",
 
-  "redirects": [
-    {
-      "source": "/:path*",
-      "has": [
-        { "type": "host", "value": "www.theperfectsmileclinic.com" }
-      ],
-      "destination": "https://theperfectsmileclinic.com/:path*",
-      "permanent": true
-    }
-  ],
-
   "rewrites": [
     {
       "source": "/(.*)",

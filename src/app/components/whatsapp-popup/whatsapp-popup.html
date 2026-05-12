@@ -19,7 +19,9 @@
       <span class="wa-time">just now</span>
     </div>
     <div class="wa-bubble wa-bubble--soft">
-      <p>Tap below to start a WhatsApp chat with our team — we’ll book your appointment in seconds.</p>
+      <p>
+        Tap below to start a WhatsApp chat with our team — we’ll book your appointment in seconds.
+      </p>
     </div>
   </div>
 
@@ -30,9 +32,22 @@
 </div>
 
 <!-- Floating bubble -->
-<button class="wa-fab" (click)="toggle()" [attr.aria-expanded]="open()" aria-label="Open WhatsApp chat">
-  <span class="wa-pulse-ring" *ngIf="!open()"></span>
-  <i class="fa-brands fa-whatsapp" *ngIf="!open()"></i>
-  <i class="fa-solid fa-xmark" *ngIf="open()"></i>
-  <span class="wa-badge" *ngIf="!open()">1</span>
+<button
+  class="wa-fab"
+  (click)="toggle()"
+  [attr.aria-expanded]="open()"
+  aria-label="Open WhatsApp chat"
+>
+  @if (!open()) {
+    <span class="wa-pulse-ring"></span>
+  }
+  @if (!open()) {
+    <i class="fa-brands fa-whatsapp"></i>
+  }
+  @if (open()) {
+    <i class="fa-solid fa-xmark"></i>
+  }
+  @if (!open()) {
+    <span class="wa-badge">1</span>
+  }
 </button>

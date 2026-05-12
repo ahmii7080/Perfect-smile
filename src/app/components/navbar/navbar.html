@@ -1,15 +1,39 @@
 <!-- Top utility bar -->
 <div class="util-bar">
   <div class="container-x util-bar__row">
+    <!-- Icons are aria-hidden because the adjacent text already describes
+    the link target (phone/email/address). Without aria-hidden, screen
+    readers announce "phone link, +92 324..." which sounds duplicative. -->
     <div class="util-bar__info">
-      <a href="tel:+923247734135"><i class="fa-solid fa-phone"></i> +92 324 7734135</a>
-      <a href="mailto:faizanwaris765@gmail.com"><i class="fa-solid fa-envelope"></i> faizanwaris765&#64;gmail.com</a>
-      <span class="util-bar__hide-md"><i class="fa-solid fa-location-dot"></i> Adjacent Rehman Garden Gate No. 1, Fish Farm, Stayana Road, Faisalabad</span>
+      <a href="tel:+923247734135"
+        ><i class="fa-solid fa-phone" aria-hidden="true"></i> +92 324 7734135</a
+      >
+      <a href="mailto:faizanwaris765@gmail.com"
+        ><i class="fa-solid fa-envelope" aria-hidden="true"></i> faizanwaris765&#64;gmail.com</a
+      >
+      <span class="util-bar__hide-md"
+        ><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Adjacent Rehman Garden Gate No.
+        1, Fish Farm, Stayana Road, Faisalabad</span
+      >
     </div>
     <div class="util-bar__social">
-      <a href="https://www.facebook.com/share/1E8Z7uagMK/" aria-label="Facebook" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a>
-      <a href="https://www.instagram.com/perfect_smile_dental_.clinic?igsh=b2swaXZyemdveGRr" aria-label="Instagram" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a>
-      <a href="https://wa.me/923247734135" aria-label="WhatsApp" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i></a>
+      <a
+        href="https://www.facebook.com/share/1E8Z7uagMK/"
+        aria-label="Facebook"
+        target="_blank"
+        rel="noopener"
+        ><i class="fa-brands fa-facebook-f"></i
+      ></a>
+      <a
+        href="https://www.instagram.com/perfect_smile_dental_.clinic?igsh=b2swaXZyemdveGRr"
+        aria-label="Instagram"
+        target="_blank"
+        rel="noopener"
+        ><i class="fa-brands fa-instagram"></i
+      ></a>
+      <a href="https://wa.me/923247734135" aria-label="WhatsApp" target="_blank" rel="noopener"
+        ><i class="fa-brands fa-whatsapp"></i
+      ></a>
     </div>
   </div>
 </div>
@@ -17,72 +41,102 @@
 <!-- Main navbar -->
 <header class="nav" [class.is-scrolled]="scrolled()">
   <div class="container-x nav__row">
-
     <!-- Logo (tooth icon + wordmark) -->
     <a routerLink="/" class="brand" aria-label="The Perfect Smile — Dental Clinic Faisalabad">
       <!-- Logo is the LCP (largest contentful paint) element on most pages.
-           `priority` tells Angular to preload it; `ngSrc` triggers responsive
-           sizing + lazy-by-default-elsewhere.
-           A descriptive `alt` is used (instead of empty + aria-hidden) because
-           SEO crawlers like Seobility report empty-alt images as "missing alt
-           content" — and Google rewards alt text on brand/logo images for
-           knowledge-panel image association. The visible brand text next to
-           it stays accessible to screen readers either way. -->
-      <img ngSrc="assets/images/logo.png"
-           alt="The Perfect Smile Dental Clinic logo"
-           class="brand__icon"
-           width="96"
-           height="96"
-           priority>
+      `priority` tells Angular to preload it; `ngSrc` triggers responsive
+      sizing + lazy-by-default-elsewhere.
+      A descriptive `alt` is used (instead of empty + aria-hidden) because
+      SEO crawlers like Seobility report empty-alt images as "missing alt
+      content" — and Google rewards alt text on brand/logo images for
+      knowledge-panel image association. The visible brand text next to
+      it stays accessible to screen readers either way. -->
+      <img
+        ngSrc="assets/images/logo.png"
+        alt="The Perfect Smile Dental Clinic logo"
+        class="brand__icon"
+        width="96"
+        height="96"
+        priority
+      />
       <span class="brand__text">
         <span class="brand__name">The <em>Perfect</em> Smile</span>
         <span class="brand__sub">Dental Clinic Faisalabad</span>
       </span>
     </a>
 
-    <!-- Desktop nav -->
+    <!-- Desktop nav.
+    Every <a> here has `prefetchOnHover` — the moment a pointer enters
+    the link, HoverPreloadStrategy fetches the target route's lazy
+    chunk in the background, so the click→paint cost drops to ~0. -->
     <nav class="nav__links" aria-label="Primary">
-      <a routerLink="/"           routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-      <a routerLink="/about"      routerLinkActive="is-active">About</a>
-      <div class="has-dropdown" (mouseenter)="servicesOpen.set(true)" (mouseleave)="servicesOpen.set(false)">
-        <a routerLink="/services" routerLinkActive="is-active" class="dd-trigger">
-          Services <i class="fa-solid fa-chevron-down dd-caret"></i>
+      <a
+        routerLink="/"
+        routerLinkActive="is-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        prefetchOnHover
+        >Home</a
+      >
+      <a routerLink="/about" routerLinkActive="is-active" prefetchOnHover>About</a>
+      <div
+        class="has-dropdown"
+        (mouseenter)="servicesOpen.set(true)"
+        (mouseleave)="servicesOpen.set(false)"
+      >
+        <a routerLink="/services" routerLinkActive="is-active" class="dd-trigger" prefetchOnHover>
+          Services <i class="fa-solid fa-chevron-down dd-caret" aria-hidden="true"></i>
         </a>
         <div class="dropdown" [class.is-open]="servicesOpen()">
-          <a *ngFor="let s of services()" [routerLink]="['/services', s.slug]" class="dropdown__item">
-            <span class="dot" [style.background]="s.color"></span>
-            {{ s.title }}
-          </a>
+          @for (s of services(); track s) {
+            <a [routerLink]="['/services', s.slug]" class="dropdown__item" prefetchOnHover>
+              <span class="dot" [style.background]="s.color" aria-hidden="true"></span>
+              {{ s.title }}
+            </a>
+          }
         </div>
       </div>
-      <a routerLink="/doctors"    routerLinkActive="is-active">Doctors</a>
-      <a routerLink="/team"       routerLinkActive="is-active">Team</a>
-      <a routerLink="/gallery"    routerLinkActive="is-active">Gallery</a>
-      <a routerLink="/blog"       routerLinkActive="is-active">Blog</a>
-      <a routerLink="/contact"    routerLinkActive="is-active">Contact</a>
+      <a routerLink="/doctors" routerLinkActive="is-active" prefetchOnHover>Doctors</a>
+      <a routerLink="/team" routerLinkActive="is-active" prefetchOnHover>Team</a>
+      <a routerLink="/gallery" routerLinkActive="is-active" prefetchOnHover>Gallery</a>
+      <a routerLink="/blog" routerLinkActive="is-active" prefetchOnHover>Blog</a>
+      <a routerLink="/contact" routerLinkActive="is-active" prefetchOnHover>Contact</a>
     </nav>
 
     <!-- CTA -->
-    <a routerLink="/appointment" class="btn btn-primary nav__cta">
-      Book Now <i class="fa-solid fa-arrow-right"></i>
+    <a routerLink="/appointment" class="btn btn-primary nav__cta" prefetchOnHover>
+      Book Now <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
     </a>
 
     <!-- Mobile toggle -->
-    <button class="nav__burger" (click)="toggleMobile()" [attr.aria-expanded]="mobileOpen()" aria-label="Toggle menu">
+    <button
+      class="nav__burger"
+      (click)="toggleMobile()"
+      [attr.aria-expanded]="mobileOpen()"
+      aria-label="Toggle menu"
+    >
       <i class="fa-solid" [class.fa-bars]="!mobileOpen()" [class.fa-xmark]="mobileOpen()"></i>
     </button>
   </div>
 
-  <!-- Mobile drawer -->
+  <!-- Mobile drawer — same prefetch wiring; `touchstart` is the analogue
+  of `mouseenter` on phones (also handled by the directive). -->
   <div class="drawer" [class.is-open]="mobileOpen()">
-    <a routerLink="/"           routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-    <a routerLink="/about"      routerLinkActive="is-active">About</a>
-    <a routerLink="/services"   routerLinkActive="is-active">Services</a>
-    <a routerLink="/doctors"    routerLinkActive="is-active">Doctors</a>
-    <a routerLink="/team"       routerLinkActive="is-active">Team</a>
-    <a routerLink="/gallery"    routerLinkActive="is-active">Gallery</a>
-    <a routerLink="/blog"       routerLinkActive="is-active">Blog</a>
-    <a routerLink="/contact"    routerLinkActive="is-active">Contact</a>
-    <a routerLink="/appointment" class="btn btn-primary drawer__cta">Book an Appointment</a>
+    <a
+      routerLink="/"
+      routerLinkActive="is-active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      prefetchOnHover
+      >Home</a
+    >
+    <a routerLink="/about" routerLinkActive="is-active" prefetchOnHover>About</a>
+    <a routerLink="/services" routerLinkActive="is-active" prefetchOnHover>Services</a>
+    <a routerLink="/doctors" routerLinkActive="is-active" prefetchOnHover>Doctors</a>
+    <a routerLink="/team" routerLinkActive="is-active" prefetchOnHover>Team</a>
+    <a routerLink="/gallery" routerLinkActive="is-active" prefetchOnHover>Gallery</a>
+    <a routerLink="/blog" routerLinkActive="is-active" prefetchOnHover>Blog</a>
+    <a routerLink="/contact" routerLinkActive="is-active" prefetchOnHover>Contact</a>
+    <a routerLink="/appointment" class="btn btn-primary drawer__cta" prefetchOnHover
+      >Book an Appointment</a
+    >
   </div>
 </header>

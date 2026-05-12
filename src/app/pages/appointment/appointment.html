@@ -11,70 +11,140 @@
   <div class="container-x">
     <div class="appt-grid">
       <!-- Form -->
-      <form class="appt-form" [formGroup]="form" (ngSubmit)="bookViaWhatsApp()" data-aos="fade-right" novalidate>
+      <form
+        class="appt-form"
+        [formGroup]="form"
+        (ngSubmit)="bookViaWhatsApp()"
+        data-aos="fade-right"
+        novalidate
+      >
         <h2>Appointment details</h2>
         <p class="appt-sub">All fields marked <span class="req">*</span> are required.</p>
 
         <div class="row-2">
           <div>
             <label class="form-label">Full Name <span class="req">*</span></label>
-            <input class="form-control" [class.is-invalid]="invalid('fullName')" formControlName="fullName" placeholder="Ayesha Khan">
-            <div class="form-error" *ngIf="invalid('fullName')">Please enter your full name.</div>
+            <input
+              class="form-control"
+              [class.is-invalid]="invalid('fullName')"
+              formControlName="fullName"
+              placeholder="Ayesha Khan"
+            />
+            @if (invalid('fullName')) {
+              <div class="form-error">Please enter your full name.</div>
+            }
           </div>
           <div>
             <label class="form-label">Phone <span class="req">*</span></label>
-            <input class="form-control" [class.is-invalid]="invalid('phone')" formControlName="phone" placeholder="+92 324 7734135">
-            <div class="form-error" *ngIf="invalid('phone')">Enter a valid phone number.</div>
+            <input
+              class="form-control"
+              [class.is-invalid]="invalid('phone')"
+              formControlName="phone"
+              placeholder="+92 324 7734135"
+            />
+            @if (invalid('phone')) {
+              <div class="form-error">Enter a valid phone number.</div>
+            }
           </div>
         </div>
 
         <div>
           <label class="form-label">Email <span class="req">*</span></label>
-          <input class="form-control" [class.is-invalid]="invalid('email')" type="email" formControlName="email" placeholder="you@example.com">
-          <div class="form-error" *ngIf="invalid('email')">Enter a valid email address.</div>
+          <input
+            class="form-control"
+            [class.is-invalid]="invalid('email')"
+            type="email"
+            formControlName="email"
+            placeholder="you@example.com"
+          />
+          @if (invalid('email')) {
+            <div class="form-error">Enter a valid email address.</div>
+          }
         </div>
 
         <div>
           <label class="form-label">Service <span class="req">*</span></label>
-          <select class="form-control" [class.is-invalid]="invalid('service')" formControlName="service">
+          <select
+            class="form-control"
+            [class.is-invalid]="invalid('service')"
+            formControlName="service"
+          >
             <option value="">Select a service</option>
-            <option *ngFor="let s of services()" [value]="s.slug">{{ s.title }}</option>
+            @for (s of services(); track s) {
+              <option [value]="s.slug">{{ s.title }}</option>
+            }
           </select>
-          <div class="form-error" *ngIf="invalid('service')">Please choose a service.</div>
+          @if (invalid('service')) {
+            <div class="form-error">Please choose a service.</div>
+          }
         </div>
 
         <!-- Single-doctor info card (replaces doctor dropdown) -->
-        <div class="appt-doc" *ngIf="doctors()[0] as d">
-          <div class="appt-doc__avatar"
-               [style.background-color]="d.color"
-               [style.background-image]="d.image ? 'url(' + d.image + ')' : null"></div>
-          <div class="appt-doc__body">
-            <span class="appt-doc__label"><i class="fa-solid fa-user-doctor"></i> Your dentist</span>
-            <strong>{{ d.name }}</strong>
-            <span class="appt-doc__quals">{{ d.qualifications }}</span>
+        @if (doctors()[0]; as d) {
+          <div class="appt-doc">
+            <!-- Doctor avatar via NgOptimizedImage. Falls back to plain
+                 coloured circle (background-color) if no photo is on file. -->
+            <div class="appt-doc__avatar" [style.background-color]="d.color">
+              @if (d.image) {
+                <img
+                  [ngSrc]="d.image"
+                  [alt]="d.name + ' — your dentist'"
+                  class="appt-doc__img"
+                  width="160"
+                  height="160"
+                />
+              }
+            </div>
+            <div class="appt-doc__body">
+              <span class="appt-doc__label"
+                ><i class="fa-solid fa-user-doctor"></i> Your dentist</span
+              >
+              <strong>{{ d.name }}</strong>
+              <span class="appt-doc__quals">{{ d.qualifications }}</span>
+            </div>
           </div>
-        </div>
+        }
 
         <div>
           <label class="form-label">Preferred Date <span class="req">*</span></label>
-          <input class="form-control" [class.is-invalid]="invalid('date')" type="date" formControlName="date" [min]="today">
-          <div class="form-error" *ngIf="invalid('date')">Pick a date for your visit.</div>
+          <input
+            class="form-control"
+            [class.is-invalid]="invalid('date')"
+            type="date"
+            formControlName="date"
+            [min]="today"
+          />
+          @if (invalid('date')) {
+            <div class="form-error">Pick a date for your visit.</div>
+          }
         </div>
 
         <div>
           <label class="form-label">Time Slot <span class="req">*</span></label>
           <div class="slots">
-            <button type="button" *ngFor="let t of timeSlots"
-                    class="slot"
-                    [class.is-active]="form.value.timeSlot === t"
-                    (click)="pickSlot(t)">{{ t }}</button>
+            @for (t of timeSlots; track t) {
+              <button
+                type="button"
+                class="slot"
+                [class.is-active]="form.value.timeSlot === t"
+                (click)="pickSlot(t)"
+              >
+                {{ t }}
+              </button>
+            }
           </div>
-          <div class="form-error" *ngIf="invalid('timeSlot')">Please pick a time.</div>
+          @if (invalid('timeSlot')) {
+            <div class="form-error">Please pick a time.</div>
+          }
         </div>
 
         <div>
           <label class="form-label">Message (optional)</label>
-          <textarea class="form-control" formControlName="message" placeholder="Anything else we should know? (e.g. previous treatments, anxieties...)"></textarea>
+          <textarea
+            class="form-control"
+            formControlName="message"
+            placeholder="Anything else we should know? (e.g. previous treatments, anxieties...)"
+          ></textarea>
         </div>
 
         <button type="button" class="btn btn-wa appt-submit" (click)="bookViaWhatsApp()">
@@ -83,21 +153,28 @@
 
         <p class="appt-or">
           <i class="fa-solid fa-circle-info"></i>
-          Tapping above opens WhatsApp with your booking details pre-filled — just press send. We'll confirm your slot within minutes.
+          Tapping above opens WhatsApp with your booking details pre-filled — just press send. We'll
+          confirm your slot within minutes.
         </p>
       </form>
 
       <!-- Info card -->
       <aside class="appt-info" data-aos="fade-left">
         <h3>Visit us</h3>
-        <p>Our flagship clinic is in the heart of Civil Lines, Faisalabad — easy parking, central location.</p>
+        <p>
+          Our flagship clinic is in the heart of Civil Lines, Faisalabad — easy parking, central
+          location.
+        </p>
 
         <ul class="appt-info__list">
           <li>
             <i class="fa-solid fa-location-dot"></i>
             <div>
               <strong>The Perfect Smile</strong>
-              <span>Adjacent Rehman Garden Gate No. 1, Fish Farm<br>Stayana Road, Faisalabad, Pakistan</span>
+              <span
+                >Adjacent Rehman Garden Gate No. 1, Fish Farm<br />Stayana Road, Faisalabad,
+                Pakistan</span
+              >
             </div>
           </li>
           <li>
@@ -111,12 +188,17 @@
             <i class="fa-solid fa-clock"></i>
             <div>
               <strong>Working Hours</strong>
-              <span>Mon–Sat · 5pm – 10pm<br>Sunday · Closed</span>
+              <span>Mon–Sat · 5pm – 10pm<br />Sunday · Closed</span>
             </div>
           </li>
         </ul>
 
-        <a href="https://wa.me/923247734135?text=Hi!%20I%27d%20like%20to%20book%20an%20appointment." target="_blank" rel="noopener" class="appt-info__wa">
+        <a
+          href="https://wa.me/923247734135?text=Hi!%20I%27d%20like%20to%20book%20an%20appointment."
+          target="_blank"
+          rel="noopener"
+          class="appt-info__wa"
+        >
           <i class="fa-brands fa-whatsapp"></i> Quick Chat on WhatsApp
         </a>
 

@@ -1,9 +1,9 @@
 <!-- ════════════════════ HERO ════════════════════ -->
 <section class="hero has-deco grain">
-  <span class="blob blob--blue   hero__blob-1"></span>
-  <span class="blob blob--coral  hero__blob-2"></span>
-  <span class="blob blob--gold   hero__blob-3"></span>
-  <span class="blob blob--mint   hero__blob-4"></span>
+  <span class="blob blob--blue hero__blob-1"></span>
+  <span class="blob blob--coral hero__blob-2"></span>
+  <span class="blob blob--gold hero__blob-3"></span>
+  <span class="blob blob--mint hero__blob-4"></span>
 
   <!-- decorative dotted grid -->
   <span class="hero__dots" aria-hidden="true"></span>
@@ -11,19 +11,19 @@
   <div class="container-x hero__row">
     <div class="hero__copy">
       <!-- H1: visible line breaks via <br>, but each text node ends with a
-           literal space so crawlers that read `textContent` without inter-node
-           whitespace (e.g. Seobility) still see "Crafting perfect smiles with
-           artistry." — not "Craftingperfect smiles…". -->
+      literal space so crawlers that read `textContent` without inter-node
+      whitespace (e.g. Seobility) still see "Crafting perfect smiles with
+      artistry." — not "Craftingperfect smiles…". -->
       <h1 class="h-mega hero__title" data-aos="fade-up" data-aos-delay="80">
-        Crafting <br>
-        <span class="italic-coral scribble">perfect</span> smiles <br>
+        Crafting <br />
+        <span class="italic-coral scribble">perfect</span> smiles <br />
         with <span class="italic">artistry.</span>
       </h1>
 
       <p class="hero__lede" data-aos="fade-up" data-aos-delay="160">
-        Faisalabad's modern dental &amp; implant clinic, where multi-disciplinary specialists
-        craft perfect smiles with clinical artistry — crown &amp; bridge, orthodontics, and
-        implantology, delivered with gentle, honest treatment for every patient.
+        Faisalabad's modern dental &amp; implant clinic, where multi-disciplinary specialists craft
+        perfect smiles with clinical artistry — crown &amp; bridge, orthodontics, and implantology,
+        delivered with gentle, honest treatment for every patient.
       </p>
 
       <div class="hero__cta" data-aos="fade-up" data-aos-delay="240">
@@ -52,7 +52,9 @@
             <i class="fa-solid fa-star"></i>
             <strong>4.9</strong>
           </div>
-          <span class="trust-row__sub">trusted by <b>10,000+ patients</b> · 10+ years in Faisalabad</span>
+          <span class="trust-row__sub"
+            >trusted by <b>10,000+ patients</b> · 10+ years in Faisalabad</span
+          >
         </div>
       </div>
     </div>
@@ -61,41 +63,55 @@
     <div class="hero__visual" data-aos="fade-left" data-aos-delay="200">
       <!-- Big rounded photo placeholder (gradient + tooth illustration) -->
       <div class="hero-photo">
-        <svg viewBox="0 0 200 240" class="hero-photo__tooth" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <svg
+          viewBox="0 0 200 240"
+          class="hero-photo__tooth"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
           <defs>
             <linearGradient id="tg" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#FFFFFF"/>
-              <stop offset="1" stop-color="#D9F0FB"/>
+              <stop offset="0" stop-color="#FFFFFF" />
+              <stop offset="1" stop-color="#D9F0FB" />
             </linearGradient>
           </defs>
-          <path d="M100,15 C145,15 175,40 175,80 C175,115 165,140 155,170 C150,195 140,225 120,225 C108,225 105,195 100,180 C95,195 92,225 80,225 C60,225 50,195 45,170 C35,140 25,115 25,80 C25,40 55,15 100,15 Z"
-                fill="url(#tg)" opacity="0.95"/>
+          <path
+            d="M100,15 C145,15 175,40 175,80 C175,115 165,140 155,170 C150,195 140,225 120,225 C108,225 105,195 100,180 C95,195 92,225 80,225 C60,225 50,195 45,170 C35,140 25,115 25,80 C25,40 55,15 100,15 Z"
+            fill="url(#tg)"
+            opacity="0.95"
+          />
         </svg>
         <div class="hero-photo__shine"></div>
       </div>
 
       <!-- Floating cards.
-           Name uses <span class="rev-name">, NOT <strong>, because the same
-           testimonial author (the first record in testimonials.json) shows up
-           again inside the Testimonials section's <app-testimonial-card>
-           below. Two <strong> tags with identical text trigger Seobility's
-           "Some tags are repeated" warning, so we keep the visual weight via
-           CSS and reserve <strong> for the canonical testimonial card. -->
-      <div class="float-card float-card--review"
-           [class.is-fading]="reviewFading()"
-           data-aos="fade-up" data-aos-delay="500"
-           *ngIf="currentReview() as r">
-        <div class="float-card__head">
-          <span class="rev-avatar">{{ r.name.charAt(0) }}</span>
-          <div>
-            <span class="rev-name">{{ r.name }}</span>
-            <span class="float-card__stars">
-              <i class="fa-solid fa-star" *ngFor="let _ of [].constructor(r.rating)"></i>
-            </span>
+      Name uses <span class="rev-name">, NOT <strong>, because the same
+      testimonial author (the first record in testimonials.json) shows up
+      again inside the Testimonials section's <app-testimonial-card>
+      below. Two <strong> tags with identical text trigger Seobility's
+      "Some tags are repeated" warning, so we keep the visual weight via
+      CSS and reserve <strong> for the canonical testimonial card. -->
+      @if (currentReview(); as r) {
+        <div
+          class="float-card float-card--review"
+          [class.is-fading]="reviewFading()"
+          data-aos="fade-up"
+          data-aos-delay="500"
+        >
+          <div class="float-card__head">
+            <span class="rev-avatar">{{ r.name.charAt(0) }}</span>
+            <div>
+              <span class="rev-name">{{ r.name }}</span>
+              <span class="float-card__stars">
+                @for (_ of [].constructor(r.rating); track _) {
+                  <i class="fa-solid fa-star"></i>
+                }
+              </span>
+            </div>
           </div>
+          <p>"{{ r.quote }}"</p>
         </div>
-        <p>"{{ r.quote }}"</p>
-      </div>
+      }
 
       <div class="float-card float-card--metric" data-aos="zoom-in" data-aos-delay="600">
         <div class="metric-icon"><i class="fa-solid fa-tooth"></i></div>
@@ -113,31 +129,45 @@
 
       <!-- Decorative sparkle -->
       <svg class="hero__sparkle" viewBox="0 0 40 40" aria-hidden="true">
-        <path d="M20 0 L23 17 L40 20 L23 23 L20 40 L17 23 L0 20 L17 17 Z" fill="#FAC775"/>
+        <path d="M20 0 L23 17 L40 20 L23 23 L20 40 L17 23 L0 20 L17 17 Z" fill="#FAC775" />
       </svg>
       <svg class="hero__sparkle hero__sparkle--small" viewBox="0 0 40 40" aria-hidden="true">
-        <path d="M20 0 L23 17 L40 20 L23 23 L20 40 L17 23 L0 20 L17 17 Z" fill="#FF6B5C"/>
+        <path d="M20 0 L23 17 L40 20 L23 23 L20 40 L17 23 L0 20 L17 17 Z" fill="#FF6B5C" />
       </svg>
     </div>
   </div>
 
-  <svg class="hero__wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0,40 C320,100 720,0 1440,50 L1440,100 L0,100 Z" fill="#0A3A55"/>
+  <svg
+    class="hero__wave"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 1440 100"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+  >
+    <path d="M0,40 C320,100 720,0 1440,50 L1440,100 L0,100 Z" fill="#0A3A55" />
   </svg>
 </section>
 
 <!-- ════════════════════ MARQUEE TRUST STRIP ════════════════════ -->
 <div class="marquee">
   <div class="marquee__track">
-    <span class="marquee__item">Trusted by 10,000+ patients <span class="marquee__star">✦</span></span>
-    <span class="marquee__item">Crown &amp; Bridge · Orthodontics · Implantology <span class="marquee__star">✦</span></span>
+    <span class="marquee__item"
+      >Trusted by 10,000+ patients <span class="marquee__star">✦</span></span
+    >
+    <span class="marquee__item"
+      >Crown &amp; Bridge · Orthodontics · Implantology <span class="marquee__star">✦</span></span
+    >
     <span class="marquee__item">4.9★ on Google <span class="marquee__star">✦</span></span>
     <span class="marquee__item">2,000+ implants placed <span class="marquee__star">✦</span></span>
     <span class="marquee__item">24/7 emergency care <span class="marquee__star">✦</span></span>
     <span class="marquee__item">15+ years of excellence <span class="marquee__star">✦</span></span>
     <!-- duplicated for seamless loop -->
-    <span class="marquee__item">Trusted by 10,000+ patients <span class="marquee__star">✦</span></span>
-    <span class="marquee__item">Crown &amp; Bridge · Orthodontics · Implantology <span class="marquee__star">✦</span></span>
+    <span class="marquee__item"
+      >Trusted by 10,000+ patients <span class="marquee__star">✦</span></span
+    >
+    <span class="marquee__item"
+      >Crown &amp; Bridge · Orthodontics · Implantology <span class="marquee__star">✦</span></span
+    >
     <span class="marquee__item">4.9★ on Google <span class="marquee__star">✦</span></span>
     <span class="marquee__item">2,000+ implants placed <span class="marquee__star">✦</span></span>
     <span class="marquee__item">24/7 emergency care <span class="marquee__star">✦</span></span>
@@ -147,38 +177,51 @@
 
 <!-- ════════════════════ BENTO SERVICES ════════════════════ -->
 <section class="section section-paper has-deco">
-  <span class="blob blob--gold" style="top:-100px; right:-80px; width:300px; height:300px; opacity:0.25;"></span>
+  <span
+    class="blob blob--gold"
+    style="top: -100px; right: -80px; width: 300px; height: 300px; opacity: 0.25"
+  ></span>
 
   <div class="container-x">
     <header class="section-head" data-aos="fade-up">
       <span class="eyebrow center">What we do</span>
-      <h2 class="h-section">A complete suite of <span class="accent-italic">dental excellence</span></h2>
-      <p>From routine check-ups and scaling to cosmetic, orthodontic and implant treatment — all under one roof.</p>
+      <h2 class="h-section">
+        A complete suite of <span class="accent-italic">dental excellence</span>
+      </h2>
+      <p>
+        From routine check-ups and scaling to cosmetic, orthodontic and implant treatment — all
+        under one roof.
+      </p>
     </header>
 
     <div class="bento">
-      <a *ngFor="let t of bento; let i = index"
-         [routerLink]="['/services', t.slug]"
-         class="bento__tile"
-         [class.span-2-rows]="t.span === 'span-2-rows'"
-         [class.span-2-cols]="t.span === 'span-2-cols'"
-         [style.background]="t.bg"
-         [style.color]="t.fg"
-         data-aos="zoom-in"
-         [attr.data-aos-delay]="i * 60">
-        <span class="chip" [class]="t.chipClass" *ngIf="t.chip">{{ t.chip }}</span>
-        <i class="fa-solid bento__icon" [class]="t.icon"></i>
-        <!-- Tile title was <h3>, now <span class="bento__title">. The 6
-             bento tiles plus the 3 specialty cards below were pushing the
-             home page to 27 headings (Seobility threshold ≈ proportional to
-             ~1k words). Service names are still indexed via the anchor's
-             text content + the JSON-LD Service schema on each detail page. -->
-        <div class="bento__copy">
-          <span class="bento__title">{{ t.title }}</span>
-          <p>{{ t.desc }}</p>
-        </div>
-        <span class="bento__arrow"><i class="fa-solid fa-arrow-up-right"></i></span>
-      </a>
+      @for (t of bento; track t; let i = $index) {
+        <a
+          [routerLink]="['/services', t.slug]"
+          class="bento__tile"
+          [class.span-2-rows]="t.span === 'span-2-rows'"
+          [class.span-2-cols]="t.span === 'span-2-cols'"
+          [style.background]="t.bg"
+          [style.color]="t.fg"
+          data-aos="zoom-in"
+          [attr.data-aos-delay]="i * 60"
+        >
+          @if (t.chip) {
+            <span class="chip" [class]="t.chipClass">{{ t.chip }}</span>
+          }
+          <i class="fa-solid bento__icon" [class]="t.icon"></i>
+          <!-- Tile title was <h3>, now <span class="bento__title">. The 6
+          bento tiles plus the 3 specialty cards below were pushing the
+          home page to 27 headings (Seobility threshold ≈ proportional to
+          ~1k words). Service names are still indexed via the anchor's
+          text content + the JSON-LD Service schema on each detail page. -->
+          <div class="bento__copy">
+            <span class="bento__title">{{ t.title }}</span>
+            <p>{{ t.desc }}</p>
+          </div>
+          <span class="bento__arrow"><i class="fa-solid fa-arrow-up-right"></i></span>
+        </a>
+      }
     </div>
 
     <div class="section-foot" data-aos="fade-up">
@@ -191,8 +234,14 @@
 
 <!-- ════════════════════ WHY US — Alternating editorial rows ════════════════════ -->
 <section class="section why-us has-deco">
-  <span class="blob blob--blue"  style="top:10%; left:-100px; width:340px; height:340px; opacity:0.18;"></span>
-  <span class="blob blob--coral" style="bottom:5%; right:-100px; width:340px; height:340px; opacity:0.18;"></span>
+  <span
+    class="blob blob--blue"
+    style="top: 10%; left: -100px; width: 340px; height: 340px; opacity: 0.18"
+  ></span>
+  <span
+    class="blob blob--coral"
+    style="bottom: 5%; right: -100px; width: 340px; height: 340px; opacity: 0.18"
+  ></span>
 
   <div class="container-x">
     <header class="section-head" data-aos="fade-up">
@@ -200,21 +249,28 @@
       <h2 class="h-section">Three reasons families <span class="accent-italic">trust</span> us</h2>
     </header>
 
-    <article class="why-row" *ngFor="let w of whyRows; let i = index" [class.is-reverse]="w.reverse">
-      <div class="why-row__visual" [style.background]="w.visualBg" data-aos="fade-up">
-        <span class="why-row__num">{{ w.number }}</span>
-        <span class="why-row__emoji">{{ w.emoji }}</span>
-        <span class="why-row__corner">★</span>
-      </div>
-      <div class="why-row__copy" data-aos="fade-up" data-aos-delay="120">
-        <span class="eyebrow">{{ w.eyebrow }}</span>
-        <h3>{{ w.title }} <span class="accent-italic">{{ w.italic }}</span>{{ w.rest }}</h3>
-        <p>{{ w.desc }}</p>
-        <ul class="check-grid">
-          <li *ngFor="let b of w.bullets"><i class="fa-solid fa-circle-check"></i> {{ b }}</li>
-        </ul>
-      </div>
-    </article>
+    @for (w of whyRows; track w; let i = $index) {
+      <article class="why-row" [class.is-reverse]="w.reverse">
+        <div class="why-row__visual" [style.background]="w.visualBg" data-aos="fade-up">
+          <span class="why-row__num">{{ w.number }}</span>
+          <span class="why-row__emoji">{{ w.emoji }}</span>
+          <span class="why-row__corner">★</span>
+        </div>
+        <div class="why-row__copy" data-aos="fade-up" data-aos-delay="120">
+          <span class="eyebrow">{{ w.eyebrow }}</span>
+          <h3>
+            {{ w.title }} <span class="accent-italic">{{ w.italic }}</span
+            >{{ w.rest }}
+          </h3>
+          <p>{{ w.desc }}</p>
+          <ul class="check-grid">
+            @for (b of w.bullets; track b) {
+              <li><i class="fa-solid fa-circle-check"></i> {{ b }}</li>
+            }
+          </ul>
+        </div>
+      </article>
+    }
   </div>
 </section>
 
@@ -235,25 +291,35 @@
     </div>
     <div class="about-copy" data-aos="fade-left">
       <span class="eyebrow on-warm">Our story</span>
-      <h2 class="h-section">A clinic built on <span class="accent-italic">trust, craft</span> &amp; care</h2>
+      <h2 class="h-section">
+        A clinic built on <span class="accent-italic">trust, craft</span> &amp; care
+      </h2>
       <p class="lead">
-        A modern dental &amp; implant clinic in Faisalabad, founded on a simple principle:
-        every patient deserves an unhurried consult, a clear treatment plan, and gentle, honest care.
+        A modern dental &amp; implant clinic in Faisalabad, founded on a simple principle: every
+        patient deserves an unhurried consult, a clear treatment plan, and gentle, honest care.
       </p>
       <p>
-        Led by Dr. Faizan Sheikh — a multi-disciplinary specialist holding diplomas in
-        Crown &amp; Bridge, Orthodontics, and Implantology — most patients can have their
-        full treatment plan delivered under one roof.
+        Led by Dr. Faizan Sheikh — a multi-disciplinary specialist holding diplomas in Crown &amp;
+        Bridge, Orthodontics, and Implantology — most patients can have their full treatment plan
+        delivered under one roof.
       </p>
-      <a routerLink="/about" class="btn btn-dark btn--shine">Read our story <i class="fa-solid fa-arrow-right"></i></a>
+      <a routerLink="/about" class="btn btn-dark btn--shine"
+        >Read our story <i class="fa-solid fa-arrow-right"></i
+      ></a>
     </div>
   </div>
 </section>
 
 <!-- ════════════════════ CLINIC VIDEO — full-bleed cinematic ════════════════════ -->
 <section class="section video-sec has-deco">
-  <span class="blob blob--blue"  style="top:-60px; left:-80px;  width:300px; height:300px; opacity:0.4;"></span>
-  <span class="blob blob--gold"  style="bottom:-60px; right:-80px; width:300px; height:300px; opacity:0.35;"></span>
+  <span
+    class="blob blob--blue"
+    style="top: -60px; left: -80px; width: 300px; height: 300px; opacity: 0.4"
+  ></span>
+  <span
+    class="blob blob--gold"
+    style="bottom: -60px; right: -80px; width: 300px; height: 300px; opacity: 0.35"
+  ></span>
 
   <div class="container-x">
     <header class="section-head" data-aos="fade-up">
@@ -263,44 +329,67 @@
     </header>
 
     <div #videoFrame class="video-frame" data-aos="zoom-in">
-      <ng-container *ngIf="!videoPlaying(); else videoEmbed">
+      @if (!videoPlaying()) {
         <button class="video-play" (click)="playVideo()" aria-label="Play clinic video">
           <span class="video-play__ring"></span>
           <i class="fa-solid fa-play"></i>
         </button>
         <span class="video-tag"><i class="fa-solid fa-circle"></i> 1:30 · Clinic Tour</span>
-
         <!-- decorative cinema chrome -->
-        <span class="cinema-bar cinema-bar--left">  <i class="fa-solid fa-camera"></i> CINEMA</span>
+        <span class="cinema-bar cinema-bar--left"> <i class="fa-solid fa-camera"></i> CINEMA</span>
         <span class="cinema-bar cinema-bar--right">REC <span class="rec-dot"></span></span>
-      </ng-container>
-      <ng-template #videoEmbed>
+      } @else {
         <iframe
           src="https://www.youtube.com/embed/cL2gNuPoNI0?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1"
           title="The Perfect Smile — Clinic Tour"
           frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen></iframe>
-      </ng-template>
+          allow="
+            accelerometer;
+            autoplay;
+            clipboard-write;
+            encrypted-media;
+            gyroscope;
+            picture-in-picture;
+          "
+          allowfullscreen
+        ></iframe>
+      }
     </div>
 
     <div class="video-bullets">
-      <div data-aos="fade-up"><i class="fa-solid fa-cube"></i><strong>3D CBCT &amp; iTero</strong><span>Digital scans, no goopy moulds.</span></div>
-      <div data-aos="fade-up" data-aos-delay="80"><i class="fa-solid fa-shield-halved"></i><strong>Sterile theatre</strong><span>Hospital-grade infection control.</span></div>
-      <div data-aos="fade-up" data-aos-delay="160"><i class="fa-solid fa-people-roof"></i><strong>Family-friendly</strong><span>Comfortable for kids &amp; adults.</span></div>
+      <div data-aos="fade-up">
+        <i class="fa-solid fa-cube"></i><strong>3D CBCT &amp; iTero</strong
+        ><span>Digital scans, no goopy moulds.</span>
+      </div>
+      <div data-aos="fade-up" data-aos-delay="80">
+        <i class="fa-solid fa-shield-halved"></i><strong>Sterile theatre</strong
+        ><span>Hospital-grade infection control.</span>
+      </div>
+      <div data-aos="fade-up" data-aos-delay="160">
+        <i class="fa-solid fa-people-roof"></i><strong>Family-friendly</strong
+        ><span>Comfortable for kids &amp; adults.</span>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ════════════════════ STATS — full-bleed dark ════════════════════ -->
 <section class="stats-bold has-deco">
-  <span class="blob blob--gold"  style="top:-60px; left:30%; width:280px; height:280px; opacity:0.18;"></span>
-  <span class="blob blob--blue"  style="bottom:-60px; right:20%; width:280px; height:280px; opacity:0.22;"></span>
+  <span
+    class="blob blob--gold"
+    style="top: -60px; left: 30%; width: 280px; height: 280px; opacity: 0.18"
+  ></span>
+  <span
+    class="blob blob--blue"
+    style="bottom: -60px; right: 20%; width: 280px; height: 280px; opacity: 0.22"
+  ></span>
 
   <div class="container-x">
     <header class="stats-bold__head" data-aos="fade-up">
       <span class="eyebrow on-dark center">By the numbers</span>
-      <h2 class="h-section">A decade of <span class="accent-italic-light italic">trusted care</span> in Faisalabad</h2>
+      <h2 class="h-section">
+        A decade of <span class="accent-italic-light italic">trusted care</span> in Faisalabad
+      </h2>
     </header>
 
     <div class="stats-bold__row stats-bold__row--4">
@@ -326,22 +415,40 @@
 
 <!-- ════════════════════ DOCTOR — Single specialist showcase ════════════════════ -->
 <section class="section section-paper has-deco">
-  <span class="blob blob--coral" style="top:10%; right:-100px; width:340px; height:340px; opacity:0.18;"></span>
+  <span
+    class="blob blob--coral"
+    style="top: 10%; right: -100px; width: 340px; height: 340px; opacity: 0.18"
+  ></span>
 
   <div class="container-x">
     <header class="section-head" data-aos="fade-up">
       <span class="eyebrow center">Meet your dentist</span>
-      <h2 class="h-section">One doctor. Three <span class="accent-italic">specialties.</span> Every case under one roof.</h2>
-      <p>Trained across crown &amp; bridge, orthodontics, and implantology — so you don't have to be referred elsewhere for complex treatment.</p>
+      <h2 class="h-section">
+        One doctor. Three <span class="accent-italic">specialties.</span> Every case under one roof.
+      </h2>
+      <p>
+        Trained across crown &amp; bridge, orthodontics, and implantology — so you don't have to be
+        referred elsewhere for complex treatment.
+      </p>
     </header>
 
-    <ng-container *ngIf="doctors()[0] as f">
+    @if (doctors()[0]; as f) {
       <article class="doc-show lift" data-aos="fade-up">
-        <div class="doc-show__photo"
-             [style.background-color]="f.color"
-             [style.background-image]="f.image ? 'url(' + f.image + ')' : null">
+        <!-- Doctor portrait via NgOptimizedImage. Background-color stays
+             as a fallback colour while the image is decoded. -->
+        <div class="doc-show__photo" [style.background-color]="f.color">
+          @if (f.image) {
+            <img
+              [ngSrc]="f.image"
+              [alt]="f.name + ' — ' + f.specialization"
+              class="doc-show__img"
+              width="640"
+              height="720"
+              sizes="(max-width: 900px) 100vw, 50vw"
+            />
+          }
           <span class="doc-show__chip">
-            <i class="fa-solid fa-graduation-cap"></i> Multi-disciplinary specialist
+            <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> Multi-disciplinary specialist
           </span>
         </div>
         <div class="doc-show__body">
@@ -349,11 +456,11 @@
           <h3>{{ f.name }}</h3>
           <p class="doc-show__quals">{{ f.qualifications }}</p>
           <p class="doc-show__bio">{{ f.shortBio }}</p>
-
           <ul class="doc-show__creds">
-            <li *ngFor="let e of f.education"><i class="fa-solid fa-circle-check"></i> {{ e }}</li>
+            @for (e of f.education; track e) {
+              <li><i class="fa-solid fa-circle-check"></i> {{ e }}</li>
+            }
           </ul>
-
           <div class="doc-show__cta">
             <a routerLink="/doctors" class="btn btn-dark btn--shine">
               Full profile <i class="fa-solid fa-arrow-right"></i>
@@ -364,44 +471,59 @@
           </div>
         </div>
       </article>
-    </ng-container>
+    }
 
     <!-- 3 specialty cards highlighting Dr. Faizan's diplomas.
-         Title was <h4>; downgraded to <div class="spec-card__title">.
-         Plain div (not <strong>) on purpose — Seobility also caps strong/b
-         tags at ~21 per page, and the h3 above ("One doctor. Three
-         specialties.") already covers these labels semantically. Visual
-         weight is applied via CSS. -->
+    Title was <h4>; downgraded to <div class="spec-card__title">.
+    Plain div (not <strong>) on purpose — Seobility also caps strong/b
+    tags at ~21 per page, and the h3 above ("One doctor. Three
+    specialties.") already covers these labels semantically. Visual
+    weight is applied via CSS. -->
     <div class="spec-row">
-      <article class="spec-card lift" *ngFor="let s of specialties; let i = index" data-aos="fade-up" [attr.data-aos-delay]="i*100">
-        <div class="spec-card__icon"><i class="fa-solid" [class]="s.icon"></i></div>
-        <div class="spec-card__title">{{ s.title }}</div>
-        <p>{{ s.desc }}</p>
-      </article>
+      @for (s of specialties; track s; let i = $index) {
+        <article class="spec-card lift" data-aos="fade-up" [attr.data-aos-delay]="i * 100">
+          <div class="spec-card__icon"><i class="fa-solid" [class]="s.icon"></i></div>
+          <div class="spec-card__title">{{ s.title }}</div>
+          <p>{{ s.desc }}</p>
+        </article>
+      }
     </div>
   </div>
 </section>
 
 <!-- ════════════════════ GALLERY ════════════════════ -->
 <section class="section section-blush has-deco">
-  <span class="blob blob--blue" style="top:-80px; right:-100px; width:340px; height:340px; opacity:0.2;"></span>
+  <span
+    class="blob blob--blue"
+    style="top: -80px; right: -100px; width: 340px; height: 340px; opacity: 0.2"
+  ></span>
 
   <div class="container-x">
     <header class="section-head" data-aos="fade-up">
       <span class="eyebrow center on-warm">Smile gallery</span>
-      <h2 class="h-section">Real patients. Real <span class="accent-italic-coral">transformations.</span></h2>
+      <h2 class="h-section">
+        Real patients. Real <span class="accent-italic-coral">transformations.</span>
+      </h2>
     </header>
 
     <div class="gallery-grid">
-      <div class="gallery-tile" *ngFor="let t of galleryTiles; let i = index"
-           [style.background]="t.bg" data-aos="zoom-in" [attr.data-aos-delay]="i*50">
-        <i class="fa-solid" [class]="t.icon"></i>
-        <span>{{ t.label }}</span>
-      </div>
+      @for (t of galleryTiles; track t; let i = $index) {
+        <div
+          class="gallery-tile"
+          [style.background]="t.bg"
+          data-aos="zoom-in"
+          [attr.data-aos-delay]="i * 50"
+        >
+          <i class="fa-solid" [class]="t.icon"></i>
+          <span>{{ t.label }}</span>
+        </div>
+      }
     </div>
 
     <div class="section-foot" data-aos="fade-up">
-      <a routerLink="/gallery" class="btn btn-dark btn--shine">View full gallery <i class="fa-solid fa-arrow-right"></i></a>
+      <a routerLink="/gallery" class="btn btn-dark btn--shine"
+        >View full gallery <i class="fa-solid fa-arrow-right"></i
+      ></a>
     </div>
   </div>
 </section>
@@ -411,13 +533,17 @@
   <div class="container-x">
     <header class="section-head" data-aos="fade-up">
       <span class="eyebrow center">Testimonials</span>
-      <h2 class="h-section">Loved by <span class="accent-italic">families</span> across Faisalabad</h2>
+      <h2 class="h-section">
+        Loved by <span class="accent-italic">families</span> across Faisalabad
+      </h2>
       <p>4.9★ on Google. But the real proof is in the patient stories.</p>
     </header>
     <div class="grid-3">
-      <div *ngFor="let t of testimonials(); let i = index" data-aos="fade-up" [attr.data-aos-delay]="i*80">
-        <app-testimonial-card [testimonial]="t"></app-testimonial-card>
-      </div>
+      @for (t of testimonials(); track t; let i = $index) {
+        <div data-aos="fade-up" [attr.data-aos-delay]="i * 80">
+          <app-testimonial-card [testimonial]="t"></app-testimonial-card>
+        </div>
+      }
     </div>
   </div>
 </section>
@@ -428,25 +554,37 @@
     <header class="section-head" data-aos="fade-up">
       <span class="eyebrow center">From the blog</span>
       <h2 class="h-section">Smile <span class="accent-italic">science,</span> simply explained</h2>
-      <p>Honest, practical writing from our doctors — covering everything from implants to whitening to children's first dental visits.</p>
+      <p>
+        Honest, practical writing from our doctors — covering everything from implants to whitening
+        to children's first dental visits.
+      </p>
     </header>
 
     <div class="grid-3">
-      <a *ngFor="let b of blog(); let i = index" [routerLink]="['/blog', b.slug]" class="blog-card lift"
-         data-aos="fade-up" [attr.data-aos-delay]="i*80">
-        <div class="blog-card__img" [style.background-color]="b.color">
-          <app-blog-illustration [category]="b.category" [color]="b.color"></app-blog-illustration>
-          <span class="blog-card__cat">{{ b.category }}</span>
-        </div>
-        <div class="blog-card__body">
-          <h3>{{ b.title }}</h3>
-          <p>{{ b.excerpt }}</p>
-          <div class="blog-card__meta">
-            <span><i class="fa-regular fa-calendar"></i> {{ b.date }}</span>
-            <span><i class="fa-regular fa-clock"></i> {{ b.readTime }}</span>
+      @for (b of blog(); track b; let i = $index) {
+        <a
+          [routerLink]="['/blog', b.slug]"
+          class="blog-card lift"
+          data-aos="fade-up"
+          [attr.data-aos-delay]="i * 80"
+        >
+          <div class="blog-card__img" [style.background-color]="b.color">
+            <app-blog-illustration
+              [category]="b.category"
+              [color]="b.color"
+            ></app-blog-illustration>
+            <span class="blog-card__cat">{{ b.category }}</span>
           </div>
-        </div>
-      </a>
+          <div class="blog-card__body">
+            <h3>{{ b.title }}</h3>
+            <p>{{ b.excerpt }}</p>
+            <div class="blog-card__meta">
+              <span><i class="fa-regular fa-calendar"></i> {{ b.date }}</span>
+              <span><i class="fa-regular fa-clock"></i> {{ b.readTime }}</span>
+            </div>
+          </div>
+        </a>
+      }
     </div>
 
     <div class="section-foot" data-aos="fade-up">
@@ -459,17 +597,29 @@
 
 <!-- ════════════════════ CTA — Cinematic ════════════════════ -->
 <section class="cta-cinema has-deco">
-  <span class="blob blob--blue"  style="top:-60px; left:10%;  width:280px; height:280px; opacity:0.25;"></span>
-  <span class="blob blob--coral" style="bottom:-60px; right:10%; width:280px; height:280px; opacity:0.25;"></span>
-  <span class="blob blob--gold"  style="top:30%; right:30%; width:200px; height:200px; opacity:0.3;"></span>
+  <span
+    class="blob blob--blue"
+    style="top: -60px; left: 10%; width: 280px; height: 280px; opacity: 0.25"
+  ></span>
+  <span
+    class="blob blob--coral"
+    style="bottom: -60px; right: 10%; width: 280px; height: 280px; opacity: 0.25"
+  ></span>
+  <span
+    class="blob blob--gold"
+    style="top: 30%; right: 30%; width: 200px; height: 200px; opacity: 0.3"
+  ></span>
 
   <div class="container-x cta-cinema__row" data-aos="zoom-in">
     <span class="eyebrow on-dark center">Ready when you are</span>
     <h2 class="h-mega cta-cinema__title">
-      Ready for your<br>
+      Ready for your<br />
       <span class="italic-gold">brightest</span> smile yet?
     </h2>
-    <p>Book a free 30-minute consultation. We'll review your goals, take a 3D scan, and design your treatment plan together — at zero cost.</p>
+    <p>
+      Book a free 30-minute consultation. We'll review your goals, take a 3D scan, and design your
+      treatment plan together — at zero cost.
+    </p>
     <div class="cta-cinema__actions">
       <a routerLink="/appointment" class="btn btn-gold btn-xl btn--shine">
         <i class="fa-regular fa-calendar-check"></i> Book Free Consultation

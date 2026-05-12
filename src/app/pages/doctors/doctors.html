@@ -3,38 +3,57 @@
     <app-breadcrumb [items]="breadcrumbs" />
     <span class="eyebrow">Meet your dentist</span>
     <h1>One doctor. Three <span class="accent-italic-light italic">specialties.</span></h1>
-    <p>Our clinic is led by a multi-disciplinary specialist holding diplomas in Crown &amp; Bridge, Orthodontics, and Implantology — so most patients can complete their full treatment plan in one place.</p>
+    <p>
+      Our clinic is led by a multi-disciplinary specialist holding diplomas in Crown &amp; Bridge,
+      Orthodontics, and Implantology — so most patients can complete their full treatment plan in
+      one place.
+    </p>
   </div>
 </section>
 
-<ng-container *ngIf="doctors()[0] as d">
-
+@if (doctors()[0]; as d) {
   <!-- ===================== Doctor profile ===================== -->
   <section class="section">
     <div class="container-x">
       <div class="dp-grid">
-        <!-- Portrait -->
-        <div class="dp-photo" data-aos="fade-right"
-             [style.background-color]="d.color"
-             [style.background-image]="d.image ? 'url(' + d.image + ')' : null">
+        <!-- Portrait. Was `background-image`; converted to <img ngSrc> so
+             Angular generates `srcset` for responsive variants, picks the
+             smallest one fitting the viewport, and the browser can lazy-
+             load it. The `priority` attr marks it as LCP-eligible — this
+             is the largest paint on /doctors, so we preload it. -->
+        <div class="dp-photo" data-aos="fade-right" [style.background-color]="d.color">
+          @if (d.image) {
+            <img
+              [ngSrc]="d.image"
+              [alt]="d.name + ' — ' + d.specialization"
+              class="dp-photo__img"
+              width="640"
+              height="800"
+              priority
+              sizes="(max-width: 800px) 100vw, 480px"
+            />
+          }
           <div class="dp-photo__badge">
-            <i class="fa-solid fa-graduation-cap"></i>
+            <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
             <span>Multi-disciplinary specialist</span>
           </div>
         </div>
-
         <!-- Bio -->
         <div class="dp-info" data-aos="fade-left">
           <span class="eyebrow">{{ d.specialization }}</span>
           <h2>{{ d.name }}</h2>
           <p class="dp-info__quals">{{ d.qualifications }}</p>
           <p class="dp-info__bio">{{ d.fullBio }}</p>
-
           <div class="dp-info__cta">
             <a routerLink="/appointment" class="btn btn-primary btn--shine">
               <i class="fa-regular fa-calendar-check"></i> Book consultation
             </a>
-            <a href="https://wa.me/923247734135?text=Hi!%20I%27d%20like%20to%20book%20a%20consultation%20with%20Dr.%20Faizan." target="_blank" rel="noopener" class="btn btn-outline">
+            <a
+              href="https://wa.me/923247734135?text=Hi!%20I%27d%20like%20to%20book%20a%20consultation%20with%20Dr.%20Faizan."
+              target="_blank"
+              rel="noopener"
+              class="btn btn-outline"
+            >
               <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
             </a>
           </div>
@@ -42,7 +61,6 @@
       </div>
     </div>
   </section>
-
   <!-- ===================== Education ===================== -->
   <section class="section section-cream">
     <div class="container-x">
@@ -51,26 +69,26 @@
           <span class="eyebrow">Education &amp; training</span>
           <h2>Qualified across <span class="accent-italic">three</span> specialties</h2>
           <ul class="dp-list">
-            <li *ngFor="let e of d.education">
-              <i class="fa-solid fa-graduation-cap"></i>
-              <span>{{ e }}</span>
-            </li>
+            @for (e of d.education; track e) {
+              <li>
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>{{ e }}</span>
+              </li>
+            }
           </ul>
         </div>
-
         <div data-aos="fade-up" data-aos-delay="120">
           <span class="eyebrow">Areas of expertise</span>
           <h2>What <span class="accent-italic">Dr. Faizan</span> treats</h2>
           <div class="dp-chips">
-            <span class="dp-chip" *ngFor="let x of d.expertise">
-              <i class="fa-solid fa-check"></i> {{ x }}
-            </span>
+            @for (x of d.expertise; track x) {
+              <span class="dp-chip"> <i class="fa-solid fa-check"></i> {{ x }} </span>
+            }
           </div>
         </div>
       </div>
     </div>
   </section>
-
   <!-- ===================== Approach / philosophy ===================== -->
   <section class="section">
     <div class="container-x">
@@ -82,31 +100,43 @@
         <div class="dp-pillar lift" data-aos="fade-up">
           <div class="dp-pillar__icon"><i class="fa-solid fa-clipboard-check"></i></div>
           <h3>Honest treatment plans</h3>
-          <p>Every option is explained — including the lower-cost path. No upselling, no pressure to commit on the spot.</p>
+          <p>
+            Every option is explained — including the lower-cost path. No upselling, no pressure to
+            commit on the spot.
+          </p>
         </div>
         <div class="dp-pillar lift" data-aos="fade-up" data-aos-delay="100">
           <div class="dp-pillar__icon"><i class="fa-solid fa-shield-halved"></i></div>
           <h3>Strict sterilization</h3>
-          <p>Autoclave-sterilised instruments, single-use disposables, and disinfected operatories between every patient.</p>
+          <p>
+            Autoclave-sterilised instruments, single-use disposables, and disinfected operatories
+            between every patient.
+          </p>
         </div>
         <div class="dp-pillar lift" data-aos="fade-up" data-aos-delay="200">
           <div class="dp-pillar__icon"><i class="fa-solid fa-heart"></i></div>
           <h3>Gentle, unhurried care</h3>
-          <p>We block enough time for every appointment so nothing feels rushed. Anxious patients are always welcome.</p>
+          <p>
+            We block enough time for every appointment so nothing feels rushed. Anxious patients are
+            always welcome.
+          </p>
         </div>
       </div>
     </div>
   </section>
-
   <!-- ===================== CTA ===================== -->
   <section class="section section-deep">
     <div class="container-x cta-row" data-aos="zoom-in">
       <div>
         <h2>Ready to <span class="accent-italic-light italic">book?</span></h2>
-        <p>Free 30-minute consultation. We'll review your goals, take any x-rays needed, and design your treatment plan together.</p>
+        <p>
+          Free 30-minute consultation. We'll review your goals, take any x-rays needed, and design
+          your treatment plan together.
+        </p>
       </div>
-      <a routerLink="/appointment" class="btn btn-gold">Book Consultation <i class="fa-solid fa-arrow-right"></i></a>
+      <a routerLink="/appointment" class="btn btn-gold"
+        >Book Consultation <i class="fa-solid fa-arrow-right"></i
+      ></a>
     </div>
   </section>
-
-</ng-container>
+}

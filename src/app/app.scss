@@ -3,3 +3,35 @@
 main {
   min-height: 60vh;
 }
+
+/* ============== Skip-to-content (WCAG 2.4.1) ==============
+   Visually hidden until it receives keyboard focus — then slides into the
+   top-left corner so keyboard / screen-reader users can bypass the navbar.
+   Pointer users never see it; sighted-mouse UX is unchanged. */
+.skip-link {
+  position: fixed;
+  top: -40px;
+  left: 0.75rem;
+  z-index: 10000;
+  background: var(--color-primary, #0F7AB0);
+  color: #fff;
+  padding: 0.55rem 1rem;
+  border-radius: 0 0 8px 8px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 8px 20px -8px rgba(15,122,176,0.5);
+  transition: top 0.15s ease;
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 0;
+  outline: 2px solid #FAC775;
+  outline-offset: 2px;
+}
+
+/* The `<main>` element has `tabindex="-1"` so the skip-link can move focus
+   to it without making it tabbable in the normal flow. Remove the visible
+   focus ring that the negative tabindex would otherwise produce. */
+main:focus { outline: none; }

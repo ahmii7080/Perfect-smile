@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
 import { AdminAuthService } from '../../services/admin-auth.service';
@@ -13,12 +13,12 @@ interface NavItem {
 @Component({
   selector: 'app-admin-layout',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './layout.html',
-  styleUrl: './layout.scss'
+  styleUrl: './layout.scss',
 })
 export class AdminLayout implements OnInit {
-  private auth   = inject(AdminAuthService);
+  private auth = inject(AdminAuthService);
   private router = inject(Router);
 
   /**
@@ -38,18 +38,22 @@ export class AdminLayout implements OnInit {
     {
       title: 'Content',
       items: [
-        { label: 'Services',             route: '/adminauthlogin/services',    icon: 'fa-list-check' },
-        { label: 'Blog Posts',           route: '/adminauthlogin/blog',        icon: 'fa-pen-nib' },
-        { label: 'Gallery',              route: '/adminauthlogin/gallery',     icon: 'fa-images' },
-      ]
+        { label: 'Services', route: '/adminauthlogin/services', icon: 'fa-list-check' },
+        { label: 'Blog Posts', route: '/adminauthlogin/blog', icon: 'fa-pen-nib' },
+        { label: 'Gallery', route: '/adminauthlogin/gallery', icon: 'fa-images' },
+      ],
     },
     {
       title: 'Team',
       items: [
-        { label: 'Support Team',         route: '/adminauthlogin/team',        icon: 'fa-people-group' },
-        { label: 'Visiting Consultants', route: '/adminauthlogin/consultants', icon: 'fa-user-doctor' }
-      ]
-    }
+        { label: 'Support Team', route: '/adminauthlogin/team', icon: 'fa-people-group' },
+        {
+          label: 'Visiting Consultants',
+          route: '/adminauthlogin/consultants',
+          icon: 'fa-user-doctor',
+        },
+      ],
+    },
   ];
 
   ngOnInit() {
@@ -58,11 +62,9 @@ export class AdminLayout implements OnInit {
     if (this.isMobile()) this.sidebarOpen.set(false);
 
     // Auto-close the mobile drawer after navigation so the new page is visible
-    this.router.events
-      .pipe(filter(e => e instanceof NavigationEnd))
-      .subscribe(() => {
-        if (this.isMobile()) this.sidebarOpen.set(false);
-      });
+    this.router.events.pipe(filter((e) => e instanceof NavigationEnd)).subscribe(() => {
+      if (this.isMobile()) this.sidebarOpen.set(false);
+    });
   }
 
   @HostListener('window:resize')
@@ -82,8 +84,14 @@ export class AdminLayout implements OnInit {
     this.isMobile.set(window.matchMedia('(max-width: 900px)').matches);
   }
 
-  toggleSidebar() { this.sidebarOpen.update(v => !v); }
-  closeSidebar()  { if (this.isMobile()) this.sidebarOpen.set(false); }
+  toggleSidebar() {
+    this.sidebarOpen.update((v) => !v);
+  }
+  closeSidebar() {
+    if (this.isMobile()) this.sidebarOpen.set(false);
+  }
 
-  signOut() { this.auth.signOut(); }
+  signOut() {
+    this.auth.signOut();
+  }
 }
