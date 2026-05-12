@@ -52,13 +52,19 @@
   margin-top: 2rem;
 }
 .bd-author__avatar {
+  position: relative;
   width: 72px; height: 72px; border-radius: 50%;
   background: var(--color-primary-soft);
-  background-size: cover; background-position: center;
-  background-repeat: no-repeat;
   color: #fff; flex-shrink: 0;
   border: 2px solid #fff;
   box-shadow: 0 8px 16px -8px rgba(15,23,42,0.25);
+  overflow: hidden;
+}
+/* Author avatar image — was a CSS background-image, now <img ngSrc>. */
+.bd-author__img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
 }
 .bd-author strong { display: block; font-family: 'Fraunces', serif; font-size: 17px; }
 .bd-author span   { font-size: 11.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-primary); font-weight: 600; }

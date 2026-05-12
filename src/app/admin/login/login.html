@@ -11,45 +11,62 @@
     <form class="login-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
       <div>
         <label class="form-label">Email address</label>
-        <input class="form-control"
-               [class.is-invalid]="invalid('email')"
-               type="email"
-               formControlName="email"
-               placeholder="admin@example.com"
-               autocomplete="email">
-        <div class="form-error" *ngIf="invalid('email')">Enter a valid email address.</div>
+        <input
+          class="form-control"
+          [class.is-invalid]="invalid('email')"
+          type="email"
+          formControlName="email"
+          placeholder="admin@example.com"
+          autocomplete="email"
+        />
+        @if (invalid('email')) {
+          <div class="form-error">Enter a valid email address.</div>
+        }
       </div>
 
       <div>
         <label class="form-label">Password</label>
         <div class="password-wrap">
-          <input class="form-control"
-                 [class.is-invalid]="invalid('password')"
-                 [type]="showPassword() ? 'text' : 'password'"
-                 formControlName="password"
-                 placeholder="••••••••"
-                 autocomplete="current-password">
-          <button type="button" class="password-toggle"
-                  (click)="togglePassword()" tabindex="-1"
-                  [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'">
-            <i class="fa-solid" [class.fa-eye]="!showPassword()" [class.fa-eye-slash]="showPassword()"></i>
+          <input
+            class="form-control"
+            [class.is-invalid]="invalid('password')"
+            [type]="showPassword() ? 'text' : 'password'"
+            formControlName="password"
+            placeholder="••••••••"
+            autocomplete="current-password"
+          />
+          <button
+            type="button"
+            class="password-toggle"
+            (click)="togglePassword()"
+            tabindex="-1"
+            [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'"
+          >
+            <i
+              class="fa-solid"
+              [class.fa-eye]="!showPassword()"
+              [class.fa-eye-slash]="showPassword()"
+            ></i>
           </button>
         </div>
-        <div class="form-error" *ngIf="invalid('password')">Password is required.</div>
+        @if (invalid('password')) {
+          <div class="form-error">Password is required.</div>
+        }
       </div>
 
-      <div class="login-error" *ngIf="error() as e">
-        <i class="fa-solid fa-circle-exclamation"></i> {{ e }}
-      </div>
+      @if (error(); as e) {
+        <div class="login-error"><i class="fa-solid fa-circle-exclamation"></i> {{ e }}</div>
+      }
 
       <button type="submit" class="btn btn-primary login-submit" [disabled]="submitting()">
-        <ng-container *ngIf="!submitting(); else loading">Sign in</ng-container>
-        <ng-template #loading><i class="fa-solid fa-spinner fa-spin"></i> Signing in...</ng-template>
+        @if (!submitting()) {
+          Sign in
+        } @else {
+          <i class="fa-solid fa-spinner fa-spin"></i> Signing in...
+        }
       </button>
     </form>
 
-    <p class="login-foot">
-      Admin Dashboard · Restricted access
-    </p>
+    <p class="login-foot">Admin Dashboard · Restricted access</p>
   </div>
 </div>

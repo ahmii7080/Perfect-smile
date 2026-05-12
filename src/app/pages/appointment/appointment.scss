@@ -28,12 +28,18 @@
   border-radius: 14px;
 }
 .appt-doc__avatar {
+  position: relative;
   width: 50px; height: 50px; border-radius: 50%;
   flex-shrink: 0;
-  background-size: cover; background-position: center;
-  background-repeat: no-repeat;
   border: 2px solid #fff;
   box-shadow: 0 6px 14px -6px rgba(15,23,42,0.25);
+  overflow: hidden;
+}
+/* Doctor avatar image — was background-image, now <img ngSrc>. */
+.appt-doc__img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
 }
 .appt-doc__body { display: flex; flex-direction: column; gap: 1px; }
 .appt-doc__label {

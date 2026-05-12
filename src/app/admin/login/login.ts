@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminAuthService } from '../../services/admin-auth.service';
@@ -8,25 +8,25 @@ import { SeoService } from '../../services/seo.service';
 @Component({
   selector: 'app-admin-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './login.html',
-  styleUrl: './login.scss'
+  styleUrl: './login.scss',
 })
 export class AdminLoginPage {
-  private fb     = inject(FormBuilder);
-  private auth   = inject(AdminAuthService);
+  private fb = inject(FormBuilder);
+  private auth = inject(AdminAuthService);
   private router = inject(Router);
-  private route  = inject(ActivatedRoute);
-  private seo    = inject(SeoService);
+  private route = inject(ActivatedRoute);
+  private seo = inject(SeoService);
 
   constructor() {
     // Keep the admin login out of search indexes — no SEO value, and we
     // don't want Google surfacing a clinic-staff login page to patients.
     this.seo.set({
-      title:       'Admin Sign-in',
+      title: 'Admin Sign-in',
       description: 'Admin sign-in for clinic staff.',
-      path:        '/adminauthlogin',
-      noindex:     true
+      path: '/adminauthlogin',
+      noindex: true,
     });
   }
 
@@ -35,8 +35,8 @@ export class AdminLoginPage {
   error = signal<string | null>(null);
 
   form: FormGroup = this.fb.group({
-    email:    ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]]
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
   invalid(field: string) {
@@ -44,7 +44,9 @@ export class AdminLoginPage {
     return !!c && c.invalid && (c.dirty || c.touched);
   }
 
-  togglePassword() { this.showPassword.update(v => !v); }
+  togglePassword() {
+    this.showPassword.update((v) => !v);
+  }
 
   async submit() {
     if (this.form.invalid) {

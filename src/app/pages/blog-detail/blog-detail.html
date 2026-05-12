@@ -1,7 +1,7 @@
 <!-- Browser-only skeleton while the post is in flight (resolver returns
-     undefined in the browser to keep navigation snappy; component fetches
-     and flips `loading()` off when the response lands). -->
-<ng-container *ngIf="!post() && loading()">
+undefined in the browser to keep navigation snappy; component fetches
+and flips `loading()` off when the response lands). -->
+@if (!post() && loading()) {
   <section class="bd-hero bd-skeleton" aria-busy="true" aria-label="Loading article">
     <div class="container-x">
       <div class="sk sk--chip"></div>
@@ -13,11 +13,15 @@
       </div>
     </div>
   </section>
-</ng-container>
+}
 
-<ng-container *ngIf="post() as p">
+@if (post(); as p) {
   <section class="bd-hero" [style.background-color]="p.color">
-    <app-blog-illustration class="bd-hero__bg" [category]="p.category" [color]="p.color"></app-blog-illustration>
+    <app-blog-illustration
+      class="bd-hero__bg"
+      [category]="p.category"
+      [color]="p.color"
+    ></app-blog-illustration>
     <span class="bd-hero__shade"></span>
     <div class="container-x">
       <app-breadcrumb [items]="breadcrumbs()" />
@@ -30,7 +34,6 @@
       </div>
     </div>
   </section>
-
   <section class="section">
     <div class="container-x bd-grid">
       <article class="bd-article" data-aos="fade-up">
@@ -43,32 +46,59 @@
             options without pressure — and without charging for the consultation itself.
           </p>
           <blockquote>
-            "Honest dentistry begins with an honest consult — clear options, clear pricing, and a treatment plan you actually understand."
+            "Honest dentistry begins with an honest consult — clear options, clear pricing, and a
+            treatment plan you actually understand."
           </blockquote>
           <p>
-            If you'd like to discuss your specific case, you can book a free consult below or
-            send us a quick message on WhatsApp.
+            If you'd like to discuss your specific case, you can book a free consult below or send
+            us a quick message on WhatsApp.
           </p>
         </div>
-
         <div class="bd-author">
-          <div class="bd-author__avatar"
-               [style.background-image]="'url(assets/images/team/dr-faizan-sheikh.png)'"></div>
+          <!-- Author avatar — static asset, so we can hardcode dimensions
+               and let NgOptimizedImage emit a srcset. Wrapped in a div so
+               the existing circular-mask CSS still works without changes
+               to the parent flex layout. -->
+          <div class="bd-author__avatar">
+            <img
+              ngSrc="assets/images/team/dr-faizan-sheikh.png"
+              alt="Dr. Faizan Sheikh — author"
+              class="bd-author__img"
+              width="120"
+              height="120"
+            />
+          </div>
           <div>
             <strong>{{ p.author }}</strong>
             <span>Lead Dentist · Author at The Perfect Smile</span>
-            <p>Dr. Faizan Sheikh — BDS, ex-house surgeon at Sharif Hospital Lahore — holds diplomas in Crown &amp; Bridge, Orthodontics and Implantology, and writes honest, practical articles to help patients make informed decisions about their care.</p>
+            <p>
+              Dr. Faizan Sheikh — BDS, ex-house surgeon at Sharif Hospital Lahore — holds diplomas
+              in Crown &amp; Bridge, Orthodontics and Implantology, and writes honest, practical
+              articles to help patients make informed decisions about their care.
+            </p>
           </div>
         </div>
-
         <div class="bd-share">
           <span>Share:</span>
-          <a href="https://www.facebook.com/share/1E8Z7uagMK/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="https://www.instagram.com/perfect_smile_dental_.clinic?igsh=b2swaXZyemdveGRr" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-          <a href="https://wa.me/923247734135" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <a
+            href="https://www.facebook.com/share/1E8Z7uagMK/"
+            target="_blank"
+            rel="noopener"
+            aria-label="Facebook"
+            ><i class="fa-brands fa-facebook-f"></i
+          ></a>
+          <a
+            href="https://www.instagram.com/perfect_smile_dental_.clinic?igsh=b2swaXZyemdveGRr"
+            target="_blank"
+            rel="noopener"
+            aria-label="Instagram"
+            ><i class="fa-brands fa-instagram"></i
+          ></a>
+          <a href="https://wa.me/923247734135" target="_blank" rel="noopener" aria-label="WhatsApp"
+            ><i class="fa-brands fa-whatsapp"></i
+          ></a>
         </div>
       </article>
-
       <aside class="bd-side">
         <div class="bd-side__card" data-aos="fade-left">
           <h4>Talk to a doctor</h4>
@@ -78,7 +108,6 @@
       </aside>
     </div>
   </section>
-
   <section class="section section-cream">
     <div class="container-x">
       <header class="section-head" data-aos="fade-up">
@@ -86,23 +115,35 @@
         <h2>You may also <span class="accent-italic">enjoy</span></h2>
       </header>
       <div class="rel-grid">
-        <a *ngFor="let r of related()" [routerLink]="['/blog', r.slug]" class="rel-card lift">
-          <div class="rel-card__img" [style.background-color]="r.color">
-            <app-blog-illustration [category]="r.category" [color]="r.color"></app-blog-illustration>
-            <span>{{ r.category }}</span>
-          </div>
-          <div class="rel-card__body">
-            <h3>{{ r.title }}</h3>
-            <span><i class="fa-regular fa-clock"></i> {{ r.readTime }}</span>
-          </div>
-        </a>
+        @for (r of related(); track r) {
+          <a [routerLink]="['/blog', r.slug]" class="rel-card lift">
+            <div class="rel-card__img" [style.background-color]="r.color">
+              <app-blog-illustration
+                [category]="r.category"
+                [color]="r.color"
+              ></app-blog-illustration>
+              <span>{{ r.category }}</span>
+            </div>
+            <div class="rel-card__body">
+              <h3>{{ r.title }}</h3>
+              <span><i class="fa-regular fa-clock"></i> {{ r.readTime }}</span>
+            </div>
+          </a>
+        }
       </div>
     </div>
   </section>
-</ng-container>
+}
 
-<!-- Genuine "not found" — only after loading finished AND post still missing. -->
-<ng-container *ngIf="!post() && !loading()">
-  <section class="page-header"><div class="container-x"><h1>Article not found</h1></div></section>
-  <section class="section text-center"><a routerLink="/blog" class="btn btn-primary">← Back to Blog</a></section>
-</ng-container>
+<!-- Genuine "not found" — only after loading finished AND post still missing.
+The <h1> here is mutually exclusive with the article-state <h1> above
+(one *ngIf branch or the other, never both render). The notFound state
+calls `seo.set({ noindex: true })` so Googlebot never indexes it. -->
+@if (!post() && !loading()) {
+  <section class="page-header">
+    <div class="container-x"><h1>Article not found</h1></div>
+  </section>
+  <section class="section text-center">
+    <a routerLink="/blog" class="btn btn-primary">← Back to Blog</a>
+  </section>
+}

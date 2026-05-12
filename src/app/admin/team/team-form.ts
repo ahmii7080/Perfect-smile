@@ -1,39 +1,44 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AdminDataService } from '../../services/admin-data.service';
 
 const initialsFromName = (name: string): string =>
-  name.split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]?.toUpperCase() ?? '').join('');
+  name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0]?.toUpperCase() ?? '')
+    .join('');
 
 @Component({
   selector: 'app-admin-team-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './team-form.html',
-  styleUrl: '../admin-shared.scss'
+  styleUrl: '../admin-shared.scss',
 })
 export class AdminTeamForm implements OnInit {
-  private fb     = inject(FormBuilder);
-  private data   = inject(AdminDataService);
+  private fb = inject(FormBuilder);
+  private data = inject(AdminDataService);
   private router = inject(Router);
-  private route  = inject(ActivatedRoute);
+  private route = inject(ActivatedRoute);
 
   editingId = signal<string | null>(null);
-  saving    = signal(false);
+  saving = signal(false);
   uploading = signal(false);
-  error     = signal<string | null>(null);
-  preview   = signal<string | null>(null);
+  error = signal<string | null>(null);
+  preview = signal<string | null>(null);
 
   colors = ['#0EA5E9', '#0284C7', '#14B8A6', '#38BDF8', '#0F766E', '#0C4A6E'];
 
   form: FormGroup = this.fb.group({
-    name:     ['', [Validators.required, Validators.minLength(2)]],
-    role:     ['', Validators.required],
+    name: ['', [Validators.required, Validators.minLength(2)]],
+    role: ['', Validators.required],
     initials: ['', [Validators.required, Validators.maxLength(3)]],
-    color:    ['#0EA5E9', Validators.required],
-    image:    ['']
+    color: ['#0EA5E9', Validators.required],
+    image: [''],
   });
 
   invalid(field: string) {
@@ -54,8 +59,11 @@ export class AdminTeamForm implements OnInit {
       try {
         const m = await this.data.getTeam(id);
         this.form.patchValue({
-          name: m.name, role: m.role, initials: m.initials,
-          color: m.color, image: m.image ?? ''
+          name: m.name,
+          role: m.role,
+          initials: m.initials,
+          color: m.color,
+          image: m.image ?? '',
         });
         this.preview.set(m.image ?? null);
       } catch (e: any) {
@@ -72,7 +80,8 @@ export class AdminTeamForm implements OnInit {
       this.error.set('Image must be smaller than 5 MB.');
       return;
     }
-    this.uploading.set(true); this.error.set(null);
+    this.uploading.set(true);
+    this.error.set(null);
     try {
       const url = await this.data.uploadImage('team', file);
       this.form.patchValue({ image: url });
@@ -90,12 +99,16 @@ export class AdminTeamForm implements OnInit {
       this.form.markAllAsTouched();
       return;
     }
-    this.saving.set(true); this.error.set(null);
+    this.saving.set(true);
+    this.error.set(null);
     try {
       const v = this.form.value;
       const payload = {
-        name: v.name, role: v.role, initials: v.initials,
-        color: v.color, image: v.image || undefined
+        name: v.name,
+        role: v.role,
+        initials: v.initials,
+        color: v.color,
+        image: v.image || undefined,
       };
       if (this.editingId()) {
         await this.data.updateTeam(this.editingId()!, payload);

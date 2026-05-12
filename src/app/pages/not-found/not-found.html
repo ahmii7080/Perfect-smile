@@ -1,0 +1,61 @@
+<section class="nf">
+  <span class="nf__blob nf__blob--blue"></span>
+  <span class="nf__blob nf__blob--coral"></span>
+  <span class="nf__blob nf__blob--gold"></span>
+
+  <div class="container-x nf__row">
+    <div class="nf__copy">
+      <span class="eyebrow">404 · Page Not Found</span>
+      <h1 class="nf__title">
+        Looks like that page<br>
+        <span class="italic-coral">slipped through</span> the cracks.
+      </h1>
+      <p class="nf__lede">
+        We couldn't find <code class="nf__path">{{ attemptedPath }}</code> —
+        maybe a typo, an old link, or a page we've since reorganised.
+      </p>
+
+      <div class="nf__cta">
+        <a routerLink="/" class="btn btn-primary btn-xl btn--shine">
+          <i class="fa-solid fa-house"></i> Go to Homepage
+        </a>
+        <a routerLink="/services" class="btn btn-outline btn-xl">
+          Browse Services <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <!-- Quick-link rescue list — covers the most common landing
+           intentions so the user almost never has to retype a URL. -->
+      <nav class="nf__links" aria-label="Quick links">
+        <a routerLink="/about">About the clinic</a>
+        <a routerLink="/doctors">Meet our dentist</a>
+        <a routerLink="/gallery">Smile gallery</a>
+        <a routerLink="/blog">Read the blog</a>
+        <a routerLink="/appointment">Book a consultation</a>
+        <a routerLink="/contact">Contact us</a>
+      </nav>
+    </div>
+
+    <!-- Friendly decorative SVG: 404 + sparkle. Pure SVG (no image
+         request), inlined for instant first paint. -->
+    <div class="nf__visual" aria-hidden="true">
+      <svg viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="nf-grad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0"   stop-color="#1597D5"/>
+            <stop offset="1"   stop-color="#0A3A55"/>
+          </linearGradient>
+        </defs>
+        <text x="120" y="120" text-anchor="middle"
+              font-family="Fraunces, serif"
+              font-weight="700"
+              font-size="120"
+              fill="url(#nf-grad)">404</text>
+        <path d="M195 35 L198 50 L213 53 L198 56 L195 71 L192 56 L177 53 L192 50 Z"
+              fill="#FAC775"/>
+        <path d="M30 130 L32 140 L42 142 L32 144 L30 154 L28 144 L18 142 L28 140 Z"
+              fill="#FF6B5C"/>
+      </svg>
+    </div>
+  </div>
+</section>

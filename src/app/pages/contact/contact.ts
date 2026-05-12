@@ -1,25 +1,28 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SeoService } from '../../services/seo.service';
 import { StructuredDataService } from '../../services/structured-data.service';
-import { BreadcrumbComponent, BreadcrumbItem } from '../../components/breadcrumb/breadcrumb.component';
+import {
+  BreadcrumbComponent,
+  BreadcrumbItem,
+} from '../../components/breadcrumb/breadcrumb.component';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, BreadcrumbComponent],
+  imports: [ReactiveFormsModule, BreadcrumbComponent],
   templateUrl: './contact.html',
-  styleUrl: './contact.scss'
+  styleUrl: './contact.scss',
 })
 export class ContactPage {
-  private fb             = inject(FormBuilder);
-  private seo            = inject(SeoService);
+  private fb = inject(FormBuilder);
+  private seo = inject(SeoService);
   private structuredData = inject(StructuredDataService);
 
   readonly breadcrumbs: BreadcrumbItem[] = [
-    { label: 'Home',    path: '/' },
-    { label: 'Contact', path: '/contact' }
+    { label: 'Home', path: '/' },
+    { label: 'Contact', path: '/contact' },
   ];
 
   constructor() {
@@ -27,17 +30,16 @@ export class ContactPage {
       title: 'Contact — Dentist in Faisalabad',
       description:
         'Get in touch with The Perfect Smile Dental Clinic — adjacent Rehman Garden Gate No. 1, Stayana Road, Faisalabad. Call +92 324 7734135 or WhatsApp for fast appointment confirmation.',
-      path: '/contact'
+      path: '/contact',
     });
     this.structuredData.setBreadcrumb(this.breadcrumbs);
   }
 
-
   form: FormGroup = this.fb.group({
-    name:    ['', [Validators.required, Validators.minLength(2)]],
-    email:   ['', [Validators.required, Validators.email]],
+    name: ['', [Validators.required, Validators.minLength(2)]],
+    email: ['', [Validators.required, Validators.email]],
     subject: ['', Validators.required],
-    message: ['', [Validators.required, Validators.minLength(10)]]
+    message: ['', [Validators.required, Validators.minLength(10)]],
   });
 
   invalid(field: string) {
@@ -64,7 +66,7 @@ export class ContactPage {
       `*Subject:* ${v.subject}`,
       '',
       `*Message:*`,
-      v.message
+      v.message,
     ];
     const text = encodeURIComponent(lines.join('\n'));
     window.open(`https://wa.me/923247734135?text=${text}`, '_blank', 'noopener');

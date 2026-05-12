@@ -3,7 +3,10 @@
     <app-breadcrumb [items]="breadcrumbs" />
     <span class="eyebrow">From the Blog</span>
     <h1>Smile <span class="accent-italic-light italic">science,</span> simply explained</h1>
-    <p>Honest, practical writing from our doctors — covering everything from implants to whitening to children's first dental visits.</p>
+    <p>
+      Honest, practical writing from our doctors — covering everything from implants to whitening to
+      children's first dental visits.
+    </p>
   </div>
 </section>
 
@@ -12,50 +15,71 @@
     <div class="blog-layout">
       <!-- Main column -->
       <div class="blog-main">
-
         <!-- Featured -->
-        <a *ngIf="featured() as f" [routerLink]="['/blog', f.slug]" class="featured lift" data-aos="fade-up">
-          <div class="featured__img" [style.background-color]="f.color">
-            <app-blog-illustration [category]="f.category" [color]="f.color"></app-blog-illustration>
-            <span class="featured__cat">{{ f.category }}</span>
-            <span class="featured__badge"><i class="fa-solid fa-star"></i> Featured</span>
-          </div>
-          <div class="featured__body">
-            <h2>{{ f.title }}</h2>
-            <p>{{ f.excerpt }}</p>
-            <div class="featured__meta">
-              <span><i class="fa-regular fa-user"></i> {{ f.author }}</span>
-              <span><i class="fa-regular fa-calendar"></i> {{ f.date }}</span>
-              <span><i class="fa-regular fa-clock"></i> {{ f.readTime }}</span>
+        @if (featured(); as f) {
+          <a [routerLink]="['/blog', f.slug]" class="featured lift" data-aos="fade-up">
+            <div class="featured__img" [style.background-color]="f.color">
+              <app-blog-illustration
+                [category]="f.category"
+                [color]="f.color"
+              ></app-blog-illustration>
+              <span class="featured__cat">{{ f.category }}</span>
+              <span class="featured__badge"><i class="fa-solid fa-star"></i> Featured</span>
             </div>
-          </div>
-        </a>
-
-        <!-- Grid -->
-        <div class="b-grid">
-          <a *ngFor="let p of rest(); let i = index" [routerLink]="['/blog', p.slug]" class="blog-card lift" data-aos="fade-up" [attr.data-aos-delay]="(i % 3)*70">
-            <div class="blog-card__img" [style.background-color]="p.color">
-              <app-blog-illustration [category]="p.category" [color]="p.color"></app-blog-illustration>
-              <span class="blog-card__cat">{{ p.category }}</span>
-            </div>
-            <div class="blog-card__body">
-              <h3>{{ p.title }}</h3>
-              <p>{{ p.excerpt }}</p>
-              <div class="blog-card__meta">
-                <span><i class="fa-regular fa-calendar"></i> {{ p.date }}</span>
-                <span><i class="fa-regular fa-clock"></i> {{ p.readTime }}</span>
+            <div class="featured__body">
+              <h2>{{ f.title }}</h2>
+              <p>{{ f.excerpt }}</p>
+              <div class="featured__meta">
+                <span><i class="fa-regular fa-user"></i> {{ f.author }}</span>
+                <span><i class="fa-regular fa-calendar"></i> {{ f.date }}</span>
+                <span><i class="fa-regular fa-clock"></i> {{ f.readTime }}</span>
               </div>
             </div>
           </a>
+        }
+
+        <!-- Grid -->
+        <div class="b-grid">
+          @for (p of rest(); track p; let i = $index) {
+            <a
+              [routerLink]="['/blog', p.slug]"
+              class="blog-card lift"
+              data-aos="fade-up"
+              [attr.data-aos-delay]="(i % 3) * 70"
+            >
+              <div class="blog-card__img" [style.background-color]="p.color">
+                <app-blog-illustration
+                  [category]="p.category"
+                  [color]="p.color"
+                ></app-blog-illustration>
+                <span class="blog-card__cat">{{ p.category }}</span>
+              </div>
+              <div class="blog-card__body">
+                <h3>{{ p.title }}</h3>
+                <p>{{ p.excerpt }}</p>
+                <div class="blog-card__meta">
+                  <span><i class="fa-regular fa-calendar"></i> {{ p.date }}</span>
+                  <span><i class="fa-regular fa-clock"></i> {{ p.readTime }}</span>
+                </div>
+              </div>
+            </a>
+          }
         </div>
 
-        <!-- Pagination -->
+        <!-- Pagination — page numbers carry their own visible label; the
+        prev/next chevrons are icon-only so they need aria-labels for
+        screen readers. The icons themselves are aria-hidden because
+        the parent button's aria-label already describes the action. -->
         <div class="pagination">
-          <button disabled><i class="fa-solid fa-chevron-left"></i></button>
-          <button class="is-active">1</button>
-          <button>2</button>
-          <button>3</button>
-          <button><i class="fa-solid fa-chevron-right"></i></button>
+          <button disabled aria-label="Previous page">
+            <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+          </button>
+          <button class="is-active" aria-current="page">1</button>
+          <button aria-label="Go to page 2">2</button>
+          <button aria-label="Go to page 3">3</button>
+          <button aria-label="Next page">
+            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+          </button>
         </div>
       </div>
 
@@ -65,34 +89,46 @@
           <h4>Search</h4>
           <div class="search-wrap">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" class="form-control" placeholder="Search articles..."
-                   [ngModel]="search()" (ngModelChange)="onSearch($event)">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search articles..."
+              [ngModel]="search()"
+              (ngModelChange)="onSearch($event)"
+            />
           </div>
         </div>
 
         <div class="side-card">
           <h4>Categories</h4>
           <ul class="cat-list">
-            <li *ngFor="let c of categories()">
-              <button [class.is-active]="category() === c" (click)="setCategory(c)">
-                {{ c }}
-                <i class="fa-solid fa-chevron-right"></i>
-              </button>
-            </li>
+            @for (c of categories(); track c) {
+              <li>
+                <button [class.is-active]="category() === c" (click)="setCategory(c)">
+                  {{ c }}
+                  <i class="fa-solid fa-chevron-right"></i>
+                </button>
+              </li>
+            }
           </ul>
         </div>
 
         <div class="side-card">
           <h4>Recent posts</h4>
-          <a *ngFor="let p of recent()" [routerLink]="['/blog', p.slug]" class="recent">
-            <span class="recent__thumb" [style.background-color]="p.color">
-              <app-blog-illustration [category]="p.category" [color]="p.color"></app-blog-illustration>
-            </span>
-            <div>
-              <strong>{{ p.title }}</strong>
-              <span><i class="fa-regular fa-calendar"></i> {{ p.date }}</span>
-            </div>
-          </a>
+          @for (p of recent(); track p) {
+            <a [routerLink]="['/blog', p.slug]" class="recent">
+              <span class="recent__thumb" [style.background-color]="p.color">
+                <app-blog-illustration
+                  [category]="p.category"
+                  [color]="p.color"
+                ></app-blog-illustration>
+              </span>
+              <div>
+                <strong>{{ p.title }}</strong>
+                <span><i class="fa-regular fa-calendar"></i> {{ p.date }}</span>
+              </div>
+            </a>
+          }
         </div>
 
         <div class="side-card side-card--cta">

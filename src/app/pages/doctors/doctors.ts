@@ -1,29 +1,32 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { Doctor } from '../../models/doctor.model';
 import { SeoService } from '../../services/seo.service';
 import { StructuredDataService } from '../../services/structured-data.service';
-import { BreadcrumbComponent, BreadcrumbItem } from '../../components/breadcrumb/breadcrumb.component';
+import {
+  BreadcrumbComponent,
+  BreadcrumbItem,
+} from '../../components/breadcrumb/breadcrumb.component';
 
 @Component({
   selector: 'app-doctors',
   standalone: true,
-  imports: [CommonModule, RouterLink, BreadcrumbComponent],
+  imports: [RouterLink, BreadcrumbComponent, NgOptimizedImage],
   templateUrl: './doctors.html',
-  styleUrl: './doctors.scss'
+  styleUrl: './doctors.scss',
 })
 export class DoctorsPage implements OnInit {
-  private data           = inject(DataService);
-  private seo            = inject(SeoService);
+  private data = inject(DataService);
+  private seo = inject(SeoService);
   private structuredData = inject(StructuredDataService);
 
   doctors = signal<Doctor[]>([]);
 
   readonly breadcrumbs: BreadcrumbItem[] = [
-    { label: 'Home',    path: '/' },
-    { label: 'Doctors', path: '/doctors' }
+    { label: 'Home', path: '/' },
+    { label: 'Doctors', path: '/doctors' },
   ];
 
   constructor() {
@@ -33,12 +36,12 @@ export class DoctorsPage implements OnInit {
       title: 'Our Dentist in Faisalabad — Dr. Faizan Sheikh',
       description:
         'Meet Dr. Faizan Sheikh — BDS, multi-disciplinary dental specialist at The Perfect Smile Faisalabad. Diplomas in Crown & Bridge, Orthodontics and Implantology.',
-      path: '/doctors'
+      path: '/doctors',
     });
     this.structuredData.setBreadcrumb(this.breadcrumbs);
   }
 
   ngOnInit() {
-    this.data.getDoctors().subscribe(list => this.doctors.set(list));
+    this.data.getDoctors().subscribe((list) => this.doctors.set(list));
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, PLATFORM_ID, inject, signal } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import {
   NavigationCancel,
   NavigationEnd,
@@ -32,7 +32,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-route-progress',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   template: `
     <div
       class="route-progress"
@@ -41,44 +41,58 @@ import { Subscription } from 'rxjs';
       [style.--p]="progress() + '%'"
       role="progressbar"
       aria-label="Page loading"
-      aria-hidden="true">
+      aria-hidden="true"
+    >
       <span class="route-progress__bar"></span>
     </div>
   `,
-  styles: [`
-    .route-progress {
-      position: fixed; inset: 0 0 auto 0;
-      height: 3px;
-      z-index: 9999;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.2s ease;
-    }
-    .route-progress.is-active { opacity: 1; }
-    .route-progress.is-done   { opacity: 0; transition-delay: 0.18s; }
+  styles: [
+    `
+      .route-progress {
+        position: fixed;
+        inset: 0 0 auto 0;
+        height: 3px;
+        z-index: 9999;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+      }
+      .route-progress.is-active {
+        opacity: 1;
+      }
+      .route-progress.is-done {
+        opacity: 0;
+        transition-delay: 0.18s;
+      }
 
-    .route-progress__bar {
-      display: block;
-      height: 100%;
-      width: var(--p, 0%);
-      background: linear-gradient(90deg, #1597D5 0%, #FAC775 50%, #FF6B5C 100%);
-      box-shadow: 0 0 10px rgba(21,151,213,0.55), 0 0 4px rgba(250,199,117,0.65);
-      transition: width 0.25s ease-out;
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .route-progress, .route-progress__bar { transition-duration: 0.05s; }
-    }
-  `]
+      .route-progress__bar {
+        display: block;
+        height: 100%;
+        width: var(--p, 0%);
+        background: linear-gradient(90deg, #1597d5 0%, #fac775 50%, #ff6b5c 100%);
+        box-shadow:
+          0 0 10px rgba(21, 151, 213, 0.55),
+          0 0 4px rgba(250, 199, 117, 0.65);
+        transition: width 0.25s ease-out;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .route-progress,
+        .route-progress__bar {
+          transition-duration: 0.05s;
+        }
+      }
+    `,
+  ],
 })
 export class RouteProgressComponent implements OnInit, OnDestroy {
   /** Visible while a navigation is in flight. */
-  active   = signal(false);
+  active = signal(false);
   /** Briefly true after navigation completes so the bar fades out. */
-  done     = signal(false);
+  done = signal(false);
   /** 0–100. Animated upward during navigation, snapped to 100 on completion. */
   progress = signal(0);
 
-  private readonly router    = inject(Router);
+  private readonly router = inject(Router);
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   private sub?: Subscription;
@@ -87,7 +101,7 @@ export class RouteProgressComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (!this.isBrowser) return;
-    this.sub = this.router.events.subscribe(event => {
+    this.sub = this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart || event instanceof ResolveStart) {
         this.start();
       } else if (
@@ -139,7 +153,13 @@ export class RouteProgressComponent implements OnInit, OnDestroy {
   }
 
   private clearTimers(): void {
-    if (this.trickle)     { clearInterval(this.trickle);  this.trickle     = undefined; }
-    if (this.finishTimer) { clearTimeout(this.finishTimer); this.finishTimer = undefined; }
+    if (this.trickle) {
+      clearInterval(this.trickle);
+      this.trickle = undefined;
+    }
+    if (this.finishTimer) {
+      clearTimeout(this.finishTimer);
+      this.finishTimer = undefined;
+    }
   }
 }

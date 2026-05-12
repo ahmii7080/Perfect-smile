@@ -108,5 +108,17 @@ export const routes: Routes = [
     ]
   },
 
-  { path: '**', redirectTo: '' }
+  /* ============== 404 fallback ============== */
+  // The wildcard route used to `redirectTo: ''`, which silently swallowed
+  // every typo into the homepage — Google indexed thin/duplicate URLs and
+  // users lost their place. A dedicated `<app-not-found>` component now
+  // serves an honest 404 with `noindex` meta + helpful quick-link
+  // navigation. Returning a 200 from a SPA is unavoidable (the router
+  // can't influence the HTTP status of an already-served index.html), but
+  // the meta-robots + meta-title signal "this is a 404" plainly enough
+  // that Google removes the dead URL from the index.
+  {
+    path: '**',
+    loadComponent: () => import('./pages/not-found/not-found').then(m => m.NotFoundPage)
+  }
 ];

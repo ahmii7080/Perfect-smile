@@ -48,17 +48,21 @@
   position: relative; z-index: 2;
 }
 
-/* When a photo is uploaded, cover-fit the image and add a soft gradient
-   so the BEFORE/AFTER label stays readable on top. */
-.case__half.has-photo {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+/* Uploaded BEFORE/AFTER photos now render as real <img ngSrc> children,
+   absolute-positioned to fill the half and `object-fit: cover` to
+   replicate the original `background-size: cover` effect. The gradient
+   overlay sits between the image (z:0) and the label (z:2). */
+.case__half .case__img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  z-index: 0;
 }
 .case__half.has-photo::after {
   content: ""; position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(15,23,42,0) 50%, rgba(15,23,42,0.55) 100%);
   pointer-events: none;
+  z-index: 1;
 }
 .case__half span {
   font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase;
@@ -123,16 +127,18 @@
 }
 .lb__half > span { position: relative; z-index: 2; }
 
-/* Photo variant — same logic as case__half */
-.lb__half.has-photo {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+/* Photo variant — same logic as case__half: real <img> via NgOptimizedImage. */
+.lb__half .lb__img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  z-index: 0;
 }
 .lb__half.has-photo::after {
   content: ""; position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(15,23,42,0) 50%, rgba(15,23,42,0.6) 100%);
   pointer-events: none;
+  z-index: 1;
 }
 .lb__half span {
   font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;

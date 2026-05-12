@@ -2,7 +2,8 @@
   <div>
     <h1>{{ editingId() ? 'Edit Consultant' : 'Add Consultant' }}</h1>
     <span class="adm-head__crumb">
-      <a routerLink="/adminauthlogin/consultants">Consultants</a> › {{ editingId() ? 'Edit' : 'New' }}
+      <a routerLink="/adminauthlogin/consultants">Consultants</a> ›
+      {{ editingId() ? 'Edit' : 'New' }}
     </span>
   </div>
   <a routerLink="/adminauthlogin/consultants" class="adm-btn adm-btn--ghost">
@@ -10,54 +11,74 @@
   </a>
 </header>
 
-<div class="adm-toast adm-toast--error" *ngIf="error() as e">
-  <i class="fa-solid fa-circle-exclamation"></i> {{ e }}
-</div>
+@if (error(); as e) {
+  <div class="adm-toast adm-toast--error">
+    <i class="fa-solid fa-circle-exclamation"></i> {{ e }}
+  </div>
+}
 
 <form class="adm-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
   <div>
     <label class="form-label">Full name *</label>
-    <input class="form-control"
-           [class.is-invalid]="invalid('name')"
-           formControlName="name"
-           (input)="onNameChange($any($event.target).value)"
-           placeholder="Dr. Sheroz Khan">
-    <div class="form-error" *ngIf="invalid('name')">Name is required.</div>
+    <input
+      class="form-control"
+      [class.is-invalid]="invalid('name')"
+      formControlName="name"
+      (input)="onNameChange($any($event.target).value)"
+      placeholder="Dr. Sheroz Khan"
+    />
+    @if (invalid('name')) {
+      <div class="form-error">Name is required.</div>
+    }
   </div>
 
   <div class="adm-row-2">
     <div>
       <label class="form-label">Qualifications *</label>
-      <input class="form-control"
-             [class.is-invalid]="invalid('qualifications')"
-             formControlName="qualifications"
-             placeholder="FCPS Orthodontics">
-      <div class="form-error" *ngIf="invalid('qualifications')">Qualifications are required.</div>
+      <input
+        class="form-control"
+        [class.is-invalid]="invalid('qualifications')"
+        formControlName="qualifications"
+        placeholder="FCPS Orthodontics"
+      />
+      @if (invalid('qualifications')) {
+        <div class="form-error">Qualifications are required.</div>
+      }
     </div>
     <div>
       <label class="form-label">Specialty *</label>
-      <input class="form-control"
-             [class.is-invalid]="invalid('specialty')"
-             formControlName="specialty"
-             placeholder="Orthodontist">
-      <div class="form-error" *ngIf="invalid('specialty')">Specialty is required.</div>
+      <input
+        class="form-control"
+        [class.is-invalid]="invalid('specialty')"
+        formControlName="specialty"
+        placeholder="Orthodontist"
+      />
+      @if (invalid('specialty')) {
+        <div class="form-error">Specialty is required.</div>
+      }
     </div>
   </div>
 
   <div class="adm-row-2">
     <div>
       <label class="form-label">Initials *</label>
-      <input class="form-control"
-             [class.is-invalid]="invalid('initials')"
-             formControlName="initials"
-             maxlength="3"
-             placeholder="SK">
-      <div class="form-error" *ngIf="invalid('initials')">2–3 letters only.</div>
+      <input
+        class="form-control"
+        [class.is-invalid]="invalid('initials')"
+        formControlName="initials"
+        maxlength="3"
+        placeholder="SK"
+      />
+      @if (invalid('initials')) {
+        <div class="form-error">2–3 letters only.</div>
+      }
     </div>
     <div>
       <label class="form-label">Accent colour</label>
       <select class="form-control" formControlName="color">
-        <option *ngFor="let c of colors" [value]="c">{{ c }}</option>
+        @for (c of colors; track c) {
+          <option [value]="c">{{ c }}</option>
+        }
       </select>
     </div>
   </div>
@@ -65,27 +86,46 @@
   <div>
     <label class="form-label">Photo (optional)</label>
     <div class="adm-image-pick">
-      <span class="adm-image-pick__preview" style="border-radius:50%;"
-            [style.background-image]="preview() ? 'url(' + preview() + ')' : null">
-        <i class="fa-regular fa-user" *ngIf="!preview()"></i>
+      <span
+        class="adm-image-pick__preview"
+        style="border-radius: 50%"
+        [style.background-image]="preview() ? 'url(' + preview() + ')' : null"
+      >
+        @if (!preview()) {
+          <i class="fa-regular fa-user"></i>
+        }
       </span>
       <div class="adm-image-pick__body">
         <strong>{{ preview() ? 'Change photo' : 'Upload photo' }}</strong>
-        <span>Square JPG / PNG works best. Up to 5 MB. Leave empty to show initials avatar instead.</span>
-        <input type="file" accept="image/*" (change)="onFileChange($event)" [disabled]="uploading()">
+        <span
+          >Square JPG / PNG works best. Up to 5 MB. Leave empty to show initials avatar
+          instead.</span
+        >
+        <input
+          type="file"
+          accept="image/*"
+          (change)="onFileChange($event)"
+          [disabled]="uploading()"
+        />
       </div>
     </div>
-    <small *ngIf="uploading()" style="color:var(--color-primary); font-size:12px; display:inline-block; margin-top:4px;">
-      <i class="fa-solid fa-spinner fa-spin"></i> Uploading…
-    </small>
+    @if (uploading()) {
+      <small
+        style="color: var(--color-primary); font-size: 12px; display: inline-block; margin-top: 4px"
+      >
+        <i class="fa-solid fa-spinner fa-spin"></i> Uploading…
+      </small>
+    }
   </div>
 
   <div class="adm-form__actions">
     <button type="submit" class="adm-btn" [disabled]="saving() || uploading()">
-      <ng-container *ngIf="!saving(); else saveLoading">
-        <i class="fa-regular fa-floppy-disk"></i> {{ editingId() ? 'Save changes' : 'Add consultant' }}
-      </ng-container>
-      <ng-template #saveLoading><i class="fa-solid fa-spinner fa-spin"></i> Saving…</ng-template>
+      @if (!saving()) {
+        <i class="fa-regular fa-floppy-disk"></i>
+        {{ editingId() ? 'Save changes' : 'Add consultant' }}
+      } @else {
+        <i class="fa-solid fa-spinner fa-spin"></i> Saving…
+      }
     </button>
     <a routerLink="/adminauthlogin/consultants" class="adm-btn adm-btn--ghost">Cancel</a>
   </div>

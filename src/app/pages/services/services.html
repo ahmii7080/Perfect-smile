@@ -3,16 +3,21 @@
     <app-breadcrumb [items]="breadcrumbs" />
     <span class="eyebrow">Our Services</span>
     <h1>The complete spectrum of <span class="accent-italic-light italic">dental care</span></h1>
-    <p>From routine check-ups and scaling to cosmetic, orthodontic and implant treatment — every service available under one roof at our Faisalabad clinic.</p>
+    <p>
+      From routine check-ups and scaling to cosmetic, orthodontic and implant treatment — every
+      service available under one roof at our Faisalabad clinic.
+    </p>
   </div>
 </section>
 
 <section class="section">
   <div class="container-x">
     <div class="grid-4">
-      <div *ngFor="let s of services(); let i = index" data-aos="fade-up" [attr.data-aos-delay]="(i % 4) * 80">
-        <app-service-card [service]="s"></app-service-card>
-      </div>
+      @for (s of services(); track s; let i = $index) {
+        <div data-aos="fade-up" [attr.data-aos-delay]="(i % 4) * 80">
+          <app-service-card [service]="s"></app-service-card>
+        </div>
+      }
     </div>
   </div>
 </section>

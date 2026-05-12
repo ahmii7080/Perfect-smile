@@ -16,7 +16,8 @@ import { fileURLToPath } from 'node:url';
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 // Production origin — keep aligned with environment.prod.ts `siteUrl`.
-const SITE_URL    = 'https://theperfectsmileclinic.com';
+// `www` is the canonical host (apex redirects to it via Vercel Dashboard).
+const SITE_URL    = 'https://www.theperfectsmileclinic.com';
 const BROWSER_DIR = join(__dirname, '..', 'dist', 'perfect-smile', 'browser');
 
 if (!existsSync(BROWSER_DIR)) {
