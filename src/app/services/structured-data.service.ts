@@ -30,6 +30,16 @@ export interface ProcedureOptions {
   steps?: string[];
   /** Optional total cost range as a free-form string (e.g. "PKR 80,000 – 250,000"). */
   estimatedCost?: string;
+
+  /**
+   * Alternate names by which patients search for this procedure —
+   * regional spellings, FSD/Faisalabad variants, layperson terms.
+   * Surfaced as Schema.org `alternateName`, which Google uses to
+   * widen entity-matching for queries like "zirconia crown FSD" or
+   * "zirconia tooth cap Faisalabad". Keep to 4-8 actual user-typed
+   * phrases — this is NOT a place to keyword-stuff.
+   */
+  alternateNames?: string[];
 }
 
 /** Optional input for an Article schema on blog posts. */
@@ -112,12 +122,47 @@ export class StructuredDataService {
         worstRating: 1
       },
       areaServed: [
-        { '@type': 'City',           name: 'Faisalabad' },
-        { '@type': 'City',           name: 'Jhang' },
-        { '@type': 'City',           name: 'Sargodha' },
-        { '@type': 'City',           name: 'Toba Tek Singh' },
+        { '@type': 'City',               name: 'Faisalabad' },
+        // Neighborhood-level entries surface for "dentist near {area}"
+        // queries. D Ground and Satyana Road are the clinic's two
+        // closest commercial landmarks; Jaranwala Road covers the
+        // east-side patient base.
+        { '@type': 'Place',              name: 'D Ground, Faisalabad' },
+        { '@type': 'Place',              name: 'Satyana Road, Faisalabad' },
+        { '@type': 'Place',              name: 'Jaranwala Road, Faisalabad' },
+        { '@type': 'City',               name: 'Jhang' },
+        { '@type': 'City',               name: 'Sargodha' },
+        { '@type': 'City',               name: 'Toba Tek Singh' },
         { '@type': 'AdministrativeArea', name: 'Punjab' }
-      ]
+      ],
+      // `knowsAbout` lets Google associate the clinic with specific
+      // treatments. When a user searches "zirconia crown Faisalabad" or
+      // "root canal in FSD", Google's local-entity matcher checks this
+      // list to decide whether to surface the clinic in the local pack.
+      // Keep terms specific (treatment name + location variant) without
+      // descending into stuffing — 12-18 terms is the sweet spot.
+      knowsAbout: [
+        'Dental implants',
+        'Zirconia crowns',
+        'Porcelain veneers',
+        'Crown and bridge',
+        'Root canal treatment',
+        'Endodontics',
+        'Orthodontics',
+        'Invisalign',
+        'Clear aligners',
+        'Teeth whitening',
+        'Pediatric dentistry',
+        'Cosmetic dentistry',
+        'Smile makeover',
+        'Dental scaling',
+        'Tooth extraction',
+        'Emergency dental care'
+      ],
+      // Slogan surfaces in the Knowledge Panel when present. Keeping it
+      // location-anchored ("Faisalabad") helps local matching without
+      // appearing in the page body where it would feel marketing-heavy.
+      slogan: "Faisalabad's multi-specialist dental & implant clinic"
     };
     this.inject('dentist', schema);
   }
@@ -184,6 +229,7 @@ export class StructuredDataService {
       relevantSpecialty: 'Dentistry',
       provider: { '@id': `${environment.siteUrl}/#dentist` }
     };
+    if (opts.alternateNames?.length) schema['alternateName'] = opts.alternateNames;
     if (opts.expectedBenefit) schema['benefitsHealth'] = opts.expectedBenefit;
     if (opts.steps?.length) {
       schema['howPerformed'] = opts.steps.join(' ');

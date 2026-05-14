@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-
+import { NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { SeoService } from '../../services/seo.service';
 import { StructuredDataService } from '../../services/structured-data.service';
@@ -11,7 +11,7 @@ import {
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [RouterLink, BreadcrumbComponent],
+  imports: [RouterLink, BreadcrumbComponent, NgOptimizedImage],
   templateUrl: './about.html',
   styleUrl: './about.scss',
 })
@@ -30,6 +30,15 @@ export class AboutPage {
       description:
         'Meet The Perfect Smile — a Faisalabad dental clinic led by Dr. Faizan Sheikh, a multi-disciplinary specialist holding diplomas in Crown & Bridge, Orthodontics & Implantology.',
       path: '/about',
+      keywords: [
+        'best dentist in Faisalabad',
+        'best dentist near me',
+        'dental clinic near D Ground',
+        'dental clinic Satyana Road',
+        'multi-specialist dentist Faisalabad',
+        'Dr Faizan Sheikh dentist',
+        'family dental clinic FSD',
+      ],
     });
     this.structuredData.setBreadcrumb(this.breadcrumbs);
   }

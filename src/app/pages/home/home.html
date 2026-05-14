@@ -278,14 +278,37 @@
 <section class="section section-paper">
   <div class="container-x about-row">
     <div class="about-imgs" data-aos="fade-right">
-      <div class="about-img about-img--main"></div>
-      <div class="about-img about-img--gold"></div>
+      <!-- Two real clinic photos, wired to NgOptimizedImage for srcset +
+           lazy-loading. WebP source means ~30% smaller bytes than JPEG at
+           the same visual quality. Main block leads with the reception
+           shot (instant "real welcoming clinic" trust), accent block
+           shows the active treatment space (proof of capability). -->
+      <div class="about-img about-img--main">
+        <img
+          ngSrc="assets/images/clinic/interior.webp"
+          alt="The Perfect Smile reception and waiting area in Faisalabad"
+          class="about-img__photo"
+          width="800"
+          height="600"
+          sizes="(max-width: 900px) 90vw, 480px"
+        />
+      </div>
+      <div class="about-img about-img--gold">
+        <img
+          ngSrc="assets/images/clinic/treatment-room.webp"
+          alt="Modern dental treatment room at The Perfect Smile, Faisalabad"
+          class="about-img__photo"
+          width="600"
+          height="600"
+          sizes="(max-width: 900px) 60vw, 280px"
+        />
+      </div>
       <div class="about-stat">
         <strong>10+</strong>
         <span>Years caring for Faisalabad families</span>
       </div>
       <div class="about-tag">
-        <i class="fa-solid fa-stethoscope"></i>
+        <i class="fa-solid fa-stethoscope" aria-hidden="true"></i>
         <div><strong>15+ Years</strong><span>Of crafting smiles</span></div>
       </div>
     </div>
@@ -542,6 +565,76 @@
       @for (t of testimonials(); track t; let i = $index) {
         <div data-aos="fade-up" [attr.data-aos-delay]="i * 80">
           <app-testimonial-card [testimonial]="t"></app-testimonial-card>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ AREAS WE SERVE — local-SEO strip ════════════════════
+     Visible body text that names every catchment neighborhood. Lets the
+     page rank for "dentist near {area}" queries, mirrors the JSON-LD
+     `areaServed` entries so Googlebot's NLP can pair them. Lightweight
+     section — pure typography, no images, no JS state. -->
+<section class="section section-cream areas-served">
+  <div class="container-x">
+    <header class="section-head" data-aos="fade-up">
+      <span class="eyebrow center">Areas we serve</span>
+      <h2 class="h-section">
+        Trusted by patients across <span class="accent-italic">Faisalabad</span> &amp; FSD
+      </h2>
+      <p>
+        Whether you're searching for the
+        <strong>best dentist in Faisalabad</strong>, a
+        <strong>dental clinic near D Ground</strong>, or simply
+        <strong>"best dentist near me"</strong> — patients drive in from every
+        corner of Faisalabad, including these neighborhoods:
+      </p>
+    </header>
+    <ul class="areas-served__grid" data-aos="fade-up">
+      @for (area of areasServed; track area) {
+        <li class="areas-served__pill">
+          <i class="fa-solid fa-location-dot" aria-hidden="true"></i> {{ area }}
+        </li>
+      }
+    </ul>
+    <p class="areas-served__note" data-aos="fade-up">
+      Patients also visit us from Jhang, Sargodha, Toba Tek Singh, and Lahore.
+      Free consultation &amp; WhatsApp support available 7 days a week.
+    </p>
+  </div>
+</section>
+
+<!-- ════════════════════ FAQ — People Also Ask ════════════════════
+     A handful of high-intent, Faisalabad-specific questions wired to the
+     FAQPage JSON-LD schema set in HomePage.constructor. Google often
+     surfaces these directly inside the SERP as expandable "People Also
+     Ask" rows — single highest-leverage on-page SEO move you can make
+     on a local-business homepage. -->
+<section class="section faq-sec">
+  <div class="container-x faq-sec__row">
+    <header class="section-head" data-aos="fade-up">
+      <span class="eyebrow center">People also ask</span>
+      <h2 class="h-section">
+        <span class="accent-italic">Frequently asked</span> by our patients
+      </h2>
+      <p>Quick answers to the questions Faisalabad patients ask most often.</p>
+    </header>
+    <div class="faq-list" data-aos="fade-up">
+      @for (f of faqs; track f.q; let i = $index) {
+        <div class="faq-item" [class.is-open]="openFaq() === i">
+          <button
+            class="faq-item__q"
+            (click)="toggleFaq(i)"
+            [attr.aria-expanded]="openFaq() === i"
+            [attr.aria-controls]="'faq-a-' + i"
+          >
+            <span>{{ f.q }}</span>
+            <i class="fa-solid fa-chevron-down faq-item__caret" aria-hidden="true"></i>
+          </button>
+          <div class="faq-item__a" [id]="'faq-a-' + i" role="region">
+            <p>{{ f.a }}</p>
+          </div>
         </div>
       }
     </div>

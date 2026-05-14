@@ -10,7 +10,20 @@
   color: var(--color-ink-soft); line-height: 1.55; margin-bottom: 1rem;
 }
 .story__imgs { position: relative; height: 460px; }
-.story__img { position: absolute; border-radius: 28px; }
+/* Both blocks were decorative gradients with 🦷 / ✦ emoji watermarks;
+   now they're real photo containers (exterior + treatment-room2). The
+   gradient stays as a fallback colour that's visible while the image
+   decodes — once <img> covers the box it disappears. */
+.story__img {
+  position: absolute;
+  border-radius: 28px;
+  overflow: hidden;
+}
+.story__img-photo {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+}
 .story__img--main {
   width: 80%; height: 80%; top: 0; left: 0;
   background:
@@ -18,18 +31,10 @@
     linear-gradient(135deg, #1597D5 0%, #0A3A55 100%);
   box-shadow: 0 30px 60px -28px rgba(10,58,85,0.45);
 }
-.story__img--main::after {
-  content: "🦷"; font-size: 110px; opacity: 0.16;
-  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-}
 .story__img--accent {
   width: 50%; height: 45%; bottom: 0; right: 0;
   background: linear-gradient(135deg, #FAC775 0%, #BA7517 100%);
   box-shadow: 0 30px 60px -28px rgba(186,117,23,0.5);
-}
-.story__img--accent::after {
-  content: "✦"; font-size: 80px; color: rgba(255,255,255,0.5);
-  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
 }
 @media (max-width: 980px) {
   .story { grid-template-columns: 1fr; }
