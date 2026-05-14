@@ -36,6 +36,16 @@ export class ServicesPage implements OnInit {
       description:
         'Complete dental services in Faisalabad — implants, braces & aligners, crown & bridge, cosmetic dentistry, scaling, whitening, root canal, kids dentistry and extractions.',
       path: '/services',
+      keywords: [
+        'dental services Faisalabad',
+        'dental treatment FSD',
+        'zirconia crown Faisalabad',
+        'root canal Faisalabad',
+        'dental implants Faisalabad',
+        'braces Faisalabad',
+        'teeth whitening FSD',
+        'dental clinic near D Ground',
+      ],
     });
     this.structuredData.setBreadcrumb(this.breadcrumbs);
   }

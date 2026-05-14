@@ -53,6 +53,23 @@ export interface SeoOptions {
    * "Dental Clinic" appearing twice in the SERP listing.
    */
   noBrandSuffix?: boolean;
+
+  /**
+   * Optional `<meta name="keywords">` content. Google has explicitly
+   * ignored this tag since 2009, but Bing, Yandex, DuckDuckGo, and many
+   * local-business aggregators still consume it — at zero on-page cost
+   * it's worth populating for the long tail of non-Google referrals.
+   *
+   * Pass an array of phrases; do NOT keyword-stuff. 5-10 specific terms
+   * per page is the right ceiling. Mixing exact-match local variants
+   * ("best dentist Faisalabad", "best dentist FSD", "best dentist near
+   * D Ground") is fine here — that's exactly the tag's purpose.
+   *
+   * The real local-SEO heavy lifting happens via JSON-LD `knowsAbout` +
+   * `areaServed` in StructuredDataService — those are what Google
+   * actually reads to match local-pack queries.
+   */
+  keywords?: string[];
 }
 
 /**
@@ -90,6 +107,14 @@ export class SeoService {
     this.title.setTitle(fullTitle);
     this.upsertName('description', opts.description);
     this.upsertName('robots', robots);
+
+    // Keywords are optional. When omitted on a page we remove any prior
+    // tag so a stale value from a previous route doesn't carry over.
+    if (opts.keywords?.length) {
+      this.upsertName('keywords', opts.keywords.join(', '));
+    } else {
+      this.meta.removeTag('name="keywords"');
+    }
 
     // --- Geo tags (legacy but still consumed by some local-search crawlers
     //     and Pakistani directory aggregators). Static — clinic location

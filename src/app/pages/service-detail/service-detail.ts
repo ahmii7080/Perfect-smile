@@ -6,6 +6,7 @@ import { DataService } from '../../services/data.service';
 import { ServiceItem } from '../../models/service.model';
 import { SeoService } from '../../services/seo.service';
 import { StructuredDataService } from '../../services/structured-data.service';
+import { SITE_KEYWORDS } from '../../data/clinic-info';
 import {
   BreadcrumbComponent,
   BreadcrumbItem,
@@ -97,22 +98,49 @@ export class ServiceDetailPage implements OnInit {
     // in SERP and lose the "Faisalabad" hook at the end.
     const seedSummary = s.summary || s.tagline || s.title;
     const description = this.truncate(
-      `${seedSummary} Affordable, expert ${s.title.toLowerCase()} treatment in Faisalabad at The Perfect Smile Dental Clinic.`,
+      `${seedSummary} Expert ${s.title.toLowerCase()} in Faisalabad — also serving FSD, D Ground & Satellite Town. The Perfect Smile Dental Clinic.`,
       158,
     );
+
+    // Per-service keywords combine three buckets:
+    //   1. The curated service-specific list from SITE_KEYWORDS.perService
+    //      (looked up by slug, e.g. "root canal Faisalabad", "RCT in FSD").
+    //   2. A small set of brand fallbacks so even un-mapped services still
+    //      get "best dentist Faisalabad" coverage.
+    //   3. A computed `{title} Faisalabad` phrase — guarantees the visible
+    //      page title appears in the keywords bag for any new service slug
+    //      that hasn't been added to perService yet.
+    const serviceKw = SITE_KEYWORDS.perService[slug] ?? [];
+    const keywords = [
+      `${s.title} Faisalabad`,
+      `${s.title} in Faisalabad`,
+      `${s.title} FSD`,
+      `${s.title} near me`,
+      ...serviceKw,
+      ...SITE_KEYWORDS.brand.slice(0, 3),
+    ];
 
     this.seo.set({
       title: `${s.title} in Faisalabad`,
       description,
       path,
+      keywords,
     });
 
-    // MedicalProcedure → Schema.org rich result for medical services
+    // MedicalProcedure → Schema.org rich result for medical services.
+    // `alternateNames` (Schema.org `alternateName`) widens Google's entity
+    // matching so the page can rank for typed variants like
+    // "zirconia crown FSD" without us writing those phrases into body text.
     this.structuredData.setMedicalProcedure({
       name: s.title,
       slug: s.slug,
       description: seedSummary,
       steps: s.procedure ?? [],
+      alternateNames: serviceKw.length ? [...serviceKw] : [
+        `${s.title} Faisalabad`,
+        `${s.title} FSD`,
+        `${s.title} near me`,
+      ],
     });
 
     // FAQPage → expandable FAQ accordions can show directly inside Google SERP

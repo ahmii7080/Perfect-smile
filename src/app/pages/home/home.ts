@@ -17,9 +17,11 @@ import { take } from 'rxjs';
 
 import { DataService } from '../../services/data.service';
 import { SeoService } from '../../services/seo.service';
+import { StructuredDataService } from '../../services/structured-data.service';
 import { ServiceItem } from '../../models/service.model';
 import { Doctor } from '../../models/doctor.model';
 import { BlogPost, Testimonial } from '../../models/appointment.model';
+import { AREAS_SERVED, LOCAL_FAQS, SITE_KEYWORDS } from '../../data/clinic-info';
 
 import { TestimonialCardComponent } from '../../components/testimonial-card/testimonial-card';
 import { StatsCounterComponent } from '../../components/stats-counter/stats-counter';
@@ -78,6 +80,18 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   blog = signal<BlogPost[]>([]);
 
   videoPlaying = signal(false);
+
+  // FAQ accordion state — which question is currently expanded.
+  // -1 = all collapsed. Single-open accordion (clicking another collapses
+  // the previous one) — simpler & cleaner than a multi-open variant.
+  openFaq = signal<number>(-1);
+
+  /** People-Also-Ask style local FAQs surfaced both in the rendered
+   *  accordion AND in the FAQPage JSON-LD schema. */
+  readonly faqs = LOCAL_FAQS;
+
+  /** Neighborhood pills shown in the "Areas we serve" strip. */
+  readonly areasServed = AREAS_SERVED;
 
   // Bento services tiles
   bento: BentoTile[] = [
@@ -256,6 +270,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private seo = inject(SeoService);
+  private structuredData = inject(StructuredDataService);
 
   constructor() {
     // SEO surface for the homepage. Set in the constructor (not ngOnInit)
@@ -279,7 +294,23 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
         "Faisalabad's multi-specialist dental & implant clinic. Crown & bridge, orthodontics, implants, cosmetic dentistry by Dr. Faizan Sheikh. Free WhatsApp consult.",
       path: '/',
       noBrandSuffix: true,
+      // Local-intent keywords for non-Google search engines + directory
+      // aggregators. Google itself ignores meta keywords (since 2009);
+      // the real local-pack lift is the `knowsAbout` + `areaServed`
+      // arrays in the Dentist JSON-LD set in app.ts plus the FAQPage
+      // schema below (which is what actually wins "People Also Ask"
+      // rich-result placements).
+      keywords: [...SITE_KEYWORDS.brand],
     });
+
+    // FAQPage rich result — surfaces expandable Q&A directly in Google
+    // SERP. Each answer naturally repeats local phrases ("Faisalabad",
+    // "FSD", "D Ground") so the page earns long-tail coverage without
+    // visible-text keyword stuffing. Mapped from clinic-info's `{q, a}`
+    // shape to the StructuredData service's `{question, answer}` shape.
+    this.structuredData.setFaqPage(
+      LOCAL_FAQS.map((f) => ({ question: f.q, answer: f.a })),
+    );
 
     // Hero review-card auto-cycle. Browser only — `afterNextRender` keeps
     // the timer (and its `window.*` calls) out of the prerender pass.
@@ -297,6 +328,12 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
   playVideo() {
     this.videoPlaying.set(true);
+  }
+
+  /** Toggle the FAQ accordion. Clicking an open row collapses it; clicking
+   *  a closed row collapses any open sibling and opens this one. */
+  toggleFaq(i: number) {
+    this.openFaq.set(this.openFaq() === i ? -1 : i);
   }
 
   /**
