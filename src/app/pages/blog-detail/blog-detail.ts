@@ -87,6 +87,11 @@ export class BlogDetailPage implements OnInit {
       return;
     }
 
+    // Article keywords combine: post category, generic dental terms, and
+    // a Faisalabad/FSD locality bag. Category-driven so different posts
+    // (Whitening vs Implants) get distinct keyword surfaces even though
+    // the description is post-author-driven.
+    const categoryKw = p.category.toLowerCase();
     this.seo.set({
       title: p.title,
       description: p.excerpt,
@@ -95,6 +100,15 @@ export class BlogDetailPage implements OnInit {
       type: 'article',
       publishedTime: p.date,
       author: p.author,
+      keywords: [
+        `${categoryKw} Faisalabad`,
+        `${categoryKw} in FSD`,
+        `${categoryKw} near me`,
+        'dental blog Faisalabad',
+        'dentist advice Faisalabad',
+        'best dentist Faisalabad',
+        p.category,
+      ],
     });
 
     this.structuredData.setArticle({

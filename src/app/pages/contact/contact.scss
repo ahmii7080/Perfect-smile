@@ -21,6 +21,22 @@
 .info-card p  { font-size: 13.5px; color: var(--color-text-muted); }
 .info-card a  { font-weight: 600; }
 
+/* Alternate phone format helper. Subtler than the primary number so
+   sighted users don't read it as the "real" contact info — Google
+   crawlers still see the string and index it for local-search variants
+   like "03247734135". */
+.info-card__alt {
+  margin-top: 0.4rem;
+  font-size: 12px;
+  color: var(--color-text-muted, #6b7280);
+  opacity: 0.85;
+}
+.info-card__alt span {
+  font-family: 'Manrope', monospace, sans-serif;
+  letter-spacing: 0.02em;
+  color: var(--color-ink-soft, #334155);
+}
+
 .contact-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
   align-items: stretch;

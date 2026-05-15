@@ -37,6 +37,17 @@ export class DoctorsPage implements OnInit {
       description:
         'Meet Dr. Faizan Sheikh — BDS, multi-disciplinary dental specialist at The Perfect Smile Faisalabad. Diplomas in Crown & Bridge, Orthodontics and Implantology.',
       path: '/doctors',
+      keywords: [
+        'best dentist in Faisalabad',
+        'best dentist in FSD',
+        'Dr Faizan Sheikh dentist',
+        'multi-disciplinary dentist Faisalabad',
+        'crown and bridge specialist Faisalabad',
+        'orthodontist Faisalabad',
+        'implantologist Faisalabad',
+        'BDS dentist Faisalabad',
+        'specialist dentist near me',
+      ],
     });
     this.structuredData.setBreadcrumb(this.breadcrumbs);
   }

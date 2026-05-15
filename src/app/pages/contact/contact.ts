@@ -31,6 +31,16 @@ export class ContactPage {
       description:
         'Get in touch with The Perfect Smile Dental Clinic — adjacent Rehman Garden Gate No. 1, Stayana Road, Faisalabad. Call +92 324 7734135 or WhatsApp for fast appointment confirmation.',
       path: '/contact',
+      keywords: [
+        'dental clinic contact Faisalabad',
+        'dentist phone number Faisalabad',
+        'dental clinic address FSD',
+        'dental clinic near D Ground',
+        'dental clinic Stayana Road',
+        'dental clinic Satyana Road Faisalabad',
+        'WhatsApp dentist Faisalabad',
+        'dentist directions Faisalabad',
+      ],
     });
     this.structuredData.setBreadcrumb(this.breadcrumbs);
   }

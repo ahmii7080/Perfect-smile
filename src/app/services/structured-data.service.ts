@@ -111,6 +111,20 @@ export class StructuredDataService {
       })),
       medicalSpecialty: CLINIC_INFO.medicalSpecialty,
       sameAs: CLINIC_INFO.sameAs,
+      // ContactPoint array carries every common written form of the clinic
+      // phone number — international (`+92 324...`), E.164 (`+923247734135`),
+      // local Pakistani (`03247734135`, `0324 7734135`, `0324-7734135`).
+      // Pakistani patients type any of these into Google; including all
+      // variants here makes the entity match all search queries against
+      // the same business listing. Same phone, different surfaces — not
+      // separate contact channels.
+      contactPoint: CLINIC_INFO.telephoneVariants.map(num => ({
+        '@type':       'ContactPoint',
+        telephone:     num,
+        contactType:   'customer service',
+        availableLanguage: ['en', 'ur', 'pa'],
+        areaServed:    'PK'
+      })),
       // Real reviews from GBP — `aggregateRating` is what unlocks the
       // gold star row beneath your SERP listing. Update the count in
       // clinic-info.ts as the GBP review count grows.

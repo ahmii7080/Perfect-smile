@@ -35,6 +35,15 @@ export class BlogPage implements OnInit {
       description:
         'Plain-English dental health advice from The Perfect Smile, Faisalabad — implants, braces, whitening, gum care, kids dentistry and more, written by qualified dentists.',
       path: '/blog',
+      keywords: [
+        'dental blog Faisalabad',
+        'dental health tips Faisalabad',
+        'dentist articles Faisalabad',
+        'dental advice FSD',
+        'oral health Pakistan',
+        'tooth care blog',
+        'best dentist Faisalabad blog',
+      ],
     });
     this.structuredData.setBreadcrumb(this.breadcrumbs);
   }
