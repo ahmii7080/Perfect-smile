@@ -35,6 +35,15 @@ export class AppointmentPage implements OnInit {
       description:
         'Book your dental appointment at The Perfect Smile, Faisalabad. Free consultation. Confirm instantly on WhatsApp. Open Mon–Sat 5pm–10pm.',
       path: '/appointment',
+      keywords: [
+        'book dental appointment Faisalabad',
+        'dental appointment FSD',
+        'free dental consultation Faisalabad',
+        'WhatsApp dentist Faisalabad',
+        'dentist near me booking',
+        'dental appointment near D Ground',
+        'walk-in dentist Faisalabad',
+      ],
     });
     this.structuredData.setBreadcrumb(this.breadcrumbs);
   }

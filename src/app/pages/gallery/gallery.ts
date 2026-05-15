@@ -39,10 +39,24 @@ export class GalleryPage implements OnInit {
 
   constructor() {
     this.seo.set({
-      title: 'Smile Gallery — Before & After',
+      // Title used to be "Smile Gallery — Before & After" (no city anchor).
+      // Adding "Faisalabad" gets the page into local "veneers Faisalabad
+      // before after" + "smile makeover Faisalabad" SERPs, which is exactly
+      // who lands on this page from image-search.
+      title: 'Smile Gallery — Before & After Cases in Faisalabad',
       description:
         'Real patient before-and-after smile transformations at The Perfect Smile, Faisalabad — veneers, whitening, implants, braces, crowns and full smile design cases.',
       path: '/gallery',
+      keywords: [
+        'smile gallery Faisalabad',
+        'before after dental Faisalabad',
+        'veneers before after Faisalabad',
+        'smile makeover Faisalabad',
+        'dental transformation FSD',
+        'teeth whitening before after Faisalabad',
+        'implant before after Faisalabad',
+        'best smile design Faisalabad',
+      ],
     });
     this.structuredData.setBreadcrumb(this.breadcrumbs);
   }

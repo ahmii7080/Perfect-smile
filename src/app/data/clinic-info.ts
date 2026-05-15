@@ -34,9 +34,35 @@ export const CLINIC_INFO = {
   description:
     'Premium dental & implant clinic in Faisalabad offering multi-disciplinary specialist care — implants, orthodontics, crown & bridge, cosmetic dentistry, scaling, whitening and extractions.',
 
-  /** International + local phone formats. */
+  /**
+   * Phone number presentations.
+   *
+   *  - `telephone`         → canonical E.164 form, used in `tel:` links and
+   *                          Schema.org `telephone` property.
+   *  - `telephoneDisplay`  → the ONE format shown in visible UI (footer,
+   *                          navbar util-bar, contact page hero).
+   *  - `telephoneVariants` → every common written form Pakistani searchers
+   *                          might type into Google. Surfaced in JSON-LD
+   *                          `ContactPoint` array + an alternate-format
+   *                          meta tag + a small visible line on the
+   *                          contact page — so a search for any of these
+   *                          strings still matches our pages.
+   *
+   * Why we need variants in HTML at all: Google's index is literal. If the
+   * page only contains "+92 324 7734135", a user searching "03247734135"
+   * (local form, no spaces) will never see us. Including the variants
+   * once on the contact page + everywhere via structured data makes the
+   * page discoverable for all common typing patterns.
+   */
   telephone:  '+923247734135',
   telephoneDisplay: '+92 324 7734135',
+  telephoneVariants: [
+    '+92 324 7734135',     // international, spaced (primary display)
+    '+923247734135',       // international, no spaces (E.164)
+    '0324 7734135',        // local Pakistani, spaced
+    '03247734135',         // local Pakistani, no spaces (what people type)
+    '0324-7734135'         // local Pakistani, dashed
+  ] as const,
 
   /** Business email (one canonical address — keep aligned with mailto: links). */
   email: 'faizanwaris765@gmail.com',

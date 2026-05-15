@@ -124,6 +124,15 @@ export class SeoService {
     this.upsertName('geo.position',  '31.3861163;73.1242184');
     this.upsertName('ICBM',          '31.3861163, 73.1242184');
 
+    // --- Contact phone (multiple formats) ---
+    // Single canonical phone in the standard `contact:phone_number` meta
+    // (the format Facebook + LinkedIn + some crawlers expect), plus a
+    // comma-joined "contact:phone_alt" carrying every common variant
+    // Pakistani searchers might Google. This makes the page indexable for
+    // queries like "03247734135" without changing what's visible in the UI.
+    this.upsertName('contact:phone_number', CLINIC_INFO.telephoneDisplay);
+    this.upsertName('contact:phone_alt',    CLINIC_INFO.telephoneVariants.join(', '));
+
     // --- Canonical (single, absolute, https) ---
     this.upsertCanonical(url);
 

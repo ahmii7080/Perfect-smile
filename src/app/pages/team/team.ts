@@ -36,6 +36,15 @@ export class TeamPage implements OnInit {
       description:
         'Meet the dental support team and visiting consultants at The Perfect Smile Faisalabad — qualified professionals committed to honest, gentle, on-time patient care.',
       path: '/team',
+      keywords: [
+        'dental team Faisalabad',
+        'dental staff Faisalabad',
+        'visiting consultants Faisalabad',
+        'dental clinic team FSD',
+        'dental hygienist Faisalabad',
+        'specialist consultants Faisalabad',
+        'best dental clinic in Faisalabad',
+      ],
     });
     this.structuredData.setBreadcrumb(this.breadcrumbs);
   }
