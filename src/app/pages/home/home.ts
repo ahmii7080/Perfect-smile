@@ -26,6 +26,7 @@ import { AREAS_SERVED, LOCAL_FAQS, SITE_KEYWORDS } from '../../data/clinic-info'
 import { TestimonialCardComponent } from '../../components/testimonial-card/testimonial-card';
 import { StatsCounterComponent } from '../../components/stats-counter/stats-counter';
 import { BlogIllustrationComponent } from '../../components/blog-illustration/blog-illustration';
+import { PrefetchOnHoverDirective } from '../../directives/prefetch-on-hover.directive';
 
 interface BentoTile {
   slug: string;
@@ -55,7 +56,7 @@ interface WhyRow {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink, NgOptimizedImage, TestimonialCardComponent, StatsCounterComponent, BlogIllustrationComponent],
+  imports: [RouterLink, NgOptimizedImage, TestimonialCardComponent, StatsCounterComponent, BlogIllustrationComponent, PrefetchOnHoverDirective],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })

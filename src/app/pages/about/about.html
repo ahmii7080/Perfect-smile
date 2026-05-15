@@ -48,12 +48,17 @@
         </p>
       </div>
       <div class="story__imgs" data-aos="fade-left">
-        <!-- Real clinic photos via NgOptimizedImage (WebP + responsive
-             srcset). Exterior on the main block establishes "we exist at
-             a real address in Faisalabad" — useful for local-search
-             trust. Treatment room on the accent block shows facility
-             quality without needing a separate "tour" section. -->
-        <div class="story__img story__img--main">
+        <!-- Photos converted to <a routerLink> — clicks now navigate
+             instead of opening a popup (popups create dead-end
+             distraction; navigation converts curiosity into another
+             page-view and ultimately a CTA click).
+              - Exterior        → /contact (map + directions)
+              - Treatment room  → /services (what we do here)
+             `prefetchOnHover` warms the destination chunk on hover. -->
+        <a routerLink="/contact"
+           class="story__img story__img--main story__img--link"
+           aria-label="Find our clinic — map and directions"
+           prefetchOnHover>
           <img
             ngSrc="assets/images/clinic/exterior.webp"
             alt="The Perfect Smile Dental Clinic exterior — Faisalabad"
@@ -62,8 +67,14 @@
             height="600"
             sizes="(max-width: 900px) 85vw, 460px"
           />
-        </div>
-        <div class="story__img story__img--accent">
+          <span class="story__img-hint">
+            <i class="fa-solid fa-location-dot" aria-hidden="true"></i> Find us
+          </span>
+        </a>
+        <a routerLink="/services"
+           class="story__img story__img--accent story__img--link"
+           aria-label="Explore our dental services"
+           prefetchOnHover>
           <img
             ngSrc="assets/images/clinic/treatment-room2.webp"
             alt="State-of-the-art dental treatment room at The Perfect Smile"
@@ -72,7 +83,10 @@
             height="600"
             sizes="(max-width: 900px) 55vw, 260px"
           />
-        </div>
+          <span class="story__img-hint">
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i> Services
+          </span>
+        </a>
       </div>
     </div>
   </div>

@@ -283,7 +283,17 @@
            the same visual quality. Main block leads with the reception
            shot (instant "real welcoming clinic" trust), accent block
            shows the active treatment space (proof of capability). -->
-      <div class="about-img about-img--main">
+      <!-- Photos converted from <div> to <a routerLink>. Curiosity now
+           routes to a relevant page instead of dead-ending in a popup:
+            - Reception/interior → /about (full clinic story)
+            - Treatment room    → /gallery (before-after cases)
+           `prefetchOnHover` pre-loads the destination chunk on hover/touch
+           so the click→paint is instant. The .about-img--link class adds
+           a hover overlay hint ("View our story →") for discoverability. -->
+      <a routerLink="/about"
+         class="about-img about-img--main about-img--link"
+         aria-label="See our clinic story and credentials"
+         prefetchOnHover>
         <img
           ngSrc="assets/images/clinic/interior.webp"
           alt="The Perfect Smile reception and waiting area in Faisalabad"
@@ -292,8 +302,14 @@
           height="600"
           sizes="(max-width: 900px) 90vw, 480px"
         />
-      </div>
-      <div class="about-img about-img--gold">
+        <span class="about-img__hint">
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i> Our story
+        </span>
+      </a>
+      <a routerLink="/gallery"
+         class="about-img about-img--gold about-img--link"
+         aria-label="See real patient before-and-after results"
+         prefetchOnHover>
         <img
           ngSrc="assets/images/clinic/treatment-room.webp"
           alt="Modern dental treatment room at The Perfect Smile, Faisalabad"
@@ -302,7 +318,10 @@
           height="600"
           sizes="(max-width: 900px) 60vw, 280px"
         />
-      </div>
+        <span class="about-img__hint">
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i> Gallery
+        </span>
+      </a>
       <div class="about-stat">
         <strong>10+</strong>
         <span>Years caring for Faisalabad families</span>
