@@ -7,11 +7,12 @@ import {
   BreadcrumbComponent,
   BreadcrumbItem,
 } from '../../components/breadcrumb/breadcrumb.component';
+import { PrefetchOnHoverDirective } from '../../directives/prefetch-on-hover.directive';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [RouterLink, BreadcrumbComponent, NgOptimizedImage],
+  imports: [RouterLink, BreadcrumbComponent, NgOptimizedImage, PrefetchOnHoverDirective],
   templateUrl: './about.html',
   styleUrl: './about.scss',
 })

@@ -428,6 +428,61 @@
   width: 100%; height: 100%;
   object-fit: cover; object-position: center;
 }
+
+/* Click-to-navigate variant. The block is now an <a> instead of a <div>,
+   so it inherits link colour/focus from the browser. The hover hint is
+   hidden by default and slides in on hover/focus — desktop discoverability
+   without cluttering mobile (where touch users tap to navigate anyway). */
+.about-img--link {
+  display: block;                /* anchor needs explicit display:block to size like the old div */
+  text-decoration: none;
+  cursor: pointer;
+  outline-offset: 4px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.about-img--link:hover,
+.about-img--link:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: 0 40px 80px -28px rgba(10,58,85,0.55);
+}
+.about-img--link .about-img__photo {
+  transition: transform 0.6s ease;
+}
+.about-img--link:hover .about-img__photo,
+.about-img--link:focus-visible .about-img__photo {
+  transform: scale(1.04);        /* gentle zoom-in confirms the photo is interactive */
+}
+.about-img__hint {
+  position: absolute;
+  bottom: 1rem; left: 1rem;
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  padding: 0.5rem 0.9rem;
+  background: rgba(255,255,255,0.96);
+  color: var(--color-primary-dark, #0A3A55);
+  border-radius: 999px;
+  font-size: 12.5px; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  box-shadow: 0 10px 22px -10px rgba(0,0,0,0.4);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  z-index: 2;
+  pointer-events: none;          /* let click pass through to parent <a> */
+}
+.about-img__hint i { font-size: 11px; }
+.about-img--link:hover .about-img__hint,
+.about-img--link:focus-visible .about-img__hint {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Touch devices: hover never fires, so show the hint as a persistent
+   chip — confirms tappability without users needing to "discover" it. */
+@media (hover: none) {
+  .about-img__hint {
+    opacity: 0.92;
+    transform: translateY(0);
+  }
+}
 .about-img--main {
   width: 75%; height: 80%; top: 0; left: 0;
   background:
