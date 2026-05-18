@@ -92,12 +92,32 @@ export class SeoService {
   private readonly meta     = inject(Meta);
   private readonly document = inject(DOCUMENT);
 
-  /** Title suffix appended to every page. Pulled from clinic info. */
-  private readonly brandSuffix = `${CLINIC_INFO.name} Faisalabad`;
+  /**
+   * Title suffix appended to every page (uses the SHORT brand name).
+   *
+   * Was `"${CLINIC_INFO.name} Faisalabad"` = "The Perfect Smile Dental Clinic
+   * Faisalabad" (42 chars) — combined with even a moderate page title, the
+   * total blew past Bing's 70-char ceiling (the warning is "title too long;
+   * may be truncated or ignored"). Switched to `CLINIC_INFO.shortName` =
+   * "The Perfect Smile" (17 chars). Page titles already include "Faisalabad"
+   * where it matters, so dropping it from the suffix doesn't lose any
+   * local-SEO surface — it just makes every page fit comfortably.
+   */
+  private readonly brandSuffix = CLINIC_INFO.shortName;
+
+  /**
+   * Maximum total title length before we add an ellipsis. Bing flags
+   * anything over 70 chars; Google starts visually truncating SERP titles
+   * around 580 px (≈ 60-65 chars in typical glyph widths). Aiming for ~65
+   * gives us a safe margin under both ceilings without burning visible
+   * keywords. If the page title + suffix exceeds this, we trim the page
+   * title (not the brand) so the brand always reads cleanly.
+   */
+  private readonly MAX_TITLE_CHARS = 65;
 
   /** Set the full SEO surface for the current page in one call. */
   set(opts: SeoOptions): void {
-    const fullTitle  = opts.noBrandSuffix ? opts.title : `${opts.title} | ${this.brandSuffix}`;
+    const fullTitle  = this.buildTitle(opts.title, opts.noBrandSuffix === true);
     const url        = this.absoluteUrl(opts.path);
     const image      = this.absoluteUrl(opts.image ?? CLINIC_INFO.ogImagePath);
     const type       = opts.type ?? 'website';
@@ -169,6 +189,34 @@ export class SeoService {
     this.upsertName('twitter:title',       fullTitle);
     this.upsertName('twitter:description', opts.description);
     this.upsertName('twitter:image',       image);
+  }
+
+  /**
+   * Compose the final `<title>` string from page title + optional brand
+   * suffix, capped at `MAX_TITLE_CHARS`. If the combined string overflows,
+   * we trim the page-title side (not the brand) so the brand identity
+   * always renders cleanly — patients seeing "...n Faisalab… | The Perfect
+   * Smile" is much worse than "Long Page Title… | The Perfect Smile".
+   *
+   * Returns the page title verbatim when `noBrandSuffix` is set (used on
+   * the homepage, where the brand IS the title and a duplicate suffix
+   * would read as "Brand | Brand").
+   */
+  private buildTitle(pageTitle: string, noBrandSuffix: boolean): string {
+    if (noBrandSuffix) {
+      // Even without the suffix, cap at MAX_TITLE_CHARS so a long home
+      // title doesn't trip Bing's warning on its own.
+      return pageTitle.length <= this.MAX_TITLE_CHARS
+        ? pageTitle
+        : `${pageTitle.slice(0, this.MAX_TITLE_CHARS - 1).trimEnd()}…`;
+    }
+    const sep = ' | ';
+    const tail = `${sep}${this.brandSuffix}`;
+    const budget = this.MAX_TITLE_CHARS - tail.length;
+    // Page-title fits cleanly — return as-is.
+    if (pageTitle.length <= budget) return `${pageTitle}${tail}`;
+    // Doesn't fit — trim the page-title side, append ellipsis + suffix.
+    return `${pageTitle.slice(0, budget - 1).trimEnd()}…${tail}`;
   }
 
   /** Build an absolute URL from a path or pass through an already-absolute one. */

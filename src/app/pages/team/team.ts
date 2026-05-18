@@ -32,7 +32,7 @@ export class TeamPage implements OnInit {
 
   constructor() {
     this.seo.set({
-      title: 'Our Team — Dental Staff in Faisalabad',
+      title: 'Our Team — Dental Staff Faisalabad',
       description:
         'Meet the dental support team and visiting consultants at The Perfect Smile Faisalabad — qualified professionals committed to honest, gentle, on-time patient care.',
       path: '/team',

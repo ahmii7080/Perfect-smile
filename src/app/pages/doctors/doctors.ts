@@ -33,7 +33,9 @@ export class DoctorsPage implements OnInit {
     // Page-level SEO. Per-doctor headline updates after data resolves
     // (below) so the H1 + meta both reflect the doctor's actual name.
     this.seo.set({
-      title: 'Our Dentist in Faisalabad — Dr. Faizan Sheikh',
+      // Title kept under ~45 chars so total stays well below Bing's
+      // 70-char limit (SeoService adds " | The Perfect Smile" suffix).
+      title: 'Dr. Faizan Sheikh — Dentist in Faisalabad',
       description:
         'Meet Dr. Faizan Sheikh — BDS, multi-disciplinary dental specialist at The Perfect Smile Faisalabad. Diplomas in Crown & Bridge, Orthodontics and Implantology.',
       path: '/doctors',

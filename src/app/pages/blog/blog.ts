@@ -31,7 +31,7 @@ export class BlogPage implements OnInit {
 
   constructor() {
     this.seo.set({
-      title: 'Dental Health Blog — Faisalabad Dentist',
+      title: 'Dental Blog — Faisalabad Dentist',
       description:
         'Plain-English dental health advice from The Perfect Smile, Faisalabad — implants, braces, whitening, gum care, kids dentistry and more, written by qualified dentists.',
       path: '/blog',
