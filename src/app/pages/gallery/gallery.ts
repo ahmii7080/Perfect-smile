@@ -43,7 +43,10 @@ export class GalleryPage implements OnInit {
       // Adding "Faisalabad" gets the page into local "veneers Faisalabad
       // before after" + "smile makeover Faisalabad" SERPs, which is exactly
       // who lands on this page from image-search.
-      title: 'Smile Gallery — Before & After Cases in Faisalabad',
+      // Trimmed from the longer "Before & After Cases in Faisalabad"
+      // phrasing — keeps headline keywords (smile, Faisalabad, before
+      // & after) and leaves room for the brand suffix under 65 chars.
+      title: 'Smile Gallery — Before & After in Faisalabad',
       description:
         'Real patient before-and-after smile transformations at The Perfect Smile, Faisalabad — veneers, whitening, implants, braces, crowns and full smile design cases.',
       path: '/gallery',
