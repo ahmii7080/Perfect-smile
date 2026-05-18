@@ -80,10 +80,17 @@
 
     <div class="ftr__bottom">
       <p>© {{ year }} The Perfect Smile, Faisalabad. All rights reserved.</p>
+      <!-- Legal trio + sitemap. Privacy/Terms/Disclaimer point to the
+           real legal pages now (used to placeholder-link to /about,
+           which left AdSense / payment-gateway reviewers flagging the
+           site for missing legal disclosures). Sitemap link goes to the
+           XML sitemap, which is what Googlebot uses; human-readable
+           sitemap is a low-priority future addition. -->
       <div class="ftr__legal">
-        <a routerLink="/about">Privacy</a>
-        <a routerLink="/about">Terms</a>
-        <a routerLink="/contact">Sitemap</a>
+        <a routerLink="/privacy">Privacy</a>
+        <a routerLink="/terms">Terms</a>
+        <a routerLink="/disclaimer">Disclaimer</a>
+        <a href="/sitemap.xml" target="_blank" rel="noopener">Sitemap</a>
       </div>
     </div>
   </div>

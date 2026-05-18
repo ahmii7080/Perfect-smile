@@ -64,6 +64,23 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/contact/contact').then(m => m.ContactPage)
   },
 
+  /* ---- Legal pages (Privacy / Terms / Medical Disclaimer) ----
+     Static long-form copy. Indexable (search visibility matters here —
+     people sometimes Google "<clinic> privacy" before booking) but
+     low SERP priority so they don't compete with treatment pages. */
+  {
+    path: 'privacy',
+    loadComponent: () => import('./pages/privacy/privacy').then(m => m.PrivacyPage)
+  },
+  {
+    path: 'terms',
+    loadComponent: () => import('./pages/terms/terms').then(m => m.TermsPage)
+  },
+  {
+    path: 'disclaimer',
+    loadComponent: () => import('./pages/disclaimer/disclaimer').then(m => m.DisclaimerPage)
+  },
+
   /* ============== Admin (everything under one obscured slug) ============== */
   // Single obscured prefix for the entire admin surface — the login page,
   // the auth-gated dashboard, and every CRUD form all live under

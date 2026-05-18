@@ -1,0 +1,269 @@
+/* ===========================================================================
+   Yoast-style SEO sidebar for the blog editor. Scoped to the editor area
+   (`.adm-editor`) so the rules don't leak into other admin screens.
+   Imported by admin-shared.scss via @use … *as*-pattern so no global
+   selector overlap can break other admin pages.
+   ========================================================================= */
+
+.adm-editor {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) 380px;
+  gap: 1.5rem;
+  align-items: start;
+}
+@media (max-width: 1100px) {
+  .adm-editor { grid-template-columns: 1fr; }
+}
+
+.adm-editor__main { background: #fff; border-radius: 14px; padding: 1.5rem; box-shadow: 0 1px 2px rgba(15,23,42,0.05); }
+
+/* ============================== SIDEBAR SHELL ============================ */
+.seo-side {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 1px 2px rgba(15,23,42,0.05);
+  border: 1px solid rgba(15,23,42,0.06);
+  position: sticky; top: 1.5rem;
+  max-height: calc(100vh - 3rem);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+@media (max-width: 1100px) {
+  .seo-side { position: static; max-height: none; }
+}
+
+.seo-side__tabs {
+  display: flex;
+  border-bottom: 1px solid rgba(15,23,42,0.08);
+  background: #FAFBFC;
+}
+.seo-side__tab {
+  flex: 1;
+  background: none; border: 0;
+  padding: 0.85rem 0.5rem;
+  font-size: 12.5px; font-weight: 600;
+  color: var(--color-text-muted, #64748B);
+  cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+.seo-side__tab:hover { color: var(--color-ink, #0F172A); }
+.seo-side__tab.is-active {
+  color: var(--color-primary, #0EA5E9);
+  border-bottom-color: var(--color-primary, #0EA5E9);
+  background: #fff;
+}
+.seo-side__tab i { font-size: 12px; }
+
+.seo-side__panel {
+  padding: 1.25rem;
+  overflow-y: auto;
+  flex: 1;
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.seo-side__panel > div > .form-label { margin-bottom: 0.4rem; display: block; }
+.seo-side__panel small.form-hint {
+  display: block;
+  font-size: 11px;
+  color: var(--color-text-muted, #64748B);
+  margin-top: 0.3rem;
+}
+.seo-side__panel small.form-hint.is-over { color: #DC2626; font-weight: 600; }
+
+/* ============================== SCORE WHEEL ============================== */
+.seo-score-row {
+  display: flex; gap: 1rem; align-items: center;
+  padding-bottom: 1rem; border-bottom: 1px solid rgba(15,23,42,0.06);
+}
+.seo-score {
+  position: relative;
+  width: 84px; height: 84px;
+  flex-shrink: 0;
+}
+.seo-score__ring { width: 100%; height: 100%; transform: rotate(-90deg); }
+.seo-score__bg   { fill: none; stroke: #E5E7EB; stroke-width: 3; }
+.seo-score__fill {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.4s ease, stroke 0.3s ease;
+  stroke: #DC2626;  /* default = poor */
+}
+.seo-score.is-ok   .seo-score__fill { stroke: #F59E0B; }
+.seo-score.is-good .seo-score__fill { stroke: #10B981; }
+.seo-score__num {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Fraunces', serif; font-size: 26px; font-weight: 600;
+  color: var(--color-ink, #0F172A);
+}
+
+.seo-score-summary { flex: 1; min-width: 0; }
+.seo-score-summary__counts {
+  list-style: none; padding: 0; margin: 0 0 0.4rem;
+  display: flex; gap: 0.8rem; flex-wrap: wrap;
+  font-size: 11.5px;
+}
+.seo-score-summary__counts li { display: inline-flex; align-items: center; gap: 0.3rem; color: var(--color-text-muted, #64748B); }
+.seo-score-summary__counts .dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; background: #94A3B8; }
+.seo-score-summary__counts .is-pass .dot { background: #10B981; }
+.seo-score-summary__counts .is-warn .dot { background: #F59E0B; }
+.seo-score-summary__counts .is-fail .dot { background: #DC2626; }
+.seo-score-summary__meta  { display: block; font-size: 11px; color: var(--color-text-muted, #94A3B8); margin-bottom: 0.45rem; }
+.seo-score-summary__label { display: block; font-size: 13px; color: var(--color-ink, #0F172A); }
+.seo-score-summary__pill  {
+  display: inline-block;
+  font-size: 10.5px; font-weight: 700;
+  padding: 2px 8px; border-radius: 999px;
+  text-transform: uppercase; letter-spacing: 0.04em;
+  margin-top: 4px;
+  background: #FEE2E2; color: #991B1B;
+}
+.seo-score-summary__pill.is-ok   { background: #FEF3C7; color: #92400E; }
+.seo-score-summary__pill.is-good { background: #D1FAE5; color: #065F46; }
+
+/* ============================== SUB-TABS ================================= */
+.seo-sub {
+  display: flex; gap: 0.25rem;
+  border-bottom: 1px solid rgba(15,23,42,0.08);
+}
+.seo-sub__tab {
+  background: none; border: 0;
+  padding: 0.5rem 0.6rem;
+  font-size: 12px; font-weight: 600;
+  color: var(--color-text-muted, #64748B);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+.seo-sub__tab:hover { color: var(--color-ink, #0F172A); }
+.seo-sub__tab.is-active {
+  color: var(--color-primary, #0EA5E9);
+  border-bottom-color: var(--color-primary, #0EA5E9);
+}
+
+/* ============================== STATS GRID =============================== */
+.seo-stats-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem;
+}
+.seo-stat {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.65rem 0.8rem;
+  background: #F8FAFC;
+  border: 1px solid rgba(15,23,42,0.06);
+  border-radius: 10px;
+}
+.seo-stat i {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: rgba(14,165,233,0.12); color: var(--color-primary, #0EA5E9);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.seo-stat small { display: block; font-size: 10.5px; color: var(--color-text-muted, #64748B); text-transform: uppercase; letter-spacing: 0.06em; }
+.seo-stat strong { font-family: 'Fraunces', serif; font-size: 17px; color: var(--color-ink, #0F172A); }
+
+/* ============================== KEYWORD LIST ============================= */
+.seo-kw-list {
+  list-style: none; padding: 0; margin: 0.8rem 0 0;
+  display: flex; flex-direction: column; gap: 0.45rem;
+}
+.seo-kw-list li {
+  display: flex; align-items: flex-start; gap: 0.55rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 8px;
+  background: #F8FAFC;
+  font-size: 12.5px; line-height: 1.5;
+  color: var(--color-ink-soft, #334155);
+}
+.seo-kw-list li i { margin-top: 2px; flex-shrink: 0; }
+.seo-kw-list li.is-pass i { color: #10B981; }
+.seo-kw-list li.is-warn i { color: #F59E0B; }
+.seo-kw-list li.is-fail i { color: #DC2626; }
+.seo-kw__hint { font-size: 12px; color: var(--color-text-muted, #64748B); padding: 0.6rem 0.2rem; }
+
+/* ============================== READABILITY ============================== */
+.seo-read { display: flex; flex-direction: column; gap: 0.6rem; }
+.seo-read__hint {
+  margin: 0.3rem 0 0;
+  font-size: 12px; line-height: 1.55;
+  color: var(--color-text-muted, #64748B);
+  padding: 0.55rem 0.7rem;
+  background: #FEF3C7;
+  border-radius: 8px;
+}
+
+/* ============================== HEADING TREE ============================= */
+.seo-headings {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 0.3rem;
+}
+.seo-headings li {
+  display: flex; gap: 0.55rem; align-items: flex-start;
+  padding: 0.4rem 0.5rem;
+  background: #F8FAFC; border-radius: 6px;
+  font-size: 12.5px;
+  color: var(--color-ink-soft, #334155);
+}
+.seo-headings li[data-level="2"] { margin-left: 0; }
+.seo-headings li[data-level="3"] { margin-left: 1rem; }
+.seo-headings li[data-level="4"] { margin-left: 2rem; }
+.seo-headings__tag {
+  font-family: 'Fraunces', serif; font-weight: 600;
+  font-size: 10.5px;
+  background: var(--color-primary, #0EA5E9); color: #fff;
+  padding: 1px 6px; border-radius: 4px;
+  flex-shrink: 0;
+}
+.seo-links-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-top: 0.6rem; }
+.seo-empty { font-size: 12px; color: var(--color-text-muted, #64748B); padding: 0.6rem 0.2rem; margin: 0; }
+
+/* ============================== ISSUES LIST ============================== */
+.seo-issues h3 {
+  font-family: 'Fraunces', serif; font-size: 14px; font-weight: 600;
+  color: var(--color-ink, #0F172A);
+  margin: 0 0 0.5rem;
+}
+.seo-issues ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.4rem; }
+.seo-issues li {
+  display: flex; gap: 0.55rem; align-items: flex-start;
+  padding: 0.55rem 0.7rem;
+  background: #F8FAFC;
+  border-radius: 8px;
+  font-size: 12.5px; line-height: 1.45;
+  cursor: pointer;
+  border-left: 3px solid #94A3B8;
+}
+.seo-issues li.is-pass { border-left-color: #10B981; }
+.seo-issues li.is-warn { border-left-color: #F59E0B; }
+.seo-issues li.is-fail { border-left-color: #DC2626; }
+.seo-issues li i { font-size: 13px; margin-top: 2px; flex-shrink: 0; }
+.seo-issues li.is-pass i { color: #10B981; }
+.seo-issues li.is-warn i { color: #F59E0B; }
+.seo-issues li.is-fail i { color: #DC2626; }
+.seo-issues li strong { display: block; font-size: 12.5px; color: var(--color-ink, #0F172A); }
+.seo-issues li small  { display: block; font-size: 11.5px; color: var(--color-text-muted, #64748B); margin-top: 1px; }
+
+/* ============================== SERP PREVIEW ============================= */
+.serp-preview {
+  margin-top: 0.4rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(15,23,42,0.08);
+}
+.serp-preview__label {
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted, #94A3B8);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.serp-preview__card {
+  padding: 0.85rem 0.95rem;
+  background: #fff;
+  border: 1px solid rgba(15,23,42,0.1);
+  border-radius: 10px;
+  display: flex; flex-direction: column; gap: 0.25rem;
+}
+.serp-preview__title { color: #1A0DAB; font-size: 16px; line-height: 1.3; font-family: 'Fraunces', serif; }
+.serp-preview__url   { color: #006621; font-size: 12px; font-family: 'Manrope', monospace, sans-serif; word-break: break-all; }
+.serp-preview__desc  { color: #4D5156; font-size: 12.5px; line-height: 1.4; margin-top: 0.2rem; }

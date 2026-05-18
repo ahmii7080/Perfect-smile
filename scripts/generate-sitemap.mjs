@@ -16,8 +16,10 @@ import { fileURLToPath } from 'node:url';
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 // Production origin — keep aligned with environment.prod.ts `siteUrl`.
-// `www` is the canonical host (apex redirects to it via Vercel Dashboard).
-const SITE_URL    = 'https://www.theperfectsmileclinic.com';
+// Apex (non-www) is the canonical host. Both apex and www serve the same
+// site (Vercel multi-domain), but the sitemap advertises only the
+// canonical form so Google indexes one URL per page, not two.
+const SITE_URL    = 'https://theperfectsmileclinic.com';
 const BROWSER_DIR = join(__dirname, '..', 'dist', 'perfect-smile', 'browser');
 
 if (!existsSync(BROWSER_DIR)) {
@@ -53,6 +55,9 @@ for (const file of walkIndexHtml(BROWSER_DIR)) {
 paths.sort();
 
 // Priority / changefreq heuristics. Tweak as page importance evolves.
+// Legal pages get an explicit low priority — Googlebot will still index
+// them (so people searching "<brand> privacy" find them), but won't waste
+// crawl budget revisiting them as often as treatment pages.
 const PRIORITY_OVERRIDES = {
   '/':            '1.0',
   '/services':    '0.9',
@@ -62,7 +67,10 @@ const PRIORITY_OVERRIDES = {
   '/doctors':     '0.8',
   '/blog':        '0.7',
   '/gallery':     '0.7',
-  '/team':        '0.7'
+  '/team':        '0.7',
+  '/privacy':     '0.3',
+  '/terms':       '0.3',
+  '/disclaimer':  '0.3'
 };
 
 function priorityFor(path) {

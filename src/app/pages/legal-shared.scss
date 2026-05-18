@@ -1,0 +1,119 @@
+/* ===========================================================================
+   Shared layout for the three legal pages (Privacy, Terms, Disclaimer).
+   Kept in one file because all three have identical typography needs —
+   long-form readable prose with H2 sectioning, bulleted lists and the
+   occasional callout. Duplicating the rules per page would just rot.
+   ========================================================================= */
+
+.legal-page {
+  padding: 4rem 0 5rem;
+  background: linear-gradient(180deg, #FFF7ED 0%, #FFFBF5 70%, #FFFFFF 100%);
+}
+
+.legal-page__head {
+  text-align: left;
+  max-width: 760px;
+  margin: 1.5rem 0 2.5rem;
+}
+.legal-page__head h1 {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: clamp(2.2rem, 4vw + 0.4rem, 3.2rem);
+  line-height: 1.05; letter-spacing: -0.02em;
+  margin: 0.5rem 0 0.6rem;
+  color: var(--color-ink, #0A3A55);
+}
+.legal-page__updated {
+  font-size: 13px;
+  color: var(--color-text-muted, #64748B);
+  margin: 0;
+}
+
+.legal-page__body {
+  max-width: 760px;
+  /* Slightly looser line-height than the rest of the site — legal copy
+     is dense and benefits from extra breathing room. */
+  line-height: 1.75;
+  color: var(--color-ink-soft, #1f2937);
+  font-size: 15.5px;
+}
+.legal-page__body h2 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.3rem, 2vw + 0.2rem, 1.55rem);
+  font-weight: 600;
+  color: var(--color-ink, #0A3A55);
+  margin: 2.2rem 0 0.7rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(15,122,176,0.12);
+}
+.legal-page__body h2:first-of-type { border-top: 0; padding-top: 0; margin-top: 1.5rem; }
+.legal-page__body h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-ink, #0A3A55);
+  margin: 1.4rem 0 0.5rem;
+}
+.legal-page__body p { margin: 0 0 1rem; }
+.legal-page__body ul {
+  margin: 0 0 1rem 0; padding-left: 1.4rem;
+  list-style: disc;
+}
+.legal-page__body li { margin-bottom: 0.45rem; }
+.legal-page__body a {
+  color: var(--color-primary, #0F7AB0);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.legal-page__body a:hover { color: var(--color-primary-dark, #0A3A55); }
+
+.legal-lead {
+  font-size: 17px !important;
+  font-family: 'Fraunces', serif !important;
+  font-style: italic;
+  line-height: 1.65 !important;
+  color: var(--color-ink, #0A3A55) !important;
+  padding: 1.1rem 1.3rem;
+  background: #fff;
+  border-left: 4px solid var(--color-primary, #0F7AB0);
+  border-radius: 6px;
+  box-shadow: 0 8px 20px -14px rgba(15,23,42,0.18);
+  margin-bottom: 2rem !important;
+}
+
+/* Used by the Medical Disclaimer to highlight the headline warning. */
+.legal-callout {
+  display: flex; gap: 1rem; align-items: flex-start;
+  padding: 1.25rem 1.4rem;
+  background: linear-gradient(135deg, #FEF3C7 0%, #FEE2E2 100%);
+  border-left: 4px solid #DC2626;
+  border-radius: 10px;
+  margin: 1rem 0 2.4rem;
+}
+.legal-callout i {
+  color: #DC2626; font-size: 24px;
+  flex-shrink: 0; margin-top: 2px;
+}
+.legal-callout p {
+  margin: 0;
+  font-size: 15px; line-height: 1.6;
+  color: #5b1d05;
+}
+
+.legal-page__related {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(15,122,176,0.12);
+  display: flex; flex-wrap: wrap; gap: 0.8rem;
+}
+.legal-page__related .btn {
+  text-decoration: none;
+  font-size: 13.5px;
+}
+
+@media (max-width: 700px) {
+  .legal-page { padding: 2.5rem 0 3.5rem; }
+  .legal-page__body { font-size: 15px; line-height: 1.7; }
+  .legal-lead { font-size: 16px !important; padding: 1rem; }
+}
