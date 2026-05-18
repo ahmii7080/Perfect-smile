@@ -1,0 +1,129 @@
+<section class="legal-page">
+  <div class="container-x">
+    <app-breadcrumb [items]="breadcrumbs" />
+    <header class="legal-page__head">
+      <span class="eyebrow">Legal</span>
+      <h1>Privacy <span class="accent-italic">Policy</span></h1>
+      <p class="legal-page__updated">Last updated: {{ lastUpdated }}</p>
+    </header>
+
+    <article class="legal-page__body">
+      <p class="legal-lead">
+        At {{ clinic.name }} ("we", "our", "us"), we take your privacy seriously.
+        This policy explains what information we collect when you visit
+        <strong>theperfectsmileclinic.com</strong> or book an appointment,
+        how we use it, and the choices you have. Reading this should take
+        you under five minutes.
+      </p>
+
+      <h2>1. Information we collect</h2>
+
+      <h3>Information you give us directly</h3>
+      <ul>
+        <li><strong>Appointment / contact forms</strong> — name, phone, email, preferred date/time, and any message you write.</li>
+        <li><strong>WhatsApp messages</strong> — when you tap "Chat on WhatsApp", you're sending a normal WhatsApp message; we receive the standard WhatsApp metadata (your number, name as registered).</li>
+        <li><strong>Phone calls</strong> — when you ring +92 324 7734135, we may take notes about your enquiry.</li>
+      </ul>
+
+      <h3>Information collected automatically</h3>
+      <ul>
+        <li><strong>Analytics</strong> — Google Analytics 4 records anonymised page views, time on page, country, device class, and which page you arrived from. We do NOT receive your name, email or phone via analytics.</li>
+        <li><strong>Cookies</strong> — small text files stored by your browser. We use them for analytics and to remember preferences (e.g. cookie consent itself). No cookies are sold or shared with advertisers.</li>
+        <li><strong>Server logs</strong> — our hosting provider (Vercel) keeps standard access logs for security: IP address, browser version, request path. Retained for 30 days then purged.</li>
+      </ul>
+
+      <h2>2. How we use your information</h2>
+      <ul>
+        <li>To schedule, confirm, reschedule and follow up on your dental appointments.</li>
+        <li>To respond to your questions sent via the contact form or WhatsApp.</li>
+        <li>To improve the website — which pages help patients vs which don't (aggregate analytics).</li>
+        <li>To meet legal record-keeping requirements (Pakistani medical practice rules require basic patient records to be kept for a defined period).</li>
+      </ul>
+      <p>
+        <strong>We do not sell or rent your data.</strong> We do not show
+        you targeted advertising based on your dental history. We do not
+        share your contact details with insurance brokers, pharmacies, or
+        any other commercial third party.
+      </p>
+
+      <h2>3. Who has access</h2>
+      <p>
+        Within the clinic, only Dr. Faizan Sheikh and authorised support
+        staff can view appointment-form submissions. Patient clinical
+        records (kept in our practice management system, separately from
+        this website) follow the same access control.
+      </p>
+      <p>Third-party services we rely on:</p>
+      <ul>
+        <li><strong>Supabase</strong> — stores form submissions + blog content. Hosted in Frankfurt, Germany; GDPR-compliant.</li>
+        <li><strong>Vercel</strong> — serves the website. Standard CDN access logs.</li>
+        <li><strong>Google Analytics 4</strong> — anonymised usage analytics. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's privacy policy</a> applies.</li>
+        <li><strong>WhatsApp / Meta</strong> — for direct chat. <a href="https://www.whatsapp.com/legal/privacy-policy" target="_blank" rel="noopener">WhatsApp's privacy policy</a> applies to those messages.</li>
+      </ul>
+
+      <h2>4. Cookies in detail</h2>
+      <p>The website sets the following cookies:</p>
+      <ul>
+        <li><strong>_ga / _gid</strong> — Google Analytics, expires in 24 months / 24 hours respectively. Used to count unique visitors.</li>
+        <li><strong>Functional cookies</strong> — none right now; if added later (e.g. theme preference) we'll update this list.</li>
+      </ul>
+      <p>
+        You can clear or block cookies in your browser settings. Blocking
+        analytics cookies won't affect your ability to book appointments
+        or use the site.
+      </p>
+
+      <h2>5. Your rights</h2>
+      <p>You have the right to:</p>
+      <ul>
+        <li><strong>Access</strong> — ask for a copy of the personal data we hold about you.</li>
+        <li><strong>Correct</strong> — request fixes if we have something wrong.</li>
+        <li><strong>Delete</strong> — ask us to remove your contact submission (we may need to keep clinical records as required by law).</li>
+        <li><strong>Withdraw consent</strong> — at any time, stop us using your details for follow-up.</li>
+      </ul>
+      <p>
+        To exercise any of these rights, email
+        <a [href]="'mailto:' + clinic.email">{{ clinic.email }}</a>
+        or call +92 324 7734135. We typically respond within 7 working days.
+      </p>
+
+      <h2>6. Children</h2>
+      <p>
+        We treat patients of all ages including children, but the
+        <em>website itself</em> is not aimed at users under 16. We don't
+        knowingly collect data from children online — parents/guardians
+        book paediatric appointments on their behalf.
+      </p>
+
+      <h2>7. Security</h2>
+      <p>
+        Connections to this site are encrypted (HTTPS). Form submissions
+        are stored in a secured Supabase database with row-level access
+        controls. We follow industry-standard safeguards, but no
+        internet-facing system is 100% secure — we'd notify you if we
+        ever discovered a breach affecting your data.
+      </p>
+
+      <h2>8. Changes to this policy</h2>
+      <p>
+        We may update this policy as our services or applicable laws
+        change. The "last updated" date at the top of this page reflects
+        the most recent revision. Material changes will be highlighted on
+        the homepage for at least 30 days.
+      </p>
+
+      <h2>9. Contact</h2>
+      <p>
+        Questions about this privacy policy? Reach us at
+        <a [href]="'mailto:' + clinic.email">{{ clinic.email }}</a>,
+        on WhatsApp at +92 324 7734135, or visit us at
+        Adjacent Rehman Garden Gate No. 1, Stayana Road, Faisalabad.
+      </p>
+
+      <div class="legal-page__related">
+        <a routerLink="/terms" class="btn btn-outline">Read our Terms of Service →</a>
+        <a routerLink="/disclaimer" class="btn btn-outline">Read our Medical Disclaimer →</a>
+      </div>
+    </article>
+  </div>
+</section>

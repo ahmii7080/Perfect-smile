@@ -1,6 +1,8 @@
 # robots.txt for theperfectsmileclinic.com
 # Lives in /public/ so the build copies it to the site root.
-# Verify after deploy: https://www.theperfectsmileclinic.com/robots.txt
+# Apex (non-www) is the canonical host. Both apex and www serve the
+# site; the sitemap and canonical links advertise the apex form only.
+# Verify after deploy: https://theperfectsmileclinic.com/robots.txt
 
 User-agent: *
 Allow: /
@@ -9,4 +11,4 @@ Allow: /
 # off the index so Google doesn't surface a clinic-staff login to patients.
 Disallow: /adminauthlogin
 
-Sitemap: https://www.theperfectsmileclinic.com/sitemap.xml
+Sitemap: https://theperfectsmileclinic.com/sitemap.xml

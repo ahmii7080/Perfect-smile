@@ -1,5 +1,12 @@
 /* Shared styles imported by every admin CRUD page. */
 
+/* Blog editor 2-column layout + Yoast-style SEO sidebar — declared at
+   the top because Sass requires every `@use` BEFORE any selector rules.
+   The partial exposes only CSS rules at its root, so no namespace prefix
+   is needed in this file. Replaces the older `@import` form (deprecated
+   in Sass 1.x, removed in Dart Sass 3). */
+@use './blog/blog-form-seo';
+
 /* Page header */
 .adm-head {
   display: flex; align-items: flex-start; justify-content: space-between;

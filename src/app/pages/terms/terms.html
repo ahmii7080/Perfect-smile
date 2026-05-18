@@ -1,0 +1,144 @@
+<section class="legal-page">
+  <div class="container-x">
+    <app-breadcrumb [items]="breadcrumbs" />
+    <header class="legal-page__head">
+      <span class="eyebrow">Legal</span>
+      <h1>Terms of <span class="accent-italic">Service</span></h1>
+      <p class="legal-page__updated">Last updated: {{ lastUpdated }}</p>
+    </header>
+
+    <article class="legal-page__body">
+      <p class="legal-lead">
+        These terms govern your use of <strong>theperfectsmileclinic.com</strong>
+        and the related services we provide — appointment booking, WhatsApp
+        consultations, and educational content. By using the site you agree
+        to these terms.
+      </p>
+
+      <h2>1. About us</h2>
+      <p>
+        The website is operated by {{ clinic.name }}, a licensed dental
+        clinic in Faisalabad, Pakistan. Lead practitioner: Dr. Faizan
+        Sheikh (BDS, Dip. Crown &amp; Bridge, Cert. Orthodontics, Cert.
+        Implantology). Our physical address is:
+        Adjacent Rehman Garden Gate No. 1, Fish Farm, Stayana Road,
+        Faisalabad — Pakistan.
+      </p>
+
+      <h2>2. What this website is (and isn't)</h2>
+      <p>
+        This website provides general information about our services,
+        team, and dental health. It lets you book an in-person
+        appointment or start a WhatsApp conversation with us.
+      </p>
+      <p>
+        <strong>It is NOT:</strong>
+      </p>
+      <ul>
+        <li>A substitute for an in-person dental consultation.</li>
+        <li>A platform for diagnosing or treating dental conditions remotely.</li>
+        <li>A prescription service.</li>
+        <li>An emergency service — if you have a dental emergency at night, please call us or visit an emergency dentist.</li>
+      </ul>
+      <p>
+        See our <a routerLink="/disclaimer">Medical Disclaimer</a> for the
+        full clinical-information caveat.
+      </p>
+
+      <h2>3. Appointments &amp; booking</h2>
+      <p>
+        Submitting an appointment-request form, WhatsApp message, or phone
+        call is a <em>request</em> — not a confirmed booking. We'll
+        respond (usually within a few clinic hours) to confirm the slot
+        or propose alternatives.
+      </p>
+      <p>
+        <strong>The free consultation</strong> covers an initial review,
+        digital scan (if needed), and a written treatment plan. It does
+        not include x-rays beyond what's clinically necessary, lab work,
+        or treatment itself.
+      </p>
+
+      <h3>Cancellation &amp; no-shows</h3>
+      <ul>
+        <li>You can cancel or reschedule for free up to <strong>4 hours</strong> before your appointment via WhatsApp or phone.</li>
+        <li>Late cancellations and no-shows take a slot away from another patient. After two missed appointments, future bookings may require advance confirmation.</li>
+        <li>For treatments that involve lab work (implants, crowns, dentures), advance payment of lab costs is required and is non-refundable once the lab order is placed.</li>
+      </ul>
+
+      <h2>4. Payments</h2>
+      <p>
+        Pricing is provided in PKR. Quotes given during the free consultation
+        are valid for 30 days. Final pricing for any treatment is confirmed
+        in a written treatment plan you sign before work begins. We accept
+        cash, bank transfer, and major credit cards.
+      </p>
+
+      <h2>5. Acceptable use of this website</h2>
+      <p>You agree NOT to:</p>
+      <ul>
+        <li>Submit false appointment requests or impersonate someone else.</li>
+        <li>Use automated tools (bots, scrapers) to flood the contact form.</li>
+        <li>Attempt to break into restricted areas (the admin panel is for clinic staff only).</li>
+        <li>Reproduce our content (blog posts, photos, clinical descriptions) on other websites without permission.</li>
+        <li>Use the site for any unlawful purpose.</li>
+      </ul>
+
+      <h2>6. Intellectual property</h2>
+      <p>
+        All content on this website — text, photos of the clinic, before-
+        and-after images of our patients (used with consent), logos, the
+        site design — belongs to {{ clinic.name }} or its content authors.
+        You may share links to our pages freely, but copying entire
+        articles or before/after images to your own website requires
+        written permission.
+      </p>
+
+      <h2>7. Third-party links</h2>
+      <p>
+        We may link to external sites (Google Maps, WhatsApp, our
+        Facebook page). We don't control those sites and aren't responsible
+        for their content or privacy practices.
+      </p>
+
+      <h2>8. Limitation of liability</h2>
+      <p>
+        We try to keep the website accurate and up-to-date, but we don't
+        guarantee that every piece of information is current or applicable
+        to your specific case. To the maximum extent permitted by
+        Pakistani law:
+      </p>
+      <ul>
+        <li>The information on this website is provided "as is" without warranties.</li>
+        <li>We're not liable for losses caused by relying on website information instead of consulting a qualified dental professional.</li>
+        <li>For our clinical services (in-person treatment), our liability is governed by the standards of dental practice and applicable Pakistani regulations — not by these website terms.</li>
+      </ul>
+
+      <h2>9. Changes to these terms</h2>
+      <p>
+        We may revise these terms occasionally. The "last updated" date at
+        the top of this page reflects the current version. Continued use
+        of the site after a change means you accept the revised terms.
+      </p>
+
+      <h2>10. Governing law</h2>
+      <p>
+        These terms are governed by the laws of the Islamic Republic of
+        Pakistan. Any disputes will be resolved in the courts of
+        Faisalabad.
+      </p>
+
+      <h2>11. Contact</h2>
+      <p>
+        Questions about these terms? Reach us at
+        <a [href]="'mailto:' + clinic.email">{{ clinic.email }}</a>,
+        on WhatsApp at +92 324 7734135, or in person at our clinic.
+      </p>
+
+      <div class="legal-page__related">
+        <a routerLink="/privacy"    class="btn btn-outline">Read our Privacy Policy →</a>
+        <a routerLink="/disclaimer" class="btn btn-outline">Read our Medical Disclaimer →</a>
+      </div>
+    </article>
+  </div>
+</section>

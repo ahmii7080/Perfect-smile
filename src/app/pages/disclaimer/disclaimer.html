@@ -1,0 +1,122 @@
+<section class="legal-page">
+  <div class="container-x">
+    <app-breadcrumb [items]="breadcrumbs" />
+    <header class="legal-page__head">
+      <span class="eyebrow">Important Notice</span>
+      <h1>Medical <span class="accent-italic-coral">Disclaimer</span></h1>
+      <p class="legal-page__updated">Last updated: {{ lastUpdated }}</p>
+    </header>
+
+    <article class="legal-page__body">
+      <div class="legal-callout">
+        <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+        <p>
+          <strong>The information on this website is for educational
+          purposes only and is not a substitute for professional dental
+          advice, diagnosis, or treatment.</strong> Always consult a
+          qualified dentist for any dental health concerns.
+        </p>
+      </div>
+
+      <h2>1. Educational content, not medical advice</h2>
+      <p>
+        Blog posts, service descriptions, FAQs and other content on
+        theperfectsmileclinic.com aim to help you understand common
+        dental treatments, hygiene practices, and what to expect when
+        visiting a dentist. They are written by qualified dental
+        professionals but reflect <em>general</em> information that may
+        not apply to your specific situation.
+      </p>
+      <p>
+        <strong>Never use website information to:</strong>
+      </p>
+      <ul>
+        <li>Self-diagnose a dental problem.</li>
+        <li>Decide whether you need a specific treatment without an in-person examination.</li>
+        <li>Skip or delay seeking professional care.</li>
+        <li>Replace any advice or instructions your treating dentist has given you.</li>
+      </ul>
+
+      <h2>2. Individual cases vary</h2>
+      <p>
+        Every patient's anatomy, medical history, lifestyle and
+        expectations are different. A treatment that's perfect for one
+        person may be the wrong choice for another. Treatment outcomes
+        depend on factors only a clinical examination can reveal —
+        x-rays, oral examination, medical history review, and discussion
+        of your goals.
+      </p>
+
+      <h2>3. Before-and-after images</h2>
+      <p>
+        Smile-gallery images on this site show real outcomes from real
+        patients at our clinic, used with their explicit consent.
+        <strong>They are illustrative of what's possible — not a promise of
+        identical results for you.</strong> Final outcomes depend on your
+        starting condition, biological factors, treatment compliance, and
+        long-term home care.
+      </p>
+
+      <h2>4. Estimated pricing</h2>
+      <p>
+        Where pricing ranges or estimates appear on this website, they are
+        approximate and subject to change. Your actual treatment cost will
+        be itemised in a written plan during your free consultation, after
+        we've examined you and understood your goals. No financial
+        commitment is asked of you until you accept that written plan.
+      </p>
+
+      <h2>5. External information &amp; links</h2>
+      <p>
+        We sometimes link to external resources (research papers,
+        professional bodies, dental product manufacturers). Those sites
+        have their own content and policies. We don't endorse any specific
+        external product, brand or treatment that's not part of our
+        protocol.
+      </p>
+
+      <h2>6. Emergencies</h2>
+      <p>
+        If you are experiencing a dental emergency — severe pain, swelling
+        spreading to your face/neck, knocked-out tooth, uncontrolled
+        bleeding after extraction — <strong>do not rely on website
+        articles</strong>. Call us immediately on +92 324 7734135 or
+        visit the nearest emergency dental service.
+      </p>
+
+      <h2>7. Patient-doctor relationship</h2>
+      <p>
+        Reading this website, submitting an enquiry form, or chatting with
+        us on WhatsApp does not create a patient-doctor relationship.
+        That relationship begins when you visit our clinic in person and
+        we examine you. Until then, anything we say (online or via chat)
+        is general guidance, not a clinical opinion.
+      </p>
+
+      <h2>8. Limitation of liability</h2>
+      <p>
+        To the maximum extent permitted by Pakistani law, {{ clinic.name }}
+        is not liable for any direct, indirect, incidental or consequential
+        damages arising from reliance on information on this website
+        outside an in-person consultation. Our clinical liability for
+        actual treatment we provide is governed by the standards of
+        dental practice and applicable Pakistani healthcare regulations
+        — not by these disclaimers.
+      </p>
+
+      <h2>9. Contact</h2>
+      <p>
+        Questions about this disclaimer, or want to discuss a specific
+        dental concern? Reach us at
+        <a [href]="'mailto:' + clinic.email">{{ clinic.email }}</a>,
+        on WhatsApp at +92 324 7734135, or book a
+        <a routerLink="/appointment">free consultation</a>.
+      </p>
+
+      <div class="legal-page__related">
+        <a routerLink="/privacy" class="btn btn-outline">Read our Privacy Policy →</a>
+        <a routerLink="/terms"   class="btn btn-outline">Read our Terms of Service →</a>
+      </div>
+    </article>
+  </div>
+</section>

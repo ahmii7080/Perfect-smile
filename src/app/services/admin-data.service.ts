@@ -17,6 +17,15 @@ interface BlogRow {
   color: string;
   content: string;
   image: string | null;
+  // ---- SEO meta (added via supabase-blog-seo-meta-migration.sql).
+  // All nullable so legacy rows that pre-date the migration round-trip
+  // fine — toBlogRow() coerces undefined/'' to null on write, mapBlog()
+  // collapses null back to undefined on read.
+  focus_keyword?:    string | null;
+  seo_title?:        string | null;
+  meta_description?: string | null;
+  seo_tags?:         string | null;
+  image_alt?:        string | null;
 }
 
 interface TeamRow {
@@ -97,13 +106,27 @@ export class AdminDataService {
     author: row.author,
     color: row.color,
     content: row.content,
-    image: row.image ?? undefined
+    image: row.image ?? undefined,
+    // SEO meta — collapse nulls to undefined so the admin form's
+    // `[value]` bindings clear cleanly instead of literal "null".
+    focusKeyword:    row.focus_keyword    ?? undefined,
+    seoTitle:        row.seo_title        ?? undefined,
+    metaDescription: row.meta_description ?? undefined,
+    seoTags:         row.seo_tags         ?? undefined,
+    imageAlt:        row.image_alt        ?? undefined
   });
   private toBlogRow(p: BlogPost): BlogRow {
     return {
       slug: p.slug, title: p.title, excerpt: p.excerpt, date: p.date,
       read_time: p.readTime, category: p.category, author: p.author,
-      color: p.color, content: p.content, image: p.image ?? null
+      color: p.color, content: p.content, image: p.image ?? null,
+      // Coerce empty strings → null so the DB stores a real NULL
+      // (queryable + clean) rather than ''. trim() handles whitespace-only.
+      focus_keyword:    p.focusKeyword?.trim()    || null,
+      seo_title:        p.seoTitle?.trim()        || null,
+      meta_description: p.metaDescription?.trim() || null,
+      seo_tags:         p.seoTags?.trim()         || null,
+      image_alt:        p.imageAlt?.trim()        || null
     };
   }
 

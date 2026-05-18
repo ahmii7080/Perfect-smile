@@ -8,13 +8,16 @@ export const environment = {
    * Production origin — used by SeoService for canonical/OG URLs and by
    * sitemap.xml.
    *
-   * **Must match the canonical host that's actually attached and serving.**
-   * `www` is the canonical here because that's what's attached as the
-   * primary domain in Vercel. The apex (`theperfectsmileclinic.com`) is
-   * configured in the Vercel Dashboard to 301-redirect to www, so any
-   * visitor or crawler that hits apex lands on www anyway. Keeping these
-   * two strings out of sync produces the dreaded
-   * "canonical link points to a different page" Seobility error.
+   * **Apex (non-www) is the canonical** — that's the form the clinic
+   * owner actually types and shares, and Vercel serves the site
+   * identically from both `theperfectsmileclinic.com` and
+   * `www.theperfectsmileclinic.com`. Both URLs work for visitors, but
+   * `<link rel="canonical">` here tells Google which one to surface in
+   * the SERP, preventing duplicate-content split.
+   *
+   * If you later switch to www-canonical, also update:
+   *   - scripts/generate-sitemap.mjs   (SITE_URL constant)
+   *   - public/robots.txt              (Sitemap line)
    */
-  siteUrl: 'https://www.theperfectsmileclinic.com'
+  siteUrl: 'https://theperfectsmileclinic.com'
 };

@@ -16,143 +16,378 @@
   </div>
 }
 
-<form class="adm-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
-  <div>
-    <label class="form-label">Title *</label>
-    <input
-      class="form-control"
-      [class.is-invalid]="invalid('title')"
-      formControlName="title"
-      (input)="onTitleChange($any($event.target).value)"
-      placeholder="What Makes Modern Implants Different"
-    />
-    @if (invalid('title')) {
-      <div class="form-error">Title is required (min 5 characters).</div>
-    }
-  </div>
-
-  <div class="adm-row-2">
+<!-- ============================================================================
+     Two-column layout: editor on the left, Yoast-style SEO sidebar on the right.
+     The sidebar's 3 tabs (Analysis / Meta / Settings) all read from the same
+     reactive form via signals — every keystroke re-runs the SeoAnalysisService
+     analyse() call, so the score + issue list update live with no manual wiring.
+     On screens < 1100 px the sidebar drops below the form (responsive grid).
+     ============================================================================ -->
+<div class="adm-editor">
+  <form class="adm-form adm-editor__main" [formGroup]="form" (ngSubmit)="submit()" novalidate>
     <div>
-      <label class="form-label"
-        >Slug * <small style="color: var(--color-text-muted)">(URL path)</small></label
-      >
+      <label class="form-label">Title *</label>
       <input
         class="form-control"
-        [class.is-invalid]="invalid('slug')"
-        formControlName="slug"
-        placeholder="modern-implants"
+        [class.is-invalid]="invalid('title')"
+        formControlName="title"
+        (input)="onTitleChange($any($event.target).value)"
+        placeholder="What Makes Modern Implants Different"
       />
-      @if (invalid('slug')) {
-        <div class="form-error">Lowercase letters, digits, dashes only.</div>
+      @if (invalid('title')) {
+        <div class="form-error">Title is required (min 5 characters).</div>
       }
     </div>
-    <div>
-      <label class="form-label">Date *</label>
-      <input
-        class="form-control"
-        type="date"
-        [class.is-invalid]="invalid('date')"
-        formControlName="date"
-      />
-    </div>
-  </div>
 
-  <div class="adm-row-2">
-    <div>
-      <label class="form-label">Category *</label>
-      <select class="form-control" formControlName="category">
-        @for (c of categories; track c) {
-          <option [value]="c">{{ c }}</option>
-        }
-      </select>
-    </div>
-    <div>
-      <label class="form-label">Author *</label>
-      <input class="form-control" formControlName="author" placeholder="Dr. Faizan Sheikh" />
-    </div>
-  </div>
-
-  <div class="adm-row-2">
-    <div>
-      <label class="form-label">Read time *</label>
-      <input class="form-control" formControlName="readTime" placeholder="5 min" />
-    </div>
-    <div>
-      <label class="form-label">Accent colour</label>
-      <select class="form-control" formControlName="color">
-        @for (c of colors; track c) {
-          <option [value]="c">{{ c }}</option>
-        }
-      </select>
-    </div>
-  </div>
-
-  <div>
-    <label class="form-label">Excerpt *</label>
-    <textarea
-      class="form-control"
-      [class.is-invalid]="invalid('excerpt')"
-      formControlName="excerpt"
-      placeholder="One-paragraph summary shown on the blog list..."
-    ></textarea>
-    @if (invalid('excerpt')) {
-      <div class="form-error">Excerpt is required (min 20 characters).</div>
-    }
-  </div>
-
-  <div>
-    <label class="form-label">Cover image (optional)</label>
-    <div class="adm-image-pick">
-      <span
-        class="adm-image-pick__preview"
-        [style.background-image]="preview() ? 'url(' + preview() + ')' : null"
-      >
-        @if (!preview()) {
-          <i class="fa-regular fa-image"></i>
-        }
-      </span>
-      <div class="adm-image-pick__body">
-        <strong>{{ preview() ? 'Change cover image' : 'Upload cover image' }}</strong>
-        <span>JPG / PNG, up to 5 MB. Stored in your Supabase bucket.</span>
+    <div class="adm-row-2">
+      <div>
+        <label class="form-label"
+          >Slug * <small style="color: var(--color-text-muted)">(URL path)</small></label
+        >
         <input
-          type="file"
-          accept="image/*"
-          (change)="onFileChange($event)"
-          [disabled]="uploading()"
+          class="form-control"
+          [class.is-invalid]="invalid('slug')"
+          formControlName="slug"
+          placeholder="modern-implants"
+        />
+        @if (invalid('slug')) {
+          <div class="form-error">Lowercase letters, digits, dashes only.</div>
+        }
+      </div>
+      <div>
+        <label class="form-label">Date *</label>
+        <input
+          class="form-control"
+          type="date"
+          [class.is-invalid]="invalid('date')"
+          formControlName="date"
         />
       </div>
     </div>
-    @if (uploading()) {
-      <small
-        style="color: var(--color-primary); font-size: 12px; display: inline-block; margin-top: 4px"
-      >
-        <i class="fa-solid fa-spinner fa-spin"></i> Uploading…
-      </small>
-    }
-  </div>
 
-  <div>
-    <label class="form-label">Content *</label>
-    <textarea
-      class="form-control"
-      [class.is-invalid]="invalid('content')"
-      formControlName="content"
-      rows="10"
-      placeholder="Full article body..."
-    ></textarea>
-    @if (invalid('content')) {
-      <div class="form-error">Content is required (min 50 characters).</div>
-    }
-  </div>
+    <div class="adm-row-2">
+      <div>
+        <label class="form-label">Read time *</label>
+        <input class="form-control" formControlName="readTime" placeholder="5 min" />
+      </div>
+      <div>
+        <label class="form-label">Accent colour</label>
+        <select class="form-control" formControlName="color">
+          @for (c of colors; track c) {
+            <option [value]="c">{{ c }}</option>
+          }
+        </select>
+      </div>
+    </div>
 
-  <div class="adm-form__actions">
-    <button type="submit" class="adm-btn" [disabled]="saving() || uploading()">
-      @if (!saving()) {
-        <i class="fa-regular fa-floppy-disk"></i> {{ editingId() ? 'Save changes' : 'Create post' }}
-      } @else {
-        <i class="fa-solid fa-spinner fa-spin"></i> Saving…
+    <div>
+      <label class="form-label">Excerpt *</label>
+      <textarea
+        class="form-control"
+        [class.is-invalid]="invalid('excerpt')"
+        formControlName="excerpt"
+        placeholder="One-paragraph summary shown on the blog list..."
+      ></textarea>
+      @if (invalid('excerpt')) {
+        <div class="form-error">Excerpt is required (min 20 characters).</div>
       }
-    </button>
-    <a routerLink="/adminauthlogin/blog" class="adm-btn adm-btn--ghost">Cancel</a>
-  </div>
-</form>
+    </div>
+
+    <div>
+      <label class="form-label">Content *</label>
+      <textarea
+        class="form-control"
+        [class.is-invalid]="invalid('content')"
+        formControlName="content"
+        rows="14"
+        placeholder="Full article body... You can paste HTML — the SEO analyser parses headings, links and images automatically."
+      ></textarea>
+      @if (invalid('content')) {
+        <div class="form-error">Content is required (min 50 characters).</div>
+      }
+    </div>
+
+    <div class="adm-form__actions">
+      <button type="submit" class="adm-btn" [disabled]="saving() || uploading()">
+        @if (!saving()) {
+          <i class="fa-regular fa-floppy-disk"></i> {{ editingId() ? 'Save changes' : 'Create post' }}
+        } @else {
+          <i class="fa-solid fa-spinner fa-spin"></i> Saving…
+        }
+      </button>
+      <a routerLink="/adminauthlogin/blog" class="adm-btn adm-btn--ghost">Cancel</a>
+    </div>
+  </form>
+
+  <!-- ============================== SEO SIDEBAR ============================== -->
+  <aside class="seo-side">
+    <nav class="seo-side__tabs" role="tablist" aria-label="Post sidebar">
+      <button
+        role="tab"
+        type="button"
+        class="seo-side__tab"
+        [class.is-active]="activeTab() === 'analysis'"
+        [attr.aria-selected]="activeTab() === 'analysis'"
+        (click)="setTab('analysis')"
+      >
+        <i class="fa-solid fa-chart-column" aria-hidden="true"></i> SEO Analysis
+      </button>
+      <button
+        role="tab"
+        type="button"
+        class="seo-side__tab"
+        [class.is-active]="activeTab() === 'meta'"
+        [attr.aria-selected]="activeTab() === 'meta'"
+        (click)="setTab('meta')"
+      >
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> SEO Meta
+      </button>
+      <button
+        role="tab"
+        type="button"
+        class="seo-side__tab"
+        [class.is-active]="activeTab() === 'settings'"
+        [attr.aria-selected]="activeTab() === 'settings'"
+        (click)="setTab('settings')"
+      >
+        <i class="fa-solid fa-gear" aria-hidden="true"></i> Settings
+      </button>
+    </nav>
+
+    <!-- ===================== TAB: SEO ANALYSIS ===================== -->
+    @if (activeTab() === 'analysis') {
+      <div class="seo-side__panel" [formGroup]="form">
+        <!-- Score wheel + summary -->
+        <div class="seo-score-row">
+          <div class="seo-score" [class]="scoreLabel().cls">
+            <svg viewBox="0 0 36 36" class="seo-score__ring" aria-hidden="true">
+              <path class="seo-score__bg"
+                d="M18 2 a 16 16 0 0 1 0 32 a 16 16 0 0 1 0 -32"></path>
+              <path class="seo-score__fill"
+                [style.stroke-dasharray]="report().score + ', 100'"
+                d="M18 2 a 16 16 0 0 1 0 32 a 16 16 0 0 1 0 -32"></path>
+            </svg>
+            <span class="seo-score__num">{{ report().score }}</span>
+          </div>
+          <div class="seo-score-summary">
+            <ul class="seo-score-summary__counts">
+              <li class="is-pass"><span class="dot"></span>{{ passed() }} passed</li>
+              <li class="is-warn"><span class="dot"></span>{{ warnings() }} warnings</li>
+              <li class="is-fail"><span class="dot"></span>{{ fails() }} issues</li>
+            </ul>
+            <small class="seo-score-summary__meta">
+              {{ report().stats.words }} words · {{ report().stats.readMinutes }} min read
+            </small>
+            <strong class="seo-score-summary__label">SEO Score</strong>
+            <span class="seo-score-summary__pill" [class]="scoreLabel().cls">{{ scoreLabel().text }}</span>
+          </div>
+        </div>
+
+        <!-- Sub-tabs -->
+        <nav class="seo-sub" role="tablist" aria-label="Analysis breakdown">
+          <button type="button" class="seo-sub__tab" [class.is-active]="analysisSubTab() === 'overview'"     (click)="setAnalysisSub('overview')">Overview</button>
+          <button type="button" class="seo-sub__tab" [class.is-active]="analysisSubTab() === 'keyword'"      (click)="setAnalysisSub('keyword')">Keyword</button>
+          <button type="button" class="seo-sub__tab" [class.is-active]="analysisSubTab() === 'readability'"  (click)="setAnalysisSub('readability')">Readability</button>
+          <button type="button" class="seo-sub__tab" [class.is-active]="analysisSubTab() === 'structure'"    (click)="setAnalysisSub('structure')">Structure</button>
+        </nav>
+
+        @if (analysisSubTab() === 'overview') {
+          <div class="seo-stats-grid">
+            <div class="seo-stat"><i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+              <div><small>Words</small><strong>{{ report().stats.words }}</strong></div></div>
+            <div class="seo-stat"><i class="fa-solid fa-text-height" aria-hidden="true"></i>
+              <div><small>Characters</small><strong>{{ report().stats.characters }}</strong></div></div>
+            <div class="seo-stat"><i class="fa-solid fa-paragraph" aria-hidden="true"></i>
+              <div><small>Paragraphs</small><strong>{{ report().stats.paragraphs }}</strong></div></div>
+            <div class="seo-stat"><i class="fa-regular fa-clock" aria-hidden="true"></i>
+              <div><small>Read time</small><strong>{{ report().stats.readMinutes }} min</strong></div></div>
+          </div>
+        }
+
+        @if (analysisSubTab() === 'keyword') {
+          <div class="seo-kw">
+            <label class="form-label">Focus keyword</label>
+            <input class="form-control" formControlName="focusKeyword" placeholder="e.g. dental implants Faisalabad" />
+            @if (report().keyword.keyword) {
+              <ul class="seo-kw-list">
+                <li [class.is-pass]="report().keyword.inTitle"       [class.is-warn]="!report().keyword.inTitle">
+                  <i class="fa-solid" [class.fa-circle-check]="report().keyword.inTitle" [class.fa-circle-xmark]="!report().keyword.inTitle"></i>
+                  Keyword in SEO title</li>
+                <li [class.is-pass]="report().keyword.inDescription" [class.is-warn]="!report().keyword.inDescription">
+                  <i class="fa-solid" [class.fa-circle-check]="report().keyword.inDescription" [class.fa-circle-xmark]="!report().keyword.inDescription"></i>
+                  Keyword in meta description</li>
+                <li [class.is-pass]="report().keyword.inSlug"        [class.is-warn]="!report().keyword.inSlug">
+                  <i class="fa-solid" [class.fa-circle-check]="report().keyword.inSlug" [class.fa-circle-xmark]="!report().keyword.inSlug"></i>
+                  Keyword in URL slug</li>
+                <li [class.is-pass]="report().keyword.inSubheading"  [class.is-warn]="!report().keyword.inSubheading">
+                  <i class="fa-solid" [class.fa-circle-check]="report().keyword.inSubheading" [class.fa-circle-xmark]="!report().keyword.inSubheading"></i>
+                  Keyword in H2 / H3 subheading</li>
+                <li [class.is-pass]="report().keyword.inBody"        [class.is-fail]="!report().keyword.inBody">
+                  <i class="fa-solid" [class.fa-circle-check]="report().keyword.inBody" [class.fa-circle-xmark]="!report().keyword.inBody"></i>
+                  Keyword in body ({{ report().keyword.occurrences }} occurrences, {{ report().keyword.densityPercent }}% density)</li>
+              </ul>
+            } @else {
+              <p class="seo-kw__hint">Set a focus keyword to run keyword-specific checks.</p>
+            }
+          </div>
+        }
+
+        @if (analysisSubTab() === 'readability') {
+          <div class="seo-read">
+            <div class="seo-stat">
+              <i class="fa-solid fa-book-open" aria-hidden="true"></i>
+              <div><small>Flesch Reading Ease</small><strong>{{ report().readability.flesch }}</strong></div>
+            </div>
+            <div class="seo-stat">
+              <i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i>
+              <div><small>Avg. words per sentence</small><strong>{{ report().readability.averageSentence }}</strong></div>
+            </div>
+            <div class="seo-stat">
+              <i class="fa-solid fa-volume-low" aria-hidden="true"></i>
+              <div><small>Avg. syllables per word</small><strong>{{ report().readability.averageSyllables }}</strong></div>
+            </div>
+            <p class="seo-read__hint">
+              <strong>Tip:</strong> 60–70 = plain English, easy to read. Below 50 reads as academic prose.
+            </p>
+          </div>
+        }
+
+        @if (analysisSubTab() === 'structure') {
+          @if (report().headings.length === 0) {
+            <p class="seo-empty">No headings yet. Add <code>&lt;h2&gt;</code> subheadings in your content.</p>
+          } @else {
+            <ul class="seo-headings">
+              @for (h of report().headings; track $index) {
+                <li [attr.data-level]="h.level">
+                  <span class="seo-headings__tag">H{{ h.level }}</span>
+                  <span>{{ h.text }}</span>
+                </li>
+              }
+            </ul>
+          }
+          <div class="seo-links-row">
+            <div class="seo-stat"><i class="fa-solid fa-link" aria-hidden="true"></i>
+              <div><small>Internal links</small><strong>{{ report().links.internal }}</strong></div></div>
+            <div class="seo-stat"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+              <div><small>External links</small><strong>{{ report().links.external }}</strong></div></div>
+          </div>
+        }
+
+        <!-- Issues + Improvements (always visible at the bottom) -->
+        <section class="seo-issues">
+          <h3>Issues &amp; Improvements</h3>
+          <ul>
+            @for (it of report().issues; track it.id) {
+              <li [class]="'is-' + it.level" [class.is-open]="openIssue() === it.id" (click)="toggleIssue(it.id)">
+                <i class="fa-solid"
+                   [class.fa-circle-check]="it.level === 'pass'"
+                   [class.fa-triangle-exclamation]="it.level === 'warn'"
+                   [class.fa-circle-xmark]="it.level === 'fail'"></i>
+                <div>
+                  <strong>{{ it.title }}</strong>
+                  <small>{{ it.hint }}</small>
+                </div>
+              </li>
+            }
+          </ul>
+        </section>
+      </div>
+    }
+
+    <!-- ===================== TAB: SEO META ===================== -->
+    @if (activeTab() === 'meta') {
+      <div class="seo-side__panel" [formGroup]="form">
+        <div>
+          <label class="form-label"><i class="fa-solid fa-bullseye" aria-hidden="true"></i> Focus keyword</label>
+          <input class="form-control" formControlName="focusKeyword" placeholder="e.g. zirconia crown Faisalabad" />
+          <small class="form-hint">The keyword you want this post to rank for.</small>
+        </div>
+
+        <div>
+          <label class="form-label">SEO title</label>
+          <input class="form-control" formControlName="seoTitle"
+                 [placeholder]="'Leave blank to use post title'" maxlength="80" />
+          <small class="form-hint"
+                 [class.is-over]="val('seoTitle').length > TITLE_MAX">
+            {{ val('seoTitle').length }}/{{ TITLE_MAX }}
+          </small>
+        </div>
+
+        <div>
+          <label class="form-label">Meta description</label>
+          <textarea class="form-control" formControlName="metaDescription"
+                    rows="3" maxlength="200"
+                    placeholder="Compelling description for search results…"></textarea>
+          <small class="form-hint"
+                 [class.is-over]="val('metaDescription').length > DESC_MAX">
+            {{ val('metaDescription').length }}/{{ DESC_MAX }}
+          </small>
+        </div>
+
+        <div>
+          <label class="form-label"><i class="fa-solid fa-tags" aria-hidden="true"></i> SEO tags</label>
+          <input class="form-control" formControlName="seoTags"
+                 placeholder="dental implants, dentist Faisalabad, FSD" />
+          <small class="form-hint">Comma-separated, used in &lt;meta name="keywords"&gt;.</small>
+        </div>
+
+        <!-- Google SERP preview -->
+        <section class="serp-preview">
+          <span class="serp-preview__label">Google preview</span>
+          <div class="serp-preview__card">
+            <span class="serp-preview__title">{{ previewTitle() }}</span>
+            <span class="serp-preview__url">{{ previewUrl() }}</span>
+            <span class="serp-preview__desc">{{ previewDesc() }}</span>
+          </div>
+        </section>
+      </div>
+    }
+
+    <!-- ===================== TAB: SETTINGS ===================== -->
+    @if (activeTab() === 'settings') {
+      <div class="seo-side__panel" [formGroup]="form">
+        <div>
+          <label class="form-label">Featured image</label>
+          <div class="adm-image-pick">
+            <span
+              class="adm-image-pick__preview"
+              [style.background-image]="preview() ? 'url(' + preview() + ')' : null"
+            >
+              @if (!preview()) {
+                <i class="fa-regular fa-image"></i>
+              }
+            </span>
+            <div class="adm-image-pick__body">
+              <strong>{{ preview() ? 'Change image' : 'Click to upload' }}</strong>
+              <span>JPG / PNG, up to 5 MB</span>
+              <input type="file" accept="image/*" (change)="onFileChange($event)" [disabled]="uploading()" />
+            </div>
+          </div>
+          @if (uploading()) {
+            <small class="form-hint"><i class="fa-solid fa-spinner fa-spin"></i> Uploading…</small>
+          }
+        </div>
+
+        <div>
+          <label class="form-label">Image alt text <small>(for SEO &amp; accessibility)</small></label>
+          <input class="form-control" formControlName="imageAlt"
+                 placeholder="Describe the image briefly" />
+        </div>
+
+        <div>
+          <label class="form-label">Category</label>
+          <select class="form-control" formControlName="category">
+            @for (c of categories; track c) {
+              <option [value]="c">{{ c }}</option>
+            }
+          </select>
+        </div>
+
+        <div>
+          <label class="form-label">Author</label>
+          <input class="form-control" formControlName="author" placeholder="Dr. Faizan Sheikh" />
+        </div>
+      </div>
+    }
+  </aside>
+</div>
