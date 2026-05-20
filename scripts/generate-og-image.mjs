@@ -32,7 +32,7 @@ const OUT_FILE  = join(OUT_DIR, 'og-default.jpg');
 const CLINIC_NAME   = 'The Perfect Smile';
 const CLINIC_SUB    = 'Dental & Implant Centre · Faisalabad';
 const TAGLINE       = 'Crafting perfect smiles with artistry';
-const DOCTOR_NAME   = 'Dr. Faizan Sheikh';
+const DOCTOR_NAME   = 'Dr. Muhammad Faizan Sheikh';
 const DOCTOR_QUAL   = 'BDS · Dip. Crown & Bridge · Cert. Orthodontics & Implantology';
 const PHONE_DISPLAY = '+92 324 7734135';
 

@@ -35,14 +35,14 @@ export class DoctorsPage implements OnInit {
     this.seo.set({
       // Title kept under ~45 chars so total stays well below Bing's
       // 70-char limit (SeoService adds " | The Perfect Smile" suffix).
-      title: 'Dr. Faizan Sheikh — Dentist in Faisalabad',
+      title: 'Dr. Muhammad Faizan Sheikh — Dentist in Faisalabad',
       description:
-        'Meet Dr. Faizan Sheikh — BDS, multi-disciplinary dental specialist at The Perfect Smile Faisalabad. Diplomas in Crown & Bridge, Orthodontics and Implantology.',
+        'Meet Dr. Muhammad Faizan Sheikh — BDS, multi-disciplinary dental specialist at The Perfect Smile Faisalabad. Diplomas in Crown & Bridge, Orthodontics and Implantology.',
       path: '/doctors',
       keywords: [
         'best dentist in Faisalabad',
         'best dentist in FSD',
-        'Dr Faizan Sheikh dentist',
+        'Dr Muhammad Faizan Sheikh dentist',
         'multi-disciplinary dentist Faisalabad',
         'crown and bridge specialist Faisalabad',
         'orthodontist Faisalabad',

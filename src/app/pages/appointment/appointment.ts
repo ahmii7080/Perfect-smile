@@ -99,7 +99,7 @@ export class AppointmentPage implements OnInit {
 
     const serviceTitle = this.services().find((s) => s.slug === v.service)?.title ?? v.service;
     const doctorLabel =
-      this.doctors().find((d) => d.slug === v.doctor)?.name ?? 'Dr. Faizan Sheikh';
+      this.doctors().find((d) => d.slug === v.doctor)?.name ?? 'Dr. Muhammad Faizan Sheikh';
 
     const lines = [
       '*Appointment Request — The Perfect Smile*',
