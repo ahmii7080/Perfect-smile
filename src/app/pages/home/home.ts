@@ -166,7 +166,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
       title: 'A multi-disciplinary',
       italic: 'specialist',
       rest: ' under one roof',
-      desc: 'Dr. Faizan Sheikh — BDS, ex-house surgeon at Sharif Hospital, Lahore — holds a diploma in Crown & Bridge, a Certificate in Orthodontics, and a Certificate in Implantology. That breadth means complex cases that usually need multiple referrals can be managed end-to-end here.',
+      desc: 'Dr. Muhammad Faizan Sheikh — BDS, ex-house surgeon at Sharif Hospital, Lahore — holds a diploma in Crown & Bridge, a Certificate in Orthodontics, and a Certificate in Implantology. That breadth means complex cases that usually need multiple referrals can be managed end-to-end here.',
       bullets: [
         'BDS — Bachelor of Dental Surgery',
         'Ex-House Surgeon — Sharif Hospital, Lahore',
@@ -292,7 +292,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     this.seo.set({
       title: 'The Perfect Smile — Dental & Implant Clinic in Faisalabad',
       description:
-        "Faisalabad's multi-specialist dental & implant clinic. Crown & bridge, orthodontics, implants, cosmetic dentistry by Dr. Faizan Sheikh. Free WhatsApp consult.",
+        "Faisalabad's multi-specialist dental & implant clinic. Crown & bridge, orthodontics, implants, cosmetic dentistry by Dr. Muhammad Faizan Sheikh. Free WhatsApp consult.",
       path: '/',
       noBrandSuffix: true,
       // Local-intent keywords for non-Google search engines + directory

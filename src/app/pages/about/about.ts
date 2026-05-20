@@ -29,7 +29,7 @@ export class AboutPage {
     this.seo.set({
       title: 'About — Our Faisalabad Dental Clinic',
       description:
-        'Meet The Perfect Smile — a Faisalabad dental clinic led by Dr. Faizan Sheikh, a multi-disciplinary specialist holding diplomas in Crown & Bridge, Orthodontics & Implantology.',
+        'Meet The Perfect Smile — a Faisalabad dental clinic led by Dr. Muhammad Faizan Sheikh, a multi-disciplinary specialist holding diplomas in Crown & Bridge, Orthodontics & Implantology.',
       path: '/about',
       keywords: [
         'best dentist in Faisalabad',
@@ -37,7 +37,7 @@ export class AboutPage {
         'dental clinic near D Ground',
         'dental clinic Satyana Road',
         'multi-specialist dentist Faisalabad',
-        'Dr Faizan Sheikh dentist',
+        'Dr Muhammad Faizan Sheikh dentist',
         'family dental clinic FSD',
       ],
     });

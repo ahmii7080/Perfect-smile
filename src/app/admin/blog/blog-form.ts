@@ -76,7 +76,7 @@ export class AdminBlogForm implements OnInit {
     slug:     ['', [Validators.required, Validators.pattern(/^[a-z0-9-]+$/)]],
     excerpt:  ['', [Validators.required, Validators.minLength(20)]],
     category: ['General', Validators.required],
-    author:   ['Dr. Faizan Sheikh', Validators.required],
+    author:   ['Dr. Muhammad Faizan Sheikh', Validators.required],
     date:     [new Date().toISOString().slice(0, 10), Validators.required],
     readTime: ['5 min', Validators.required],
     color:    ['#0EA5E9', Validators.required],

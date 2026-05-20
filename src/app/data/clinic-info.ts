@@ -291,7 +291,7 @@ export const SITE_KEYWORDS = {
 export const LOCAL_FAQS = [
   {
     q: 'Who is the best dentist in Faisalabad?',
-    a: 'The Perfect Smile is led by Dr. Faizan Sheikh — a multi-disciplinary specialist holding diplomas in Crown & Bridge, Orthodontics, and Implantology. Most patients describe us as the best dental clinic in Faisalabad because every treatment plan is delivered under one roof, with transparent pricing and unhurried, gentle care.'
+    a: 'The Perfect Smile is led by Dr. Muhammad Faizan Sheikh — a multi-disciplinary specialist holding diplomas in Crown & Bridge, Orthodontics, and Implantology. Most patients describe us as the best dental clinic in Faisalabad because every treatment plan is delivered under one roof, with transparent pricing and unhurried, gentle care.'
   },
   {
     q: 'Where is The Perfect Smile dental clinic located?',
@@ -307,7 +307,7 @@ export const LOCAL_FAQS = [
   },
   {
     q: 'Do you offer dental implants in FSD?',
-    a: 'Yes — Dr. Faizan Sheikh holds a Certificate in Implantology and places premium-system dental implants in Faisalabad using computer-guided 3D placement. Same-day temporary teeth are available for most cases. Free consultation includes a digital scan and treatment plan.'
+    a: 'Yes — Dr. Muhammad Faizan Sheikh holds a Certificate in Implantology and places premium-system dental implants in Faisalabad using computer-guided 3D placement. Same-day temporary teeth are available for most cases. Free consultation includes a digital scan and treatment plan.'
   },
   {
     q: 'Do you treat children?',
