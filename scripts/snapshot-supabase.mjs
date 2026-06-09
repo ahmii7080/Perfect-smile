@@ -108,11 +108,15 @@ const mapConsultant = row => ({
  *  ──────────────────────────────────────────────────────────────────── */
 
 const PLAN = [
+  // `services` keeps `sort_order ASC` — admin manually controls service-tile
+  // order, and chronology would shuffle a curated list every time we tweak
+  // an old row. Every other content table is newest-first so freshly added
+  // rows surface to the top of their respective public-site lists.
   { table: 'services',             order: 'sort_order',  out: 'services.json',    map: mapService    },
   { table: 'blog_posts',           order: 'date',        desc: true, out: 'blog.json',     map: mapBlog },
-  { table: 'team_members',         order: 'created_at',  out: 'team.json',        map: mapTeam       },
-  { table: 'gallery_cases',        order: 'created_at',  out: 'gallery.json',     map: mapGallery    },
-  { table: 'visiting_consultants', order: 'created_at',  out: 'consultants.json', map: mapConsultant }
+  { table: 'team_members',         order: 'created_at',  desc: true, out: 'team.json',        map: mapTeam       },
+  { table: 'gallery_cases',        order: 'created_at',  desc: true, out: 'gallery.json',     map: mapGallery    },
+  { table: 'visiting_consultants', order: 'created_at',  desc: true, out: 'consultants.json', map: mapConsultant }
 ];
 
 async function snapshot({ table, order, desc = false, out, map }) {
