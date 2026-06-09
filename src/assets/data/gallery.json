@@ -1,83 +1,23 @@
 [
   {
-    "id": "17d4aeb8-25ec-4a00-9765-08a45cfa9591",
-    "category": "Veneers",
-    "title": "Full-arch porcelain veneers",
-    "description": "8 hand-layered porcelain veneers — closing diastema and balancing tooth proportions.",
-    "treatment": "veneers",
-    "icon": "fa-gem"
-  },
-  {
-    "id": "0d0a15a9-3bf6-4148-8b88-a29563b43048",
-    "category": "Whitening",
-    "title": "6-shade in-chair whitening",
-    "description": "Single 90-minute session — A3.5 to BL2.",
-    "treatment": "whitening",
-    "icon": "fa-sun"
-  },
-  {
-    "id": "35b250f0-a207-4d9e-8474-b634df765de1",
-    "category": "Implants",
-    "title": "Single-tooth implant + crown",
-    "description": "Computer-guided placement, ceramic crown bonded at 3 months.",
-    "treatment": "implants",
-    "icon": "fa-tooth"
-  },
-  {
-    "id": "fea69439-e4f8-4dc3-9f0b-12aabfb779de",
-    "category": "Braces",
-    "title": "Invisalign clear aligners",
-    "description": "14-month treatment — moderate crowding to ideal alignment.",
-    "treatment": "braces",
-    "icon": "fa-grip-lines"
-  },
-  {
-    "id": "3ee6e2e4-1197-475f-9d63-d73063b0e521",
+    "id": "49a91697-1ef8-4ec7-92ca-bd81e53b6864",
     "category": "Crowns",
-    "title": "Posterior zirconia crowns",
-    "description": "Two molars rebuilt with monolithic zirconia — natural shade match.",
+    "title": "Pfm crowns",
+    "description": "Anterior maxillary pfm crowns ",
     "treatment": "crowns",
-    "icon": "fa-crown"
+    "icon": "fa-crown",
+    "beforeImage": "https://cgmvvpfrfdwbficxuknc.supabase.co/storage/v1/object/public/clinic-images/gallery/1781022396881-u9m1fl.jpg",
+    "afterImage": "https://cgmvvpfrfdwbficxuknc.supabase.co/storage/v1/object/public/clinic-images/gallery/1781022414154-yc1w9e.jpg"
   },
   {
-    "id": "1e1736f4-ea3c-4efa-9fb8-50d3f3e82898",
-    "category": "Veneers",
-    "title": "Minimal-prep smile makeover",
-    "description": "6 ultra-thin veneers — minimal enamel reduction.",
+    "id": "e22ff8cd-9cfe-4451-98c3-9c02a4987aa6",
+    "category": "Smile",
+    "title": "Complete denture",
+    "description": "Upper lower complete denture ",
     "treatment": "makeover",
-    "icon": "fa-wand-magic-sparkles"
-  },
-  {
-    "id": "ce20a13c-fc48-4e16-90aa-a770d29db12c",
-    "category": "Implants",
-    "title": "All-on-4 full-arch reconstruction",
-    "description": "Four implants supporting a full hybrid bridge — life-changing result.",
-    "treatment": "implants",
-    "icon": "fa-tooth"
-  },
-  {
-    "id": "047afe89-4ff4-4dc9-8ac5-8dc35e5f552f",
-    "category": "Whitening",
-    "title": "Take-home tray whitening",
-    "description": "3 weeks of guided home whitening with desensitiser.",
-    "treatment": "whitening",
-    "icon": "fa-sun"
-  },
-  {
-    "id": "c310c71e-4267-4692-a1af-7e85a488466b",
-    "category": "Braces",
-    "title": "Lingual braces, 18 months",
-    "description": "Hidden behind teeth — invisible orthodontics.",
-    "treatment": "braces",
-    "icon": "fa-grip-lines"
-  },
-  {
-    "id": "2bd4cf58-52f7-40eb-9f8f-219c5c8da4f3",
-    "category": "Veneers",
-    "title": "Full-arch porcelain veneers",
-    "description": "8 hand-layered porcelain veneers — closing diastema and balancing tooth proportions.",
-    "treatment": "veneers",
-    "icon": "fa-gem"
+    "icon": "fa-wand-magic-sparkles",
+    "beforeImage": "https://cgmvvpfrfdwbficxuknc.supabase.co/storage/v1/object/public/clinic-images/gallery/1780582194889-7c5llz.jpg",
+    "afterImage": "https://cgmvvpfrfdwbficxuknc.supabase.co/storage/v1/object/public/clinic-images/gallery/1780582237100-m5n4kv.jpg"
   },
   {
     "id": "d18f61f6-a4d4-4d04-bb8d-1021f9d6a08f",
@@ -86,6 +26,14 @@
     "description": "Single 90-minute session — A3.5 to BL2.",
     "treatment": "whitening",
     "icon": "fa-sun"
+  },
+  {
+    "id": "2bd4cf58-52f7-40eb-9f8f-219c5c8da4f3",
+    "category": "Veneers",
+    "title": "Full-arch porcelain veneers",
+    "description": "8 hand-layered porcelain veneers — closing diastema and balancing tooth proportions.",
+    "treatment": "veneers",
+    "icon": "fa-gem"
   },
   {
     "id": "0085aa2d-4b07-4cdf-9016-e231b6464c4c",
@@ -142,5 +90,77 @@
     "description": "Hidden behind teeth — invisible orthodontics.",
     "treatment": "braces",
     "icon": "fa-grip-lines"
+  },
+  {
+    "id": "0d0a15a9-3bf6-4148-8b88-a29563b43048",
+    "category": "Whitening",
+    "title": "6-shade in-chair whitening",
+    "description": "Single 90-minute session — A3.5 to BL2.",
+    "treatment": "whitening",
+    "icon": "fa-sun"
+  },
+  {
+    "id": "fea69439-e4f8-4dc3-9f0b-12aabfb779de",
+    "category": "Braces",
+    "title": "Invisalign clear aligners",
+    "description": "14-month treatment — moderate crowding to ideal alignment.",
+    "treatment": "braces",
+    "icon": "fa-grip-lines"
+  },
+  {
+    "id": "3ee6e2e4-1197-475f-9d63-d73063b0e521",
+    "category": "Crowns",
+    "title": "Posterior zirconia crowns",
+    "description": "Two molars rebuilt with monolithic zirconia — natural shade match.",
+    "treatment": "crowns",
+    "icon": "fa-crown"
+  },
+  {
+    "id": "1e1736f4-ea3c-4efa-9fb8-50d3f3e82898",
+    "category": "Veneers",
+    "title": "Minimal-prep smile makeover",
+    "description": "6 ultra-thin veneers — minimal enamel reduction.",
+    "treatment": "makeover",
+    "icon": "fa-wand-magic-sparkles"
+  },
+  {
+    "id": "ce20a13c-fc48-4e16-90aa-a770d29db12c",
+    "category": "Implants",
+    "title": "All-on-4 full-arch reconstruction",
+    "description": "Four implants supporting a full hybrid bridge — life-changing result.",
+    "treatment": "implants",
+    "icon": "fa-tooth"
+  },
+  {
+    "id": "047afe89-4ff4-4dc9-8ac5-8dc35e5f552f",
+    "category": "Whitening",
+    "title": "Take-home tray whitening",
+    "description": "3 weeks of guided home whitening with desensitiser.",
+    "treatment": "whitening",
+    "icon": "fa-sun"
+  },
+  {
+    "id": "c310c71e-4267-4692-a1af-7e85a488466b",
+    "category": "Braces",
+    "title": "Lingual braces, 18 months",
+    "description": "Hidden behind teeth — invisible orthodontics.",
+    "treatment": "braces",
+    "icon": "fa-grip-lines"
+  },
+  {
+    "id": "35b250f0-a207-4d9e-8474-b634df765de1",
+    "category": "Implants",
+    "title": "Single-tooth implant + crown",
+    "description": "Computer-guided placement, ceramic crown bonded at 3 months.",
+    "treatment": "implants",
+    "icon": "fa-tooth"
+  },
+  {
+    "id": "17d4aeb8-25ec-4a00-9765-08a45cfa9591",
+    "category": "Veneers",
+    "title": "Full-arch porcelain veneers",
+    "description": "8 hand-layered porcelain veneers — closing diastema and balancing tooth proportions.",
+    "treatment": "veneers",
+    "icon": "fa-gem"
   }
 ]
