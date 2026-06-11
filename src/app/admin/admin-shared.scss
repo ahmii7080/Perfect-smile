@@ -245,3 +245,55 @@
 .adm-toast i { font-size: 14px; color: #10B981; }
 .adm-toast--error { background: #FEE2E2; color: #991B1B; border-color: #FCA5A5; }
 .adm-toast--error i { color: #DC2626; }
+
+/* ============================== ADMIN PAGINATION ==============================
+   Used by every admin list view (blog, gallery, services, team, consultants).
+   Same shape as the public-site button styles — keeps the admin shell
+   visually consistent without inventing a new control. */
+.adm-pagination {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem;
+  margin: 1.25rem 0 0.5rem;
+  padding: 0.75rem 0;
+}
+.adm-pagination button {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.55rem 1rem;
+  background: #fff;
+  border: 1px solid rgba(15,23,42,0.12);
+  border-radius: 8px;
+  font-family: inherit; font-size: 13px; font-weight: 600;
+  color: var(--color-ink, #0F172A);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.adm-pagination button:hover:not(:disabled) {
+  background: var(--color-primary-soft, #E0F2FE);
+  border-color: var(--color-primary, #0EA5E9);
+  color: var(--color-primary-dark, #0C4A6E);
+}
+.adm-pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.adm-pagination button i { font-size: 11px; }
+.adm-pagination__indicator {
+  flex: 1;
+  text-align: center;
+  font-size: 13px;
+  color: var(--color-text-muted, #64748B);
+}
+.adm-pagination__indicator strong {
+  color: var(--color-ink, #0F172A);
+  font-weight: 700;
+}
+.adm-pagination__indicator small {
+  display: inline-block;
+  margin-left: 0.4rem;
+  color: var(--color-text-muted, #94A3B8);
+}
+@media (max-width: 600px) {
+  .adm-pagination { flex-wrap: wrap; gap: 0.6rem; }
+  .adm-pagination button { padding: 0.5rem 0.85rem; font-size: 12.5px; }
+  .adm-pagination__indicator { order: -1; width: 100%; text-align: center; }
+}

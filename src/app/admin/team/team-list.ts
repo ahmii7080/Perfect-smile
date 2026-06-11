@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
 
 import { RouterLink } from '@angular/router';
 import { AdminDataService } from '../../services/admin-data.service';
@@ -17,6 +17,17 @@ export class AdminTeamList implements OnInit {
   members = signal<(TeamMember & { id?: string })[]>([]);
   loading = signal(true);
   error = signal<string | null>(null);
+
+  /** Pagination — same 10/page contract as the other admin lists. */
+  readonly PAGE_SIZE = 10;
+  currentPage = signal(1);
+  totalPages = computed(() => Math.max(1, Math.ceil(this.members().length / this.PAGE_SIZE)));
+  paged = computed(() => {
+    const start = (this.currentPage() - 1) * this.PAGE_SIZE;
+    return this.members().slice(start, start + this.PAGE_SIZE);
+  });
+  nextPage() { if (this.currentPage() < this.totalPages()) this.currentPage.update(v => v + 1); }
+  prevPage() { if (this.currentPage() > 1)                this.currentPage.update(v => v - 1); }
 
   async ngOnInit() {
     await this.refresh();

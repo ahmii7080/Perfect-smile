@@ -46,9 +46,9 @@
       }
 
       @if (!loading()) {
-        @for (c of consultants(); track c; let i = $index) {
+        @for (c of paged(); track c; let i = $index) {
           <tr>
-            <td>{{ i + 1 }}</td>
+            <td>{{ (currentPage() - 1) * PAGE_SIZE + i + 1 }}</td>
             <td class="adm-table__title">{{ c.name }}</td>
             <td>{{ c.qualifications }}</td>
             <td>{{ c.specialty }}</td>
@@ -75,3 +75,18 @@
     </div>
   }
 </div>
+
+@if (!loading() && totalPages() > 1) {
+  <div class="adm-pagination">
+    <button type="button" (click)="prevPage()" [disabled]="currentPage() === 1">
+      <i class="fa-solid fa-chevron-left" aria-hidden="true"></i> Previous
+    </button>
+    <span class="adm-pagination__indicator">
+      Page <strong>{{ currentPage() }}</strong> of {{ totalPages() }}
+      <small>· {{ consultants().length }} {{ consultants().length === 1 ? 'consultant' : 'consultants' }}</small>
+    </span>
+    <button type="button" (click)="nextPage()" [disabled]="currentPage() === totalPages()">
+      Next <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+    </button>
+  </div>
+}

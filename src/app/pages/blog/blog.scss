@@ -149,3 +149,19 @@
 }
 .side-card--cta h4 { color: #fff; }
 .side-card--cta p  { color: rgba(255,255,255,0.78); font-size: 13.5px; }
+
+/* "Show more articles" CTA — sits under the grid, mirrors the gallery
+   page's "Show more cases" so both pages feel like the same product. */
+.b-more {
+  display: flex; justify-content: center;
+  margin: 2.5rem 0 0.5rem;
+}
+.b-more button {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+}
+.b-more button small {
+  font-size: 12px;
+  font-weight: 500;
+  opacity: 0.7;
+  margin-left: 0.3rem;
+}

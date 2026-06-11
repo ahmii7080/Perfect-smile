@@ -48,9 +48,9 @@
 
       <!-- Real rows -->
       @if (!loading()) {
-        @for (m of members(); track m; let i = $index) {
+        @for (m of paged(); track m; let i = $index) {
           <tr>
-            <td>{{ i + 1 }}</td>
+            <td>{{ (currentPage() - 1) * PAGE_SIZE + i + 1 }}</td>
             <td class="adm-table__title">{{ m.name }}</td>
             <td>{{ m.role }}</td>
             <td>{{ m.initials }}</td>
@@ -84,3 +84,18 @@
     </div>
   }
 </div>
+
+@if (!loading() && totalPages() > 1) {
+  <div class="adm-pagination">
+    <button type="button" (click)="prevPage()" [disabled]="currentPage() === 1">
+      <i class="fa-solid fa-chevron-left" aria-hidden="true"></i> Previous
+    </button>
+    <span class="adm-pagination__indicator">
+      Page <strong>{{ currentPage() }}</strong> of {{ totalPages() }}
+      <small>· {{ members().length }} {{ members().length === 1 ? 'member' : 'members' }}</small>
+    </span>
+    <button type="button" (click)="nextPage()" [disabled]="currentPage() === totalPages()">
+      Next <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+    </button>
+  </div>
+}
