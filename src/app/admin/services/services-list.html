@@ -51,7 +51,7 @@
       }
 
       @if (!loading()) {
-        @for (s of services(); track s; let i = $index) {
+        @for (s of paged(); track s; let i = $index) {
           <tr>
             <td>{{ s.sortOrder }}</td>
             <td>
@@ -102,3 +102,18 @@
     </div>
   }
 </div>
+
+@if (!loading() && totalPages() > 1) {
+  <div class="adm-pagination">
+    <button type="button" (click)="prevPage()" [disabled]="currentPage() === 1">
+      <i class="fa-solid fa-chevron-left" aria-hidden="true"></i> Previous
+    </button>
+    <span class="adm-pagination__indicator">
+      Page <strong>{{ currentPage() }}</strong> of {{ totalPages() }}
+      <small>· {{ services().length }} {{ services().length === 1 ? 'service' : 'services' }}</small>
+    </span>
+    <button type="button" (click)="nextPage()" [disabled]="currentPage() === totalPages()">
+      Next <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+    </button>
+  </div>
+}

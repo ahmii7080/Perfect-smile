@@ -38,9 +38,12 @@
           </a>
         }
 
-        <!-- Grid -->
+        <!-- Grid — iterate the incremental `visibleRest()` slice instead
+             of the full `rest()`. Initial render shows 10 articles; "Show
+             more articles" reveals 10 more per click. Smoother first-paint
+             than dumping a hundred cards onto the page at once. -->
         <div class="b-grid">
-          @for (p of rest(); track p; let i = $index) {
+          @for (p of visibleRest(); track p; let i = $index) {
             <a
               [routerLink]="['/blog', p.slug]"
               class="blog-card lift"
@@ -66,21 +69,20 @@
           }
         </div>
 
-        <!-- Pagination — page numbers carry their own visible label; the
-        prev/next chevrons are icon-only so they need aria-labels for
-        screen readers. The icons themselves are aria-hidden because
-        the parent button's aria-label already describes the action. -->
-        <div class="pagination">
-          <button disabled aria-label="Previous page">
-            <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
-          </button>
-          <button class="is-active" aria-current="page">1</button>
-          <button aria-label="Go to page 2">2</button>
-          <button aria-label="Go to page 3">3</button>
-          <button aria-label="Next page">
-            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
-          </button>
-        </div>
+        <!-- "Show more articles" — incremental reveal in batches of 10.
+             Replaced the placeholder pagination row (which was never wired
+             to real page state) with a single CTA. Only renders when
+             there's at least one un-shown post; vanishes when fully
+             expanded. -->
+        @if (hasMoreRest()) {
+          <div class="b-more">
+            <button type="button" class="btn btn-outline btn-xl" (click)="showMore()">
+              <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+              Show more articles
+              <small>({{ rest().length - visibleRest().length }} more)</small>
+            </button>
+          </div>
+        }
       </div>
 
       <!-- Sidebar -->

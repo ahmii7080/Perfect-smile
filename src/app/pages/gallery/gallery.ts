@@ -68,10 +68,21 @@ export class GalleryPage implements OnInit {
   active = signal('All');
   cases = signal<GalleryCase[]>([]);
 
+  /** Incremental reveal — show the first 10 cases, then 10 more per
+   *  "Show more cases" click. Switching the category filter snaps the
+   *  count back to 10 so the user starts at the top of the new bucket. */
+  readonly BATCH = 10;
+  visibleCount = signal(this.BATCH);
+
   filtered = computed(() => {
     const all = this.cases();
     return this.active() === 'All' ? all : all.filter((c) => c.category === this.active());
   });
+
+  /** Currently-rendered slice of `filtered()`. Grows by `BATCH` per click. */
+  visible = computed(() => this.filtered().slice(0, this.visibleCount()));
+  /** True when at least one case is hidden behind "Show more". */
+  hasMore = computed(() => this.filtered().length > this.visibleCount());
 
   lightbox = signal<GalleryCase | null>(null);
 
@@ -93,6 +104,10 @@ export class GalleryPage implements OnInit {
 
   setFilter(f: string) {
     this.active.set(f);
+    this.visibleCount.set(this.BATCH);
+  }
+  showMore() {
+    this.visibleCount.update((v) => v + this.BATCH);
   }
   open(c: GalleryCase) {
     this.lightbox.set(c);

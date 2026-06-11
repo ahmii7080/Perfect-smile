@@ -15,11 +15,13 @@
 }
 
 <div class="adm-toolbar">
+  <!-- Search input resets the page back to 1 via `onSearch()` so the user
+       never lands on a deep empty page after typing a narrow query. -->
   <input
     type="text"
     placeholder="Search blog posts..."
     [ngModel]="search()"
-    (ngModelChange)="search.set($event)"
+    (ngModelChange)="onSearch($event)"
   />
 </div>
 
@@ -63,11 +65,13 @@
         }
       }
 
-      <!-- Real rows -->
+      <!-- Real rows — iterate the paged slice, not the full filtered list.
+           The `#` column shows the absolute row index across pages (i + page
+           offset) so users can mentally pair rows with rows on other pages. -->
       @if (!loading()) {
-        @for (p of filtered(); track p; let i = $index) {
+        @for (p of paged(); track p; let i = $index) {
           <tr>
-            <td>{{ i + 1 }}</td>
+            <td>{{ (currentPage() - 1) * PAGE_SIZE + i + 1 }}</td>
             <td>
               <div style="display: flex; align-items: center; gap: 0.85rem">
                 <span
@@ -105,3 +109,21 @@
     </div>
   }
 </div>
+
+<!-- Pagination footer — appears only when there's more than one page to
+     show. Single source of truth: `totalPages()`. The page indicator
+     reads naturally ("Page 2 of 5") which is friendlier than raw numbers. -->
+@if (!loading() && totalPages() > 1) {
+  <div class="adm-pagination">
+    <button type="button" (click)="prevPage()" [disabled]="currentPage() === 1">
+      <i class="fa-solid fa-chevron-left" aria-hidden="true"></i> Previous
+    </button>
+    <span class="adm-pagination__indicator">
+      Page <strong>{{ currentPage() }}</strong> of {{ totalPages() }}
+      <small>· {{ filtered().length }} {{ filtered().length === 1 ? 'post' : 'posts' }}</small>
+    </span>
+    <button type="button" (click)="nextPage()" [disabled]="currentPage() === totalPages()">
+      Next <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+    </button>
+  </div>
+}

@@ -52,6 +52,14 @@ export class BlogPage implements OnInit {
   search = signal('');
   category = signal('All');
 
+  /** Incremental reveal — start with the first 10 of `rest()` and let the
+   *  user expand 10 at a time via "Show more articles". Resetting any
+   *  filter (category click, search keystroke) snaps the count back to
+   *  this baseline so the user never lands on a deep page that's been
+   *  emptied by the new filter. */
+  readonly BATCH = 10;
+  visibleCount = signal(this.BATCH);
+
   categories = computed(() => {
     const set = new Set(this.posts().map((p) => p.category));
     return ['All', ...Array.from(set)];
@@ -70,16 +78,25 @@ export class BlogPage implements OnInit {
 
   featured = computed(() => this.filtered()[0]);
   rest = computed(() => this.filtered().slice(1));
+  /** Currently-rendered slice of `rest()` (initial 10, grows on showMore). */
+  visibleRest = computed(() => this.rest().slice(0, this.visibleCount()));
+  /** True when there's at least one more post the user hasn't expanded yet. */
+  hasMoreRest = computed(() => this.rest().length > this.visibleCount());
   recent = computed(() => this.posts().slice(0, 4));
 
   ngOnInit() {
     this.blog.list().subscribe((list) => this.posts.set(list));
   }
 
+  showMore() {
+    this.visibleCount.update((v) => v + this.BATCH);
+  }
   setCategory(c: string) {
     this.category.set(c);
+    this.visibleCount.set(this.BATCH);
   }
   onSearch(value: string) {
     this.search.set(value);
+    this.visibleCount.set(this.BATCH);
   }
 }

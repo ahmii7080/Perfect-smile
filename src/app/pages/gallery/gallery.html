@@ -23,8 +23,12 @@
          a generic SmileSvg illustration. The uploaded photo path uses
          NgOptimizedImage so srcset/sizing/lazy-loading kick in for what's
          usually the heaviest visual on this page. -->
+    <!-- Cases — iterate the incremental `visible()` slice instead of the
+         full `filtered()`. Each "Show more cases" click reveals 10 more.
+         Switching the category filter resets the count to 10 so the user
+         always sees fresh content from the top of the new bucket. -->
     <div class="cases">
-      @for (c of filtered(); track c; let i = $index) {
+      @for (c of visible(); track c; let i = $index) {
         <article
           class="case lift"
           data-aos="fade-up"
@@ -77,6 +81,18 @@
         </article>
       }
     </div>
+
+    <!-- "Show more cases" — incremental reveal. Mirrors the blog page's
+         "Show more articles" CTA so both list surfaces feel consistent. -->
+    @if (hasMore()) {
+      <div class="g-more">
+        <button type="button" class="btn btn-outline btn-xl" (click)="showMore()">
+          <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+          Show more cases
+          <small>({{ filtered().length - visible().length }} more)</small>
+        </button>
+      </div>
+    }
   </div>
 </section>
 
