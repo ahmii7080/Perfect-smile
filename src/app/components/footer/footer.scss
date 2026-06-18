@@ -103,3 +103,20 @@
 .ftr__legal { display: flex; gap: 1.25rem; }
 .ftr__legal a { color: rgba(255,255,255,0.7); }
 .ftr__legal a:hover { color: var(--color-gold-light); }
+/* Built by credit */
+.ftr__credit {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.45);
+}
+.ftr__credit a {
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.ftr__credit a:hover {
+  color: var(--color-gold-light);
+  text-decoration: underline;
+}
