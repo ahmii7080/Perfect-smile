@@ -10,27 +10,12 @@
           </span>
         </a>
         <p class="ftr__intro">
-          A modern dental &amp; implant clinic in Faisalabad — offering multi-disciplinary
-          specialist care, modern technology, and gentle, honest treatment for every patient.
+          A modern dental &amp; implant clinic in Faisalabad — offering multi-disciplinary specialist care, modern technology, and gentle, honest treatment for every patient.
         </p>
         <div class="ftr__social">
-          <a
-            href="https://www.facebook.com/share/1E8Z7uagMK/"
-            aria-label="Facebook"
-            target="_blank"
-            rel="noopener"
-            ><i class="fa-brands fa-facebook-f"></i
-          ></a>
-          <a
-            href="https://www.instagram.com/perfect_smile_dental_.clinic?igsh=b2swaXZyemdveGRr"
-            aria-label="Instagram"
-            target="_blank"
-            rel="noopener"
-            ><i class="fa-brands fa-instagram"></i
-          ></a>
-          <a href="https://wa.me/923247734135" aria-label="WhatsApp" target="_blank" rel="noopener"
-            ><i class="fa-brands fa-whatsapp"></i
-          ></a>
+          <a href="https://www.facebook.com/share/1E8Z7uagMK/" aria-label="Facebook" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/perfect_smile_dental_.clinic?igsh=b2swaXZyemdveGRr" aria-label="Instagram" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://wa.me/923247734135" aria-label="WhatsApp" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i></a>
         </div>
       </div>
 
@@ -39,9 +24,7 @@
         <h4 class="ftr__title">Services</h4>
         <ul class="ftr__links">
           @for (s of services; track s) {
-            <li>
-              <a [routerLink]="['/services', s.slug]">{{ s.title }}</a>
-            </li>
+            <li><a [routerLink]="['/services', s.slug]">{{ s.title }}</a></li>
           }
           <li><a routerLink="/services">View all services →</a></li>
         </ul>
@@ -79,13 +62,13 @@
     </div>
 
     <div class="ftr__bottom">
-      <p>© {{ year }} The Perfect Smile, Faisalabad. All rights reserved.</p>
-      <!-- Legal trio + sitemap. Privacy/Terms/Disclaimer point to the
-           real legal pages now (used to placeholder-link to /about,
-           which left AdSense / payment-gateway reviewers flagging the
-           site for missing legal disclosures). Sitemap link goes to the
-           XML sitemap, which is what Googlebot uses; human-readable
-           sitemap is a low-priority future addition. -->
+      <p>
+        © {{ year }} The Perfect Smile, Faisalabad. All rights reserved.<br />
+        <span class="ftr__credit">
+          Built by
+          <a href="https://buildbyahmad.site" target="_blank" rel="noopener">Build by Ahmad</a>
+        </span>
+      </p>
       <div class="ftr__legal">
         <a routerLink="/privacy">Privacy</a>
         <a routerLink="/terms">Terms</a>
