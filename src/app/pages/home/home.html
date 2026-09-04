@@ -61,8 +61,21 @@
 
     <!-- Visual stack -->
     <div class="hero__visual" data-aos="fade-left" data-aos-delay="200">
-      <!-- Big rounded photo placeholder (gradient + tooth illustration) -->
+      <!-- Real photo of Dr. Muhammad Faizan Sheikh at work, replacing what
+           was a gradient-only placeholder. `priority` marks it as the LCP
+           image (largest paint above the fold on /), so Angular emits a
+           preload hint. The tooth illustration and shine layer below stay
+           as brand accents, now stacked on top of the photo. -->
       <div class="hero-photo">
+        <img
+          ngSrc="assets/images/team/dr-faizan-sheikh-consultation.webp"
+          alt="Dr. Muhammad Faizan Sheikh planning an implant case at The Perfect Smile Dental Clinic, Faisalabad"
+          class="hero-photo__img"
+          width="960"
+          height="1280"
+          priority
+          sizes="(max-width: 900px) 90vw, 40vw"
+        />
         <svg
           viewBox="0 0 200 240"
           class="hero-photo__tooth"
@@ -103,7 +116,12 @@
             <div>
               <span class="rev-name">{{ r.name }}</span>
               <span class="float-card__stars">
-                @for (_ of [].constructor(r.rating); track _) {
+                <!-- `[].constructor(n)` builds a sparse array of n holes, so
+                     every element reads as `undefined` — tracking by value
+                     gave all of them the same key (NG0955). Position is the
+                     only thing that distinguishes one identical star from
+                     the next, so track by index. -->
+                @for (_ of [].constructor(r.rating); track $index) {
                   <i class="fa-solid fa-star"></i>
                 }
               </span>
@@ -314,7 +332,7 @@
           ngSrc="assets/images/clinic/treatment-room.webp"
           alt="Modern dental treatment room at The Perfect Smile, Faisalabad"
           class="about-img__photo"
-          width="600"
+          width="800"
           height="600"
           sizes="(max-width: 900px) 60vw, 25vw"
         />
@@ -372,6 +390,18 @@
 
     <div #videoFrame class="video-frame" data-aos="zoom-in">
       @if (!videoPlaying()) {
+        <!-- Poster frame. Was a bare gradient, so the play button floated on
+             nothing and gave no hint of what the tour shows. Lazy (no
+             `priority`) — it sits well below the fold, and once the user
+             clicks play the <iframe> replaces this whole branch. -->
+        <img
+          ngSrc="assets/images/clinic/dental-treatment-unit.webp"
+          alt="Dental treatment unit and operatory at The Perfect Smile Dental Clinic, Faisalabad"
+          class="video-frame__poster"
+          width="1280"
+          height="960"
+          sizes="100vw"
+        />
         <button class="video-play" (click)="playVideo()" aria-label="Play clinic video">
           <span class="video-play__ring"></span>
           <i class="fa-solid fa-play"></i>
@@ -485,7 +515,7 @@
               [alt]="f.name + ' — ' + f.specialization"
               class="doc-show__img"
               width="640"
-              height="720"
+              height="960"
               sizes="(max-width: 900px) 100vw, 50vw"
             />
           }

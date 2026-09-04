@@ -104,3 +104,50 @@
   background: var(--color-primary); color: #fff; transform: translateY(-3px);
   border-color: var(--color-primary);
 }
+
+/* ============== Finding us (signboard + reception) ==============
+   Two figure cards sharing the site's `lift` hover. The media box is a
+   fixed 4:3 ratio so both photos crop identically regardless of their
+   intrinsic size — keeps the row visually level. */
+.find-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+}
+@media (max-width: 900px) { .find-grid { grid-template-columns: 1fr; } }
+
+.find-card {
+  margin: 0;
+  background: #fff;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(15, 122, 176, 0.06);
+}
+.find-card__media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: #e6edf2;
+  overflow: hidden;
+}
+.find-card__img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+}
+.find-card figcaption { padding: 1.5rem 1.6rem 1.75rem; }
+.find-card__step {
+  display: inline-block;
+  font-size: 11.5px; letter-spacing: 0.18em; text-transform: uppercase;
+  font-weight: 600; color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+.find-card h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 21px;
+  margin: 0 0 0.5rem;
+}
+.find-card p {
+  margin: 0;
+  font-size: 14.5px;
+  color: var(--color-text-muted);
+  line-height: 1.65;
+}

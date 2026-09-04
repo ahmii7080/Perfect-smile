@@ -38,22 +38,17 @@ and flips `loading()` off when the response lands). -->
     <div class="container-x bd-grid">
       <article class="bd-article" data-aos="fade-up">
         <p class="bd-lead">{{ p.excerpt }}</p>
-        <div class="bd-content">
-          <p>{{ p.content }}</p>
-          <p>
-            Whether you're starting your dental journey or revisiting a long-postponed treatment,
-            the most important step is the first conversation. We're happy to walk through your
-            options without pressure — and without charging for the consultation itself.
-          </p>
-          <blockquote>
-            "Honest dentistry begins with an honest consult — clear options, clear pricing, and a
-            treatment plan you actually understand."
-          </blockquote>
-          <p>
-            If you'd like to discuss your specific case, you can book a free consult below or send
-            us a quick message on WhatsApp.
-          </p>
-        </div>
+        <!-- Body was `<p>{{ p.content }}</p>`, which escaped every tag the
+             author wrote — headings and bold rendered as literal text and
+             the whole article collapsed into one paragraph. `[innerHTML]`
+             renders the markup; Angular sanitises it at the binding, so
+             scripts and event handlers are stripped automatically.
+
+             The three paragraphs and the blockquote that used to sit here
+             were hardcoded, so every post on the site ended with identical
+             copy — duplicate content across the whole blog. Removed; the
+             CTA section below already closes the page. -->
+        <div class="bd-content" [innerHTML]="contentHtml()"></div>
         <div class="bd-author">
           <!-- Author avatar — static asset, so we can hardcode dimensions
                and let NgOptimizedImage emit a srcset. Wrapped in a div so
@@ -61,11 +56,11 @@ and flips `loading()` off when the response lands). -->
                to the parent flex layout. -->
           <div class="bd-author__avatar">
             <img
-              ngSrc="assets/images/team/dr-faizan-sheikh.png"
+              ngSrc="assets/images/team/dr-faizan-sheikh.webp"
               alt="Dr. Muhammad Faizan Sheikh — author"
               class="bd-author__img"
               width="120"
-              height="120"
+              height="180"
             />
           </div>
           <div>

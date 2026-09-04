@@ -1,4 +1,4 @@
-import { Component, OnInit, PLATFORM_ID, inject, signal } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, computed, inject, signal } from '@angular/core';
 import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { take } from 'rxjs';
@@ -6,6 +6,7 @@ import { BlogService } from '../../services/blog.service';
 import { DataService } from '../../services/data.service';
 import { BlogPost } from '../../models/appointment.model';
 import { BlogIllustrationComponent } from '../../components/blog-illustration/blog-illustration';
+import { toArticleHtml } from '../../admin/blog/content-html';
 import { SeoService } from '../../services/seo.service';
 import { StructuredDataService } from '../../services/structured-data.service';
 import {
@@ -29,6 +30,20 @@ export class BlogDetailPage implements OnInit {
   private isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   post = signal<BlogPost | undefined>(undefined);
+
+  /**
+   * Article body as renderable HTML.
+   *
+   * Posts written in the admin rich-text editor already carry block markup,
+   * so they pass straight through — the `[innerHTML]` binding sanitises
+   * them. Posts written before that editor existed are plain text, so their
+   * blank-line-separated blocks get wrapped in <p> here; without this they
+   * would render as one unbroken wall of text.
+   *
+   * Pure string work, no DOM access — `/blog/:slug` is prerendered in Node.
+   */
+  contentHtml = computed(() => toArticleHtml(this.post()?.content));
+
   /** Skeleton flag while we wait on `getBlogBySlug` in the browser. */
   loading = signal<boolean>(false);
   related = signal<BlogPost[]>([]);

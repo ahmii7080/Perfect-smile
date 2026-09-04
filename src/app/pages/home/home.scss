@@ -116,11 +116,23 @@
   box-shadow: 0 40px 70px -30px rgba(10, 58, 85, 0.55), inset 0 0 0 1px rgba(255,255,255,0.1);
   overflow: hidden;
 }
+/* Photo fills the arch; .hero-photo's gradient shows while it decodes.
+   object-position is biased up so the arch crop keeps the face. */
+.hero-photo__img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center 28%;
+  z-index: 0;
+}
+/* Was the placeholder's centrepiece (70%×80%, centred). With a real photo
+   behind it, it demotes to a small corner brand watermark. */
 .hero-photo__tooth {
-  position: absolute; inset: 0; margin: auto;
-  width: 70%; height: 80%;
-  filter: drop-shadow(0 25px 40px rgba(0,0,0,0.25));
+  position: absolute; inset: auto auto 20px 20px; margin: 0;
+  width: 52px; height: 64px;
+  opacity: 0.55;
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4));
   animation: floaty 7s ease-in-out infinite;
+  z-index: 2;
 }
 .hero-photo__shine {
   position: absolute; top: 8%; left: 12%;
@@ -234,11 +246,22 @@
   .float-card--metric { left: 0; }
   .float-card--badge  { right: 0; }
 }
-@media (max-width: 600px) {
-  .hero__visual { height: 340px; }
+@media (max-width: 700px) {
+  /* On a phone the three floating cards sit ON TOP of the portrait — the
+     review card alone covered the doctor's face. They were positioned for
+     a wide two-column hero; at this width there is no spare gutter to
+     float into, so they're hidden and the photo gets the space instead.
+
+     Nothing is really lost: the star rating and patient count are already
+     in .trust-row directly above, and the "3 Specialty Diplomas" figure
+     repeats in the stats band further down the page. */
+  .float-card { display: none; }
+
+  .hero__visual { height: 420px; }
   .hero-photo { border-radius: 32px; }
-  .float-card { font-size: 11.5px; padding: 0.7rem 0.85rem; }
-  .float-card--review { max-width: 230px; }
+  /* Taller box + a higher crop point keeps the face in frame rather than
+     centring on the torso. */
+  .hero-photo__img { object-position: center 18%; }
 }
 
 /* ============================== BENTO ============================= */
@@ -563,6 +586,17 @@
   pointer-events: none;
 }
 .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+/* Poster photo. Frame is 16/9, photo 4:3, so `cover` crops top/bottom.
+   `brightness` darkens it in place — cheaper than an overlay layer, and it
+   keeps the white play button and cinema chrome legible over pale walls.
+   z-index 0 puts it under the button, which follows it in the DOM. */
+.video-frame__poster {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  filter: brightness(0.6);
+  z-index: 0;
+}
 
 .video-play {
   position: relative;

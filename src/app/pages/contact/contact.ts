@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-
+import { NgOptimizedImage } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SeoService } from '../../services/seo.service';
 import { StructuredDataService } from '../../services/structured-data.service';
@@ -11,7 +11,7 @@ import {
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [ReactiveFormsModule, BreadcrumbComponent],
+  imports: [ReactiveFormsModule, BreadcrumbComponent, NgOptimizedImage],
   templateUrl: './contact.html',
   styleUrl: './contact.scss',
 })
