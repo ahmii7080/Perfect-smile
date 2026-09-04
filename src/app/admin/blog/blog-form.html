@@ -95,13 +95,12 @@
 
     <div>
       <label class="form-label">Content *</label>
-      <textarea
-        class="form-control"
-        [class.is-invalid]="invalid('content')"
-        formControlName="content"
-        rows="14"
-        placeholder="Full article body... You can paste HTML — the SEO analyser parses headings, links and images automatically."
-      ></textarea>
+      <!-- Was a bare <textarea>: pasting from Word dropped every heading and
+           bold run, so no post ever had an H2 and the SEO panel's heading
+           check could only ever fail. The editor keeps that structure and
+           writes clean HTML into the same `content` control — the "</>" HTML
+           button still exposes the raw markup for hand-editing. -->
+      <app-rich-text-editor formControlName="content" />
       @if (invalid('content')) {
         <div class="form-error">Content is required (min 50 characters).</div>
       }

@@ -10,7 +10,11 @@ import { Testimonial } from '../../models/appointment.model';
     <figure class="t-card lift" [style.background]="testimonial.color">
       <i class="fa-solid fa-quote-left t-card__quote"></i>
       <div class="t-card__stars">
-        @for (_ of stars(); track _) {
+        <!-- stars() is Array(n).fill(0), so every element is the same 0 —
+             tracking by value gave all of them the identical key (NG0955).
+             Identical stars are distinguished only by position.
+             NB: this is an inline template, so no backticks in here. -->
+        @for (_ of stars(); track $index) {
           <i class="fa-solid fa-star"></i>
         }
       </div>

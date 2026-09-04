@@ -1,6 +1,7 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RichTextEditor } from './rich-text-editor';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AdminDataService } from '../../services/admin-data.service';
 import { environment } from '../../../environments/environment';
@@ -29,7 +30,7 @@ const slugify = (s: string): string =>
 @Component({
   selector: 'app-admin-blog-form',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, RichTextEditor],
   templateUrl: './blog-form.html',
   styleUrl: '../admin-shared.scss',
 })
