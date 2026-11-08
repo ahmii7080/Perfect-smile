@@ -6,7 +6,9 @@ export type SmileTreatment =
   | 'implants'
   | 'braces'
   | 'crowns'
-  | 'makeover';
+  | 'makeover'
+  | 'root-canal'
+  | 'extraction';
 
 export type SmileVariant = 'before' | 'after';
 
@@ -46,7 +48,7 @@ export type SmileVariant = 'before' | 'after';
 
       <!-- ===== TEETH (5 in a row) ===== -->
       <ng-container>
-        @switch (treatment) {
+        @switch (art) {
           <!-- ─── VENEERS ─── -->
           @case ('veneers') {
             <g>
@@ -350,6 +352,15 @@ export type SmileVariant = 'before' | 'after';
 export class SmileSvgComponent {
   @Input({ required: true }) treatment!: SmileTreatment;
   @Input({ required: true }) variant!: SmileVariant;
+
+  /** Root canal / extraction have no dedicated drawing yet — reuse the
+   *  closest one as a placeholder until the real before/after photos are
+   *  uploaded (photos always take precedence on the gallery page). */
+  get art(): SmileTreatment {
+    if (this.treatment === 'root-canal') return 'crowns';
+    if (this.treatment === 'extraction') return 'makeover';
+    return this.treatment;
+  }
 
   fives = [0, 1, 2, 3, 4];
 
