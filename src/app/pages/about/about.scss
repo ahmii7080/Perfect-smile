@@ -187,3 +187,41 @@
 }
 .cta-row h2 { color: #fff; margin-bottom: 0.5rem; }
 .cta-row p  { color: rgba(255,255,255,0.78); margin-bottom: 0; max-width: 540px; }
+
+/* ── Clinic videos ──────────────────────────────────────────────
+   Each frame takes the video's own aspect ratio (stored at upload), so
+   landscape, portrait and square clips all fit without cropping. Tall
+   clips are capped at 75vh and letterboxed instead of filling the screen. */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  gap: 1.5rem;
+  align-items: start;
+}
+.video-grid--single { grid-template-columns: minmax(0, 880px); justify-content: center; }
+
+.video-card {
+  margin: 0;
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 18px 40px -24px rgba(10, 58, 85, 0.35);
+  border: 1px solid rgba(15, 122, 176, 0.08);
+}
+.video-card__frame {
+  width: 100%;
+  max-height: 75vh;
+  background: #0b1d2a;
+  display: flex;
+  justify-content: center;
+}
+.video-card__frame video {
+  width: 100%;
+  height: 100%;
+  max-height: 75vh;
+  object-fit: contain;
+  display: block;
+}
+.video-card figcaption { padding: 1rem 1.2rem 1.2rem; }
+.video-card h3 { font-family: 'Fraunces', serif; font-size: 18px; margin: 0 0 0.3rem; color: var(--color-ink); }
+.video-card p  { font-size: 14px; color: var(--color-text-muted); margin: 0; }

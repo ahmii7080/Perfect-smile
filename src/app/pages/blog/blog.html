@@ -18,11 +18,14 @@
         <!-- Featured -->
         @if (featured(); as f) {
           <a [routerLink]="['/blog', f.slug]" class="featured lift" data-aos="fade-up">
-            <div class="featured__img" [style.background-color]="f.color">
-              <app-blog-illustration
-                [category]="f.category"
-                [color]="f.color"
-              ></app-blog-illustration>
+            <div class="featured__img" [style.background-color]="f.color"
+                   [style.background-image]="f.image ? 'url(' + f.image + ')' : null">
+              @if (!f.image) {
+                <app-blog-illustration
+                  [category]="f.category"
+                  [color]="f.color"
+                ></app-blog-illustration>
+              }
               <span class="featured__cat">{{ f.category }}</span>
               <span class="featured__badge"><i class="fa-solid fa-star"></i> Featured</span>
             </div>
@@ -50,11 +53,14 @@
               data-aos="fade-up"
               [attr.data-aos-delay]="(i % 3) * 70"
             >
-              <div class="blog-card__img" [style.background-color]="p.color">
-                <app-blog-illustration
-                  [category]="p.category"
-                  [color]="p.color"
-                ></app-blog-illustration>
+              <div class="blog-card__img" [style.background-color]="p.color"
+                     [style.background-image]="p.image ? 'url(' + p.image + ')' : null">
+                @if (!p.image) {
+                  <app-blog-illustration
+                    [category]="p.category"
+                    [color]="p.color"
+                  ></app-blog-illustration>
+                }
                 <span class="blog-card__cat">{{ p.category }}</span>
               </div>
               <div class="blog-card__body">
@@ -119,11 +125,14 @@
           <h4>Recent posts</h4>
           @for (p of recent(); track p) {
             <a [routerLink]="['/blog', p.slug]" class="recent">
-              <span class="recent__thumb" [style.background-color]="p.color">
-                <app-blog-illustration
-                  [category]="p.category"
-                  [color]="p.color"
-                ></app-blog-illustration>
+              <span class="recent__thumb" [style.background-color]="p.color"
+                     [style.background-image]="p.image ? 'url(' + p.image + ')' : null">
+                @if (!p.image) {
+                  <app-blog-illustration
+                    [category]="p.category"
+                    [color]="p.color"
+                  ></app-blog-illustration>
+                }
               </span>
               <div>
                 <strong>{{ p.title }}</strong>

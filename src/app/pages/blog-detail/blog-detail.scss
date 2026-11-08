@@ -2,6 +2,7 @@
   color: #fff; padding: 5rem 0 4rem;
   position: relative; overflow: hidden;
   isolation: isolate;
+  background-size: cover; background-position: center; background-repeat: no-repeat;
 }
 .bd-hero .container-x { position: relative; z-index: 2; }
 .bd-hero__bg { z-index: 0; }

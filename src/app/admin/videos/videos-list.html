@@ -1,0 +1,71 @@
+<header class="adm-head">
+  <div>
+    <h1>Videos</h1>
+    <span class="adm-head__crumb">Dashboard › Videos · shown on the About page</span>
+  </div>
+  <a routerLink="/adminauthlogin/videos/new" class="adm-btn">
+    <i class="fa-solid fa-plus"></i> Upload Video
+  </a>
+</header>
+
+@if (error(); as e) {
+  <div class="adm-toast adm-toast--error">
+    <i class="fa-solid fa-circle-exclamation"></i> {{ e }}
+  </div>
+}
+
+<div class="adm-table-wrap">
+  <table class="adm-table">
+    <thead>
+      <tr>
+        <th style="width: 40px">#</th>
+        <th style="width: 80px">Preview</th>
+        <th>Title</th>
+        <th>Size</th>
+        <th>Status</th>
+        <th style="width: 160px">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @if (loading()) {
+        @for (_ of [1, 2]; track _) {
+          <tr>
+            <td><span class="adm-skl adm-skl--num"></span></td>
+            <td><span class="adm-skl adm-skl--thumb"></span></td>
+            <td><span class="adm-skl adm-skl--md"></span></td>
+            <td><span class="adm-skl adm-skl--xs"></span></td>
+            <td><span class="adm-skl adm-skl--xs"></span></td>
+            <td><span class="adm-skl adm-skl--sm"></span></td>
+          </tr>
+        }
+      } @else {
+        @for (v of videos(); track v.id; let i = $index) {
+          <tr>
+            <td>{{ i + 1 }}</td>
+            <td>
+              <span class="adm-thumb"
+                    [style.background-image]="v.posterUrl ? 'url(' + v.posterUrl + ')' : null"></span>
+            </td>
+            <td class="adm-table__title">{{ v.title }}</td>
+            <td>{{ v.width && v.height ? v.width + '×' + v.height : '—' }}</td>
+            <td>{{ v.published ? 'Visible' : 'Hidden' }}</td>
+            <td>
+              <div class="adm-actions">
+                <a [routerLink]="['/adminauthlogin/videos', v.id, 'edit']"
+                  ><i class="fa-regular fa-pen-to-square"></i> Edit</a
+                >
+                <button (click)="remove(v)"><i class="fa-regular fa-trash-can"></i> Delete</button>
+              </div>
+            </td>
+          </tr>
+        }
+      }
+    </tbody>
+  </table>
+
+  @if (!loading() && !videos().length && !error()) {
+    <div class="adm-empty">
+      No videos yet. <a routerLink="/adminauthlogin/videos/new">Upload the first one</a>.
+    </div>
+  }
+</div>

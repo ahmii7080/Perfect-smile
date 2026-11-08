@@ -121,7 +121,14 @@ export const routes: Routes = [
 
       { path: 'consultants',     loadComponent: () => import('./admin/consultants/consultants-list').then(m => m.AdminConsultantsList), title: 'Consultants — Admin' },
       { path: 'consultants/new', loadComponent: () => import('./admin/consultants/consultants-form').then(m => m.AdminConsultantsForm), title: 'New Consultant — Admin' },
-      { path: 'consultants/:id/edit', loadComponent: () => import('./admin/consultants/consultants-form').then(m => m.AdminConsultantsForm), title: 'Edit Consultant — Admin' }
+      { path: 'consultants/:id/edit', loadComponent: () => import('./admin/consultants/consultants-form').then(m => m.AdminConsultantsForm), title: 'Edit Consultant — Admin' },
+
+      { path: 'videos',          loadComponent: () => import('./admin/videos/videos-list').then(m => m.AdminVideosList),  title: 'Videos — Admin' },
+      { path: 'videos/new',      loadComponent: () => import('./admin/videos/videos-form').then(m => m.AdminVideosForm),  title: 'Upload Video — Admin' },
+      { path: 'videos/:id/edit', loadComponent: () => import('./admin/videos/videos-form').then(m => m.AdminVideosForm),  title: 'Edit Video — Admin' },
+
+      { path: 'chatbot',         loadComponent: () => import('./admin/chatbot/chatbot-settings').then(m => m.AdminChatbotSettings), title: 'Chatbot — Admin' },
+      { path: 'chats',           loadComponent: () => import('./admin/chatbot/chat-logs').then(m => m.AdminChatLogs),             title: 'Chats — Admin' }
     ]
   },
 

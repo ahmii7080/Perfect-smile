@@ -1,0 +1,13 @@
+{
+  "isEnabled": true,
+  "botName": "Smile Assistant",
+  "welcomeMessage": "Assalam-o-Alaikum! 👋 Ask me about our treatments, timings or how to book a visit.",
+  "maxMessages": 10,
+  "handoffMessage": "Our team can answer that properly. Message us on WhatsApp or book an appointment and we will get back to you.",
+  "suggestions": [
+    "What are your clinic timings?",
+    "Do you do dental implants?",
+    "How do I book an appointment?",
+    "Where is the clinic?"
+  ]
+}

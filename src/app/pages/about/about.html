@@ -155,6 +155,34 @@
   </div>
 </section>
 
+<!-- Clinic videos (admin → Videos). Hidden until at least one is published. -->
+@if (videos().length) {
+  <section class="section" id="videos">
+    <div class="container-x">
+      <header class="section-head" data-aos="fade-up">
+        <span class="eyebrow center">Inside The Clinic</span>
+        <h2>See our work <span class="accent-italic">in motion</span></h2>
+      </header>
+      <div class="video-grid" [class.video-grid--single]="videos().length === 1">
+        @for (v of videos(); track v.videoUrl; let i = $index) {
+          <figure class="video-card" data-aos="fade-up" [attr.data-aos-delay]="(i % 3) * 70">
+            <div class="video-card__frame" [style.aspect-ratio]="ratio(v)">
+              <video controls playsinline preload="none" [attr.poster]="v.posterUrl || null"
+                     [attr.aria-label]="v.title">
+                <source [src]="v.videoUrl" [type]="videoType(v.videoUrl)" />
+              </video>
+            </div>
+            <figcaption>
+              <h3>{{ v.title }}</h3>
+              @if (v.description) { <p>{{ v.description }}</p> }
+            </figcaption>
+          </figure>
+        }
+      </div>
+    </div>
+  </section>
+}
+
 <!-- Awards strip -->
 <section class="awards">
   <div class="container-x">

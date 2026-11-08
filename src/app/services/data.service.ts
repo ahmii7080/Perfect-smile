@@ -6,6 +6,7 @@ import { ServiceItem } from '../models/service.model';
 import { Doctor, TeamMember } from '../models/doctor.model';
 import { BlogPost, Testimonial } from '../models/appointment.model';
 import { GalleryRow, ConsultantRow } from './admin-data.service';
+import { ChatbotConfig, ClinicVideo } from '../models/media.model';
 
 /**
  * Public-site data service.
@@ -44,6 +45,8 @@ export class DataService {
   private testimonials$?: Observable<Testimonial[]>;
   private gallery$?:      Observable<GalleryRow[]>;
   private consultants$?:  Observable<ConsultantRow[]>;
+  private videos$?:       Observable<ClinicVideo[]>;
+  private chatbot$?:      Observable<ChatbotConfig>;
 
   /* ──────────────────────  Services  ────────────────────── */
   getServices(): Observable<ServiceItem[]> {
@@ -90,6 +93,16 @@ export class DataService {
   /* ──────────────────────  Consultants  ────────────────────── */
   getConsultants(): Observable<ConsultantRow[]> {
     return this.consultants$ ??= this.json<ConsultantRow[]>('consultants.json');
+  }
+
+  /* ──────────────────────  Videos  ────────────────────── */
+  getVideos(): Observable<ClinicVideo[]> {
+    return this.videos$ ??= this.json<ClinicVideo[]>('videos.json');
+  }
+
+  /* ──────────────────────  Chatbot widget config  ────────────────────── */
+  getChatbotConfig(): Observable<ChatbotConfig> {
+    return this.chatbot$ ??= this.json<ChatbotConfig>('chatbot.json');
   }
 
   /** Shared loader — single point that decides where data comes from.

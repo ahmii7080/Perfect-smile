@@ -1,0 +1,93 @@
+<header class="adm-head">
+  <div>
+    <h1>{{ editingId() ? 'Edit Video' : 'Upload Video' }}</h1>
+    <span class="adm-head__crumb">
+      <a routerLink="/adminauthlogin/videos">Videos</a> › {{ editingId() ? 'Edit' : 'New' }}
+    </span>
+  </div>
+  <a routerLink="/adminauthlogin/videos" class="adm-btn adm-btn--ghost">
+    <i class="fa-solid fa-arrow-left"></i> Back to list
+  </a>
+</header>
+
+@if (error(); as e) {
+  <div class="adm-toast adm-toast--error">
+    <i class="fa-solid fa-circle-exclamation"></i> {{ e }}
+  </div>
+}
+
+<form class="adm-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+  <div>
+    <label class="form-label">Video file *</label>
+    @if (form.value.videoUrl) {
+      <video
+        [src]="form.value.videoUrl"
+        [poster]="form.value.posterUrl || null"
+        controls
+        preload="metadata"
+        playsinline
+        style="display: block; width: 100%; max-height: 420px; background: #0f172a; border-radius: 10px; margin-bottom: 0.6rem"
+      ></video>
+    }
+    <div class="adm-image-pick">
+      <span class="adm-image-pick__preview"
+            [style.background-image]="form.value.posterUrl ? 'url(' + form.value.posterUrl + ')' : null">
+        @if (!form.value.posterUrl) { <i class="fa-solid fa-film"></i> }
+      </span>
+      <div class="adm-image-pick__body">
+        <strong>{{ form.value.videoUrl ? 'Replace video' : 'Choose video' }}</strong>
+        <span>
+          WebM or MP4, up to 50 MB. Any resolution or orientation works — the page adapts to it.
+          A thumbnail is created automatically.
+          @if (form.value.width && form.value.height) {
+            <br />Current: {{ form.value.width }} × {{ form.value.height }}
+          }
+        </span>
+        <input type="file" accept="video/webm,video/mp4" (change)="onVideoChange($event)" [disabled]="!!uploading()" />
+      </div>
+    </div>
+    @if (uploading(); as u) {
+      <small style="color: var(--color-primary); font-size: 12px; display: inline-block; margin-top: 4px">
+        <i class="fa-solid fa-spinner fa-spin"></i> {{ u }}
+      </small>
+    }
+  </div>
+
+  <div>
+    <label class="form-label">Title *</label>
+    <input class="form-control" [class.is-invalid]="invalid('title')" formControlName="title"
+           placeholder="Implant procedure walkthrough" />
+    @if (invalid('title')) { <div class="form-error">Title is required (3+ characters).</div> }
+  </div>
+
+  <div>
+    <label class="form-label">Short description</label>
+    <textarea class="form-control" formControlName="description" rows="3"
+              placeholder="One or two lines shown under the video"></textarea>
+  </div>
+
+  <div class="adm-row-2">
+    <div>
+      <label class="form-label">Display order</label>
+      <input class="form-control" type="number" formControlName="sortOrder" />
+      <small style="font-size: 12px; color: var(--color-text-muted)">Lower numbers show first.</small>
+    </div>
+    <div>
+      <label class="form-label">Visibility</label>
+      <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 14px; padding-top: 0.6rem">
+        <input type="checkbox" formControlName="published" /> Show on About page
+      </label>
+    </div>
+  </div>
+
+  <div class="adm-form__actions">
+    <button type="submit" class="adm-btn" [disabled]="saving() || !!uploading()">
+      @if (!saving()) {
+        <i class="fa-regular fa-floppy-disk"></i> {{ editingId() ? 'Save changes' : 'Add video' }}
+      } @else {
+        <i class="fa-solid fa-spinner fa-spin"></i> Saving…
+      }
+    </button>
+    <a routerLink="/adminauthlogin/videos" class="adm-btn adm-btn--ghost">Cancel</a>
+  </div>
+</form>

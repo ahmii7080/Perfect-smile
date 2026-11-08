@@ -4,9 +4,13 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist/perfect-smile/browser",
 
+  "functions": {
+    "api/chat.mjs": { "maxDuration": 30 }
+  },
+
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/((?!api/).*)",
       "destination": "/index.html"
     }
   ]

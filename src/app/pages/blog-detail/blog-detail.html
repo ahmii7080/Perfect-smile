@@ -16,12 +16,15 @@ and flips `loading()` off when the response lands). -->
 }
 
 @if (post(); as p) {
-  <section class="bd-hero" [style.background-color]="p.color">
-    <app-blog-illustration
-      class="bd-hero__bg"
-      [category]="p.category"
-      [color]="p.color"
-    ></app-blog-illustration>
+  <section class="bd-hero" [style.background-color]="p.color"
+           [style.background-image]="p.image ? 'url(' + p.image + ')' : null">
+    @if (!p.image) {
+      <app-blog-illustration
+        class="bd-hero__bg"
+        [category]="p.category"
+        [color]="p.color"
+      ></app-blog-illustration>
+    }
     <span class="bd-hero__shade"></span>
     <div class="container-x">
       <app-breadcrumb [items]="breadcrumbs()" />
@@ -112,11 +115,14 @@ and flips `loading()` off when the response lands). -->
       <div class="rel-grid">
         @for (r of related(); track r) {
           <a [routerLink]="['/blog', r.slug]" class="rel-card lift">
-            <div class="rel-card__img" [style.background-color]="r.color">
-              <app-blog-illustration
-                [category]="r.category"
-                [color]="r.color"
-              ></app-blog-illustration>
+            <div class="rel-card__img" [style.background-color]="r.color"
+                   [style.background-image]="r.image ? 'url(' + r.image + ')' : null">
+              @if (!r.image) {
+                <app-blog-illustration
+                  [category]="r.category"
+                  [color]="r.color"
+                ></app-blog-illustration>
+              }
               <span>{{ r.category }}</span>
             </div>
             <div class="rel-card__body">
