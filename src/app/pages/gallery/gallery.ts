@@ -20,6 +20,10 @@ interface GalleryCase {
   afterImage?: string;
 }
 
+/** 2 = before + after photo, 1 = one photo, 0 = illustration only. */
+const photoRank = (c: { beforeImage?: string; afterImage?: string }) =>
+  (c.beforeImage ? 1 : 0) + (c.afterImage ? 1 : 0);
+
 @Component({
   selector: 'app-gallery',
   standalone: true,
@@ -97,7 +101,10 @@ export class GalleryPage implements OnInit {
           icon: r.icon,
           beforeImage: r.beforeImage,
           afterImage: r.afterImage,
-        })),
+        }))
+          // Real photos first: both before+after → one photo → illustration only.
+          // Array.sort is stable, so newest-first order is kept inside each group.
+          .sort((x, y) => photoRank(y) - photoRank(x)),
       );
     });
   }
