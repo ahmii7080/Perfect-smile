@@ -103,6 +103,26 @@ const mapConsultant = row => ({
   ...(row.image ? { image: row.image } : {})
 });
 
+// RLS only exposes published videos to the anon key, so no filter needed here.
+const mapVideo = row => ({
+  id:          row.id,
+  title:       row.title,
+  description: row.description ?? '',
+  videoUrl:    row.video_url,
+  ...(row.poster_url ? { posterUrl: row.poster_url } : {}),
+  ...(row.width && row.height ? { width: row.width, height: row.height } : {})
+});
+
+// Public, non-secret widget config only — limits are enforced in api/chat.mjs.
+const mapChatbot = row => ({
+  isEnabled:      row.is_enabled,
+  botName:        row.bot_name,
+  welcomeMessage: row.welcome_message,
+  maxMessages:    row.max_messages,
+  handoffMessage: row.handoff_message,
+  suggestions:    row.suggestions ?? []
+});
+
 /* ────────────────────────────────────────────────────────────────────
  *  Pull plan — one entry per output file.
  *  ──────────────────────────────────────────────────────────────────── */
@@ -116,11 +136,23 @@ const PLAN = [
   { table: 'blog_posts',           order: 'date',        desc: true, out: 'blog.json',     map: mapBlog },
   { table: 'team_members',         order: 'created_at',  desc: true, out: 'team.json',        map: mapTeam       },
   { table: 'gallery_cases',        order: 'created_at',  desc: true, out: 'gallery.json',     map: mapGallery    },
-  { table: 'visiting_consultants', order: 'created_at',  desc: true, out: 'consultants.json', map: mapConsultant }
+  { table: 'visiting_consultants', order: 'created_at',  desc: true, out: 'consultants.json', map: mapConsultant },
+  // `optional` tables come from supabase-videos-chatbot-migration.sql. Until
+  // that migration has been run, the build keeps the committed JSON instead
+  // of failing.
+  { table: 'videos',               order: 'sort_order',  out: 'videos.json',      map: mapVideo, optional: true },
+  { table: 'chatbot_settings',     order: 'id',          out: 'chatbot.json',     map: mapChatbot, optional: true, single: true }
 ];
 
-async function snapshot({ table, order, desc = false, out, map }) {
+/** PostgREST / Postgres codes for "this table does not exist (yet)". */
+const MISSING_TABLE = new Set(['42P01', 'PGRST205', 'PGRST204']);
+
+async function snapshot({ table, order, desc = false, out, map, optional = false, single = false }) {
   const { data, error } = await db.from(table).select('*').order(order, { ascending: !desc });
+  if (error && optional && MISSING_TABLE.has(error.code)) {
+    console.warn(`  ! ${out.padEnd(20)} table "${table}" not found — keeping committed file (run supabase-videos-chatbot-migration.sql)`);
+    return 0;
+  }
   if (error) {
     // Surface the error but DON'T overwrite the file — keeping the previous
     // good snapshot is strictly better than shipping `[]` to production.
@@ -130,7 +162,8 @@ async function snapshot({ table, order, desc = false, out, map }) {
   }
   const mapped = (data ?? []).map(map);
   const path   = resolve(OUT_DIR, out);
-  await writeFile(path, JSON.stringify(mapped, null, 2) + '\n', 'utf8');
+  const body   = single ? (mapped[0] ?? {}) : mapped;
+  await writeFile(path, JSON.stringify(body, null, 2) + '\n', 'utf8');
   console.log(`  ✓ ${out.padEnd(20)} ${mapped.length} rows`);
   return mapped.length;
 }

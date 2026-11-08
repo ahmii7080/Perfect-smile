@@ -41,6 +41,14 @@ export class AdminLayout implements OnInit {
         { label: 'Services', route: '/adminauthlogin/services', icon: 'fa-list-check' },
         { label: 'Blog Posts', route: '/adminauthlogin/blog', icon: 'fa-pen-nib' },
         { label: 'Gallery', route: '/adminauthlogin/gallery', icon: 'fa-images' },
+        { label: 'Videos', route: '/adminauthlogin/videos', icon: 'fa-film' },
+      ],
+    },
+    {
+      title: 'AI Chatbot',
+      items: [
+        { label: 'Bot Settings', route: '/adminauthlogin/chatbot', icon: 'fa-robot' },
+        { label: 'Chats', route: '/adminauthlogin/chats', icon: 'fa-comments' },
       ],
     },
     {

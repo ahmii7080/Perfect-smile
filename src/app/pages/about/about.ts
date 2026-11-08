@@ -1,4 +1,8 @@
 import { Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { catchError, of } from 'rxjs';
+import { DataService } from '../../services/data.service';
+import { ClinicVideo } from '../../models/media.model';
 import { NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { SeoService } from '../../services/seo.service';
@@ -19,6 +23,21 @@ import { PrefetchOnHoverDirective } from '../../directives/prefetch-on-hover.dir
 export class AboutPage {
   private seo = inject(SeoService);
   private structuredData = inject(StructuredDataService);
+
+  /** Admin-uploaded clinic videos (snapshotted to assets/data/videos.json). */
+  readonly videos = toSignal(
+    inject(DataService).getVideos().pipe(catchError(() => of([] as ClinicVideo[]))),
+    { initialValue: [] as ClinicVideo[] },
+  );
+
+  /** CSS aspect-ratio from the stored resolution; 16/9 until known. */
+  ratio(v: ClinicVideo): string {
+    return v.width && v.height ? `${v.width} / ${v.height}` : '16 / 9';
+  }
+
+  videoType(url: string): string {
+    return url.toLowerCase().endsWith('.mp4') ? 'video/mp4' : 'video/webm';
+  }
 
   readonly breadcrumbs: BreadcrumbItem[] = [
     { label: 'Home', path: '/' },

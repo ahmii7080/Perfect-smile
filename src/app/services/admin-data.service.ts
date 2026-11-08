@@ -3,6 +3,7 @@ import { SupabaseService } from './supabase.service';
 import { BlogPost, Testimonial } from '../models/appointment.model';
 import { TeamMember } from '../models/doctor.model';
 import { ServiceItem } from '../models/service.model';
+import { ChatMsg, ClinicVideo } from '../models/media.model';
 
 /* -------- Row shapes (snake_case as stored in Supabase) -------- */
 interface BlogRow {
@@ -304,8 +305,123 @@ export class AdminDataService {
     };
   }
 
+  /* ====================== VIDEOS ====================== */
+  async listVideos(): Promise<AdminVideo[]> {
+    const { data, error } = await this.db.from('videos').select('*')
+      .order('sort_order', { ascending: true }).order('created_at', { ascending: false });
+    if (error) throw error;
+    return (data ?? []).map(this.mapVideoRow);
+  }
+  async getVideo(id: string): Promise<AdminVideo> {
+    const { data, error } = await this.db.from('videos').select('*').eq('id', id).single();
+    if (error) throw error;
+    return this.mapVideoRow(data);
+  }
+  async saveVideo(v: AdminVideo): Promise<void> {
+    const row = {
+      title: v.title, description: v.description ?? '',
+      video_url: v.videoUrl, poster_url: v.posterUrl || null,
+      width: v.width ?? null, height: v.height ?? null,
+      sort_order: v.sortOrder ?? 0, published: v.published
+    };
+    const { error } = v.id
+      ? await this.db.from('videos').update(row).eq('id', v.id)
+      : await this.db.from('videos').insert(row);
+    if (error) throw error;
+  }
+  async deleteVideo(id: string): Promise<void> {
+    const { error } = await this.db.from('videos').delete().eq('id', id);
+    if (error) throw error;
+  }
+  private mapVideoRow = (row: any): AdminVideo => ({
+    id: row.id,
+    title: row.title,
+    description: row.description ?? '',
+    videoUrl: row.video_url,
+    posterUrl: row.poster_url ?? undefined,
+    width: row.width ?? undefined,
+    height: row.height ?? undefined,
+    sortOrder: row.sort_order ?? 0,
+    published: row.published ?? true
+  });
+
+  /* ====================== CHATBOT ====================== */
+  async getChatSettings(): Promise<ChatSettingsRow | null> {
+    const { data, error } = await this.db.from('chatbot_settings').select('*').eq('id', 1).maybeSingle();
+    if (error) throw error;
+    return data;
+  }
+  async saveChatSettings(s: ChatSettingsRow): Promise<void> {
+    const { updated_at, ...row } = s;
+    const { error } = await this.db.from('chatbot_settings').upsert({ ...row, id: 1 }, { onConflict: 'id' });
+    if (error) throw error;
+  }
+  async listChatKnowledge(): Promise<ChatKnowledgeRow[]> {
+    const { data, error } = await this.db.from('chatbot_knowledge').select('*').order('sort', { ascending: true });
+    if (error) throw error;
+    return data ?? [];
+  }
+  async saveChatKnowledge(k: ChatKnowledgeRow): Promise<void> {
+    const row = { title: k.title, content: k.content, sort: k.sort ?? 0, published: k.published ?? true };
+    const { error } = k.id
+      ? await this.db.from('chatbot_knowledge').update(row).eq('id', k.id)
+      : await this.db.from('chatbot_knowledge').insert(row);
+    if (error) throw error;
+  }
+  async deleteChatKnowledge(id: string): Promise<void> {
+    const { error } = await this.db.from('chatbot_knowledge').delete().eq('id', id);
+    if (error) throw error;
+  }
+  async listChatSessions(): Promise<ChatSessionRow[]> {
+    const { data, error } = await this.db.from('chat_sessions').select('*')
+      .order('updated_at', { ascending: false }).limit(200);
+    if (error) throw error;
+    return data ?? [];
+  }
+  async deleteChatSession(id: string): Promise<void> {
+    const { error } = await this.db.from('chat_sessions').delete().eq('id', id);
+    if (error) throw error;
+  }
+
   /* ====================== STORAGE ====================== */
-  uploadImage(folder: 'blog' | 'team' | 'gallery' | 'consultants', file: File) {
+  uploadImage(folder: 'blog' | 'team' | 'gallery' | 'consultants' | 'videos', file: File) {
     return this.supabase.uploadImage(folder, file);
   }
+  uploadVideo(file: File) {
+    return this.supabase.uploadVideo(file);
+  }
+}
+
+/* -------- Videos + chatbot admin shapes -------- */
+export interface AdminVideo extends ClinicVideo {
+  sortOrder: number;
+  published: boolean;
+}
+
+export interface ChatSettingsRow {
+  id?: number;
+  is_enabled: boolean;
+  bot_name: string;
+  welcome_message: string;
+  max_messages: number;
+  handoff_message: string;
+  suggestions: string[];
+  updated_at?: string;
+}
+
+export interface ChatKnowledgeRow {
+  id?: string;
+  title: string;
+  content: string;
+  sort?: number;
+  published?: boolean;
+}
+
+export interface ChatSessionRow {
+  id: string;
+  visitor_id?: string;
+  messages: ChatMsg[];
+  message_count: number;
+  created_at?: string;
+  updated_at?: string;
 }

@@ -7,6 +7,7 @@ import { NavbarComponent } from './components/navbar/navbar';
 import { FooterComponent } from './components/footer/footer';
 import { WhatsappPopupComponent } from './components/whatsapp-popup/whatsapp-popup';
 import { RouteProgressComponent } from './components/route-progress/route-progress';
+import { ChatWidgetComponent } from './components/chat-widget/chat-widget';
 import { StructuredDataService } from './services/structured-data.service';
 import { AnalyticsService } from './services/analytics.service';
 import { DataService } from './services/data.service';
@@ -20,6 +21,7 @@ import { DataService } from './services/data.service';
     FooterComponent,
     WhatsappPopupComponent,
     RouteProgressComponent,
+    ChatWidgetComponent,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',

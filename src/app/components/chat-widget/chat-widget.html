@@ -1,0 +1,69 @@
+@if (config().isEnabled) {
+  <button type="button" class="cb-launcher" [class.is-open]="open()" (click)="toggle()"
+          [attr.aria-label]="open() ? 'Close chat' : 'Chat with ' + config().botName"
+          [attr.aria-expanded]="open()" aria-controls="cb-panel">
+    @if (open()) {
+      <i class="fa-solid fa-xmark"></i>
+    } @else {
+      <i class="fa-solid fa-robot"></i>
+    }
+  </button>
+
+  <div id="cb-panel" class="cb-panel" [class.is-open]="open()" role="dialog"
+       [attr.aria-label]="config().botName" [attr.aria-hidden]="!open()">
+    <div class="cb-head">
+      <span class="cb-avatar"><i class="fa-solid fa-tooth"></i><span class="cb-dot"></span></span>
+      <span class="cb-title">
+        <strong>{{ config().botName }}</strong>
+        <small>AI assistant · replies instantly</small>
+      </span>
+      <button type="button" class="cb-close" (click)="open.set(false)" aria-label="Close chat">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="cb-list" #list aria-live="polite">
+      <div class="cb-msg bot">{{ config().welcomeMessage }}</div>
+
+      @if (!messages().length && config().suggestions.length) {
+        <div class="cb-suggest">
+          @for (s of config().suggestions; track s) {
+            <button type="button" (click)="send(s)">{{ s }}</button>
+          }
+        </div>
+      }
+
+      @for (m of messages(); track $index) {
+        <div class="cb-msg" [class.user]="m.role === 'user'" [class.bot]="m.role === 'assistant'">{{ m.content }}</div>
+      }
+
+      @if (loading()) {
+        <div class="cb-msg bot cb-typing" aria-label="Typing"><span></span><span></span><span></span></div>
+      }
+
+      @if (limitReached() && !loading()) {
+        <div class="cb-handoff">
+          <p>{{ config().handoffMessage }}</p>
+          <a [href]="whatsappHref" target="_blank" rel="noopener" class="cb-btn cb-btn--wa">
+            <i class="fa-brands fa-whatsapp"></i> WhatsApp us
+          </a>
+          <a routerLink="/appointment" class="cb-btn" (click)="open.set(false)">
+            <i class="fa-regular fa-calendar-check"></i> Book appointment
+          </a>
+        </div>
+      }
+    </div>
+
+    <form class="cb-form" (ngSubmit)="send(input)">
+      <input #box [(ngModel)]="input" name="msg" maxlength="500" autocomplete="off" [disabled]="limitReached()"
+             [placeholder]="limitReached() ? 'Our team will take it from here' : 'Type your question…'"
+             aria-label="Message" />
+      <button type="submit" [disabled]="loading() || limitReached() || !input.trim()" aria-label="Send">
+        <i class="fa-solid fa-paper-plane"></i>
+      </button>
+    </form>
+    @if (!limitReached()) {
+      <p class="cb-foot">{{ remaining() }} questions left · AI answers are general info, not medical advice</p>
+    }
+  </div>
+}

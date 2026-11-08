@@ -37,7 +37,23 @@ export class SupabaseService {
    * The resulting filename always reflects the actual content-type Storage
    * receives, so CDN caches and the `<img>` browser MIME sniffer agree.
    */
-  async uploadImage(folder: 'blog' | 'team' | 'consultants' | 'gallery', file: File): Promise<string> {
+  /**
+   * Upload a clinic video (WebM / MP4) as-is — no re-encoding. Browsers
+   * can't transcode video quickly, so the file the admin picks is the file
+   * visitors stream. Size is checked by the caller (Supabase free plan caps
+   * single objects at 50 MB).
+   */
+  async uploadVideo(file: File): Promise<string> {
+    const ext = file.type === 'video/mp4' ? 'mp4' : 'webm';
+    const filename = `videos/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+    const { error } = await this.client.storage
+      .from(environment.storageBucket)
+      .upload(filename, file, { upsert: false, contentType: file.type, cacheControl: '31536000' });
+    if (error) throw error;
+    return this.publicUrl(filename);
+  }
+
+  async uploadImage(folder: 'blog' | 'team' | 'consultants' | 'gallery' | 'videos', file: File): Promise<string> {
     // Convert in the browser BEFORE the network hop — saves both bandwidth
     // and Supabase Storage bytes. Failures inside `toWebpFile` are caught
     // and return the original File, so this call never throws on its own.
