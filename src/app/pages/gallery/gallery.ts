@@ -64,7 +64,7 @@ export class GalleryPage implements OnInit {
     this.structuredData.setBreadcrumb(this.breadcrumbs);
   }
 
-  filters = ['All', 'Veneers', 'Whitening', 'Implants', 'Braces', 'Crowns'];
+  filters = ['All', 'Veneers', 'Crowns', 'Root Canal', 'Extraction', 'Whitening', 'Implants', 'Braces'];
   active = signal('All');
   cases = signal<GalleryCase[]>([]);
 

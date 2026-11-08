@@ -35,6 +35,8 @@ export class AdminGalleryForm implements OnInit {
     { value: 'braces', label: 'Braces / Aligners', icon: 'fa-grip-lines' },
     { value: 'crowns', label: 'Crowns', icon: 'fa-crown' },
     { value: 'makeover', label: 'Smile Makeover', icon: 'fa-wand-magic-sparkles' },
+    { value: 'root-canal', label: 'Root Canal', icon: 'fa-syringe', category: 'Root Canal' },
+    { value: 'extraction', label: 'Extraction', icon: 'fa-teeth-open', category: 'Extraction' },
   ];
 
   form: FormGroup = this.fb.group({
@@ -58,7 +60,7 @@ export class AdminGalleryForm implements OnInit {
     if (!t) return;
     this.form.patchValue({ icon: t.icon }, { emitEvent: false });
     if (!this.form.get('category')?.dirty && !this.editingId()) {
-      this.form.patchValue({ category: t.label.split(' ')[0] }, { emitEvent: false });
+      this.form.patchValue({ category: (t as { category?: string }).category ?? t.label.split(' ')[0] }, { emitEvent: false });
     }
   }
 

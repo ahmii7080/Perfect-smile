@@ -43,8 +43,8 @@
           <tr>
             <td>{{ i + 1 }}</td>
             <td>
-              <span class="adm-thumb"
-                    [style.background-image]="v.posterUrl ? 'url(' + v.posterUrl + ')' : null"></span>
+              <div class="adm-thumb"
+                    [style.background-image]="v.posterUrl ? 'url(' + v.posterUrl + ')' : null"></div>
             </td>
             <td class="adm-table__title">{{ v.title }}</td>
             <td>{{ v.width && v.height ? v.width + '×' + v.height : '—' }}</td>
